@@ -1,0 +1,1 @@
+export {SignupWizard} from "./signup/components/Beneficiary/SignupWizard"

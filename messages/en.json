@@ -1,0 +1,278 @@
+{
+  "Metadata": {
+    "title": "Welcome to my site",
+    "description": "Best app ever"
+  },
+  "Header": {
+    "Menu": {
+      "Home": "Home",
+      "About": "About Us",
+      "Services": "Our Services",
+      "Blog": "Ithraa Blog",
+      "Contact": "Contact Us"
+    },
+    "search": "Search",
+    "login": "Login"
+  },
+  "Footer": {
+    "Brand": {
+      "Alt": "Ithraa"
+    },
+    "Paths": {
+      "Title": "Paths",
+      "WaliAlAmr": "Wali Al-Amr",
+      "Landmarks": "Landmarks",
+      "Partners": "Partners",
+      "Foundation": "Foundation",
+      "FollowFoundation": "Follow the Foundation"
+    },
+    "About": {
+      "Title": "About Ithraa",
+      "Home": "Home",
+      "WhoWeAre": "Who we are",
+      "Services": "Our services",
+      "Blog": "Ithraa blog",
+      "Contact": "Contact us"
+    },
+    "Social": {
+      "YouTube": "YouTube",
+      "X": "X",
+      "Instagram": "Instagram",
+      "Facebook": "Facebook"
+    },
+    "Contact": {
+      "Email": "info@ithra.com",
+      "Phone": "+654832177422",
+      "PhoneTel": "+654832177422"
+    },
+    "Legal": {
+      "Privacy": "Privacy policy",
+      "Terms": "Terms & Conditions",
+      "Copyright": "Ithraa © {year}. All rights reserved."
+    }
+  },
+  "HomePage": {
+    "MetaData": {
+      "title": "Hello World"
+    },
+    "Hero": {
+      "brandAlt": "Ithraa",
+      "title": "Discover your child’s intelligence and guide it right",
+      "subtitle": "A comprehensive learning platform connecting family, schools, and institutions to assess children’s skills, analyze strengths, and provide personalized learning paths in a safe, organized environment.",
+      "cardsTitle": "Choose your account type to get started",
+      "heroImageAlt": "Ithraa hero illustration",
+      "cards": {
+        "Enricher": {
+          "label": "Enricher",
+          "description": "Create engaging content and contribute to learning journeys."
+        },
+        "Beneficiary": {
+          "label": "Organization",
+          "description": "Manage groups and programs and measure impact with clear reports."
+        }
+      }
+    },
+    "Features": {
+      "title": "Why Ithraa?",
+      "items": {
+        "tests": {
+          "title": "Accredited assessments",
+          "description": "A curated set of accurate, easy assessments to evaluate each child’s abilities."
+        },
+        "reports": {
+          "title": "Clear reports",
+          "description": "Rich results and actionable insights that give you a complete picture."
+        },
+        "dashboards": {
+          "title": "Multiple dashboards",
+          "description": "Role-based dashboards that make management and follow-up simple."
+        }
+      }
+    },
+    "HowItWorks": {
+      "title": "How does Ithraa work?",
+      "subtitle": "A simple journey that helps you discover and nurture a child’s strengths.",
+      "steps": {
+        "evaluate": {
+          "title": "Run intelligence assessments",
+          "description": "A set of structured tests to identify strengths and core skills."
+        },
+        "map": {
+          "title": "Get a full intelligence map",
+          "description": "Understand the child’s abilities clearly and build the right learning plan."
+        },
+        "recommend": {
+          "title": "Smart activities & paths",
+          "description": "Recommendations that match the child’s level and support steady growth."
+        },
+        "track": {
+          "title": "Track progress and development",
+          "description": "Follow improvement over time and adjust the path as needed."
+        }
+      }
+    },
+    "Testimonials": {
+      "title": "What our customers say",
+      "avatarAlt": "Customer avatar",
+      "items": {
+        "t1": {
+          "name": "Sarah Abdulaziz",
+          "role": "Parent",
+          "quote": "A smooth experience and very clear results. It helped me understand my child better."
+        },
+        "t2": {
+          "name": "Yasser Mostafa",
+          "role": "Teacher",
+          "quote": "The reports are practical and the learning paths are thoughtfully designed."
+        },
+        "t3": {
+          "name": "Noura AlHarbi",
+          "role": "Organization",
+          "quote": "Great dashboards and follow-up tools. Implementation was straightforward."
+        },
+        "t4": {
+          "name": "Ahmed Ali",
+          "role": "Parent",
+          "quote": "The platform is organized and the recommendations are genuinely helpful."
+        },
+        "t5": {
+          "name": "Reem Hassan",
+          "role": "Teacher",
+          "quote": "Beautiful UI and a clear process—from assessment to progress tracking."
+        }
+      }
+    },
+    "title": "hi here",
+    "subtitle": "Learn something"
+  },
+  "Signup": {
+    "Beneficiary": {
+      "Validation": {
+        "name": {
+          "min": "Name must be at least 2 characters.",
+          "max": "Name must be at most 50 characters."
+        },
+        "email": {
+          "invalid": "Please enter a valid email address."
+        },
+        "password": {
+          "min": "Password must be at least 8 characters.",
+          "pattern": "Password must contain uppercase, lowercase, number and special character."
+        },
+        "phone": {
+          "min": "Please enter a valid phone number."
+        },
+        "organization_name": {
+          "min": "Organization name must be at least 2 characters."
+        },
+        "organization_type": {
+          "required": "Please select an organization type."
+        }
+      },
+      "Wizard": {
+        "next": "Next",
+        "back": "Back",
+        "submit": "Complete signup"
+      },
+      "TypeStep": {
+        "title": "Choose beneficiary account type",
+        "subtitle": "Select the account type you want to register to benefit from Ithraa.",
+        "options": {
+          "organization": {
+            "title": "Organization",
+            "description": "Register an educational organization to manage beneficiaries and programs."
+          },
+          "parent": {
+            "title": "Parent / Guardian",
+            "description": "Register as a parent to follow your child’s progress and results."
+          },
+          "teacher": {
+            "title": "Teacher",
+            "description": "Register as a teacher to manage your students and track outcomes."
+          }
+        }
+      },
+      "Organization": {
+        "title": "Organization details",
+        "subtitle": "Enter the account and organization details as they will appear in Ithraa.",
+        "fields": {
+          "name": {
+            "label": "Full name",
+            "placeholder": "Enter your full name"
+          },
+          "email": {
+            "label": "Email",
+            "placeholder": "example@domain.com"
+          },
+          "phone": {
+            "label": "Mobile number",
+            "placeholder": "05xxxxxxxx"
+          },
+          "password": {
+            "label": "Password",
+            "placeholder": "Enter a strong password"
+          },
+          "organization_name": {
+            "label": "Organization name",
+            "placeholder": "Enter the educational organization name"
+          },
+          "organization_type": {
+            "label": "Organization type",
+            "placeholder": "Select organization type",
+            "options": {
+              "center": "Educational center",
+              "nursery": "Nursery",
+              "training": "Training center",
+              "school": "School"
+            }
+          }
+        }
+      },
+      "Validation": {
+        "name": {
+          "min": "Name must be at least 2 characters.",
+          "max": "Name must be at most 50 characters."
+        },
+        "email": {
+          "invalid": "Please enter a valid email address."
+        },
+        "password": {
+          "min": "Password must be at least 8 characters.",
+          "pattern": "Password must contain uppercase, lowercase, number and special character."
+        },
+        "phone": {
+          "min": "Please enter a valid phone number."
+        },
+        "organization_name": {
+          "min": "Organization name must be at least 2 characters."
+        },
+        "organization_type": {
+          "required": "Please select an organization type."
+        }
+      }
+    }
+  },
+  "Auth": {
+    "Login": {
+      "title": "Login",
+      "submit": "Login",
+      "submitting": "Signing in...",
+      "rememberMe": "Remember me",
+      "forgotPassword": "Forgot your password?",
+      "noAccount": "Don’t have an account?",
+      "createAccount": "Create account",
+      "side": {
+        "title": "Sign in to access your dashboard and manage your account easily.",
+        "subtitle": "Use your phone number and password."
+      },
+      "errors": {
+        "invalidCredentials": "Phone number or password is incorrect.",
+        "unexpected": "Something went wrong. Please try again."
+      },
+      "a11y": {
+        "showPassword": "Show password",
+        "hidePassword": "Hide password"
+      }
+    }
+  }
+}
