@@ -4,11 +4,11 @@ import Checkbox from "./CheckboxField";
 import Select from "./Select";
 import TextArea from "./TextArea";
 import { IFormField } from "@/lib/types/interfaces";
-import { validationErr } from "@/validations/general";
 import { InputTypes } from "@/lib/types/enums";
+import { ValidationErrors } from "@/lib/types/types";
 
 interface Props extends IFormField {
-  error: validationErr;
+  error: ValidationErrors;
 }
 
 const FormFields = (props: Props) => {

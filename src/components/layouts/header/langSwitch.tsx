@@ -2,14 +2,13 @@
 
 import { usePathname, useRouter } from 'next/navigation';
 import { Button } from "@/components/ui/button";
+import "flag-icons/css/flag-icons.min.css";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Languages } from "lucide-react";
-import Image from "next/image";
 
 export default function LanguageSwitcher({ locale }: { locale: string }) {
   const pathname = usePathname();
@@ -32,23 +31,10 @@ export default function LanguageSwitcher({ locale }: { locale: string }) {
         >
           <div className="relative size-6">
             {locale === "ar" ? (
-              <Image
-                src="/flags/sa.svg"
-                alt="Arabic"
-                fill
-                className="object-cover"
-                sizes="24px"
-                priority
-              />
+              <span className="fi fi-sa"></span>
             ) : (
-              <Image
-                src="/flags/us.svg"
-                alt="English"
-                fill
-                className="object-cover"
-                sizes="24px"
-                priority
-              />
+              <span className="fi fi-us"></span>
+
             )}
           </div>
         </Button>
@@ -56,14 +42,14 @@ export default function LanguageSwitcher({ locale }: { locale: string }) {
       <DropdownMenuContent align="end">
         <DropdownMenuItem onClick={() => switchLocale('en')}>
           <div className="flex items-center gap-2">
-            <Image src="/flags/us.svg" alt="US flag" width={18} height={18} />
+          <span className="fi fi-us w-[18px] h-[18px]"></span>
             English
           </div>
         </DropdownMenuItem>
         <DropdownMenuItem onClick={() => switchLocale('ar')}>
           <div className="flex items-center gap-2">
-            <Image src="/flags/sa.svg" alt="Saudi flag" width={18} height={18} />
-            العربية
+          <span className="fi fi-sa w-[18px] h-[18px]"></span>
+          العربية
           </div>
         </DropdownMenuItem>
       </DropdownMenuContent>

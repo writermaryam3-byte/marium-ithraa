@@ -11,13 +11,19 @@ export enum Languages {
 
 export enum Routes {
   ROOT = "",
-  AUTH = "auth"
+  AUTH = "auth",
+  DASHBOARDS = "dashboards",
+  UNAUTHARIZED = "unautharized"
 }
 
 export enum Pages {
   LOGIN = "login",
   ENRECHERSIGNUP = "enrichersignup",
-  BENEFICIARYSIGNUP = "Beneficiarysignup"
+  BENEFICIARYSIGNUP = "Beneficiarysignup",
+  AdMIN = "admin",
+  ORGANIZATION = "organization",
+  EMPLOYEES = "employees",
+  EMPLOYEE = "employee"
 }
 
 export enum InputTypes {
@@ -46,9 +52,13 @@ export enum InputTypes {
   MARKDOWN = "markdown"
 }
 
-export enum Status{
-  PENDING = "PENDING",
-  ACTIVE = "ACTIVE"
+export enum StatusCode{
+  BADREQUEST = 400,
+  INTERNALSERVERERROR = 500,
+  OK= 200,
+  CONFLICT = 409,
+  CREATED = 201,
+  UNAUTHARIZED = 401,
 }
 export enum Navigate {
   NEXT = "next",
@@ -98,11 +108,43 @@ export enum Environments {
   DEV = "development",
 }
 export enum UserRole {
-  USER = "USER",
-  ADMIN = "ADMIN",
+  ADMIN = 'ADMIN',
+  ORGANIZATIONOWNER = 'ORGANIZATIONOWNER',
+  EMPLOYEE = 'EMPLOYEE',
+  ENRICHER = 'ENRICHER',
+  TEACHER = 'TEACHER',
+  PARENT = 'PARENT',
 }
 
 export enum FormTypes {
   SIGNIN = "SIGNIN",
+  EMPLOYEE = "EMPLOYEE"
 }
 
+
+
+export enum OrganizationType {
+  CENTER = 'center',
+  NURSERY = 'nursery',
+  TRAINING = 'training',
+  SCHOOL = 'school',
+}
+export enum ApprovalStatus {
+  PENDING = 'pending',
+  APPROVED = 'approved',
+  REJECTED = 'rejected',
+}
+
+export enum Gender {
+  MALE = 'male',
+  FEMALE = 'female',
+}
+
+
+export enum Endpoint {
+  EMPLOYEES = "employees",
+  EMPLOYEESBYORGNIZATION = `${EMPLOYEES}/organization`,
+  USERS = "users",
+  ORGANIZATIONS = "organizations",
+  OWNER = "owner"
+}

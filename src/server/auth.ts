@@ -1,13 +1,13 @@
 import { AuthOptions, DefaultSession } from "next-auth"
 import Credentials from "next-auth/providers/credentials"
-import { Environments, Pages, Routes } from "@/lib/types/enums";
-import { UserRole } from "@/features/users";
+import { Environments, Pages, Routes, UserRole } from "@/lib/types/enums";
 import { refreshAccessToken } from "@/lib/utils";
 declare module "next-auth" {
     interface Session extends DefaultSession {
         user: DefaultSession["user"] & {
             id: string;
-            phone?: string;
+            phone: string;
+            email: string;
             role: UserRole;
             accessToken: string;
         };
@@ -16,7 +16,9 @@ declare module "next-auth" {
 
     interface User {
         id: string;
-        phone?: string;
+        phone: string;
+        name: string;
+        email: string
         role: UserRole;
         accessToken: string;
         refreshToken: string;
@@ -31,7 +33,9 @@ declare module "next-auth/jwt" {
         refreshToken: string;
         accessTokenExpires: number;
         role: UserRole;
-        phone?: string;
+        phone: string;
+        name: string
+        email: string;
         error?: "RefreshAccessTokenError"
     }
 }
@@ -46,6 +50,9 @@ const nextAuthOptions: AuthOptions = {
                 role: token.role,
                 accessToken: token.accessToken,
                 phone: token.phone,
+                email: token.email,
+                name: token.phone,
+
             };
 
             session.error = token.error;
@@ -63,6 +70,8 @@ const nextAuthOptions: AuthOptions = {
                 accessTokenExpires: Date.now() + user.expiresIn * 1000,
                 role: user.role,
                 phone: user.phone,
+                email: user.email,
+                name: user.name,
               };
             }
           

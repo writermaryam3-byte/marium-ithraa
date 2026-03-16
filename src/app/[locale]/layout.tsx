@@ -4,6 +4,10 @@ import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Cairo } from "next/font/google";
+import { TooltipProvider } from "@/components/ui/tooltip";
+import SessionProvider from "@/components/providers/SessionProvider";
+import { ToastContainer } from "react-toastify";
+import { Providers } from "@/components/providers/QueryClientProvider";
 
 export const cairo = Cairo({
   subsets: ["arabic", "latin"],
@@ -53,7 +57,26 @@ export default async function RootLayout({
 
 
         <NextIntlClientProvider>
-          {children}
+          <Providers>
+            <SessionProvider>
+              <TooltipProvider>
+                <ToastContainer
+                  position="top-center"
+                  autoClose={2500}
+                  hideProgressBar={false}
+                  newestOnTop={false}
+                  closeOnClick={false}
+                  rtl={dir === "rtl"}
+                  pauseOnFocusLoss
+                  draggable
+                  pauseOnHover={true}
+                  theme="light"
+                />
+                {children}
+              </TooltipProvider>
+            </SessionProvider>
+          </Providers>
+
         </NextIntlClientProvider>
 
       </body>

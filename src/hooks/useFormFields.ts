@@ -19,6 +19,39 @@ const useFormFields = ({ slug, data }: IFormFieldsVariables) => {
       placeholder: "ادخل كلمة المرور",
     },
   ];
+  const employeeFields = ():IFormField[]=>[
+    {
+      name: "name",
+      type: "text",
+      label: "name",
+      placeholder: "enter employee name",
+      autoFocus: true,
+    },
+    {
+      name: "phone",
+      type: "text",
+      label: "رقم الهاتف",
+      placeholder: "ادخل رقم الهاتف",
+    },
+    {
+      name: "email",
+      type: "email",
+      label: "email",
+      placeholder: "enters the employee email",
+    },
+    {
+      name: "password",
+      type: "password",
+      label: "كلمة المرور",
+      placeholder: "ادخل كلمة المرور",
+    },
+    {
+      name: "job_title",
+      type: "text",
+      label: "الوظيفة",
+      placeholder: "job",
+    },
+  ]
  
 
 
@@ -27,6 +60,8 @@ const useFormFields = ({ slug, data }: IFormFieldsVariables) => {
     switch (slug) {
       case FormTypes.SIGNIN:
         return loginFields();
+      case FormTypes.EMPLOYEE:
+        return employeeFields();
       default:
         return [];
     }

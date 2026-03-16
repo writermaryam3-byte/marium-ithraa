@@ -1,11 +1,7 @@
-export enum UserRole {
-    ADMIN = 'admin',
-    OWNER = 'owner',
-    EMPLOYEE = 'employee',
-    ENRICHER = 'enricher',
-    TEACHER = 'teacher',
-    PARENT = 'parent',
-}
+import { Organization } from "@/features/organizations";
+import { UserRole } from "@/lib/types/enums";
+
+
 
 
 export interface User {
@@ -21,7 +17,7 @@ export interface User {
 
     role: UserRole;
 
-    organizations: any[];
+    organization: Organization;
 
     children: any[];
 

@@ -1,1 +1,1 @@
-export type {User, UserRole} from "./types/index"
+export type {User} from "./types/index"

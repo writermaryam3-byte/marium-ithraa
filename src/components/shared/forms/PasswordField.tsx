@@ -59,7 +59,7 @@ const PasswordField = ({
           type="button"
           onClick={handleClickShowPassword}
           onMouseDown={handleMouseDownPassword}
-          className={`absolute left-3`}
+          className={`absolute inset-e-3`}
         >
           {showPassword ? (
             <EyeOffIcon className="h-4 w-4" />

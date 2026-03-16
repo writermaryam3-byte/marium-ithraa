@@ -1,10 +1,6 @@
 import { getSession, signIn } from "next-auth/react";
+import { Pages, Routes, UserRole } from "../types/enums";
 
-type RoleLike = string | null | undefined;
-
-function normalizeRole(role: RoleLike) {
-  return (role ?? "").toString().trim().toUpperCase();
-}
 
 export async function signInWithPhoneAndRedirect({
   phone,
@@ -27,15 +23,15 @@ export async function signInWithPhoneAndRedirect({
   }
 
   const session = await getSession();
-  const role = normalizeRole(session?.user?.role as unknown as RoleLike);
+  const role = session?.user?.role;
 
   const dashboardMap: Record<string, string> = {
-    ADMIN: "/dashboard/admin",
-    ORGANIZATION: "/dashboard/org",
-    EMPLOYEE: "/dashboard/employee",
+    [UserRole.ADMIN]: `/${Routes.DASHBOARDS}/${Pages.AdMIN}`,
+    [UserRole.ORGANIZATIONOWNER]: `/${Routes.DASHBOARDS}/${Pages.ORGANIZATION}`,
+    [UserRole.EMPLOYEE]: `/${Routes.DASHBOARDS}/${Pages.EMPLOYEE}`,
   };
 
-  push(dashboardMap[role] || "/dashboard");
+  push(dashboardMap[role||""] || "/dashboard");
   return { ok: true as const };
 }
 
