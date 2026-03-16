@@ -16,7 +16,9 @@ export async function signInWithPhoneAndRedirect({
     password,
     redirect: false,
   });
-  console.log("res: ", result)
+  console.log("res: ", result, phone, password)
+  console.log("phone", phone)
+  console.log("password", password)
 
   if (!result?.ok) {
     return { ok: false as const, error: result?.error ?? "INVALID_CREDENTIALS" };
@@ -29,6 +31,7 @@ export async function signInWithPhoneAndRedirect({
     [UserRole.ADMIN]: `/${Routes.DASHBOARDS}/${Pages.AdMIN}`,
     [UserRole.ORGANIZATIONOWNER]: `/${Routes.DASHBOARDS}/${Pages.ORGANIZATION}`,
     [UserRole.EMPLOYEE]: `/${Routes.DASHBOARDS}/${Pages.EMPLOYEE}`,
+    [UserRole.ENRICHER]: `/${Routes.DASHBOARDS}/${Pages.ENRICHER}`,
   };
 
   push(dashboardMap[role||""] || "/dashboard");

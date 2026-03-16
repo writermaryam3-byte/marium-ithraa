@@ -23,7 +23,13 @@ export enum Pages {
   AdMIN = "admin",
   ORGANIZATION = "organization",
   EMPLOYEES = "employees",
-  EMPLOYEE = "employee"
+  EMPLOYEE = "employee",
+  ENRICHER = "enricher"
+}
+
+export enum AccountType {
+  ORGANIZATION = "organization",
+  ENRCHER = "enricher"
 }
 
 export enum InputTypes {
@@ -118,7 +124,8 @@ export enum UserRole {
 
 export enum FormTypes {
   SIGNIN = "SIGNIN",
-  EMPLOYEE = "EMPLOYEE"
+  EMPLOYEE = "EMPLOYEE",
+  ENRICHER = "ENRICHER"
 }
 
 
@@ -142,6 +149,8 @@ export enum Gender {
 
 
 export enum Endpoint {
+  AUTH = "auth",
+  ENRICHERSSIGNUP = "enrichers-signup",
   EMPLOYEES = "employees",
   EMPLOYEESBYORGNIZATION = `${EMPLOYEES}/organization`,
   USERS = "users",
