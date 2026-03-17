@@ -33,15 +33,15 @@ import {
 } from "@/components/ui/sidebar"
 import { useSession } from "next-auth/react"
 import { Pages, Routes } from "@/lib/types/enums"
-import { useOrganization } from "../hooks/useOrganization"
+// import { useOrganization } from "../hooks/useOrganization"
 
 const ORGANIZATIONURL = `/${Routes.DASHBOARDS}/${Pages.ORGANIZATION}`
 
 export function OrganizationSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   
   const {data: session} =  useSession()
-  const { data: organization, isLoading, error } = useOrganization(session?.user.id??"")
-  console.log(organization, isLoading, error)
+  // const { data: organization, isLoading, error } = useOrganization(session?.user.id??"")
+  // console.log(organization, isLoading, error)
   const data = {
     user: {
       name: session?.user.name||"",
@@ -169,7 +169,7 @@ export function OrganizationSidebar({ ...props }: React.ComponentProps<typeof Si
             >
               <a href="#">
                 <IconInnerShadowTop className="size-5!" />
-                <span className="text-base font-semibold">{organization.organization_name}</span>
+                <span className="text-base font-semibold">{"ziad"}</span>
               </a>
             </SidebarMenuButton>
           </SidebarMenuItem>
