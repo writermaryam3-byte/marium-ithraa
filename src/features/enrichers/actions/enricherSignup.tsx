@@ -1,5 +1,6 @@
 "use server"
 import { createEnricher, CreateEnrichers } from "@/features/enrichers";
+import { ApiError } from "@/lib/errors/ApiError";
 import { StatusCode } from "@/lib/types/enums";
 import { InitialState } from "@/lib/types/types";
 
@@ -9,19 +10,20 @@ export async function enricherSignup(prevState: InitialState, formData: FormData
             [...formData.entries()].filter(([key]) => !key.startsWith("$"))
         ) as unknown as CreateEnrichers
         console.log("payload: ", payload)
-        const res = await createEnricher(payload)
-        console.log("res: ", await (res.json()))
+        await createEnricher(payload)
 
-        if (!res.ok) {
-            if (res.status === StatusCode.BADREQUEST) {
-                console.log("hi")
+
+        return { status: StatusCode.CREATED, message: "تم تسجيل المثري بنجاح", formData }
+    } catch (error) {
+        if (error instanceof ApiError) {
+            if (error.status === StatusCode.BADREQUEST) {
                 return {
                     formData,
-                    error: await res.json(),
+                    error: error.validationErrors,
                     status: StatusCode.BADREQUEST,
                 }
             }
-            if (res.status === StatusCode.CONFLICT) {
+            if (error.status === StatusCode.CONFLICT) {
                 return {
                     formData,
                     status: StatusCode.CONFLICT,
@@ -29,16 +31,8 @@ export async function enricherSignup(prevState: InitialState, formData: FormData
 
                 }
             }
-            return {
-                formData,
-                status: StatusCode.INTERNALSERVERERROR,
-                message: "حدث حطا ما تواصل مع الدعم"
-
-            }
         }
-
-        return { status: StatusCode.CREATED, message: "تم تسجيل المثري بنجاح بنجاح", formData }
-    } catch {
+        console.log(error)
         return {
             formData,
             status: StatusCode.INTERNALSERVERERROR,

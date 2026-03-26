@@ -1,8 +1,8 @@
 import { ChartAreaInteractive } from "@/components/chart-area-interactive"
+import DashboardCards from "@/components/shared/cards/DashboardCards"
 import { DataTable } from "@/components/shared/data-table/DataTable"
 import { SiteHeader } from "@/components/site-header"
 import { AddChildDialog, columns, getChildren } from "@/features/children"
-import { ChildrenCards } from "@/features/children/components/ChildrenCards"
 import nextAuthOptions from "@/server/auth"
 import { getServerSession } from "next-auth"
 import { getTranslations } from "next-intl/server"
@@ -15,10 +15,10 @@ export default async function EmployeeChildrenPage() {
     throw new Error(t("Dashboard.common.unauthorized"))
   }
 
-  const { children, count } = await getChildren(userId)
+  const { children } = await getChildren(userId)
   const cards = [
     {
-      title: count,
+      title: children?.length,
       description: "Dashboard.cards.childrenCount",
       footer: {
         exist: false
@@ -36,7 +36,7 @@ export default async function EmployeeChildrenPage() {
       <div className="flex flex-1 flex-col">
         <div className="@container/main flex flex-1 flex-col gap-2">
           <div className="flex flex-col gap-4 py-4 md:gap-6 md:py-6">
-            <ChildrenCards cards={cards} />
+            <DashboardCards cards={cards} />
             <div className="px-4 lg:px-6">
               <ChartAreaInteractive />
             </div>

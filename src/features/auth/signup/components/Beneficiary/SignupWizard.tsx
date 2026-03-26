@@ -3,7 +3,7 @@
 import { useMemo, useState } from "react"
 import { useForm, useWatch } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { useLocale, useTranslations } from "next-intl"
+import { useTranslations } from "next-intl"
 import { useRouter } from "next/navigation"
 
 import { Form } from "@/components/ui/form"
@@ -17,11 +17,11 @@ import {
   BeneficiaryOrganizationSchema,
   createBeneficiaryOrganizationSchema,
 } from "../../schemas/signup.schema"
+import { signInWithPhoneAndRedirect } from "@/lib/auth/signInWithCredentials"
 
 export function SignupWizard() {
   const t = useTranslations("Signup.Beneficiary.Wizard")
   const tSignup = useTranslations("Signup")
-  const locale = useLocale()
   const router = useRouter()
   const [step, setStep] = useState(1)
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -66,7 +66,7 @@ export function SignupWizard() {
       setIsSubmitting(true)
 
       const apiBase =
-        process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:5000"
+        process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:5000/api"
 
       const response = await fetch(`${apiBase}/auth/beneficiaries-signup`, {
         method: "POST",
@@ -89,7 +89,7 @@ export function SignupWizard() {
         return
       }
 
-      router.push(`/${locale}/dashboard/organization`)
+      signInWithPhoneAndRedirect({phone: values.phone,password: values.password, push:router.push})
     } finally {
       setIsSubmitting(false)
     }

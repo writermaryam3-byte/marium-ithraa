@@ -17,14 +17,8 @@ export async function deleteEmployeeAction(
       return { ok: false, error: "معرّف الموظف غير صالح" }
     }
 
-    const res = await deleteEmployee(id)
-    console.log(await res.json())
-    if (!res.ok) {
-      return {
-        ok: false,
-        error: "حدث خطأ أثناء حذف الموظف",
-      }
-    }
+    await deleteEmployee(id)
+
 
     return { ok: true }
   } catch {

@@ -1,8 +1,5 @@
-import { Avatar, AvatarFallback } from "@/components/ui/avatar"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { SiteHeader } from "@/components/site-header"
 import { getEmployeeById } from "@/features/employees"
-import { getTranslations } from "next-intl/server"
 import EmployeesInfo from "@/features/employees/components/EmployeesInfo"
 
 type PageProps = {
@@ -13,13 +10,9 @@ type PageProps = {
 }
 
 export default async function EmployeeDetailPage({ params }: PageProps) {
-  const t = await getTranslations()
-  const res = await getEmployeeById((await params).employeeId)
-  if (!res.ok) {
-    throw new Error(t("Dashboard.Employees.errors.loadFailed"))
-  }
+  const employee = await getEmployeeById((await params).employeeId)
+  console.log(employee)
 
-  const employee = await res.json()
 
   const initials = employee.user.name
     ?.split(" ")

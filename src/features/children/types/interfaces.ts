@@ -1,5 +1,4 @@
-import { Organization } from "@/features/organizations";
-import { User } from "@/features/users";
+
 import { Gender } from "@/lib/types/enums";
 
 
@@ -14,9 +13,9 @@ export interface Child {
 
     gender: Gender;
 
-    organization: Organization;
+    organizationId: string;
 
-    user: User;
+    userId: string;
 
     profile: ChildProfile;
 

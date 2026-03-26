@@ -31,23 +31,20 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
-import { useSession } from "next-auth/react"
 import { useTranslations } from "next-intl"
 import { Pages, Routes } from "@/lib/types/enums"
-// import { useOrganization } from "../hooks/useOrganization"
+import { User } from "@/features/users"
 
 const ORGANIZATIONURL = `/${Routes.DASHBOARDS}/${Pages.ORGANIZATION}`
 
-export function OrganizationSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
-  
-  const {data: session} =  useSession()
+export function OrganizationSidebar({ organization, ...props }: React.ComponentProps<typeof Sidebar>&{organization: {user: User}}) {
+
   const t = useTranslations()
-  // const { data: organization, isLoading, error } = useOrganization(session?.user.id??"")
-  // console.log(organization, isLoading, error)
+
   const data = {
     user: {
-      name: session?.user.name||"",
-      email: session?.user.email||"",
+      name: organization?.user.name || "",
+      email: organization?.user.email || "",
       avatar: "/avatars/shadcn.jpg",
     },
     navMain: [
@@ -169,10 +166,10 @@ export function OrganizationSidebar({ ...props }: React.ComponentProps<typeof Si
               asChild
               className="data-[slot=sidebar-menu-button]:p-1.5!"
             >
-              <a href="#">
+              <div>
                 <IconInnerShadowTop className="size-5!" />
-                <span className="text-base font-semibold">{"ziad"}</span>
-              </a>
+                <span className="text-base font-semibold">{organization?.user.name}</span>
+              </div>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>

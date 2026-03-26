@@ -3,31 +3,52 @@ import { ChartAreaInteractive } from "@/components/chart-area-interactive"
 import { SiteHeader } from "@/components/site-header"
 import DashboardCards from "@/components/shared/cards/DashboardCards"
 import { CardInfo } from "@/lib/types/types"
-import { Book, Building, Sparkle, User, User2 } from "lucide-react"
+import { AlertTriangle, Book, Building, Sparkle, User, User2 } from "lucide-react"
 import UsersRolesPieChart from "@/features/admin/components/users-roles-pie-chart"
 import { useAdminChildren } from "@/features/children"
 import { useAdminUsersInRoles } from "@/features/users"
-import { DataTable } from "@/components/shared/data-table/DataTable"
-import { columns } from "@/features/enrichers"
 import { Skeleton } from "@/components/ui/skeleton"
 import { useAdminTests } from "@/features/tests"
+import { ApiError } from "@/lib/errors/ApiError"
+import { TooltipTrigger, TooltipContent, Tooltip } from "@/components/ui/tooltip"
 
 export default function AdminDashboardPage() {
 
-  const { data: children, error, isLoading: isLoadingChildren } = useAdminChildren()
-  const { data: usersInRoles, isLoading: isLoadingUsersInRoles } = useAdminUsersInRoles()
-  const { data: tests, isLoading: isLoadingTests } = useAdminTests()
+  const {
+    data: childrenData,
+    error: childrenError,
+    isError: isErrorChildren,
+    isLoading: isLoadingChildren,
+  } = useAdminChildren()
+  const {
+    data: usersInRoles,
+    error: usersInRolesError,
+    isError: isErrorUsersInRoles,
+    isLoading: isLoadingUsersInRoles,
+  } = useAdminUsersInRoles()
+  const {
+    data: testsData,
+    error: testsError,
+    isError: isErrorTests,
+    isLoading: isLoadingTests,
+  } = useAdminTests()
+
   const enrichers = usersInRoles?.enrichers || []
   const employees = usersInRoles?.employees || []
   const organizationOwners = usersInRoles?.organizationOwners || []
-  console.log(usersInRoles, "asdfasf", children, tests)
+
+  const childrenErrorMessage = childrenError as ApiError
+  const usersInRolesErrorMessage = usersInRolesError as ApiError
+  const testsErrorMessage = testsError as ApiError
 
   const cards: CardInfo[] = [
     {
-      title: organizationOwners.length||0,
+      title: organizationOwners.length || 0,
       description: "organization count",
       icon: <Building />,
       isLoading: isLoadingUsersInRoles,
+      isErr: isErrorUsersInRoles,
+      error: usersInRolesErrorMessage,
       badage: {
         exist: false,
       },
@@ -36,9 +57,11 @@ export default function AdminDashboardPage() {
       }
     },
     {
-      title: employees.length||0,
+      title: employees.length || 0,
       isLoading: isLoadingUsersInRoles,
+      isErr: isErrorUsersInRoles,
       description: "organization employees",
+      error: usersInRolesErrorMessage,
       icon: <User />,
 
       badage: {
@@ -49,10 +72,12 @@ export default function AdminDashboardPage() {
       }
     },
     {
-      title: children?.children?.length || 0,
+      title: childrenData?.children?.length || 0,
       description: "children count",
       icon: <User2 />,
       isLoading: isLoadingChildren,
+      isErr: isErrorChildren,
+      error: childrenErrorMessage,
       badage: {
         exist: false,
       },
@@ -61,11 +86,12 @@ export default function AdminDashboardPage() {
       }
     },
     {
-      title: tests?.tests?.length||0,
+      title: testsData?.tests?.length || 0,
       isLoading: isLoadingTests,
       description: "test count",
       icon: <Book />,
-
+      isErr: isErrorTests,
+      error: testsErrorMessage,
       badage: {
         exist: false,
       },
@@ -74,9 +100,11 @@ export default function AdminDashboardPage() {
       }
     },
     {
-      title: enrichers.length||0,
+      title: enrichers.length || 0,
       description: "enrichers count",
       isLoading: isLoadingUsersInRoles,
+      isErr: isErrorUsersInRoles,
+      error: usersInRolesErrorMessage,
       icon: <Sparkle />,
 
       badage: {
@@ -101,13 +129,30 @@ export default function AdminDashboardPage() {
             {/* <DataTable data={enrichers} columns={columns} /> */}
             <div className="px-4 lg:px-6">
               {isLoadingUsersInRoles ? (
-                <Skeleton className="h-15 w-15 rounded-full" />
+                <div>
+                  <Skeleton className="h-30 w-full" />
 
+                </div>
               ) : (
-                <UsersRolesPieChart employeesNo={usersInRoles?.employees?.length||0}
-                enrihcersNO={usersInRoles?.enrichers?.length||0}
-                organizationOnwersNo={usersInRoles?.organizationOwners?.length||0}
-                />
+                isErrorUsersInRoles ? (
+                  <div className="m-auto">
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <span className="inline-flex items-center" aria-label="Error details">
+                          <AlertTriangle className="size-10" />
+                        </span>
+                      </TooltipTrigger>
+                      <TooltipContent side="top" align="center" className="max-w-[320px] whitespace-pre-wrap">
+                        {usersInRolesError.message}
+                      </TooltipContent>
+                    </Tooltip>
+                  </div>
+                ) : (
+                  <UsersRolesPieChart employeesNo={usersInRoles?.employees?.length || 0}
+                    enrihcersNO={usersInRoles?.enrichers?.length || 0}
+                    organizationOnwersNo={usersInRoles?.organizationOwners?.length || 0}
+                  />
+                )
 
               )}
 

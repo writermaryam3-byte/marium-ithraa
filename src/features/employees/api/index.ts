@@ -1,31 +1,31 @@
-import { apiFetch } from "@/lib/api-clent"
 import { Endpoint, Methods } from "@/lib/types/enums"
-import { CreateEmployee, UpdateEmployee } from "../types/interfaces"
+import { CreateEmployee, Employee, UpdateEmployee } from "../types/interfaces"
+import { api } from "@/lib/api/api"
 
 export const getEmployeesByOrganization = async (organizationId: string) => {
-  return apiFetch(`/${Endpoint.EMPLOYEESBYORGNIZATION}/${organizationId}`)
+  return api.server<{employees: Employee[]}>(`/${Endpoint.EMPLOYEESBYORGNIZATION}/${organizationId}`)
 }
 
 export const getEmployeeById = async (employeeId: string) => {
-  return apiFetch(`/${Endpoint.EMPLOYEES}/${employeeId}`)
+  return api.server<Employee>(`/${Endpoint.EMPLOYEES}/${employeeId}`)
 }
 
 export const addEmployee = async (createEmployee: CreateEmployee) => {
-  return apiFetch(`/${Endpoint.EMPLOYEES}`, {
+  return api.server(`/${Endpoint.EMPLOYEES}`, {
     method: Methods.POST,
     body: JSON.stringify(createEmployee),
   })
 }
 
 export const updateEmployee = async (employeeId: string, data: UpdateEmployee) => {
-  return apiFetch(`/${Endpoint.EMPLOYEES}/${employeeId}`, {
+  return api.server(`/${Endpoint.EMPLOYEES}/${employeeId}`, {
     method: Methods.PATCH,
     body: JSON.stringify(data),
   })
 }
 
 export const deleteEmployee = async (employeeId: string) => {
-  return apiFetch(`/${Endpoint.EMPLOYEES}/${employeeId}`, {
+  return api.server(`/${Endpoint.EMPLOYEES}/${employeeId}`, {
     method: Methods.DELETE,
   })
 }

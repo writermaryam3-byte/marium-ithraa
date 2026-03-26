@@ -4,13 +4,14 @@ import { Skeleton } from '@/components/ui/skeleton'
 import { CardInfo } from '@/lib/types/types'
 import { IconTrendingUp } from '@tabler/icons-react'
 import { useTranslations } from 'next-intl'
-import React from 'react'
 import LoadingCard from './LoadingCard'
+import ErrorCard from './ErrorCard'
 
 const DashboardCard = ({ card }: { card: CardInfo }) => {
     const t = useTranslations()
 
     if(card.isLoading)return <LoadingCard/>
+    if(card.isErr)return <ErrorCard error={card.error!} />
     return (
         <Card key={card.title} className="@container/card">
             <CardHeader>

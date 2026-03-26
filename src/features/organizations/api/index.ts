@@ -1,20 +1,20 @@
 import { CreateEmployee } from "@/features/employees/types/interfaces"
-import { apiFetch as serverApiFetch } from "@/lib/api-clent"
-import { apiFetch } from "@/lib/client-api-client"
 import { Endpoint, Methods } from "@/lib/types/enums"
+import { api } from "@/lib/api/api"
+import { User } from "@/features/users"
 
-export const createEmployee = async (employee: CreateEmployee)=>{
-    return serverApiFetch(`/${Endpoint.EMPLOYEES}`,{
+export const createEmployee = async (employee: CreateEmployee) => {
+    return api.server(`/${Endpoint.EMPLOYEES}`, {
         method: Methods.POST,
         body: JSON.stringify(employee)
     })
 }
 
-export async function getUserOrganization(userId:string) {
-    return apiFetch(`/${Endpoint.ORGANIZATIONS}/${Endpoint.OWNER}/${userId}`)
-    
+export async function getUserOrganization(userId: string) {
+    return api.server<{user: User}>(`/${Endpoint.USERS}/${Endpoint.ORGANIZATIONOWNER}/${userId}`)
+
 }
 
 export async function getAllOrganizations() {
-    return apiFetch(`/${Endpoint.ORGANIZATIONS}`)
+    return api.client(`/${Endpoint.ORGANIZATIONS}`)
 }

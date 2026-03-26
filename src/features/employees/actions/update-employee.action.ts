@@ -4,6 +4,7 @@ import { StatusCode } from "@/lib/types/enums"
 import { updateEmployee } from "../api"
 import { UpdateEmployee } from "../types/interfaces"
 import { InitialState } from "@/lib/types/types"
+import { ApiError } from "@/lib/errors/ApiError"
 
 
 export async function updateEmployeeAction(
@@ -21,15 +22,17 @@ export async function updateEmployeeAction(
     const res = await updateEmployee(id, payload)
     console.log("res: ",  ( res))
 
-    if (!res.ok) {
-      if(res.status===StatusCode.BADREQUEST){
+    return { status: StatusCode.OK, message: "تم تحديث الموظف بنجاح" }
+  } catch(error) {
+    if( error instanceof ApiError){
+      if(error.status===StatusCode.BADREQUEST){
         return{
           formData,
-          error: await res.json(),
+          error: error.validationErrors,
           status: StatusCode.BADREQUEST,
         }
       }
-      if(res.status===StatusCode.CONFLICT){
+      if(error.status===StatusCode.CONFLICT){
         return {
           formData,
           status: StatusCode.CONFLICT,
@@ -37,16 +40,8 @@ export async function updateEmployeeAction(
   
         }
       }
-      return {
-        formData,
-        status: StatusCode.INTERNALSERVERERROR,
-        message: "حدث حطا ما تواصل مع الدعم"
-
-      }
     }
-
-    return { status: StatusCode.OK, message: "تم تحديث الموظف بنجاح" }
-  } catch {
+    console.log(error)
     return {
       formData,
       status: StatusCode.INTERNALSERVERERROR,

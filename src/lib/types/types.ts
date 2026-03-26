@@ -1,5 +1,6 @@
 import { ReactNode } from "react";
 import { StatusCode } from "./enums";
+import { ApiError } from "../errors/ApiError";
 
 export type SelectData = {
   id: string | number,
@@ -20,9 +21,11 @@ export type InitialState = {
 }
 
 export type CardInfo = {
-  isLoading: boolean,
+  error?: ApiError|null,
+  isLoading?: boolean,
+  isErr?: boolean,
   description: string,
-  title: string,
+  title: string|number,
   icon?: ReactNode,
   badage: {
     exist: boolean,

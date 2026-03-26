@@ -10,9 +10,7 @@ export interface User {
     name: string;
 
     email: string;
-
-    password_hash: string;
-
+    
     phone: string;
 
     role: UserRole;

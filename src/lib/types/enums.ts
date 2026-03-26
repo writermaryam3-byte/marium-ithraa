@@ -156,6 +156,7 @@ export enum Gender {
 
 export enum Endpoint {
   ROLES = "roles",
+  ORGANIZATIONOWNER = "organization-owner",
   TESTS = "tests",
   ALL = "all",
   AUTH = "auth",

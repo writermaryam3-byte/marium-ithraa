@@ -21,7 +21,7 @@ import { createEmployeeAction } from "../actions/create-employee.action"
 import { type InitialState } from "@/lib/types/types"
 import { toast } from "react-toastify"
 
-export function AddEmployeeDialog() {
+export function AddEmployeeDialog({organizationId}:{organizationId: string}) {
     const { getFormFields } = useFormFields({ slug: FormTypes.EMPLOYEE })
     const [isOpenState, setIsOpenState] = useState(false)
     const [state, formAction, isPending] = useActionState<InitialState, FormData>(
@@ -66,7 +66,7 @@ export function AddEmployeeDialog() {
                         <input
                             type="hidden"
                             name="organization_id"
-                            value="e5de0d32-285b-4d30-8497-f80a20ea52d4"
+                            value={organizationId}
                         />
                         {getFormFields().map((field) => {
                             const fieldValue = state.formData?.get(field.name) as string

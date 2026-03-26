@@ -3,11 +3,8 @@ import { getAllTests } from "../api"
 
 export function useAdminTests() {
   return useQuery({
-    queryKey: ["tests"],
-    queryFn: async () => {
-      const res = await getAllTests()
-      return res.json()
-    },
+    queryKey: ["admin", "tests"],
+    queryFn: getAllTests,
     staleTime: 1000 * 60 * 10,
   })
 }

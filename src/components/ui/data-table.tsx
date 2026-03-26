@@ -39,10 +39,7 @@ export function DataTable<TData, TValue>({
 
   return (
     <div className=" px-4 lg:px-6">
-      <div className="between-center mb-4">
-        <h2 className="text-xl">Employees Table</h2>
-        <AddEmployeeDialog/>
-      </div>
+
       <div className="rounded-md border">
         <Table>
           <TableHeader className="sticky top-0 z-10 bg-muted">

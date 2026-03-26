@@ -17,10 +17,8 @@ export async function deleteChildAction(
       return { ok: false, error: "معرّف الطفل غير صالح" }
     }
 
-    const res = await deleteChild(id)
-    if (!res.ok) {
-      return { ok: false, error: "حدث خطأ أثناء حذف الطفل" }
-    }
+    await deleteChild(id)
+
 
     return { ok: true }
   } catch {

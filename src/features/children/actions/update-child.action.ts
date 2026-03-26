@@ -4,6 +4,7 @@ import { StatusCode } from "@/lib/types/enums"
 import { type InitialState } from "@/lib/types/types"
 import { updateChild } from "../api"
 import { type Child } from "../types/interfaces"
+import { ApiError } from "@/lib/errors/ApiError"
 
 export async function updateChildAction(
   _prevState: InitialState,
@@ -16,29 +17,33 @@ export async function updateChildAction(
     }
 
     const payload = Object.fromEntries(formData.entries().drop(1)) as unknown as Partial<Child>
-    const res = await updateChild(id, payload)
+    await updateChild(id, payload)
 
-    if (!res.ok) {
-      if (res.status === StatusCode.BADREQUEST) {
-        return {
+
+    return { status: StatusCode.OK, message: "تم تحديث بيانات الطفل بنجاح" }
+  } catch(error) {
+    if( error instanceof ApiError){
+      if(error.status===StatusCode.BADREQUEST){
+        return{
           formData,
-          error: await res.json(),
+          error: error.validationErrors,
           status: StatusCode.BADREQUEST,
         }
       }
-      return {
-        formData,
-        status: StatusCode.INTERNALSERVERERROR,
-        message: "حدث خطأ ما تواصل مع الدعم",
+      if(error.status===StatusCode.CONFLICT){
+        return {
+          formData,
+          status: StatusCode.CONFLICT,
+          message: "الموظف موجود فعلا"
+  
+        }
       }
     }
-
-    return { status: StatusCode.OK, message: "تم تحديث بيانات الطفل بنجاح" }
-  } catch {
+    console.log(error)
     return {
       formData,
       status: StatusCode.INTERNALSERVERERROR,
-      message: "حدث خطأ غير متوقع",
+      message: "حدث حطا ما تواصل مع الدعم"
     }
   }
 }

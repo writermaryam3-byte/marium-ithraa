@@ -4,6 +4,7 @@ import { StatusCode } from "@/lib/types/enums"
 import { type InitialState } from "@/lib/types/types"
 import { createChild } from "../api"
 import { type Child } from "../types/interfaces"
+import { ApiError } from "@/lib/errors/ApiError"
 
 export async function createChildAction(
   _prevState: InitialState,
@@ -11,29 +12,34 @@ export async function createChildAction(
 ): Promise<InitialState> {
   try {
     const payload = Object.fromEntries(formData.entries()) as unknown as Partial<Child>
-    const res = await createChild(payload)
+    await createChild(payload)
 
-    if (!res.ok) {
-      if (res.status === StatusCode.BADREQUEST) {
-        return {
+
+
+    return { status: StatusCode.CREATED, message: "تم إضافة الطفل بنجاح" }
+  } catch(error) {
+    if( error instanceof ApiError){
+      if(error.status===StatusCode.BADREQUEST){
+        return{
           formData,
-          error: await res.json(),
+          error: error.validationErrors,
           status: StatusCode.BADREQUEST,
         }
       }
-      return {
-        formData,
-        status: StatusCode.INTERNALSERVERERROR,
-        message: "حدث خطأ ما تواصل مع الدعم",
+      if(error.status===StatusCode.CONFLICT){
+        return {
+          formData,
+          status: StatusCode.CONFLICT,
+          message: "الموظف موجود فعلا"
+  
+        }
       }
     }
-
-    return { status: StatusCode.CREATED, message: "تم إضافة الطفل بنجاح" }
-  } catch {
+    console.log(error)
     return {
       formData,
       status: StatusCode.INTERNALSERVERERROR,
-      message: "حدث خطأ غير متوقع",
+      message: "حدث حطا ما تواصل مع الدعم"
     }
   }
 }
