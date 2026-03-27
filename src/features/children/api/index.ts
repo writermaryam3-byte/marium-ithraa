@@ -9,6 +9,9 @@ export const getChildren = async (userId: string) => {
 export const getAllChildren = async () => {
   return api.client<{children: Child[]}>(`/${Endpoint.CHILDREN}/${Endpoint.ALL}`)
 }
+export const getAllChildrenServer = async () => {
+  return api.server<{children: Child[]}>(`/${Endpoint.CHILDREN}/${Endpoint.ALL}`)
+}
 
 export const createChild = async (data: Partial<Child>) => {
   return api.server(`/${Endpoint.CHILDREN}`, {

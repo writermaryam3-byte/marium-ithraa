@@ -11,6 +11,8 @@ import { Skeleton } from "@/components/ui/skeleton"
 import { useAdminTests } from "@/features/tests"
 import { ApiError } from "@/lib/errors/ApiError"
 import { TooltipTrigger, TooltipContent, Tooltip } from "@/components/ui/tooltip"
+import { columns } from "@/features/enrichers"
+import { DataTable } from "@/components/shared/data-table/DataTable"
 
 export default function AdminDashboardPage() {
 
@@ -116,6 +118,7 @@ export default function AdminDashboardPage() {
     },
 
   ]
+  console.log(enrichers)
   return (
     <>
       <SiteHeader titleKey="Dashboard.titles.dashboard" />
@@ -126,7 +129,10 @@ export default function AdminDashboardPage() {
             <div className="px-4 lg:px-6">
               <ChartAreaInteractive />
             </div>
-            {/* <DataTable data={enrichers} columns={columns} /> */}
+            <div className="px-4 lg:px-6 between-center">
+              <h2 className="text-xl">organizations awaiting review</h2>
+            </div>
+            <DataTable data={enrichers} columns={columns} />
             <div className="px-4 lg:px-6">
               {isLoadingUsersInRoles ? (
                 <div>

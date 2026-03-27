@@ -1,8 +1,8 @@
 import { ChartAreaInteractive } from "@/components/chart-area-interactive"
+import DashboardCards from "@/components/shared/cards/DashboardCards"
 import { DataTable } from "@/components/shared/data-table/DataTable"
 import { SiteHeader } from "@/components/site-header"
-import { getAllChildren } from "@/features/children/api"
-import { ChildrenCards } from "@/features/children/components/ChildrenCards"
+import { getAllChildrenServer } from "@/features/children/api"
 import { adminColumns } from "@/features/children/components/columns"
 import { getTranslations } from "next-intl/server"
 
@@ -10,10 +10,10 @@ import { getTranslations } from "next-intl/server"
 export default async function AdminChildrenPage() {
   const t = await getTranslations()
 
-  const { children, count } = await getAllChildren()
+  const { children } = await getAllChildrenServer()
   const cards = [
     {
-      title: count,
+      title: children.length,
       description: "Dashboard.cards.childrenCount",
       footer: {
         exist: false
@@ -31,7 +31,7 @@ export default async function AdminChildrenPage() {
       <div className="flex flex-1 flex-col">
         <div className="@container/main flex flex-1 flex-col gap-2">
           <div className="flex flex-col gap-4 py-4 md:gap-6 md:py-6">
-            <ChildrenCards cards={cards} />
+            <DashboardCards cards={cards} />
             <div className="px-4 lg:px-6">
               <ChartAreaInteractive />
             </div>
