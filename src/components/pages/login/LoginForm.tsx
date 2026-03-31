@@ -44,7 +44,8 @@ const LoginForm = () => {
             if (!res.ok) {
                 setError(t("errors.invalidCredentials"));
             }
-        } catch {
+        } catch(error) {
+            console.log(error)
             setError(t("errors.unexpected"));
         } finally {
             setIsSubmitting(false);

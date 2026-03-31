@@ -11,6 +11,12 @@ export async function signInWithPhoneAndRedirect({
   password: string;
   push: (href: string) => void;
 }) {
+  const dashboardMap: Record<string, string> = {
+    [UserRole.ADMIN]: `/${Routes.DASHBOARDS}/${Pages.ADMIN}`,
+    [UserRole.ORGANIZATIONOWNER]: `/${Routes.DASHBOARDS}/${Pages.ORGANIZATION}`,
+    [UserRole.EMPLOYEE]: `/${Routes.DASHBOARDS}/${Pages.EMPLOYEE}`,
+    [UserRole.ENRICHER]: `/${Routes.DASHBOARDS}/${Pages.ENRICHER}`,
+  };
   const result = await signIn("credentials", {
     phone,
     password,
@@ -24,17 +30,24 @@ export async function signInWithPhoneAndRedirect({
     return { ok: false as const, error: result?.error ?? "INVALID_CREDENTIALS" };
   }
 
+
+
   const session = await getSession();
-  const role = session?.user?.role;
+  if (!session) return { ok: false as const };
+  console.log(session.user.isEmailVerified)
+  if(!session.user.isEmailVerified){
+    push(`/${Routes.EMAILVERIFICATION}`)
+    return { ok: true as const };
+  }
 
-  const dashboardMap: Record<string, string> = {
-    [UserRole.ADMIN]: `/${Routes.DASHBOARDS}/${Pages.ADMIN}`,
-    [UserRole.ORGANIZATIONOWNER]: `/${Routes.DASHBOARDS}/${Pages.ORGANIZATION}`,
-    [UserRole.EMPLOYEE]: `/${Routes.DASHBOARDS}/${Pages.EMPLOYEE}`,
-    [UserRole.ENRICHER]: `/${Routes.DASHBOARDS}/${Pages.ENRICHER}`,
-  };
+  const roles = session?.user?.roles;
 
-  push(dashboardMap[role||""] || "/dashboard");
+  if (roles?.length > 1) {
+    push(`/${Routes.CHOSEROLE}`)
+    return { ok: true as const };
+  }
+
+  push(dashboardMap[roles[0].name] || "/dashboard");
   return { ok: true as const };
 }
 

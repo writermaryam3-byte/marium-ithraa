@@ -49,6 +49,11 @@ export function AdminSidebar(props: React.ComponentProps<typeof Sidebar>) {
         icon: IconDashboard,
       },
       {
+        title: "users",
+        url: `${ADMIN_URL}/${Pages.USERS}`,
+        icon: IconUsers,
+      },
+      {
         title: t("Dashboard.Nav.employees"),
         url: `${ADMIN_URL}/organizations`,
         icon: IconUsers,

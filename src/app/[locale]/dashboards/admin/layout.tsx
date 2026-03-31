@@ -8,7 +8,7 @@ import React, { ReactNode } from "react"
 const AdminLayout = async ({ children }: { children: ReactNode }) => {
   const session = await getServerSession(nextAuthOptions)
 
-  if (!session?.user || session.user.role !== UserRole.ADMIN) return null
+  // if (!session?.user || session.user.role[0] !== UserRole.ADMIN) return null
 
   return (
     <SidebarProvider

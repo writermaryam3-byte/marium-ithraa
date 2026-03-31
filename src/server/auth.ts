@@ -1,15 +1,19 @@
 import { AuthOptions, DefaultSession } from "next-auth"
 import Credentials from "next-auth/providers/credentials"
-import { Environments, Pages, Routes, UserRole } from "@/lib/types/enums";
+import { Environments, Pages, Routes } from "@/lib/types/enums";
 import { refreshAccessToken } from "@/lib/utils";
+import { Role } from "@/features/users";
 declare module "next-auth" {
     interface Session extends DefaultSession {
         user: DefaultSession["user"] & {
             id: string;
             phone: string;
             email: string;
-            role: UserRole;
+            roles: Role[];
             accessToken: string;
+            refreshToken: string;
+            isEmailVerified: boolean,
+            isPhoneVerified: boolean,
         };
         error?: "RefreshAccessTokenError";
     }
@@ -19,10 +23,12 @@ declare module "next-auth" {
         phone: string;
         name: string;
         email: string
-        role: UserRole;
+        roles: Role[];
         accessToken: string;
         refreshToken: string;
         expiresIn: number;
+        isEmailVerified: boolean;
+        isPhoneVerified: boolean;
     }
 }
 
@@ -32,10 +38,12 @@ declare module "next-auth/jwt" {
         accessToken: string;
         refreshToken: string;
         accessTokenExpires: number;
-        role: UserRole;
+        roles: Role[];
         phone: string;
         name: string
         email: string;
+        isEmailVerified: boolean;
+        isPhoneVerified: boolean;
         error?: "RefreshAccessTokenError"
     }
 }
@@ -47,11 +55,13 @@ const nextAuthOptions: AuthOptions = {
             session.user = {
                 ...session.user,
                 id: token.id,
-                role: token.role,
+                roles: token.roles,
                 accessToken: token.accessToken,
                 phone: token.phone,
                 email: token.email,
                 name: token.phone,
+                isEmailVerified: token.isEmailVerified,
+                isPhoneVerified: token.isPhoneVerified
 
             };
 
@@ -68,10 +78,12 @@ const nextAuthOptions: AuthOptions = {
                 accessToken: user.accessToken,
                 refreshToken: user.refreshToken,
                 accessTokenExpires: Date.now() + user.expiresIn * 1000,
-                role: user.role,
+                roles: user.roles,
                 phone: user.phone,
                 email: user.email,
                 name: user.name,
+                isEmailVerified: user.isEmailVerified,
+                isPhoneVerified: user.isPhoneVerified
               };
             }
           

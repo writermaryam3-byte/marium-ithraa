@@ -13,10 +13,14 @@ export enum Routes {
   ROOT = "",
   AUTH = "auth",
   DASHBOARDS = "dashboards",
-  UNAUTHARIZED = "unautharized"
+  UNAUTHARIZED = "unautharized",
+  CHOSEROLE = "chose-role",
+  EMAILVERIFICATION = "email-verfication"
+
 }
 
 export enum Pages {
+  USERS = "users",
   NEW = "new",
   TESTS = "tests",
   LOGIN = "login",
@@ -155,6 +159,8 @@ export enum Gender {
 
 
 export enum Endpoint {
+  MAILER = "mailer",
+  VERIFYEMAIL = 'verfy-email',
   ROLES = "roles",
   ORGANIZATIONOWNER = "organization-owner",
   TESTS = "tests",

@@ -4,7 +4,10 @@ import { UserRole } from "@/lib/types/enums";
 
 
 
-
+export interface Role {
+    id: string,
+    name: string
+}
 export interface User {
     id: string;
 
@@ -26,3 +29,13 @@ export interface User {
 
     updated_at: Date;
 }
+
+export interface IUserResponseDto {
+    id: string;
+    name: string;
+    email: string;
+    isEmailVerified: boolean;
+    phone: string;
+    isPhoneVerified: boolean;
+    role: UserRole[];
+  }
