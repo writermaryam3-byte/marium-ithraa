@@ -9,11 +9,10 @@ import { Pages, Routes } from "@/lib/types/enums"
 import { IconPlus } from "@tabler/icons-react"
 import { getTranslations } from "next-intl/server"
 
-const cards: any[] = []
 
 export default async function AdminTestsPage() {
   const t = await getTranslations()
-  const { tests, count } = await ((await getAllTests()).json())
+  const { tests } = await ((await getAllTests()))
   console.log(tests)
   return (
     <>
@@ -21,7 +20,6 @@ export default async function AdminTestsPage() {
       <div className="flex flex-1 flex-col">
         <div className="@container/main flex flex-1 flex-col gap-2">
           <div className="flex flex-col gap-4 py-4 md:gap-6 md:py-6">
-            <DashboardCards cards={cards} />
             <div className="px-4 lg:px-6">
               <ChartAreaInteractive />
             </div>

@@ -1,10 +1,10 @@
 import { IFormField } from "@/lib/types/interfaces";
-import { validationErr } from "@/validations/general";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
+import { ValidationErrors } from "@/lib/types/types";
 
 interface Props extends IFormField {
-  error: validationErr;
+  error: ValidationErrors;
 }
 
 const TextField = ({

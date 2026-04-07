@@ -6,8 +6,6 @@ import { getServerSession } from 'next-auth'
 import React, { ReactNode } from 'react'
 
 const EnricherLayout = async ({ children }: { children: ReactNode }) => {
-    const session = await getServerSession(nextAuthOptions)
-    if (!session?.user || session.user.role !== UserRole.ENRICHER) return
     return (
         <SidebarProvider
             style={

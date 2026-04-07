@@ -48,6 +48,8 @@ export function SignupWizard() {
     mode: "onTouched",
   })
 
+  
+
   const type = useWatch({
     control: form.control,
     name: "account_type",

@@ -9,14 +9,13 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
-import { validationErr } from "@/validations/general";
 import { IFormField } from "@/lib/types/interfaces";
-import type { SelectData } from "@/lib/types/types";
+import type { SelectData, ValidationErrors } from "@/lib/types/types";
 
 
 
 interface Props extends IFormField {
-  error: validationErr;
+  error: ValidationErrors;
   data: SelectData[];
   onValueChange?: (value: string) => void
 }

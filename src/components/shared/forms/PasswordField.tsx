@@ -4,10 +4,10 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { EyeIcon, EyeOffIcon } from "lucide-react";
 import { IFormField } from "@/lib/types/interfaces";
-import { validationErr } from "@/validations/general";
+import { ValidationErrors } from "@/lib/types/types";
 
 interface Props extends IFormField {
-  error: validationErr;
+  error: ValidationErrors;
 }
 interface IState {
   showPassword: boolean;
