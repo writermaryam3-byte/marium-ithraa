@@ -37,5 +37,5 @@ export interface IUserResponseDto {
     isEmailVerified: boolean;
     phone: string;
     isPhoneVerified: boolean;
-    role: UserRole[];
+    roles: Role[];
   }

@@ -93,78 +93,78 @@ export default async function middleware(request: NextRequest) {
   // Special handling: email verification info page (requires auth but not verified)
   if (cleanPath.startsWith(`/${Routes.EMAILVERIFICATION}`)) {
     // Not logged in → go to login
-    if (!isAuthenticated) {
-      return NextResponse.redirect(
-        new URL(`/${locale}/${Routes.AUTH}/${Pages.LOGIN}`, request.url)
-      )
-    }
+    // if (!isAuthenticated) {
+    //   return NextResponse.redirect(
+    //     new URL(`/${locale}/${Routes.AUTH}/${Pages.LOGIN}`, request.url)
+    //   )
+    // }
 
     // Already verified → send to role home
-    if (isEmailVerified) {
-      return NextResponse.redirect(
-        new URL(roleHome(locale, token?.roles as Role[] | undefined), request.url)
-      )
-    }
+    // if (isEmailVerified) {
+    //   return NextResponse.redirect(
+    //     new URL(roleHome(locale, token?.roles as Role[] | undefined), request.url)
+    //   )
+    // }
 
     // Logged in but not verified → allow
     return intlResponse
   }
 
   // If hitting pure auth routes (login, signup, etc.)
-  if (cleanPath.startsWith(`/${Routes.AUTH}`)) {
-    if (!isAuthenticated) {
-      return intlResponse
-    }
+  // if (cleanPath.startsWith(`/${Routes.AUTH}`)) {
+  //   if (!isAuthenticated) {
+  //     return intlResponse
+  //   }
 
-    // Authenticated but email not verified → force email verification page
-    if (!isEmailVerified) {
-      return NextResponse.redirect(
-        new URL(`/${locale}/${Routes.EMAILVERIFICATION}`, request.url)
-      )
-    }
+  //   // Authenticated but email not verified → force email verification page
+  //   if (!isEmailVerified) {
+  //     return NextResponse.redirect(
+  //       new URL(`/${locale}/${Routes.EMAILVERIFICATION}`, request.url)
+  //     )
+  //   }
 
-    // Authenticated & verified → go to dashboard home
-    return NextResponse.redirect(
-      new URL(roleHome(locale, token?.roles as Role[] | undefined), request.url)
-    )
-  }
+  //   // Authenticated & verified → go to dashboard home
+  //   return NextResponse.redirect(
+  //     new URL(roleHome(locale, token?.roles as Role[] | undefined), request.url)
+  //   )
+  // }
 
   // Token-based /verify-email page stays public: always allow
-  if (cleanPath.startsWith("/verify-email")) {
-    return intlResponse
-  }
+  // if (cleanPath.startsWith("/verify-email")) {
+  //   return intlResponse
+  // }
 
   // Generic protected routes
-  if (!isAuthenticated && isProtected) {
-    return NextResponse.redirect(
-      new URL(`/${locale}/${Routes.AUTH}/${Pages.LOGIN}`, request.url)
-    )
-  }
+  // if (!isAuthenticated && isProtected) {
+  //   return NextResponse.redirect(
+  //     new URL(`/${locale}/${Routes.AUTH}/${Pages.LOGIN}`, request.url)
+  //   )
+  // }
 
   // Authenticated but email not verified and trying to access any protected route
-  if (isAuthenticated && !isEmailVerified && isProtected) {
-    return NextResponse.redirect(
-      new URL(`/${locale}/${Routes.EMAILVERIFICATION}`, request.url)
-    )
-  }
+  // if (isAuthenticated && !isEmailVerified && isProtected) {
+  //   return NextResponse.redirect(
+  //     new URL(`/${locale}/${Routes.EMAILVERIFICATION}`, request.url)
+  //   )
+  // }
 
   // Role-based access control for dashboards
-  if (isAuthenticated && isProtected && isEmailVerified) {
-    const parts = cleanPath.split("/").filter(Boolean)
-    const section = parts[1] // e.g. "admin", "employee", "organization"
+  // if (isAuthenticated && isProtected && isEmailVerified) {
+  //   const parts = cleanPath.split("/").filter(Boolean)
+  //   const section = parts[1] // e.g. "admin", "employee", "organization"
 
-    if (section) {
-      const allowedRoles = ACCESS_MAP[section]
-      const normalizedRoles = normalizeUserRoles(token?.roles as Role[] | undefined)
-      const userPrimaryRole = normalizedRoles[0]
+  //   if (section) {
+  //     const allowedRoles = ACCESS_MAP[section]
+  //     const normalizedRoles = normalizeUserRoles(token?.roles as Role[] | undefined)
+  //     const userPrimaryRole = normalizedRoles[0]
 
-      if (allowedRoles && userPrimaryRole && !allowedRoles.includes(userPrimaryRole)) {
-        return NextResponse.redirect(
-          new URL(roleHome(locale, token?.roles as Role[] | undefined), request.url)
-        )
-      }
-    }
-  }
+  //     if (allowedRoles && userPrimaryRole && !allowedRoles.includes(userPrimaryRole)) {
+  //       return NextResponse.redirect(
+  //         new URL(roleHome(locale, token?.roles as Role[] | undefined), request.url)
+  //       )
+  //     }
+  //   }
+  // }
 
   // ✅ Bug 3 fixed: return intlResponse (which carries next-intl headers)
   //    This is correct — intlMiddleware returns NextResponse.next() with

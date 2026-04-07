@@ -48,7 +48,7 @@ export const columns: ColumnDef<IUserResponseDto>[] = [
     accessorKey: "role",
     header: () => <TH k="Features.Users.Role" />,
     cell({row}) {
-        return row.original.role.join("-")
+        return row.original.roles.map((r)=>r.name).join("-")
     },
   },
 
