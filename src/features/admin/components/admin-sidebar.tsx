@@ -63,11 +63,11 @@ export function AdminSidebar(props: React.ComponentProps<typeof Sidebar>) {
         url: `${ADMIN_URL}/children`,
         icon: IconUsers,
       },
-      {
-        title: t("Dashboard.Nav.tests"),
-        url: `${ADMIN_URL}/tests`,
-        icon: IconBrain,
-      },
+      // {
+      //   title: t("Dashboard.Nav.tests"),
+      //   url: `${ADMIN_URL}/tests`,
+      //   icon: IconBrain,
+      // },
       {
         title: t("Dashboard.Nav.projects"),
         url: "#",

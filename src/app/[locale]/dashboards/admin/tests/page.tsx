@@ -1,5 +1,5 @@
 import { ChartAreaInteractive } from "@/components/chart-area-interactive"
-import DashboardCards from "@/components/shared/cards/DashboardCards"
+// import DashboardCards from "@/components/shared/cards/DashboardCards"
 import { DataTable } from "@/components/shared/data-table/DataTable"
 import { SiteHeader } from "@/components/site-header"
 import { Button } from "@/components/ui/button"
@@ -12,7 +12,7 @@ import { getTranslations } from "next-intl/server"
 
 export default async function AdminTestsPage() {
   const t = await getTranslations()
-  const { tests } = await ((await getAllTests()))
+  const { tests } = await getAllTests()
   console.log(tests)
   return (
     <>

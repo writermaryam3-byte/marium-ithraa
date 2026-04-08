@@ -7,7 +7,7 @@ import { getCurrentOrganization } from "@/lib/helpers/getCurrentOrganization"
 import { CardInfo } from "@/lib/types/types"
 export default async function OrgEmployeesPage() {
   const organizationOwner = (await getCurrentOrganization())
-  const orgId = organizationOwner.user.organization.id
+  const orgId = organizationOwner?.user?.organization?.id
   const { employees } = await getEmployeesByOrganization(orgId)
 
   const cards: CardInfo[] = [
