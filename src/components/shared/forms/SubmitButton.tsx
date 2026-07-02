@@ -1,7 +1,7 @@
-"use client"
+'use client'
 
-import { Loader2 } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import { Loader2 } from 'lucide-react'
+import { Button } from '@/components/ui/button'
 
 type SubmitButtonProps = React.ComponentProps<typeof Button> & {
   loading?: boolean
@@ -16,11 +16,7 @@ export function SubmitButton({
   ...props
 }: SubmitButtonProps) {
   return (
-    <Button
-      type="submit"
-      disabled={disabled || loading}
-      {...props}
-    >
+    <Button type="submit" disabled={disabled || loading} {...props}>
       {loading && <Loader2 className="size-4 animate-spin" />}
       {loading && loadingText ? loadingText : children}
     </Button>

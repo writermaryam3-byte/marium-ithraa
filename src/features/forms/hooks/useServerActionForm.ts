@@ -1,18 +1,13 @@
-"use client"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useActionState, useEffect, useTransition, useRef } from "react"
-import {
-  useForm,
-  type DefaultValues,
-  type FieldValues,
-  type Resolver,
-} from "react-hook-form"
-import type { z } from "zod"
+'use client'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useActionState, useEffect, useTransition, useRef } from 'react'
+import { useForm, type DefaultValues, type FieldValues, type Resolver } from 'react-hook-form'
+import type { z } from 'zod'
 
-import type { InitialState } from "@/lib/types/types"
+import type { InitialState } from '@/lib/types/types'
 
 const emptyState: InitialState = {
-  message: "",
+  message: '',
   error: {},
   status: null,
   formData: null,
@@ -37,7 +32,7 @@ export function useServerActionForm<T extends FieldValues>({
   const form = useForm<T>({
     resolver: zodResolver(schema as unknown as z.ZodType<any, any, any>) as Resolver<T>,
     defaultValues,
-    mode: "onTouched",
+    mode: 'onTouched',
   })
 
   useEffect(() => {
@@ -62,8 +57,6 @@ export function useServerActionForm<T extends FieldValues>({
       }
     }
   }, [state.formData, state.fieldErrors, state.error, defaultValues, form])
-
-
 
   // 2. احفظ الدالة داخل Ref لضمان الحصول على أحدث نسخة بدون تفعيل الـ useEffect
   const onStatusChangeRef = useRef(onStatusChange)

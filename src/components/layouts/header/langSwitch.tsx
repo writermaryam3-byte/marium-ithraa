@@ -1,24 +1,24 @@
-'use client';
+'use client'
 
-import { Button } from "@/components/ui/button";
-import "flag-icons/css/flag-icons.min.css";
+import { Button } from '@/components/ui/button'
+import 'flag-icons/css/flag-icons.min.css'
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { usePathname, useRouter } from '@/i18n/navigation';
+} from '@/components/ui/dropdown-menu'
+import { usePathname, useRouter } from '@/i18n/navigation'
 
 export default function LanguageSwitcher({ locale }: { locale: string }) {
-  const pathname = usePathname();
-  const router = useRouter();
+  const pathname = usePathname()
+  const router = useRouter()
 
   const switchLocale = (newLocale: string) => {
     // استبدال كود اللغة في المسار الحالي
-    const newPath = pathname.replace(`/${locale}`, `/${newLocale}`);
-    router.push(newPath);
-  };
+    const newPath = pathname.replace(`/${locale}`, `/${newLocale}`)
+    router.push(newPath)
+  }
 
   return (
     <DropdownMenu>
@@ -30,11 +30,10 @@ export default function LanguageSwitcher({ locale }: { locale: string }) {
           aria-label="Language"
         >
           <div className="relative size-6">
-            {locale === "ar" ? (
+            {locale === 'ar' ? (
               <span className="fi fi-sa"></span>
             ) : (
               <span className="fi fi-us"></span>
-
             )}
           </div>
         </Button>
@@ -42,17 +41,17 @@ export default function LanguageSwitcher({ locale }: { locale: string }) {
       <DropdownMenuContent align="end">
         <DropdownMenuItem onClick={() => switchLocale('en')}>
           <div className="flex items-center gap-2">
-          <span className="fi fi-us w-[18px] h-[18px]"></span>
+            <span className="fi fi-us w-[18px] h-[18px]"></span>
             English
           </div>
         </DropdownMenuItem>
         <DropdownMenuItem onClick={() => switchLocale('ar')}>
           <div className="flex items-center gap-2">
-          <span className="fi fi-sa w-[18px] h-[18px]"></span>
-          العربية
+            <span className="fi fi-sa w-[18px] h-[18px]"></span>
+            العربية
           </div>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
-  );
+  )
 }

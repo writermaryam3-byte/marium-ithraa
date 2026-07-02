@@ -1,27 +1,27 @@
-"use client"
+'use client'
 
-import { useMemo, useState } from "react"
-import { useLocale, useTranslations } from "next-intl"
-import { Handshake, ExternalLink } from "lucide-react"
+import { useMemo, useState } from 'react'
+import { useLocale, useTranslations } from 'next-intl'
+import { Handshake, ExternalLink } from 'lucide-react'
 
-import { ManagementPageHeader } from "@/components/shared/management/ManagementPageHeader"
-import { EmptyState } from "@/components/shared/management/EmptyState"
-import { Card, CardContent } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { Skeleton } from "@/components/ui/skeleton"
-import { Input } from "@/components/ui/input"
-import { useEnricherDeals } from "@/features/enricher"
-import { getTextDirection } from "@/lib/i18n/locale-utils"
-import { Link } from "@/i18n/navigation"
-import { Pages, Routes } from "@/lib/types/enums"
+import { ManagementPageHeader } from '@/components/shared/management/ManagementPageHeader'
+import { EmptyState } from '@/components/shared/management/EmptyState'
+import { Card, CardContent } from '@/components/ui/card'
+import { Button } from '@/components/ui/button'
+import { Badge } from '@/components/ui/badge'
+import { Skeleton } from '@/components/ui/skeleton'
+import { Input } from '@/components/ui/input'
+import { useEnricherDeals } from '@/features/enricher'
+import { getTextDirection } from '@/lib/i18n/locale-utils'
+import { Link } from '@/i18n/navigation'
+import { Pages, Routes } from '@/lib/types/enums'
 
 const ENRICHER_URL = `/${Routes.DASHBOARDS}/${Pages.ENRICHER}`
 
 export default function EnricherDealsPage() {
   const locale = useLocale()
-  const t = useTranslations("Features.EnricherDashboard")
-  const [search, setSearch] = useState("")
+  const t = useTranslations('Features.EnricherDashboard')
+  const [search, setSearch] = useState('')
   const { data, isLoading, isError } = useEnricherDeals()
   const deals = useMemo(() => {
     if (!Array.isArray(data)) return []
@@ -47,25 +47,22 @@ export default function EnricherDealsPage() {
   return (
     <main className="app-container py-8 space-y-8" dir={getTextDirection(locale)}>
       <ManagementPageHeader
-        breadcrumbs={[
-          { href: ENRICHER_URL, label: t("brand") },
-          { label: t("deals") },
-        ]}
-        title={t("deals")}
-        subtitle={t("dealsDesc")}
+        breadcrumbs={[{ href: ENRICHER_URL, label: t('brand') }, { label: t('deals') }]}
+        title={t('deals')}
+        subtitle={t('dealsDesc')}
       />
 
       <Input
-        placeholder={t("searchDeals")}
+        placeholder={t('searchDeals')}
         value={search}
         onChange={(e) => setSearch(e.target.value)}
         className="max-w-sm"
       />
 
       {isError ? (
-        <p className="text-sm text-destructive">{t("loadError")}</p>
+        <p className="text-sm text-destructive">{t('loadError')}</p>
       ) : deals.length === 0 ? (
-        <EmptyState title={t("noDeals")} />
+        <EmptyState title={t('noDeals')} />
       ) : (
         <section className="grid gap-4 md:grid-cols-2">
           {deals.map((deal) => (
@@ -73,31 +70,29 @@ export default function EnricherDealsPage() {
               <CardContent className="p-5 space-y-3">
                 <div className="flex items-center gap-2 font-semibold">
                   <Handshake className="text-fuchsia-600 size-4" />
-                  {deal.activity?.name ?? "Deal"}
+                  {deal.activity?.name ?? 'Deal'}
                 </div>
                 <p className="text-sm text-muted-foreground">
-                  {t("organization")}: {deal.organization?.organizationName ?? "—"}
+                  {t('organization')}: {deal.organization?.organizationName ?? '—'}
                 </p>
                 <p className="text-sm">
-                  {t("studentsCount")}: {deal.studentsCount}
+                  {t('studentsCount')}: {deal.studentsCount}
                 </p>
                 <Badge
                   variant={
-                    deal.status === "OPEN"
-                      ? "default"
-                      : deal.status === "AWARDED"
-                        ? "secondary"
-                        : "outline"
+                    deal.status === 'OPEN'
+                      ? 'default'
+                      : deal.status === 'AWARDED'
+                        ? 'secondary'
+                        : 'outline'
                   }
                 >
                   {deal.status}
                 </Badge>
                 <Button variant="outline" size="sm" className="rounded-xl" asChild>
-                  <Link
-                    href={`${ENRICHER_URL}/${Pages.DEALS}/${deal.id}`}
-                  >
+                  <Link href={`${ENRICHER_URL}/${Pages.DEALS}/${deal.id}`}>
                     <ExternalLink className="size-3.5 me-1" />
-                    {t("viewDetails")}
+                    {t('viewDetails')}
                   </Link>
                 </Button>
               </CardContent>

@@ -1,4 +1,4 @@
-import { type Child } from "@/features/children/types/interfaces"
+import { type Child } from '@/features/children/types/interfaces'
 
 export interface ClassItem {
   id: string

@@ -1,4 +1,4 @@
-import { type ClassItem } from "@/features/classes/types"
+import { type ClassItem } from '@/features/classes/types'
 
 export interface Grade {
   id: string

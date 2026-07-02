@@ -62,16 +62,13 @@
 //   )
 // }
 
+'use client'
 
+import * as React from 'react'
 
-
-"use client"
-
-import * as React from "react"
-
-import { cn } from "@/lib/utils"
-import { Card, CardContent } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
+import { cn } from '@/lib/utils'
+import { Card, CardContent } from '@/components/ui/card'
+import { Button } from '@/components/ui/button'
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -138,24 +135,17 @@ const EntityCardImpl = function EntityCard({
 
   return (
     <>
-      <Card className={cn("rounded-2xl border bg-card shadow-sm", className)}>
+      <Card className={cn('rounded-2xl border bg-card shadow-sm', className)}>
         <CardContent className="p-5">
           {/* Fields */}
           <div className="space-y-2 text-start">
             {fields.map((f) => (
-              <div
-                key={f.label}
-                className="flex items-center justify-start gap-2 text-sm"
-              >
+              <div key={f.label} className="flex items-center justify-start gap-2 text-sm">
                 {f.icon ? (
-                  <span className="text-muted-foreground [&_svg]:size-4">
-                    {f.icon}
-                  </span>
+                  <span className="text-muted-foreground [&_svg]:size-4">{f.icon}</span>
                 ) : null}
                 <span className="font-semibold text-foreground">{f.label}:</span>
-                <span className={cn("text-muted-foreground", f.valueClassName)}>
-                  {f.value}
-                </span>
+                <span className={cn('text-muted-foreground', f.valueClassName)}>{f.value}</span>
               </div>
             ))}
           </div>
@@ -170,7 +160,8 @@ const EntityCardImpl = function EntityCard({
             >
               {deleteLabel}
             </Button>
-            <Button variant="gradient"
+            <Button
+              variant="gradient"
               type="button"
               className="rounded-xl"
               onClick={() => setEditOpen(true)}

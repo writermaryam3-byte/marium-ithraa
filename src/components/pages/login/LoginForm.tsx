@@ -1,25 +1,25 @@
-"use client"
+'use client'
 
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useLocale, useTranslations } from "next-intl"
-import { useState } from "react"
-import { useForm } from "react-hook-form"
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useLocale, useTranslations } from 'next-intl'
+import { useState } from 'react'
+import { useForm } from 'react-hook-form'
 
-import { Button } from "@/components/ui/button"
-import { Form } from "@/components/ui/form"
-import { SubmitButton } from "@/components/shared/forms/SubmitButton"
-import { useAuth } from "@/features/auth/hooks/useAuth"
-import { loginFormConfig } from "@/features/forms/config/login.config"
-import { RhfFormFields } from "@/features/forms/components/RhfFormFields"
-import { useFormConfig } from "@/features/forms"
-import { loginSchema, type LoginFormValues } from "@/features/forms/schemas/login.schema"
-import { useRouter } from "@/i18n/navigation"
-import { signInWithPhoneAndRedirect } from "@/lib/auth/signInWithCredentials"
-import { FormTypes } from "@/lib/types/enums"
-import { showSuccessToast } from "@/lib/toast/app-toast"
+import { Button } from '@/components/ui/button'
+import { Form } from '@/components/ui/form'
+import { SubmitButton } from '@/components/shared/forms/SubmitButton'
+import { useAuth } from '@/features/auth/hooks/useAuth'
+import { loginFormConfig } from '@/features/forms/config/login.config'
+import { RhfFormFields } from '@/features/forms/components/RhfFormFields'
+import { useFormConfig } from '@/features/forms'
+import { loginSchema, type LoginFormValues } from '@/features/forms/schemas/login.schema'
+import { useRouter } from '@/i18n/navigation'
+import { signInWithPhoneAndRedirect } from '@/lib/auth/signInWithCredentials'
+import { FormTypes } from '@/lib/types/enums'
+import { showSuccessToast } from '@/lib/toast/app-toast'
 
 const LoginForm = () => {
-  const t = useTranslations("Auth.Login")
+  const t = useTranslations('Auth.Login')
   const locale = useLocale()
   const router = useRouter()
   const { login } = useAuth()
@@ -31,7 +31,7 @@ const LoginForm = () => {
   const form = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
     defaultValues: loginFormConfig.defaultValues,
-    mode: "onTouched",
+    mode: 'onTouched',
   })
 
   const onSubmit = async (values: LoginFormValues) => {
@@ -48,13 +48,13 @@ const LoginForm = () => {
       })
 
       if (!res.ok) {
-        setError(t("errors.invalidCredentials"))
+        setError(t('errors.invalidCredentials'))
         return
       }
 
-      showSuccessToast(t, "success")
+      showSuccessToast(t, 'success')
     } catch {
-      setError(t("errors.unexpected"))
+      setError(t('errors.unexpected'))
     } finally {
       setIsSubmitting(false)
     }
@@ -75,7 +75,7 @@ const LoginForm = () => {
               onChange={() => setRememberMe(!rememberMe)}
               className="h-4 w-4 rounded border-input"
             />
-            {t("rememberMe")}
+            {t('rememberMe')}
           </label>
           <Button
             type="button"
@@ -83,7 +83,7 @@ const LoginForm = () => {
             className="h-auto p-0 text-sm"
             onClick={() => router.push(`/auth/forgot-password`)}
           >
-            {t("forgotPassword")}
+            {t('forgotPassword')}
           </Button>
         </div>
 
@@ -97,20 +97,20 @@ const LoginForm = () => {
           variant="gradient"
           className="h-11 w-full rounded-xl"
           loading={isSubmitting}
-          loadingText={t("submitting")}
+          loadingText={t('submitting')}
         >
-          {t("submit")}
+          {t('submit')}
         </SubmitButton>
 
         <div className="text-center text-sm text-muted-foreground">
-          {t("noAccount")}{" "}
+          {t('noAccount')}{' '}
           <Button
             type="button"
             variant="link"
             className="h-auto p-0"
             onClick={() => router.push(`/auth/Beneficiarysignup`)}
           >
-            {t("createAccount")}
+            {t('createAccount')}
           </Button>
         </div>
       </form>

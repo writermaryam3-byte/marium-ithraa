@@ -1,11 +1,11 @@
-import { notFound } from "next/navigation"
+import { notFound } from 'next/navigation'
 
-import { GradeDetailScreen } from "@/components/pages/dashboards/organization/GradeDetailScreen"
-import { getAllChildrenByOrg } from "@/features/children"
-import { type Child } from "@/features/children/types/interfaces"
-import { type Grade } from "@/features/grades"
-import { getGradeById } from "@/features/grades"
-import { requireCurrentOrganization } from "@/lib/helpers/getCurrentOrganization"
+import { GradeDetailScreen } from '@/components/pages/dashboards/organization/GradeDetailScreen'
+import { getAllChildrenByOrg } from '@/features/children'
+import { type Child } from '@/features/children/types/interfaces'
+import { type Grade } from '@/features/grades'
+import { getGradeById } from '@/features/grades'
+import { requireCurrentOrganization } from '@/lib/helpers/getCurrentOrganization'
 
 type Props = {
   params: Promise<{ locale: string; gradeId: string }>
@@ -37,7 +37,5 @@ export default async function GradeDetailPage({ params }: Props) {
     childrenByClass[classId].push(child)
   }
 
-  return (
-    <GradeDetailScreen grade={grade} childrenByClass={childrenByClass} />
-  )
+  return <GradeDetailScreen grade={grade} childrenByClass={childrenByClass} />
 }

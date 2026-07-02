@@ -1,22 +1,19 @@
-"use client"
+'use client'
 
-import { useState } from "react"
-import { useLocale, useTranslations } from "next-intl"
-import { Baby, Calendar, Plus } from "lucide-react"
+import { useState } from 'react'
+import { useLocale, useTranslations } from 'next-intl'
+import { Baby, Calendar, Plus } from 'lucide-react'
 
-import { ParentPrivateChildDialog } from "./ParentPrivateChildDialog"
+import { ParentPrivateChildDialog } from './ParentPrivateChildDialog'
 
-import { ManagementPageHeader } from "@/components/shared/management/ManagementPageHeader"
-import { EmptyState } from "@/components/shared/management/EmptyState"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
-import { type Child } from "@/features/children"
-import {
-  formatChildBirthDate,
-  getChildEvaluationLabel,
-} from "@/features/children/utils/display"
-import { getTextDirection } from "@/lib/i18n/locale-utils"
-import { Link } from "@/i18n/navigation"
+import { ManagementPageHeader } from '@/components/shared/management/ManagementPageHeader'
+import { EmptyState } from '@/components/shared/management/EmptyState'
+import { Button } from '@/components/ui/button'
+import { Card, CardContent } from '@/components/ui/card'
+import { type Child } from '@/features/children'
+import { formatChildBirthDate, getChildEvaluationLabel } from '@/features/children/utils/display'
+import { getTextDirection } from '@/lib/i18n/locale-utils'
+import { Link } from '@/i18n/navigation'
 
 const PRIVATE_CHILD_LIMIT = 2
 
@@ -26,11 +23,11 @@ type Props = {
 
 export function ParentPrivateChildrenScreen({ privateChildren }: Props) {
   const locale = useLocale()
-  const t = useTranslations("Dashboard.Parent.privateChildren")
-  const tParent = useTranslations("Dashboard.Parent")
-  const tChildren = useTranslations("Dashboard.Children")
-  const tCommon = useTranslations("Dashboard.common")
-  const tDashboard = useTranslations("Dashboard.common")
+  const t = useTranslations('Dashboard.Parent.privateChildren')
+  const tParent = useTranslations('Dashboard.Parent')
+  const tChildren = useTranslations('Dashboard.Children')
+  const tCommon = useTranslations('Dashboard.common')
+  const tDashboard = useTranslations('Dashboard.common')
   const [open, setOpen] = useState(false)
   const atLimit = privateChildren.length >= PRIVATE_CHILD_LIMIT
 
@@ -38,16 +35,16 @@ export function ParentPrivateChildrenScreen({ privateChildren }: Props) {
     <main className="app-container py-8 space-y-8" dir={getTextDirection(locale)}>
       <ManagementPageHeader
         breadcrumbs={[
-          { href: "/dashboards/parent", label: tDashboard("home") },
-          { label: t("title") },
+          { href: '/dashboards/parent', label: tDashboard('home') },
+          { label: t('title') },
         ]}
-        title={t("title")}
-        subtitle={t("subtitle", { limit: PRIVATE_CHILD_LIMIT })}
+        title={t('title')}
+        subtitle={t('subtitle', { limit: PRIVATE_CHILD_LIMIT })}
       />
 
       {atLimit && (
         <p className="rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900">
-          {t("limitReached")}
+          {t('limitReached')}
         </p>
       )}
 
@@ -81,7 +78,7 @@ export function ParentPrivateChildrenScreen({ privateChildren }: Props) {
           onClick={() => setOpen(true)}
         >
           <Plus className="size-4" />
-          {t("addChild")}
+          {t('addChild')}
         </Button>
 
         {/* الـ Dialog يتم استدعاؤه كـ Component منفصل هنا */}
@@ -89,15 +86,12 @@ export function ParentPrivateChildrenScreen({ privateChildren }: Props) {
           open={open}
           onOpenChange={setOpen}
           currentCount={privateChildren.length}
-          onSuccess={() => { }}
+          onSuccess={() => {}}
         />
       </div>
 
       {privateChildren.length === 0 ? (
-        <EmptyState
-          title={t("empty")}
-          actionLabel={!atLimit ? t("addChild") : undefined}
-        />
+        <EmptyState title={t('empty')} actionLabel={!atLimit ? t('addChild') : undefined} />
       ) : (
         <section className="grid gap-4 md:grid-cols-2">
           {privateChildren.map((child) => {
@@ -114,20 +108,15 @@ export function ParentPrivateChildrenScreen({ privateChildren }: Props) {
                     {formatChildBirthDate(child.birthDate, locale)}
                   </p>
                   <p className="text-sm">
-                    {tParent("attempts")}: {child.attemptsUsed ?? 0}
+                    {tParent('attempts')}: {child.attemptsUsed ?? 0}
                   </p>
                   <p className="text-sm">
-                    {tParent("retake")}:{" "}
-                    {child.retakeUsed ? tCommon("yes") : tCommon("no")}
+                    {tParent('retake')}: {child.retakeUsed ? tCommon('yes') : tCommon('no')}
                   </p>
-                  <p className={`text-sm font-medium ${evalInfo.className}`}>
-                    {evalInfo.label}
-                  </p>
+                  <p className={`text-sm font-medium ${evalInfo.className}`}>{evalInfo.label}</p>
                   <Button variant="outline" size="sm" className="mt-2 rounded-xl" asChild>
-                    <Link
-                      href={`/dashboards/parent/children/${child.id}/evaluations`}
-                    >
-                      {tParent("evaluationsLink")}
+                    <Link href={`/dashboards/parent/children/${child.id}/evaluations`}>
+                      {tParent('evaluationsLink')}
                     </Link>
                   </Button>
                 </CardContent>

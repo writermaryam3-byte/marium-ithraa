@@ -1,6 +1,6 @@
-import { TeacherDashboardScreen } from "@/components/pages/dashboards/teacher/TeacherDashboardScreen"
-import { getClassesByTeacher } from "@/features/classes/api"
-import { getCurrentTeacher } from "@/lib/helpers/getCurrentTeacher"
+import { TeacherDashboardScreen } from '@/components/pages/dashboards/teacher/TeacherDashboardScreen'
+import { getClassesByTeacher } from '@/features/classes/api'
+import { getCurrentTeacher } from '@/lib/helpers/getCurrentTeacher'
 
 export default async function TeacherDashboardPage() {
   const teacher = await getCurrentTeacher()
@@ -15,10 +15,5 @@ export default async function TeacherDashboardPage() {
     }
   }
 
-  return (
-    <TeacherDashboardScreen
-      classCount={classCount}
-      teacherName={teacher?.name}
-    />
-  )
+  return <TeacherDashboardScreen classCount={classCount} teacherName={teacher?.name} />
 }

@@ -1,17 +1,17 @@
-"use client"
+'use client'
 
-import { useMemo, useState } from "react"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { Check, X } from "lucide-react"
-import { useTranslations } from "next-intl"
-import { useForm } from "react-hook-form"
-import { showErrorToast, showSuccessToast } from "@/lib/toast/app-toast"
+import { useMemo, useState } from 'react'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { Check, X } from 'lucide-react'
+import { useTranslations } from 'next-intl'
+import { useForm } from 'react-hook-form'
+import { showErrorToast, showSuccessToast } from '@/lib/toast/app-toast'
 
-import { ErrorCard } from "@/components/shared/cards/ErrorCard"
+import { ErrorCard } from '@/components/shared/cards/ErrorCard'
 
-import { DataTable } from "@/components/shared/data-table/DataTable"
-import { SiteHeader } from "@/components/site-header"
-import { Button } from "@/components/ui/button"
+import { DataTable } from '@/components/shared/data-table/DataTable'
+import { SiteHeader } from '@/components/site-header'
+import { Button } from '@/components/ui/button'
 import {
   Dialog,
   DialogContent,
@@ -19,7 +19,7 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from "@/components/ui/dialog"
+} from '@/components/ui/dialog'
 import {
   Form,
   FormControl,
@@ -27,44 +27,39 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form"
-import { Skeleton } from "@/components/ui/skeleton"
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Textarea } from "@/components/ui/textarea"
-import { getFriendlyApiErrorMessage, getFieldValidationError } from "@/lib/helpers/apiErrorMessages"
-import { ApprovalStatus } from "@/lib/types/enums"
-import { ApiError } from "@/lib/errors/ApiError"
-import type { ColumnDef } from "@tanstack/react-table"
+} from '@/components/ui/form'
+import { Skeleton } from '@/components/ui/skeleton'
+import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { Textarea } from '@/components/ui/textarea'
+import { getFriendlyApiErrorMessage, getFieldValidationError } from '@/lib/helpers/apiErrorMessages'
+import { ApprovalStatus } from '@/lib/types/enums'
+import { ApiError } from '@/lib/errors/ApiError'
+import type { ColumnDef } from '@tanstack/react-table'
 
-import {
-  useApproveOrganization,
-  useOrganizationsByStatus,
-  useRejectOrganization,
-} from "../hooks"
-import { createRejectionReasonSchema } from "../schemas/rejection.schema"
-import type { Organization } from "../types/interfaces"
-import { OrganizationApprovalBadge } from "./OrganizationApprovalBadge"
+import { useApproveOrganization, useOrganizationsByStatus, useRejectOrganization } from '../hooks'
+import { createRejectionReasonSchema } from '../schemas/rejection.schema'
+import type { Organization } from '../types/interfaces'
+import { OrganizationApprovalBadge } from './OrganizationApprovalBadge'
 
 type StatusFilter = ApprovalStatus
 
 function formatDate(value?: string | null) {
-  if (!value) return "—"
+  if (!value) return '—'
   const date = new Date(value)
-  if (Number.isNaN(date.getTime())) return "—"
+  if (Number.isNaN(date.getTime())) return '—'
   return date.toLocaleDateString()
 }
 
 export function AdminOrganizationsScreen({ locale }: { locale: string }) {
-  const t = useTranslations("Features.Organizations.admin")
-  const tValidation = useTranslations("Features.Organizations.admin.rejectValidation")
-  const isAr = locale === "ar"
+  const t = useTranslations('Features.Organizations.admin')
+  const tValidation = useTranslations('Features.Organizations.admin.rejectValidation')
+  const isAr = locale === 'ar'
 
   const [statusFilter, setStatusFilter] = useState<StatusFilter>(ApprovalStatus.PENDING)
   const [approveTarget, setApproveTarget] = useState<Organization | null>(null)
   const [rejectTarget, setRejectTarget] = useState<Organization | null>(null)
 
-  const { data, isLoading, isError, error, refetch } =
-    useOrganizationsByStatus(statusFilter)
+  const { data, isLoading, isError, error, refetch } = useOrganizationsByStatus(statusFilter)
 
   const approveMutation = useApproveOrganization()
   const rejectMutation = useRejectOrganization()
@@ -76,7 +71,7 @@ export function AdminOrganizationsScreen({ locale }: { locale: string }) {
 
   const rejectionForm = useForm({
     resolver: zodResolver(rejectionSchema),
-    defaultValues: { rejectionReason: "" },
+    defaultValues: { rejectionReason: '' },
   })
 
   const organizations = data ?? []
@@ -84,45 +79,42 @@ export function AdminOrganizationsScreen({ locale }: { locale: string }) {
   const columns = useMemo<ColumnDef<Organization>[]>(
     () => [
       {
-        accessorKey: "organizationName",
-        header: t("columns.name"),
+        accessorKey: 'organizationName',
+        header: t('columns.name'),
       },
       {
-        accessorKey: "organizationType",
-        header: t("columns.type"),
+        accessorKey: 'organizationType',
+        header: t('columns.type'),
         cell: ({ row }) => t(`types.${row.original.organizationType}`),
       },
       {
-        id: "ownerName",
-        header: t("columns.owner"),
-        cell: ({ row }) => row.original.owner?.name ?? "—",
+        id: 'ownerName',
+        header: t('columns.owner'),
+        cell: ({ row }) => row.original.owner?.name ?? '—',
       },
       {
-        id: "ownerEmail",
-        header: t("columns.email"),
-        cell: ({ row }) => row.original.owner?.email ?? "—",
+        id: 'ownerEmail',
+        header: t('columns.email'),
+        cell: ({ row }) => row.original.owner?.email ?? '—',
       },
       {
-        accessorKey: "approvalStatus",
-        header: t("columns.status"),
-        cell: ({ row }) => (
-          <OrganizationApprovalBadge status={row.original.approvalStatus} />
-        ),
+        accessorKey: 'approvalStatus',
+        header: t('columns.status'),
+        cell: ({ row }) => <OrganizationApprovalBadge status={row.original.approvalStatus} />,
       },
       {
-        id: "submittedAt",
-        header: t("columns.submitted"),
+        id: 'submittedAt',
+        header: t('columns.submitted'),
         cell: ({ row }) => formatDate(row.original.createdAt),
       },
       {
-        id: "reviewedAt",
-        header: t("columns.reviewed"),
-        cell: ({ row }) =>
-          formatDate(row.original.approvedAt ?? row.original.rejectedAt),
+        id: 'reviewedAt',
+        header: t('columns.reviewed'),
+        cell: ({ row }) => formatDate(row.original.approvedAt ?? row.original.rejectedAt),
       },
       {
-        id: "actions",
-        header: t("columns.actions"),
+        id: 'actions',
+        header: t('columns.actions'),
         cell: ({ row }) => {
           const org = row.original
 
@@ -133,31 +125,29 @@ export function AdminOrganizationsScreen({ locale }: { locale: string }) {
                   size="sm"
                   variant="outline"
                   onClick={() => setApproveTarget(org)}
-                  aria-label={t("approveAria", { name: org.organizationName })}
+                  aria-label={t('approveAria', { name: org.organizationName })}
                 >
                   <Check className="size-4" />
-                  {t("approve")}
+                  {t('approve')}
                 </Button>
                 <Button
                   size="sm"
                   variant="destructive"
                   onClick={() => {
-                    rejectionForm.reset({ rejectionReason: "" })
+                    rejectionForm.reset({ rejectionReason: '' })
                     setRejectTarget(org)
                   }}
-                  aria-label={t("rejectAria", { name: org.organizationName })}
+                  aria-label={t('rejectAria', { name: org.organizationName })}
                 >
                   <X className="size-4" />
-                  {t("reject")}
+                  {t('reject')}
                 </Button>
               </div>
             )
           }
 
           if (org.approvalStatus === ApprovalStatus.REJECTED && org.rejectionReason) {
-            return (
-              <p className="max-w-xs text-xs text-muted-foreground">{org.rejectionReason}</p>
-            )
+            return <p className="max-w-xs text-xs text-muted-foreground">{org.rejectionReason}</p>
           }
 
           return <span className="text-xs text-muted-foreground">—</span>
@@ -172,10 +162,10 @@ export function AdminOrganizationsScreen({ locale }: { locale: string }) {
 
     try {
       await approveMutation.mutateAsync(approveTarget.id)
-      showSuccessToast(t, "approveSuccess")
+      showSuccessToast(t, 'approveSuccess')
       setApproveTarget(null)
     } catch (err) {
-      showErrorToast({ raw: getFriendlyApiErrorMessage(err, "approveFailed") })
+      showErrorToast({ raw: getFriendlyApiErrorMessage(err, 'approveFailed') })
     }
   }
 
@@ -187,33 +177,33 @@ export function AdminOrganizationsScreen({ locale }: { locale: string }) {
         id: rejectTarget.id,
         rejectionReason: values.rejectionReason,
       })
-      showSuccessToast(t, "rejectSuccess")
+      showSuccessToast(t, 'rejectSuccess')
       setRejectTarget(null)
-      rejectionForm.reset({ rejectionReason: "" })
+      rejectionForm.reset({ rejectionReason: '' })
     } catch (err) {
-      const fieldError = getFieldValidationError(err, "rejectionReason")
+      const fieldError = getFieldValidationError(err, 'rejectionReason')
       if (fieldError) {
-        rejectionForm.setError("rejectionReason", { message: fieldError })
+        rejectionForm.setError('rejectionReason', { message: fieldError })
       }
-      showErrorToast({ raw: getFriendlyApiErrorMessage(err, "rejectFailed") })
+      showErrorToast({ raw: getFriendlyApiErrorMessage(err, 'rejectFailed') })
     }
   }
 
   const emptyMessage =
     statusFilter === ApprovalStatus.PENDING
-      ? t("empty.pending")
+      ? t('empty.pending')
       : statusFilter === ApprovalStatus.APPROVED
-        ? t("empty.approved")
-        : t("empty.rejected")
+        ? t('empty.approved')
+        : t('empty.rejected')
 
   return (
     <>
       <SiteHeader titleKey="Features.Organizations.admin.title" />
-      <div className="flex flex-1 flex-col" dir={isAr ? "rtl" : "ltr"}>
+      <div className="flex flex-1 flex-col" dir={isAr ? 'rtl' : 'ltr'}>
         <div className="@container/main flex flex-1 flex-col gap-4 px-4 py-4 md:gap-6 md:py-6 lg:px-6">
           <div className="space-y-1">
-            <h2 className="text-2xl font-semibold">{t("title")}</h2>
-            <p className="text-sm text-muted-foreground">{t("subtitle")}</p>
+            <h2 className="text-2xl font-semibold">{t('title')}</h2>
+            <p className="text-sm text-muted-foreground">{t('subtitle')}</p>
           </div>
 
           <Tabs
@@ -221,9 +211,9 @@ export function AdminOrganizationsScreen({ locale }: { locale: string }) {
             onValueChange={(value) => setStatusFilter(value as StatusFilter)}
           >
             <TabsList>
-              <TabsTrigger value={ApprovalStatus.PENDING}>{t("tabs.pending")}</TabsTrigger>
-              <TabsTrigger value={ApprovalStatus.APPROVED}>{t("tabs.approved")}</TabsTrigger>
-              <TabsTrigger value={ApprovalStatus.REJECTED}>{t("tabs.rejected")}</TabsTrigger>
+              <TabsTrigger value={ApprovalStatus.PENDING}>{t('tabs.pending')}</TabsTrigger>
+              <TabsTrigger value={ApprovalStatus.APPROVED}>{t('tabs.approved')}</TabsTrigger>
+              <TabsTrigger value={ApprovalStatus.REJECTED}>{t('tabs.rejected')}</TabsTrigger>
             </TabsList>
           </Tabs>
 
@@ -231,10 +221,10 @@ export function AdminOrganizationsScreen({ locale }: { locale: string }) {
             <ErrorCard
               message={
                 error instanceof ApiError && error.status === 403
-                  ? t("errors.forbidden")
-                  : getFriendlyApiErrorMessage(error, t("errors.loadFailed"))
+                  ? t('errors.forbidden')
+                  : getFriendlyApiErrorMessage(error, t('errors.loadFailed'))
               }
-              retry={{ label: t("retry"), onClick: () => refetch() }}
+              retry={{ label: t('retry'), onClick: () => refetch() }}
             />
           ) : isLoading ? (
             <div className="space-y-3">
@@ -252,22 +242,25 @@ export function AdminOrganizationsScreen({ locale }: { locale: string }) {
         </div>
       </div>
 
-      <Dialog open={Boolean(approveTarget)} onOpenChange={(open) => !open && setApproveTarget(null)}>
+      <Dialog
+        open={Boolean(approveTarget)}
+        onOpenChange={(open) => !open && setApproveTarget(null)}
+      >
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>{t("approveDialog.title")}</DialogTitle>
+            <DialogTitle>{t('approveDialog.title')}</DialogTitle>
             <DialogDescription>
-              {t("approveDialog.description", {
-                name: approveTarget?.organizationName ?? "",
+              {t('approveDialog.description', {
+                name: approveTarget?.organizationName ?? '',
               })}
             </DialogDescription>
           </DialogHeader>
           <DialogFooter>
             <Button variant="outline" onClick={() => setApproveTarget(null)}>
-              {t("cancel")}
+              {t('cancel')}
             </Button>
             <Button onClick={handleApprove} disabled={approveMutation.isPending}>
-              {t("approve")}
+              {t('approve')}
             </Button>
           </DialogFooter>
         </DialogContent>
@@ -278,16 +271,16 @@ export function AdminOrganizationsScreen({ locale }: { locale: string }) {
         onOpenChange={(open) => {
           if (!open) {
             setRejectTarget(null)
-            rejectionForm.reset({ rejectionReason: "" })
+            rejectionForm.reset({ rejectionReason: '' })
           }
         }}
       >
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>{t("rejectDialog.title")}</DialogTitle>
+            <DialogTitle>{t('rejectDialog.title')}</DialogTitle>
             <DialogDescription>
-              {t("rejectDialog.description", {
-                name: rejectTarget?.organizationName ?? "",
+              {t('rejectDialog.description', {
+                name: rejectTarget?.organizationName ?? '',
               })}
             </DialogDescription>
           </DialogHeader>
@@ -299,17 +292,17 @@ export function AdminOrganizationsScreen({ locale }: { locale: string }) {
                 name="rejectionReason"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>{t("rejectDialog.reasonLabel")}</FormLabel>
+                    <FormLabel>{t('rejectDialog.reasonLabel')}</FormLabel>
                     <FormControl>
                       <Textarea
                         {...field}
                         rows={4}
-                        placeholder={t("rejectDialog.reasonPlaceholder")}
+                        placeholder={t('rejectDialog.reasonPlaceholder')}
                         aria-describedby="rejection-reason-help"
                       />
                     </FormControl>
                     <p id="rejection-reason-help" className="text-xs text-muted-foreground">
-                      {t("rejectDialog.reasonHelp")}
+                      {t('rejectDialog.reasonHelp')}
                     </p>
                     <FormMessage />
                   </FormItem>
@@ -321,17 +314,13 @@ export function AdminOrganizationsScreen({ locale }: { locale: string }) {
                   variant="outline"
                   onClick={() => {
                     setRejectTarget(null)
-                    rejectionForm.reset({ rejectionReason: "" })
+                    rejectionForm.reset({ rejectionReason: '' })
                   }}
                 >
-                  {t("cancel")}
+                  {t('cancel')}
                 </Button>
-                <Button
-                  type="submit"
-                  variant="destructive"
-                  disabled={rejectMutation.isPending}
-                >
-                  {t("reject")}
+                <Button type="submit" variant="destructive" disabled={rejectMutation.isPending}>
+                  {t('reject')}
                 </Button>
               </DialogFooter>
             </form>

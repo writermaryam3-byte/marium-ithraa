@@ -1,7 +1,4 @@
-import type {
-  EvaluationQuestion,
-  EvaluationQuestionAnswer,
-} from "../types"
+import type { EvaluationQuestion, EvaluationQuestionAnswer } from '../types'
 
 /** Parent-safe answer option (no scoreValue). */
 export type ParentAnswerOption = {
@@ -21,9 +18,7 @@ export function stripScoreValueFromAnswers(
   answers: EvaluationQuestionAnswer[] | undefined,
 ): ParentAnswerOption[] {
   return (answers ?? [])
-    .filter((a): a is EvaluationQuestionAnswer & { id: string } =>
-      Boolean(a.id),
-    )
+    .filter((a): a is EvaluationQuestionAnswer & { id: string } => Boolean(a.id))
     .map(({ id, text }) => ({ id, text }))
 }
 
@@ -45,14 +40,11 @@ export function attemptHasRenderableQuestions(
   if (list.length === 0) return false
   return list.every(
     (q) =>
-      q.answers?.length > 0 &&
-      q.answers.every((a) => Boolean(a.id) && typeof a.text === "string"),
+      q.answers?.length > 0 && q.answers.every((a) => Boolean(a.id) && typeof a.text === 'string'),
   )
 }
 
-export function countAnswersMissingIds(
-  questions: EvaluationQuestion[] | undefined,
-): number {
+export function countAnswersMissingIds(questions: EvaluationQuestion[] | undefined): number {
   let count = 0
   for (const q of questions ?? []) {
     for (const a of q.answers ?? []) {
@@ -62,10 +54,8 @@ export function countAnswersMissingIds(
   return count
 }
 
-export function isEvaluationAttemptId(
-  value: unknown,
-): value is { id: string } {
-  if (!value || typeof value !== "object") return false
+export function isEvaluationAttemptId(value: unknown): value is { id: string } {
+  if (!value || typeof value !== 'object') return false
   const id = (value as { id?: unknown }).id
-  return typeof id === "string" && id.length > 0
+  return typeof id === 'string' && id.length > 0
 }

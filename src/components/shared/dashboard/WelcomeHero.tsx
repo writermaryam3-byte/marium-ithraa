@@ -1,6 +1,6 @@
-import * as React from "react"
+import * as React from 'react'
 
-import { cn } from "@/lib/utils"
+import { cn } from '@/lib/utils'
 
 export type WelcomeHeroProps = {
   title: string
@@ -11,9 +11,11 @@ export type WelcomeHeroProps = {
 
 export function WelcomeHero({ title, subtitle, illustration, className }: WelcomeHeroProps) {
   return (
-    <section className={cn("grid items-center gap-6 lg:grid-cols-[1fr_auto]", className)}>
+    <section className={cn('grid items-center gap-6 lg:grid-cols-[1fr_auto]', className)}>
       <div className="space-y-2 text-start">
-        <h1 className="text-2xl font-extrabold tracking-tight text-foreground sm:text-3xl">{title}</h1>
+        <h1 className="text-2xl font-extrabold tracking-tight text-foreground sm:text-3xl">
+          {title}
+        </h1>
         {subtitle ? <p className="text-sm text-muted-foreground sm:text-base">{subtitle}</p> : null}
       </div>
       {illustration ? (
@@ -32,4 +34,3 @@ export function WelcomeHero({ title, subtitle, illustration, className }: Welcom
     </section>
   )
 }
-

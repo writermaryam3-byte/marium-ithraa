@@ -1,43 +1,43 @@
-"use client"
+'use client'
 
-import { useActionState, useEffect, useMemo, useState } from "react"
-import { Link } from "@/i18n/navigation"
-import { useLocale, useTranslations } from "next-intl"
-import { GraduationCap, Layers3, Loader2, Plus, Users } from "lucide-react"
+import { useActionState, useEffect, useMemo, useState } from 'react'
+import { Link } from '@/i18n/navigation'
+import { useLocale, useTranslations } from 'next-intl'
+import { GraduationCap, Layers3, Loader2, Plus, Users } from 'lucide-react'
 
-import { DataTablePagination } from "@/components/shared/data-table/DataTablePagination"
-import { ManagementPageHeader } from "@/components/shared/management/ManagementPageHeader"
-import { EntityCard } from "@/components/shared/management/EntityCard"
-import { EmptyState } from "@/components/shared/management/EmptyState"
-import { ListFilters } from "@/components/shared/management/ListFilters"
+import { DataTablePagination } from '@/components/shared/data-table/DataTablePagination'
+import { ManagementPageHeader } from '@/components/shared/management/ManagementPageHeader'
+import { EntityCard } from '@/components/shared/management/EntityCard'
+import { EmptyState } from '@/components/shared/management/EmptyState'
+import { ListFilters } from '@/components/shared/management/ListFilters'
 import {
   Dialog,
   DialogContent,
   DialogDescription,
   DialogHeader,
   DialogTitle,
-} from "@/components/ui/dialog"
-import { Button } from "@/components/ui/button"
-import { type Grade, deleteGradeAction, type DeleteGradeState } from "@/features/grades"
-import { useClientPagination } from "@/hooks/useClientPagination"
-import { useActionFeedback } from "@/hooks/useActionFeedback"
+} from '@/components/ui/dialog'
+import { Button } from '@/components/ui/button'
+import { type Grade, deleteGradeAction, type DeleteGradeState } from '@/features/grades'
+import { useClientPagination } from '@/hooks/useClientPagination'
+import { useActionFeedback } from '@/hooks/useActionFeedback'
 
 export function GradesScreen({ grades }: { grades: Grade[] }) {
   const locale = useLocale()
-  const t = useTranslations("Dashboard.Grades")
-  const tCommon = useTranslations("Dashboard.common")
-  const tPagination = useTranslations("Dashboard.pagination")
+  const t = useTranslations('Dashboard.Grades')
+  const tCommon = useTranslations('Dashboard.common')
+  const tPagination = useTranslations('Dashboard.pagination')
   const { notifyDelete } = useActionFeedback()
-  const [search, setSearch] = useState("")
+  const [search, setSearch] = useState('')
 
-  const [deleteState, deleteAction, isDeleting] = useActionState<
-    DeleteGradeState,
-    FormData
-  >(deleteGradeAction, { success: false })
+  const [deleteState, deleteAction, isDeleting] = useActionState<DeleteGradeState, FormData>(
+    deleteGradeAction,
+    { success: false },
+  )
 
   useEffect(() => {
     if (deleteState.success) {
-      notifyDelete(deleteState, "grades.deleted")
+      notifyDelete(deleteState, 'grades.deleted')
     } else if (deleteState.message) {
       notifyDelete(deleteState)
     }
@@ -52,17 +52,17 @@ export function GradesScreen({ grades }: { grades: Grade[] }) {
   const { pageItems, pagination, setPage, resetPage } = useClientPagination(filtered, 12)
 
   return (
-    <main className="app-container py-8 space-y-8" dir={locale === "ar" ? "rtl" : "ltr"}>
+    <main className="app-container py-8 space-y-8" dir={locale === 'ar' ? 'rtl' : 'ltr'}>
       <ManagementPageHeader
         breadcrumbs={[
-          { href: "/dashboards/organization", label: tCommon("home") },
-          { label: t("title") },
+          { href: '/dashboards/organization', label: tCommon('home') },
+          { label: t('title') },
         ]}
-        title={t("title")}
-        subtitle={t("subtitle")}
+        title={t('title')}
+        subtitle={t('subtitle')}
         action={{
-          label: t("add"),
-          href: "/dashboards/organization/grades/new",
+          label: t('add'),
+          href: '/dashboards/organization/grades/new',
           icon: <Plus />,
         }}
       />
@@ -74,16 +74,14 @@ export function GradesScreen({ grades }: { grades: Grade[] }) {
           setSearch(value)
           resetPage()
         }}
-        searchPlaceholder={t("searchPlaceholder")}
+        searchPlaceholder={t('searchPlaceholder')}
       />
 
       {filtered.length === 0 ? (
         <EmptyState
-          title={tCommon("noData")}
-          actionLabel={grades.length === 0 ? t("add") : undefined}
-          actionHref={
-            grades.length === 0 ? "/dashboards/organization/grades/new" : undefined
-          }
+          title={tCommon('noData')}
+          actionLabel={grades.length === 0 ? t('add') : undefined}
+          actionHref={grades.length === 0 ? '/dashboards/organization/grades/new' : undefined}
         />
       ) : (
         <>
@@ -91,11 +89,11 @@ export function GradesScreen({ grades }: { grades: Grade[] }) {
             {pageItems.map((grade) => (
               <EntityCard
                 key={grade.id}
-                editLabel={tCommon("edit")}
-                deleteLabel={tCommon("delete")}
+                editLabel={tCommon('edit')}
+                deleteLabel={tCommon('delete')}
                 fields={[
                   {
-                    label: t("fields.name"),
+                    label: t('fields.name'),
                     value: (
                       <Link
                         href={`/dashboards/organization/grades/${grade.id}`}
@@ -107,13 +105,13 @@ export function GradesScreen({ grades }: { grades: Grade[] }) {
                     icon: <GraduationCap />,
                   },
                   {
-                    label: t("fields.classesCount"),
+                    label: t('fields.classesCount'),
                     value: String(grade.classesCount ?? grade.classes?.length ?? 0),
                     icon: <Layers3 />,
                   },
                   {
-                    label: t("fields.childrenCount"),
-                    value: String(grade.childrenCount ?? "—"),
+                    label: t('fields.childrenCount'),
+                    value: String(grade.childrenCount ?? '—'),
                     icon: <Users />,
                   },
                 ]}
@@ -121,14 +119,14 @@ export function GradesScreen({ grades }: { grades: Grade[] }) {
                   <Dialog open={open} onOpenChange={(v) => !v && onClose()}>
                     <DialogContent className="sm:max-w-sm">
                       <DialogHeader>
-                        <DialogTitle>{t("editTitle")}</DialogTitle>
+                        <DialogTitle>{t('editTitle')}</DialogTitle>
                       </DialogHeader>
                       <Button asChild className="w-full rounded-xl">
                         <Link
                           href={`/dashboards/organization/grades/${grade.id}/edit`}
                           onClick={onClose}
                         >
-                          {tCommon("edit")}
+                          {tCommon('edit')}
                         </Link>
                       </Button>
                     </DialogContent>
@@ -138,8 +136,8 @@ export function GradesScreen({ grades }: { grades: Grade[] }) {
                   <Dialog open={open} onOpenChange={(v) => !v && onClose()}>
                     <DialogContent className="sm:max-w-sm">
                       <DialogHeader>
-                        <DialogTitle>{t("deleteTitle")}</DialogTitle>
-                        <DialogDescription>{tCommon("confirmDelete")}</DialogDescription>
+                        <DialogTitle>{t('deleteTitle')}</DialogTitle>
+                        <DialogDescription>{tCommon('confirmDelete')}</DialogDescription>
                       </DialogHeader>
                       <form action={deleteAction}>
                         <input type="hidden" name="id" value={grade.id} />
@@ -152,7 +150,7 @@ export function GradesScreen({ grades }: { grades: Grade[] }) {
                           {isDeleting ? (
                             <Loader2 className="h-4 w-4 animate-spin" />
                           ) : (
-                            tCommon("delete")
+                            tCommon('delete')
                           )}
                         </Button>
                       </form>
@@ -167,9 +165,9 @@ export function GradesScreen({ grades }: { grades: Grade[] }) {
               meta={pagination}
               onPageChange={setPage}
               labels={{
-                previous: tPagination("previous"),
-                next: tPagination("next"),
-                page: tPagination("page"),
+                previous: tPagination('previous'),
+                next: tPagination('next'),
+                page: tPagination('page'),
               }}
             />
           )}

@@ -1,11 +1,6 @@
-"use client"
+'use client'
 
-import {
-  ColumnDef,
-  flexRender,
-  getCoreRowModel,
-  useReactTable,
-} from "@tanstack/react-table"
+import { ColumnDef, flexRender, getCoreRowModel, useReactTable } from '@tanstack/react-table'
 
 import {
   Table,
@@ -14,12 +9,12 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table"
-import { ReactNode } from "react"
+} from '@/components/ui/table'
+import { ReactNode } from 'react'
 
-import type { PaginatedMeta } from "@/lib/api/pagination"
+import type { PaginatedMeta } from '@/lib/api/pagination'
 
-import { DataTablePagination } from "./DataTablePagination"
+import { DataTablePagination } from './DataTablePagination'
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
@@ -36,9 +31,8 @@ export function DataTable<TData, TValue>({
   children,
   pagination,
   onPageChange,
-  emptyMessage = "No results.",
+  emptyMessage = 'No results.',
 }: DataTableProps<TData, TValue>) {
-
   const table = useReactTable({
     data,
     columns,
@@ -52,18 +46,15 @@ export function DataTable<TData, TValue>({
         <Table>
           <TableHeader className="sticky top-0 z-10 bg-muted">
             {table.getHeaderGroups().map((headerGroup) => (
-              <TableRow key={headerGroup.id}
+              <TableRow
+                key={headerGroup.id}
                 className="relative z-0 data-[dragging=true]:z-10 data-[dragging=true]:opacity-80"
-
               >
                 {headerGroup.headers.map((header) => (
                   <TableHead key={header.id} colSpan={header.colSpan}>
                     {header.isPlaceholder
                       ? null
-                      : flexRender(
-                        header.column.columnDef.header,
-                        header.getContext()
-                      )}
+                      : flexRender(header.column.columnDef.header, header.getContext())}
                   </TableHead>
                 ))}
               </TableRow>
@@ -75,12 +66,8 @@ export function DataTable<TData, TValue>({
               table.getRowModel().rows.map((row) => (
                 <TableRow key={row.id}>
                   {row.getVisibleCells().map((cell) => (
-                    <TableCell className="h-24 text-center"
-                      key={cell.id}>
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext()
-                      )}
+                    <TableCell className="h-24 text-center" key={cell.id}>
+                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
                     </TableCell>
                   ))}
                 </TableRow>
@@ -93,7 +80,6 @@ export function DataTable<TData, TValue>({
               </TableRow>
             )}
           </TableBody>
-
         </Table>
       </div>
       {pagination && onPageChange ? (

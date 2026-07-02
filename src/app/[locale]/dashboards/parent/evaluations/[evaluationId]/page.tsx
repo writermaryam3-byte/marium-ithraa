@@ -1,10 +1,9 @@
-"use client"
+'use client'
 
-import { useParams } from "next/navigation"
-import EvaluationBuilder from "@/components/evaluation/EvaluationBuilder"
+import { useParams } from 'next/navigation'
+import EvaluationBuilder from '@/components/evaluation/EvaluationBuilder'
 
 export default function ParentEvaluationPage() {
   const params = useParams<{ evaluationId: string }>()
   return <EvaluationBuilder evaluationId={params.evaluationId} />
 }
-

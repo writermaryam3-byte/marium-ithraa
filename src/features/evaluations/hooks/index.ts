@@ -1,7 +1,7 @@
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 
-import type { GetAttemptsFilters } from "../api"
-import type { CreateEvaluationDto } from "../types"
+import type { GetAttemptsFilters } from '../api'
+import type { CreateEvaluationDto } from '../types'
 import {
   approveAttemptClient,
   createEvaluationClient,
@@ -18,21 +18,17 @@ import {
   saveAttemptProgressClient,
   startEvaluationClient,
   submitAttemptClient,
-} from "../api"
-import type {
-  SaveAttemptDto,
-  StartAttemptDto,
-  SubmitAttemptDto,
-} from "../types"
+} from '../api'
+import type { SaveAttemptDto, StartAttemptDto, SubmitAttemptDto } from '../types'
 
 export const evaluationKeys = {
-  all: ["evaluations"] as const,
-  detail: (id: string) => ["evaluation", id] as const,
-  form: (id: string) => ["evaluation-form", id] as const,
-  available: (childId: string) => ["evaluations-available", childId] as const,
-  attempts: (filters?: GetAttemptsFilters) => ["attempts", filters ?? {}] as const,
-  attempt: (id: string) => ["attempt", id] as const,
-  childAttempts: (childId: string) => ["child-attempts", childId] as const,
+  all: ['evaluations'] as const,
+  detail: (id: string) => ['evaluation', id] as const,
+  form: (id: string) => ['evaluation-form', id] as const,
+  available: (childId: string) => ['evaluations-available', childId] as const,
+  attempts: (filters?: GetAttemptsFilters) => ['attempts', filters ?? {}] as const,
+  attempt: (id: string) => ['attempt', id] as const,
+  childAttempts: (childId: string) => ['child-attempts', childId] as const,
 }
 
 export function useEvaluations() {
@@ -50,10 +46,7 @@ export function useEvaluationDetails(evaluationId: string) {
   })
 }
 
-export function useEvaluationForm(
-  evaluationId: string,
-  options?: { enabled?: boolean },
-) {
+export function useEvaluationForm(evaluationId: string, options?: { enabled?: boolean }) {
   return useQuery({
     queryKey: evaluationKeys.form(evaluationId),
     queryFn: () => getEvaluationFormClient(evaluationId),
@@ -106,33 +99,30 @@ export function useCreateEvaluation() {
 export function useStartEvaluation(evaluationId: string) {
   const queryClient = useQueryClient()
   return useMutation({
-    mutationFn: (data: StartAttemptDto) =>
-      startEvaluationClient(evaluationId, data),
+    mutationFn: (data: StartAttemptDto) => startEvaluationClient(evaluationId, data),
     onSuccess: () => {
-      void queryClient.invalidateQueries({ queryKey: ["attempts"] })
-      void queryClient.invalidateQueries({ queryKey: ["child-attempts"] })
+      void queryClient.invalidateQueries({ queryKey: ['attempts'] })
+      void queryClient.invalidateQueries({ queryKey: ['child-attempts'] })
     },
   })
 }
 
 export function useSaveAttemptProgress(attemptId: string) {
   return useMutation({
-    mutationFn: (data: SaveAttemptDto) =>
-      saveAttemptProgressClient(attemptId, data),
+    mutationFn: (data: SaveAttemptDto) => saveAttemptProgressClient(attemptId, data),
   })
 }
 
 export function useSubmitAttempt(attemptId: string) {
   const queryClient = useQueryClient()
   return useMutation({
-    mutationFn: (data: SubmitAttemptDto) =>
-      submitAttemptClient(attemptId, data),
+    mutationFn: (data: SubmitAttemptDto) => submitAttemptClient(attemptId, data),
     onSuccess: () => {
       void queryClient.invalidateQueries({
         queryKey: evaluationKeys.attempt(attemptId),
       })
-      void queryClient.invalidateQueries({ queryKey: ["attempts"] })
-      void queryClient.invalidateQueries({ queryKey: ["child-attempts"] })
+      void queryClient.invalidateQueries({ queryKey: ['attempts'] })
+      void queryClient.invalidateQueries({ queryKey: ['child-attempts'] })
     },
   })
 }
@@ -145,7 +135,7 @@ export function useApproveAttempt(attemptId: string) {
       void queryClient.invalidateQueries({
         queryKey: evaluationKeys.attempt(attemptId),
       })
-      void queryClient.invalidateQueries({ queryKey: ["attempts"] })
+      void queryClient.invalidateQueries({ queryKey: ['attempts'] })
     },
   })
 }
@@ -181,7 +171,7 @@ export {
   useOwnerEvaluationFilters,
   useOwnerEvaluationReports,
   useSendOwnerEvaluationReminder,
-} from "./owner"
+} from './owner'
 
 export function useRequestPrivateExtraAttempt(childId: string) {
   const queryClient = useQueryClient()

@@ -1,29 +1,23 @@
-"use client"
+'use client'
 
-import { useTranslations } from "next-intl"
+import { useTranslations } from 'next-intl'
 
-import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
-import type { NotificationItem } from "@/features/notifications/types"
-import { cn } from "@/lib/utils"
+import { Badge } from '@/components/ui/badge'
+import { Button } from '@/components/ui/button'
+import { Card, CardContent } from '@/components/ui/card'
+import type { NotificationItem } from '@/features/notifications/types'
+import { cn } from '@/lib/utils'
 
-import {
-  formatNotificationDate,
-  getNotificationTypeIcon,
-} from "./notification-utils"
+import { formatNotificationDate, getNotificationTypeIcon } from './notification-utils'
 
-function getTypeBadgeLabel(
-  type: string | undefined,
-  t: ReturnType<typeof useTranslations>,
-) {
-  if (!type) return t("typeGeneral")
-  if (type.startsWith("evaluation") && type !== "evaluation_reminder") {
-    return t("typeEvaluations")
+function getTypeBadgeLabel(type: string | undefined, t: ReturnType<typeof useTranslations>) {
+  if (!type) return t('typeGeneral')
+  if (type.startsWith('evaluation') && type !== 'evaluation_reminder') {
+    return t('typeEvaluations')
   }
-  if (type === "evaluation_reminder") return t("typeReminders")
-  if (type.startsWith("payment")) return t("typePayment")
-  return t("typeGeneral")
+  if (type === 'evaluation_reminder') return t('typeReminders')
+  if (type.startsWith('payment')) return t('typePayment')
+  return t('typeGeneral')
 }
 
 type Props = {
@@ -43,23 +37,20 @@ export function NotificationListItem({
   onMarkRead,
   isMarking = false,
 }: Props) {
-  const t = useTranslations("Features.Notifications")
-  const isAr = locale === "ar"
+  const t = useTranslations('Features.Notifications')
+  const isAr = locale === 'ar'
   const Icon = getNotificationTypeIcon(item.type)
 
   return (
     <Card
       className={cn(
-        "rounded-2xl border bg-card shadow-sm transition-shadow hover:shadow-md",
-        !item.isRead && "border-fuchsia-300/50 ring-1 ring-fuchsia-200/60",
+        'rounded-2xl border bg-card shadow-sm transition-shadow hover:shadow-md',
+        !item.isRead && 'border-fuchsia-300/50 ring-1 ring-fuchsia-200/60',
       )}
     >
       <CardContent
-        className={cn(
-          "flex items-center justify-between gap-4",
-          compact ? "p-3" : "p-5",
-        )}
-        dir={isAr ? "rtl" : "ltr"}
+        className={cn('flex items-center justify-between gap-4', compact ? 'p-3' : 'p-5')}
+        dir={isAr ? 'rtl' : 'ltr'}
       >
         <button
           type="button"
@@ -68,8 +59,8 @@ export function NotificationListItem({
         >
           <div
             className={cn(
-              "grid shrink-0 place-items-center rounded-xl bg-surface text-fuchsia-600",
-              compact ? "size-9 [&_svg]:size-4" : "size-11 [&_svg]:size-5",
+              'grid shrink-0 place-items-center rounded-xl bg-surface text-fuchsia-600',
+              compact ? 'size-9 [&_svg]:size-4' : 'size-11 [&_svg]:size-5',
             )}
           >
             <Icon />
@@ -77,17 +68,14 @@ export function NotificationListItem({
           <div className="min-w-0 space-y-1">
             <p
               className={cn(
-                "truncate font-semibold text-foreground",
-                compact ? "text-sm" : "text-base",
+                'truncate font-semibold text-foreground',
+                compact ? 'text-sm' : 'text-base',
               )}
             >
               {item.title}
             </p>
             <p
-              className={cn(
-                "text-muted-foreground line-clamp-2",
-                compact ? "text-xs" : "text-sm",
-              )}
+              className={cn('text-muted-foreground line-clamp-2', compact ? 'text-xs' : 'text-sm')}
             >
               {item.message}
             </p>
@@ -97,10 +85,10 @@ export function NotificationListItem({
                   {getTypeBadgeLabel(item.type, t)}
                 </Badge>
                 <Badge
-                  variant={item.isRead ? "secondary" : "default"}
+                  variant={item.isRead ? 'secondary' : 'default'}
                   className="rounded-lg text-[10px]"
                 >
-                  {item.isRead ? t("read") : t("unread")}
+                  {item.isRead ? t('read') : t('unread')}
                 </Badge>
               </div>
             )}
@@ -110,8 +98,8 @@ export function NotificationListItem({
         <div className="flex shrink-0 flex-col items-end gap-2">
           <span
             className={cn(
-              "font-semibold text-primary whitespace-nowrap",
-              compact ? "text-[10px]" : "text-sm",
+              'font-semibold text-primary whitespace-nowrap',
+              compact ? 'text-[10px]' : 'text-sm',
             )}
           >
             {formatNotificationDate(item.createdAt, locale)}
@@ -127,17 +115,18 @@ export function NotificationListItem({
                 onMarkRead()
               }}
             >
-              {t("markRead")}
+              {t('markRead')}
             </Button>
           )}
           {!compact && item.isRead && (
-            <Button variant="gradient"
+            <Button
+              variant="gradient"
               type="button"
               size="sm"
               className="h-8 rounded-xl px-3"
               onClick={onOpen}
             >
-              {t("open")}
+              {t('open')}
             </Button>
           )}
         </div>

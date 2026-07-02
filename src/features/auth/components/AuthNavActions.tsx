@@ -1,11 +1,11 @@
-"use client"
+'use client'
 
-import { LogIn, LogOut, UserCircle } from "lucide-react"
-import { useTranslations } from "next-intl"
+import { LogIn, LogOut, UserCircle } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 
-import { Link } from "@/i18n/navigation"
-import { Avatar, AvatarFallback } from "@/components/ui/avatar"
-import { Button } from "@/components/ui/button"
+import { Link } from '@/i18n/navigation'
+import { Avatar, AvatarFallback } from '@/components/ui/avatar'
+import { Button } from '@/components/ui/button'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -13,13 +13,13 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-import { Skeleton } from "@/components/ui/skeleton"
-import LanguageSwitcher from "@/components/layouts/header/langSwitch"
-import { NotificationBell } from "@/components/notifications/NotificationBell"
+} from '@/components/ui/dropdown-menu'
+import { Skeleton } from '@/components/ui/skeleton'
+import LanguageSwitcher from '@/components/layouts/header/langSwitch'
+import { NotificationBell } from '@/components/notifications/NotificationBell'
 
-import { useAuth } from "../hooks/useAuth"
-import { Routes, Pages } from "@/lib/types/enums"
+import { useAuth } from '../hooks/useAuth'
+import { Routes, Pages } from '@/lib/types/enums'
 
 type Props = {
   locale: string
@@ -30,9 +30,9 @@ type Props = {
 
 function userInitials(name: string) {
   const parts = name.trim().split(/\s+/).filter(Boolean)
-  if (parts.length === 0) return "U"
+  if (parts.length === 0) return 'U'
   if (parts.length === 1) return parts[0].slice(0, 2).toUpperCase()
-  return `${parts[0][0] ?? ""}${parts[1][0] ?? ""}`.toUpperCase()
+  return `${parts[0][0] ?? ''}${parts[1][0] ?? ''}`.toUpperCase()
 }
 
 export function AuthNavActions({
@@ -41,10 +41,9 @@ export function AuthNavActions({
   showLanguage = true,
   signupHref,
 }: Props) {
-  const t = useTranslations("Header")
-  const tAuth = useTranslations("Auth")
-  const { user, isAuthenticated, isLoading, logout, loginPath, signupPath } =
-    useAuth()
+  const t = useTranslations('Header')
+  const tAuth = useTranslations('Auth')
+  const { user, isAuthenticated, isLoading, logout, loginPath, signupPath } = useAuth()
 
   if (isLoading) {
     return (
@@ -80,16 +79,13 @@ export function AuthNavActions({
           <DropdownMenuContent align="end" className="w-56 rounded-xl">
             <DropdownMenuLabel className="font-normal">
               <p className="truncate font-semibold">{user.name || user.phone}</p>
-              <p className="truncate text-xs text-muted-foreground">
-                {user.email || user.phone}
-              </p>
+              <p className="truncate text-xs text-muted-foreground">{user.email || user.phone}</p>
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuItem asChild>
-              <Link href={`/${Routes.AUTH}/${Pages.LOGIN}`}
-                className="cursor-pointer">
+              <Link href={`/${Routes.AUTH}/${Pages.LOGIN}`} className="cursor-pointer">
                 <UserCircle className="size-4" />
-                {tAuth("dashboard")}
+                {tAuth('dashboard')}
               </Link>
             </DropdownMenuItem>
             <DropdownMenuSeparator />
@@ -98,7 +94,7 @@ export function AuthNavActions({
               onClick={() => void logout()}
             >
               <LogOut className="size-4" />
-              {tAuth("logout")}
+              {tAuth('logout')}
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
@@ -110,20 +106,12 @@ export function AuthNavActions({
     <div className="flex items-center gap-2">
       {/* {showLanguage ? <LanguageSwitcher locale={locale} /> : null} */}
       {signupHref ? (
-        <Button
-          asChild
-          variant="outline"
-          className="hidden rounded-full sm:inline-flex"
-        >
-          <Link href={signupHref}>{tAuth("signup")}</Link>
+        <Button asChild variant="outline" className="hidden rounded-full sm:inline-flex">
+          <Link href={signupHref}>{tAuth('signup')}</Link>
         </Button>
       ) : (
-        <Button
-          asChild
-          variant="outline"
-          className="hidden rounded-full sm:inline-flex"
-        >
-          <Link href={signupPath}>{tAuth("signup")}</Link>
+        <Button asChild variant="outline" className="hidden rounded-full sm:inline-flex">
+          <Link href={signupPath}>{tAuth('signup')}</Link>
         </Button>
       )}
       <Button
@@ -132,7 +120,7 @@ export function AuthNavActions({
       >
         <Link href={loginPath} className="inline-flex items-center gap-2">
           <LogIn className="h-4 w-4" />
-          {t("login")}
+          {t('login')}
         </Link>
       </Button>
     </div>

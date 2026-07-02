@@ -1,16 +1,16 @@
-"use server"
+'use server'
 
-import { revalidatePath } from "next/cache"
+import { revalidatePath } from 'next/cache'
 
 import {
   deleteFailure,
   deleteSuccess,
   type DeleteActionResult,
-} from "@/features/forms/action-results"
-import { parseFormData } from "@/features/forms/parse-form-data"
-import { idSchema } from "@/features/forms/schemas/common.schema"
+} from '@/features/forms/action-results'
+import { parseFormData } from '@/features/forms/parse-form-data'
+import { idSchema } from '@/features/forms/schemas/common.schema'
 
-import { deleteTeacher } from "../api"
+import { deleteTeacher } from '../api'
 
 export type DeleteTeacherState = DeleteActionResult
 
@@ -20,14 +20,14 @@ export async function deleteTeacherAction(
 ): Promise<DeleteTeacherState> {
   const parsed = parseFormData(formData, idSchema)
   if (!parsed.success) {
-    return deleteFailure("Actions.common.invalidId")
+    return deleteFailure('Actions.common.invalidId')
   }
 
   try {
     await deleteTeacher(parsed.data.id)
-    revalidatePath("/dashboards/organization/teachers")
+    revalidatePath('/dashboards/organization/teachers')
     return deleteSuccess()
   } catch {
-    return deleteFailure("Actions.teachers.deleteFailed")
+    return deleteFailure('Actions.teachers.deleteFailed')
   }
 }

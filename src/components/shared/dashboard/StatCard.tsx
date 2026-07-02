@@ -1,14 +1,14 @@
-import * as React from "react"
-import { cn } from "@/lib/utils"
-import { Card, CardContent } from "@/components/ui/card"
+import * as React from 'react'
+import { cn } from '@/lib/utils'
+import { Card, CardContent } from '@/components/ui/card'
 
-export type StatCardVariant = "purple" | "violet" | "pink" | "indigo"
+export type StatCardVariant = 'purple' | 'violet' | 'pink' | 'indigo'
 
 const variantClasses: Record<StatCardVariant, string> = {
-  purple: "bg-stat-purple text-white",
-  violet: "bg-stat-violet text-white",
-  pink: "bg-stat-pink text-white",
-  indigo: "bg-stat-indigo text-white",
+  purple: 'bg-stat-purple text-white',
+  violet: 'bg-stat-violet text-white',
+  pink: 'bg-stat-pink text-white',
+  indigo: 'bg-stat-indigo text-white',
 }
 
 export type StatCardProps = {
@@ -23,16 +23,16 @@ export const StatCard = React.memo(function StatCard({
   label,
   value,
   icon,
-  variant = "purple",
+  variant = 'purple',
   className,
 }: StatCardProps) {
   return (
     <Card
       className={cn(
-        "border-0 shadow-sm",
+        'border-0 shadow-sm',
         variantClasses[variant],
-        "overflow-hidden rounded-2xl",
-        className
+        'overflow-hidden rounded-2xl',
+        className,
       )}
     >
       <CardContent className="p-6">
@@ -51,4 +51,3 @@ export const StatCard = React.memo(function StatCard({
     </Card>
   )
 })
-

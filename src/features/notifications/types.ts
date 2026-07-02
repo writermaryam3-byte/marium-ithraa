@@ -1,18 +1,14 @@
-export type NotificationDelivery =
-  | "email"
-  | "inapp"
-  | "both"
-  | "verify_email"
+export type NotificationDelivery = 'email' | 'inapp' | 'both' | 'verify_email'
 
 export type NotificationType =
-  | "general"
-  | "evaluation_submitted"
-  | "evaluation_approved"
-  | "evaluation_limit_reached"
-  | "evaluation_reminder"
-  | "payment_required"
-  | "payment_success"
-  | "account"
+  | 'general'
+  | 'evaluation_submitted'
+  | 'evaluation_approved'
+  | 'evaluation_limit_reached'
+  | 'evaluation_reminder'
+  | 'payment_required'
+  | 'payment_success'
+  | 'account'
   | string
 
 export type NotificationMetadata = Record<string, unknown> | null

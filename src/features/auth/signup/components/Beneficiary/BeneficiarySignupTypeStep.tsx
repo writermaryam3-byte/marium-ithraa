@@ -1,34 +1,30 @@
-"use client"
+'use client'
 
-import { Controller, type Control } from "react-hook-form"
+import { Controller, type Control } from 'react-hook-form'
 
-import type { BeneficiaryOrganizationFormValues } from "../../schemas/signup.schema"
-import { useTranslations } from "next-intl"
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
+import type { BeneficiaryOrganizationFormValues } from '../../schemas/signup.schema'
+import { useTranslations } from 'next-intl'
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
 import {
   Field,
   FieldContent,
   FieldDescription,
   FieldLabel,
   FieldTitle,
-} from "@/components/ui/field"
+} from '@/components/ui/field'
 
 interface Props {
   control: Control<BeneficiaryOrganizationFormValues>
 }
 
 export default function BeneficiarySignupTypeStep({ control }: Props) {
-  const t = useTranslations("Signup.Beneficiary.TypeStep")
+  const t = useTranslations('Signup.Beneficiary.TypeStep')
 
   return (
     <div className="space-y-6 text-start">
       <div>
-        <h1 className="text-2xl font-extrabold text-primary sm:text-3xl">
-          {t("title")}
-        </h1>
-        <p className="mt-2 text-sm text-muted-foreground sm:text-base">
-          {t("subtitle")}
-        </p>
+        <h1 className="text-2xl font-extrabold text-primary sm:text-3xl">{t('title')}</h1>
+        <p className="mt-2 text-sm text-muted-foreground sm:text-base">{t('subtitle')}</p>
       </div>
 
       <Controller
@@ -40,9 +36,12 @@ export default function BeneficiarySignupTypeStep({ control }: Props) {
             onValueChange={field.onChange}
             className="grid gap-3 sm:grid-cols-3"
           >
-            {["organization", "parent", "enricher"].map((value) => (
+            {['organization', 'parent', 'enricher'].map((value) => (
               <FieldLabel key={value} htmlFor={value}>
-                <Field orientation="vertical" className="rounded-2xl border border-border/60 bg-secondary/40 px-3 py-3 shadow-sm hover:border-primary/50">
+                <Field
+                  orientation="vertical"
+                  className="rounded-2xl border border-border/60 bg-secondary/40 px-3 py-3 shadow-sm hover:border-primary/50"
+                >
                   <FieldContent>
                     <FieldTitle className="text-base font-semibold text-foreground">
                       {t(`options.${value}.title`)}

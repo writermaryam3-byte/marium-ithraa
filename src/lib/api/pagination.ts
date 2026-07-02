@@ -12,15 +12,15 @@ export type PaginatedMeta = {
 }
 
 export function buildPaginationQuery(params?: PaginationParams): string {
-  if (!params) return ""
+  if (!params) return ''
 
   const query = new URLSearchParams()
-  if (params.page != null) query.set("page", String(params.page))
-  if (params.limit != null) query.set("limit", String(params.limit))
-  if (params.search?.trim()) query.set("search", params.search.trim())
+  if (params.page != null) query.set('page', String(params.page))
+  if (params.limit != null) query.set('limit', String(params.limit))
+  if (params.search?.trim()) query.set('search', params.search.trim())
 
   const serialized = query.toString()
-  return serialized ? `?${serialized}` : ""
+  return serialized ? `?${serialized}` : ''
 }
 
 export function paginateArray<T>(items: T[], page: number, limit: number): T[] {

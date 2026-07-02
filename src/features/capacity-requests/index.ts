@@ -3,7 +3,7 @@ export type {
   CapacityRequestStatus,
   CreateCapacityRequestPayload,
   UpdateCapacityRequestPayload,
-} from "./types"
+} from './types'
 
 export {
   createCapacityRequest,
@@ -12,7 +12,7 @@ export {
   updateCapacityRequest,
   approveCapacityRequest,
   rejectCapacityRequest,
-} from "./api"
+} from './api'
 
 export {
   useCapacityRequests,
@@ -20,4 +20,4 @@ export {
   useUpdateCapacityRequest,
   useApproveCapacityRequest,
   useRejectCapacityRequest,
-} from "./hooks"
+} from './hooks'

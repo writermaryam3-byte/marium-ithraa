@@ -1,7 +1,7 @@
-import Image from "next/image"
+import Image from 'next/image'
 
-import { Button } from "@/components/ui/button"
-import { cn } from "@/lib/utils"
+import { Button } from '@/components/ui/button'
+import { cn } from '@/lib/utils'
 
 export type DiscoverChildIntelligenceCardProps = {
   title: string
@@ -11,8 +11,8 @@ export type DiscoverChildIntelligenceCardProps = {
   className?: string
 }
 
-const imgMindMap = "https://www.figma.com/api/mcp/asset/521a28a5-45f8-4d5c-a99c-9363e980640e"
-const imgPaintbrush = "https://www.figma.com/api/mcp/asset/5357d317-2f7f-403f-a38b-e29851284e5e"
+const imgMindMap = 'https://www.figma.com/api/mcp/asset/521a28a5-45f8-4d5c-a99c-9363e980640e'
+const imgPaintbrush = 'https://www.figma.com/api/mcp/asset/5357d317-2f7f-403f-a38b-e29851284e5e'
 
 export function DiscoverChildIntelligenceCard({
   title,
@@ -24,19 +24,25 @@ export function DiscoverChildIntelligenceCard({
   return (
     <section
       className={cn(
-        "relative overflow-hidden rounded-[12px] bg-brand-purple text-white",
+        'relative overflow-hidden rounded-[12px] bg-brand-purple text-white',
         // Match design size while still responsive
-        "w-full max-w-[413px] min-h-[254px]",
-        className
+        'w-full max-w-[413px] min-h-[254px]',
+        className,
       )}
       aria-label={title}
     >
       {/* Decorative icons */}
-      <div className="pointer-events-none absolute start-[83px] top-0 h-[38px] w-[38px]" aria-hidden="true">
+      <div
+        className="pointer-events-none absolute start-[83px] top-0 h-[38px] w-[38px]"
+        aria-hidden="true"
+      >
         <Image src={imgMindMap} alt="" fill sizes="38px" />
       </div>
 
-      <div className="pointer-events-none absolute start-[19px] top-0 h-[45.324px] w-[45.324px]" aria-hidden="true">
+      <div
+        className="pointer-events-none absolute start-[19px] top-0 h-[45.324px] w-[45.324px]"
+        aria-hidden="true"
+      >
         <div className="flex h-full w-full items-center justify-center">
           <div className="rotate-[-26.95deg]">
             <div className="relative h-[33.708px] w-[33.708px]">
@@ -46,7 +52,10 @@ export function DiscoverChildIntelligenceCard({
         </div>
       </div>
 
-      <div className="pointer-events-none absolute end-[16px] top-[16px] h-[38px] w-[38px]" aria-hidden="true">
+      <div
+        className="pointer-events-none absolute end-[16px] top-[16px] h-[38px] w-[38px]"
+        aria-hidden="true"
+      >
         <Image src={imgMindMap} alt="" fill sizes="38px" />
       </div>
 
@@ -72,4 +81,3 @@ export function DiscoverChildIntelligenceCard({
     </section>
   )
 }
-

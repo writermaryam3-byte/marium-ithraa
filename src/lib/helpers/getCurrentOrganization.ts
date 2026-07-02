@@ -1,10 +1,10 @@
-import { getServerSession } from "next-auth"
-import { notFound } from "next/navigation"
+import { getServerSession } from 'next-auth'
+import { notFound } from 'next/navigation'
 
-import { getMyOrganizationServer } from "@/features/organizations/api"
-import type { Organization } from "@/features/organizations/types/interfaces"
-import { ApprovalStatus } from "@/lib/types/enums"
-import nextAuthOptions from "@/server/auth"
+import { getMyOrganizationServer } from '@/features/organizations/api'
+import type { Organization } from '@/features/organizations/types/interfaces'
+import { ApprovalStatus } from '@/lib/types/enums'
+import nextAuthOptions from '@/server/auth'
 
 export const getCurrentOrganization = async (): Promise<Organization | null> => {
   const session = await getServerSession(nextAuthOptions)

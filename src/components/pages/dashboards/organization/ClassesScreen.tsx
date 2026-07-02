@@ -1,1 +1,1 @@
-export { ClassesScreenClient as ClassesScreen } from "./ClassesScreenClient"
+export { ClassesScreenClient as ClassesScreen } from './ClassesScreenClient'

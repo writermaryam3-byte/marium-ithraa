@@ -1,21 +1,18 @@
-"use client"
+'use client'
 
-import { useMemo } from "react"
-import { useTranslations } from "next-intl"
+import { useMemo } from 'react'
+import { useTranslations } from 'next-intl'
 
-import { FormTypes } from "@/lib/types/enums"
-import type { IFormField } from "@/lib/types/interfaces"
+import { FormTypes } from '@/lib/types/enums'
+import type { IFormField } from '@/lib/types/interfaces'
 
-import { formRegistry } from "../config"
-import type { FieldConfig } from "../types"
+import { formRegistry } from '../config'
+import type { FieldConfig } from '../types'
 
-function resolveFields(
-  fields: FieldConfig[],
-  t: (key: string) => string,
-): IFormField[] {
+function resolveFields(fields: FieldConfig[], t: (key: string) => string): IFormField[] {
   return fields.map((field) => ({
     name: field.name,
-    type: field.type as IFormField["type"],
+    type: field.type as IFormField['type'],
     label: t(field.labelKey),
     placeholder: field.placeholderKey ? t(field.placeholderKey) : undefined,
     autoFocus: field.autoFocus,
@@ -25,7 +22,7 @@ function resolveFields(
 }
 
 export function useFormConfig(slug: FormTypes) {
-  const t = useTranslations("Forms")
+  const t = useTranslations('Forms')
   const entry = formRegistry[slug]
 
   return useMemo(() => {

@@ -16,12 +16,12 @@ import { getCurrentOrganization } from '@/lib/helpers/getCurrentOrganization'
 
 const OrgnizationLayout = async ({
   children,
-  params
+  params,
 }: Readonly<{
-  children: React.ReactNode;
-  params: Promise<{ locale: string }>;
+  children: React.ReactNode
+  params: Promise<{ locale: string }>
 }>) => {
-  const { locale } = await params;
+  const { locale } = await params
   const session = await getServerSession(nextAuthOptions)
 
   if (!session?.user) {
@@ -33,13 +33,17 @@ const OrgnizationLayout = async ({
     return redirect({ href: `/${Routes.UNAUTHORIZED}`, locale })
   }
   if (!hasLocale(routing.locales, locale)) {
-    notFound();
+    notFound()
   }
 
-  setRequestLocale(locale);
+  setRequestLocale(locale)
 
   return (
-    <RequireRoles allowed={[UserRole.ORGANIZATIONOWNER, UserRole.ADMIN]} redirectTo={`/${Routes.UNAUTHORIZED}`} locale={locale}>
+    <RequireRoles
+      allowed={[UserRole.ORGANIZATIONOWNER, UserRole.ADMIN]}
+      redirectTo={`/${Routes.UNAUTHORIZED}`}
+      locale={locale}
+    >
       <OrganizationHeader locale={locale} approvalStatus={organization.approvalStatus} />
       <div className="pt-28">
         <OrganizationRouteGuard organization={organization} locale={locale}>

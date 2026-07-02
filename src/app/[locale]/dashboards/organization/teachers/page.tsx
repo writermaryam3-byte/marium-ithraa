@@ -1,6 +1,6 @@
-import { TeachersScreen } from "@/components/pages/dashboards/organization/TeachersScreen"
-import { getTeachersByOrg } from "@/features/teachers"
-import { requireCurrentOrganization } from "@/lib/helpers/getCurrentOrganization"
+import { TeachersScreen } from '@/components/pages/dashboards/organization/TeachersScreen'
+import { getTeachersByOrg } from '@/features/teachers'
+import { requireCurrentOrganization } from '@/lib/helpers/getCurrentOrganization'
 
 type Props = {
   params: Promise<{ locale: string }>
@@ -12,4 +12,3 @@ export default async function TeachersPage({ params }: Props) {
   const teachers = await getTeachersByOrg(org.id)
   return <TeachersScreen teachers={teachers.teachers} />
 }
-

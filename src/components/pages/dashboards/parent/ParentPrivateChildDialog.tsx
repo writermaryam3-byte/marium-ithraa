@@ -1,9 +1,9 @@
-"use client"
+'use client'
 
-import { Loader2 } from "lucide-react"
-import { useTranslations } from "next-intl"
+import { Loader2 } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 
-import { Button } from "@/components/ui/button"
+import { Button } from '@/components/ui/button'
 import {
   Dialog,
   DialogContent,
@@ -11,30 +11,24 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from "@/components/ui/dialog"
-import { Form } from "@/components/ui/form"
-import {
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form"
+} from '@/components/ui/dialog'
+import { Form } from '@/components/ui/form'
+import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select"
-import { createPrivateChildAction } from "@/features/children"
-import { useFormConfig } from "@/features/forms"
-import { useServerActionForm } from "@/features/forms/hooks/useServerActionForm"
-import { RhfFormFields } from "@/features/forms/components/RhfFormFields"
-import { createPrivateChildSchema } from "@/features/forms/schemas/child.schema"
-import { isActionSuccess } from "@/features/forms/action-results"
-import { useActionFeedback } from "@/hooks/useActionFeedback"
-import { FormTypes, Gender } from "@/lib/types/enums"
+} from '@/components/ui/select'
+import { createPrivateChildAction } from '@/features/children'
+import { useFormConfig } from '@/features/forms'
+import { useServerActionForm } from '@/features/forms/hooks/useServerActionForm'
+import { RhfFormFields } from '@/features/forms/components/RhfFormFields'
+import { createPrivateChildSchema } from '@/features/forms/schemas/child.schema'
+import { isActionSuccess } from '@/features/forms/action-results'
+import { useActionFeedback } from '@/hooks/useActionFeedback'
+import { FormTypes, Gender } from '@/lib/types/enums'
 
 type Props = {
   open: boolean
@@ -43,22 +37,17 @@ type Props = {
   onSuccess: () => void
 }
 
-export function ParentPrivateChildDialog({
-  open,
-  onOpenChange,
-  currentCount,
-  onSuccess,
-}: Props) {
-  const t = useTranslations("Forms.Child")
-  const tCommon = useTranslations("Dashboard.common")
+export function ParentPrivateChildDialog({ open, onOpenChange, currentCount, onSuccess }: Props) {
+  const t = useTranslations('Forms.Child')
+  const tCommon = useTranslations('Dashboard.common')
   const { fields } = useFormConfig(FormTypes.CHILD_PRIVATE)
   const { notifyAction } = useActionFeedback()
 
   const { form, submit, isPending } = useServerActionForm({
     schema: createPrivateChildSchema,
     defaultValues: {
-      name: "",
-      birthDate: "",
+      name: '',
+      birthDate: '',
       gender: Gender.MALE,
       currentCount,
     },
@@ -79,8 +68,8 @@ export function ParentPrivateChildDialog({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
-          <DialogTitle>{t("addTitle")}</DialogTitle>
-          <DialogDescription>{t("subtitle")}</DialogDescription>
+          <DialogTitle>{t('addTitle')}</DialogTitle>
+          <DialogDescription>{t('subtitle')}</DialogDescription>
         </DialogHeader>
         <Form {...form}>
           <form
@@ -95,16 +84,16 @@ export function ParentPrivateChildDialog({
               name="gender"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>{t("gender.label")}</FormLabel>
+                  <FormLabel>{t('gender.label')}</FormLabel>
                   <Select value={field.value} onValueChange={field.onChange}>
                     <FormControl>
                       <SelectTrigger>
-                        <SelectValue placeholder={t("gender.placeholder")} />
+                        <SelectValue placeholder={t('gender.placeholder')} />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      <SelectItem value={Gender.MALE}>{t("gender.male")}</SelectItem>
-                      <SelectItem value={Gender.FEMALE}>{t("gender.female")}</SelectItem>
+                      <SelectItem value={Gender.MALE}>{t('gender.male')}</SelectItem>
+                      <SelectItem value={Gender.FEMALE}>{t('gender.female')}</SelectItem>
                     </SelectContent>
                   </Select>
                   <FormMessage />
@@ -116,10 +105,10 @@ export function ParentPrivateChildDialog({
                 {isPending ? (
                   <>
                     <Loader2 className="h-4 w-4 animate-spin" />
-                    {tCommon("saving")}
+                    {tCommon('saving')}
                   </>
                 ) : (
-                  tCommon("saveChanges")
+                  tCommon('saveChanges')
                 )}
               </Button>
             </DialogFooter>

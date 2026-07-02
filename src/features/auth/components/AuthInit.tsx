@@ -1,6 +1,6 @@
-"use client"
+'use client'
 
-import { useInitAuth } from "../hooks/useInitAuth"
+import { useInitAuth } from '../hooks/useInitAuth'
 
 export function AuthInit() {
   useInitAuth()

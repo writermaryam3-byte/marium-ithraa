@@ -1,4 +1,4 @@
-import { z } from "zod"
+import { z } from 'zod'
 
 const MAX_CHILD_AGE_YEARS = 25
 
@@ -10,11 +10,11 @@ function parseBirthDate(value: string) {
 
 export const birthDateSchema = z
   .string()
-  .min(1, "errors.birthDate_required")
+  .min(1, 'errors.birthDate_required')
   .superRefine((value, ctx) => {
     const date = parseBirthDate(value)
     if (!date) {
-      ctx.addIssue({ code: "custom", message: "errors.birthDate_invalid" })
+      ctx.addIssue({ code: 'custom', message: 'errors.birthDate_invalid' })
       return
     }
 
@@ -22,7 +22,7 @@ export const birthDateSchema = z
     today.setHours(23, 59, 59, 999)
 
     if (date > today) {
-      ctx.addIssue({ code: "custom", message: "errors.birthDate_future" })
+      ctx.addIssue({ code: 'custom', message: 'errors.birthDate_future' })
       return
     }
 
@@ -30,7 +30,7 @@ export const birthDateSchema = z
     minDate.setFullYear(minDate.getFullYear() - MAX_CHILD_AGE_YEARS)
     if (date < minDate) {
       ctx.addIssue({
-        code: "custom",
+        code: 'custom',
         message: `errors.birthDate_max`,
       })
     }

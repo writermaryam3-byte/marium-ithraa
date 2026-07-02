@@ -1,60 +1,60 @@
-"use client"
+'use client'
 
-import { Bell, Inbox } from "lucide-react"
-import { useMemo, useState } from "react"
-import { useTranslations } from "next-intl"
-import { showErrorToast, showSuccessToast } from "@/lib/toast/app-toast"
+import { Bell, Inbox } from 'lucide-react'
+import { useMemo, useState } from 'react'
+import { useTranslations } from 'next-intl'
+import { showErrorToast, showSuccessToast } from '@/lib/toast/app-toast'
 
-import { NotificationListItem } from "@/components/notifications/NotificationListItem"
+import { NotificationListItem } from '@/components/notifications/NotificationListItem'
 import {
   filterNotificationsByCategory,
   getApiTypeFilter,
   getNotificationHref,
-} from "@/components/notifications/notification-utils"
-import { StatsGrid } from "@/components/shared/dashboard/StatsGrid"
-import { ManagementPageHeader } from "@/components/shared/management/ManagementPageHeader"
-import { EmptyState } from "@/components/shared/management/EmptyState"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
-import { Skeleton } from "@/components/ui/skeleton"
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
+} from '@/components/notifications/notification-utils'
+import { StatsGrid } from '@/components/shared/dashboard/StatsGrid'
+import { ManagementPageHeader } from '@/components/shared/management/ManagementPageHeader'
+import { EmptyState } from '@/components/shared/management/EmptyState'
+import { Button } from '@/components/ui/button'
+import { Card, CardContent } from '@/components/ui/card'
+import { Skeleton } from '@/components/ui/skeleton'
+import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select"
+} from '@/components/ui/select'
 import {
   useMarkAllRead,
   useMarkOneRead,
   useNotificationsList,
   useUnreadCount,
-} from "@/features/notifications/hooks"
-import type { NotificationItem } from "@/features/notifications/types"
-import { useRouter } from "@/i18n/navigation"
+} from '@/features/notifications/hooks'
+import type { NotificationItem } from '@/features/notifications/types'
+import { useRouter } from '@/i18n/navigation'
 
 type Props = { locale: string }
 
 const LIMIT = 10
 
 const tabTriggerClass =
-  "h-11 rounded-xl bg-white/80 text-base data-[state=active]:bg-surface-accent data-[state=active]:shadow"
+  'h-11 rounded-xl bg-white/80 text-base data-[state=active]:bg-surface-accent data-[state=active]:shadow'
 
 export function NotificationsScreen({ locale }: Props) {
-  const t = useTranslations("Features.Notifications")
+  const t = useTranslations('Features.Notifications')
   const router = useRouter()
-  const isAr = locale === "ar"
+  const isAr = locale === 'ar'
 
   const [page, setPage] = useState(1)
-  const [readFilter, setReadFilter] = useState<"all" | "unread">("all")
-  const [typeFilter, setTypeFilter] = useState("all")
+  const [readFilter, setReadFilter] = useState<'all' | 'unread'>('all')
+  const [typeFilter, setTypeFilter] = useState('all')
 
   const listParams = useMemo(
     () => ({
       page,
       limit: LIMIT,
-      unreadOnly: readFilter === "unread",
+      unreadOnly: readFilter === 'unread',
       type: getApiTypeFilter(typeFilter),
     }),
     [page, readFilter, typeFilter],
@@ -67,8 +67,8 @@ export function NotificationsScreen({ locale }: Props) {
 
   const items = useMemo(() => {
     const rawItems = listQuery.data?.data ?? []
-    return typeFilter === "evaluations"
-      ? filterNotificationsByCategory(rawItems, "evaluations")
+    return typeFilter === 'evaluations'
+      ? filterNotificationsByCategory(rawItems, 'evaluations')
       : rawItems
   }, [listQuery.data?.data, typeFilter])
 
@@ -97,43 +97,40 @@ export function NotificationsScreen({ locale }: Props) {
   const handleMarkAll = async () => {
     try {
       await markAll.mutateAsync()
-      showSuccessToast(t, "markAllRead")
+      showSuccessToast(t, 'markAllRead')
     } catch (e: unknown) {
-      showErrorToast({ raw: e instanceof Error ? e.message : t("loadError") })
+      showErrorToast({ raw: e instanceof Error ? e.message : t('loadError') })
     }
   }
 
   return (
-    <main
-      className="min-h-screen bg-surface py-8"
-      dir={isAr ? "rtl" : "ltr"}
-    >
+    <main className="min-h-screen bg-surface py-8" dir={isAr ? 'rtl' : 'ltr'}>
       <div className="app-container space-y-8">
         <ManagementPageHeader
           breadcrumbs={[
             {
-              href: "/dashboards",
-              label: isAr ? "الرئيسية" : "Home",
+              href: '/dashboards',
+              label: isAr ? 'الرئيسية' : 'Home',
             },
-            { label: t("title") },
+            { label: t('title') },
           ]}
-          title={t("title")}
-          subtitle={t("subtitle")}
+          title={t('title')}
+          subtitle={t('subtitle')}
         />
 
         <StatsGrid
           items={[
             {
-              label: t("unread"),
+              label: t('unread'),
               value: unreadCount,
               icon: <Bell />,
-              variant: "purple",
+              variant: 'purple',
             },
             {
-              label: t("filterAll"),
+              label: t('filterAll'),
               value: totalCount,
               icon: <Inbox />,
-              variant: "indigo",
+              variant: 'indigo',
             },
           ]}
         />
@@ -144,16 +141,16 @@ export function NotificationsScreen({ locale }: Props) {
               <Tabs
                 value={readFilter}
                 onValueChange={(v) => {
-                  setReadFilter(v as "all" | "unread")
+                  setReadFilter(v as 'all' | 'unread')
                   setPage(1)
                 }}
               >
                 <TabsList className="grid h-auto w-full grid-cols-2 gap-2 bg-transparent p-0 sm:w-auto">
                   <TabsTrigger value="all" className={tabTriggerClass}>
-                    {t("filterAll")}
+                    {t('filterAll')}
                   </TabsTrigger>
                   <TabsTrigger value="unread" className={tabTriggerClass}>
-                    {t("filterUnread")}
+                    {t('filterUnread')}
                   </TabsTrigger>
                 </TabsList>
               </Tabs>
@@ -167,23 +164,24 @@ export function NotificationsScreen({ locale }: Props) {
                   }}
                 >
                   <SelectTrigger className="w-full min-w-[160px] rounded-xl bg-white sm:w-[180px]">
-                    <SelectValue placeholder={t("typeFilterAll")} />
+                    <SelectValue placeholder={t('typeFilterAll')} />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="all">{t("typeFilterAll")}</SelectItem>
-                    <SelectItem value="evaluations">{t("typeEvaluations")}</SelectItem>
-                    <SelectItem value="reminders">{t("typeReminders")}</SelectItem>
-                    <SelectItem value="payment">{t("typePayment")}</SelectItem>
-                    <SelectItem value="general">{t("typeGeneral")}</SelectItem>
+                    <SelectItem value="all">{t('typeFilterAll')}</SelectItem>
+                    <SelectItem value="evaluations">{t('typeEvaluations')}</SelectItem>
+                    <SelectItem value="reminders">{t('typeReminders')}</SelectItem>
+                    <SelectItem value="payment">{t('typePayment')}</SelectItem>
+                    <SelectItem value="general">{t('typeGeneral')}</SelectItem>
                   </SelectContent>
                 </Select>
 
-                <Button variant="gradient"
+                <Button
+                  variant="gradient"
                   className="rounded-xl"
                   disabled={markAll.isPending || unreadCount === 0}
                   onClick={() => void handleMarkAll()}
                 >
-                  {t("markAllRead")}
+                  {t('markAllRead')}
                 </Button>
               </div>
             </div>
@@ -199,19 +197,19 @@ export function NotificationsScreen({ locale }: Props) {
         ) : listQuery.isError ? (
           <Card className="rounded-2xl border bg-white shadow-sm">
             <CardContent className="space-y-3 py-12 text-center">
-              <p className="text-sm text-destructive">{t("loadError")}</p>
+              <p className="text-sm text-destructive">{t('loadError')}</p>
               <Button
                 variant="outline"
                 size="sm"
                 className="rounded-xl"
                 onClick={() => void listQuery.refetch()}
               >
-                {t("retry")}
+                {t('retry')}
               </Button>
             </CardContent>
           </Card>
         ) : items.length === 0 ? (
-          <EmptyState title={t("empty")} />
+          <EmptyState title={t('empty')} />
         ) : (
           <section className="grid gap-4 lg:grid-cols-2">
             {items.map((item) => (
@@ -224,7 +222,7 @@ export function NotificationsScreen({ locale }: Props) {
                   try {
                     await markOne.mutateAsync(item.id)
                   } catch (e: unknown) {
-      showErrorToast({ raw: e instanceof Error ? e.message : t("loadError") })
+                    showErrorToast({ raw: e instanceof Error ? e.message : t('loadError') })
                   }
                 }}
                 onOpen={() => void handleOpen(item)}
@@ -235,7 +233,7 @@ export function NotificationsScreen({ locale }: Props) {
 
         {meta && totalPages > 1 && (
           <div className="flex flex-wrap items-center justify-between gap-3 rounded-2xl border bg-white/90 px-4 py-3 text-sm text-muted-foreground shadow-sm">
-            <span>{t("pageOf", { page: currentPage, total: totalPages })}</span>
+            <span>{t('pageOf', { page: currentPage, total: totalPages })}</span>
             <div className="flex gap-2">
               <Button
                 variant="outline"
@@ -244,7 +242,7 @@ export function NotificationsScreen({ locale }: Props) {
                 disabled={currentPage <= 1}
                 onClick={() => setPage((p) => Math.max(1, p - 1))}
               >
-                {t("prev")}
+                {t('prev')}
               </Button>
               <Button
                 variant="outline"
@@ -253,7 +251,7 @@ export function NotificationsScreen({ locale }: Props) {
                 disabled={currentPage >= totalPages}
                 onClick={() => setPage((p) => p + 1)}
               >
-                {t("next")}
+                {t('next')}
               </Button>
             </div>
           </div>

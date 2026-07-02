@@ -1,7 +1,7 @@
-import type { z } from "zod"
+import type { z } from 'zod'
 
-import type { InputTypes } from "@/lib/types/enums"
-import type { SelectData } from "@/lib/types/types"
+import type { InputTypes } from '@/lib/types/enums'
+import type { SelectData } from '@/lib/types/types'
 
 export type FieldConfig = {
   name: string

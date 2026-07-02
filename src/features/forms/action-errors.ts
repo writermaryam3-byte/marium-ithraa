@@ -1,8 +1,8 @@
-import { ApiError } from "@/lib/errors/ApiError"
-import { StatusCode } from "@/lib/types/enums"
-import type { InitialState } from "@/lib/types/types"
+import { ApiError } from '@/lib/errors/ApiError'
+import { StatusCode } from '@/lib/types/enums'
+import type { InitialState } from '@/lib/types/types'
 
-import { actionFailure, actionValidationFailure } from "./action-results"
+import { actionFailure, actionValidationFailure } from './action-results'
 
 export function actionErrorState(
   error: unknown,
@@ -18,12 +18,12 @@ export function actionErrorState(
       return actionValidationFailure(
         error.validationErrors ?? {},
         formData ?? new FormData(),
-        messages?.badRequest ?? "Actions.common.validationFailed",
+        messages?.badRequest ?? 'Actions.common.validationFailed',
       )
     }
     if (error.status === StatusCode.CONFLICT) {
       return actionFailure(
-        messages?.conflict ?? "Actions.common.conflict",
+        messages?.conflict ?? 'Actions.common.conflict',
         StatusCode.CONFLICT,
         formData,
       )
@@ -31,7 +31,7 @@ export function actionErrorState(
   }
 
   return actionFailure(
-    messages?.server ?? "Actions.common.serverError",
+    messages?.server ?? 'Actions.common.serverError',
     StatusCode.INTERNALSERVERERROR,
     formData,
   )

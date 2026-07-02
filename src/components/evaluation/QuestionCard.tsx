@@ -1,7 +1,7 @@
-"use client"
+'use client'
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import AnswerGroup from "./AnswerGroup"
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import AnswerGroup from './AnswerGroup'
 
 export default function QuestionCard({
   index,
@@ -39,4 +39,3 @@ export default function QuestionCard({
     </Card>
   )
 }
-

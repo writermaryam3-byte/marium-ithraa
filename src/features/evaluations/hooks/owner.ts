@@ -1,4 +1,4 @@
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 
 import {
   getOwnerClassEvaluationStatusClient,
@@ -6,16 +6,15 @@ import {
   getOwnerEvaluationFiltersClient,
   getOwnerEvaluationReportsClient,
   sendOwnerEvaluationReminderClient,
-} from "../api"
+} from '../api'
 
 export const ownerEvaluationKeys = {
-  filters: ["owner-evaluation-filters"] as const,
-  reports: (evaluationId?: string) =>
-    ["owner-evaluation-reports", evaluationId ?? "all"] as const,
+  filters: ['owner-evaluation-filters'] as const,
+  reports: (evaluationId?: string) => ['owner-evaluation-reports', evaluationId ?? 'all'] as const,
   summary: (classId: string, evaluationId: string) =>
-    ["owner-evaluation-summary", classId, evaluationId] as const,
+    ['owner-evaluation-summary', classId, evaluationId] as const,
   status: (classId: string, evaluationId: string) =>
-    ["owner-evaluation-status", classId, evaluationId] as const,
+    ['owner-evaluation-status', classId, evaluationId] as const,
 }
 
 export function useOwnerEvaluationFilters() {
@@ -33,36 +32,25 @@ export function useOwnerEvaluationReports(evaluationId?: string) {
   })
 }
 
-export function useOwnerClassEvaluationSummary(
-  classId: string,
-  evaluationId: string,
-) {
+export function useOwnerClassEvaluationSummary(classId: string, evaluationId: string) {
   const enabled = Boolean(classId && evaluationId)
   return useQuery({
     queryKey: ownerEvaluationKeys.summary(classId, evaluationId),
-    queryFn: () =>
-      getOwnerClassEvaluationSummaryClient(classId, evaluationId),
+    queryFn: () => getOwnerClassEvaluationSummaryClient(classId, evaluationId),
     enabled,
   })
 }
 
-export function useOwnerClassEvaluationStatus(
-  classId: string,
-  evaluationId: string,
-) {
+export function useOwnerClassEvaluationStatus(classId: string, evaluationId: string) {
   const enabled = Boolean(classId && evaluationId)
   return useQuery({
     queryKey: ownerEvaluationKeys.status(classId, evaluationId),
-    queryFn: () =>
-      getOwnerClassEvaluationStatusClient(classId, evaluationId),
+    queryFn: () => getOwnerClassEvaluationStatusClient(classId, evaluationId),
     enabled,
   })
 }
 
-export function useSendOwnerEvaluationReminder(
-  classId: string,
-  evaluationId: string,
-) {
+export function useSendOwnerEvaluationReminder(classId: string, evaluationId: string) {
   const queryClient = useQueryClient()
   return useMutation({
     mutationFn: (childId: string) => sendOwnerEvaluationReminderClient(childId),

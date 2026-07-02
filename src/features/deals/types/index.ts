@@ -1,6 +1,6 @@
-export type DealStatus = "OPEN" | "AWARDED" | "CLOSED"
+export type DealStatus = 'OPEN' | 'AWARDED' | 'CLOSED'
 
-export type ProposalStatus = "PENDING" | "SELECTED" | "APPROVED" | "REJECTED"
+export type ProposalStatus = 'PENDING' | 'SELECTED' | 'APPROVED' | 'REJECTED'
 
 export interface Activity {
   id: string

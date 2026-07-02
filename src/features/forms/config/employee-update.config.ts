@@ -1,24 +1,24 @@
-import { InputTypes } from "@/lib/types/enums"
+import { InputTypes } from '@/lib/types/enums'
 
-import { updateEmployeeSchema } from "../schemas/employee.schema"
-import type { FormRegistryEntry } from "../types"
+import { updateEmployeeSchema } from '../schemas/employee.schema'
+import type { FormRegistryEntry } from '../types'
 
 export const employeeUpdateFormConfig: FormRegistryEntry<typeof updateEmployeeSchema> = {
   schema: updateEmployeeSchema,
-  defaultValues: { id: "", name: "", job_title: "" },
+  defaultValues: { id: '', name: '', job_title: '' },
   fields: [
     {
-      name: "name",
+      name: 'name',
       type: InputTypes.TEXT,
-      labelKey: "Employee.name.label",
-      placeholderKey: "Employee.name.placeholder",
+      labelKey: 'Employee.name.label',
+      placeholderKey: 'Employee.name.placeholder',
       autoFocus: true,
     },
     {
-      name: "job_title",
+      name: 'job_title',
       type: InputTypes.TEXT,
-      labelKey: "Employee.jobTitle.label",
-      placeholderKey: "Employee.jobTitle.placeholder",
+      labelKey: 'Employee.jobTitle.label',
+      placeholderKey: 'Employee.jobTitle.placeholder',
     },
   ],
 }

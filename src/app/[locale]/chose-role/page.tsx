@@ -1,14 +1,14 @@
-"use client"
+'use client'
 
-import { Loader2, UserCheck } from "lucide-react"
-import { useEffect, useState } from "react"
-import { useTranslations } from "next-intl"
+import { Loader2, UserCheck } from 'lucide-react'
+import { useEffect, useState } from 'react'
+import { useTranslations } from 'next-intl'
 
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { useAuth } from "@/features/auth/hooks/useAuth"
-import { useRouter } from "@/i18n/navigation"
-import { Pages, Routes } from "@/lib/types/enums"
+import { Button } from '@/components/ui/button'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { useAuth } from '@/features/auth/hooks/useAuth'
+import { useRouter } from '@/i18n/navigation'
+import { Pages, Routes } from '@/lib/types/enums'
 
 const dashboardMap: Record<string, string> = {
   ADMIN: `/${Routes.DASHBOARDS}/${Pages.ADMIN}`,
@@ -19,9 +19,8 @@ const dashboardMap: Record<string, string> = {
 
 export default function ChooseRolePage() {
   const router = useRouter()
-  const t = useTranslations("ChoseRole")
-  const { user, isAuthenticated, isLoading, loginPath, sessionExpired } =
-    useAuth()
+  const t = useTranslations('ChoseRole')
+  const { user, isAuthenticated, isLoading, loginPath, sessionExpired } = useAuth()
   const [loadingRoleId, setLoadingRoleId] = useState<string | null>(null)
 
   const roles = user?.roles ?? []
@@ -54,18 +53,14 @@ export default function ChooseRolePage() {
           <CardHeader>
             <CardTitle className="mb-2 text-center text-2xl font-bold text-indigo-700 flex flex-col items-center">
               <UserCheck className="mb-2 text-fuchsia-600" size={36} />
-              {t("title")}
+              {t('title')}
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-7">
-            <div className="mb-2 text-center text-muted-foreground text-sm">
-              {t("subtitle")}
-            </div>
+            <div className="mb-2 text-center text-muted-foreground text-sm">{t('subtitle')}</div>
             <div className="grid gap-5 sm:grid-cols-2">
               {roles.length === 0 && (
-                <p className="col-span-2 text-center text-gray-400">
-                  {t("noRoles")}
-                </p>
+                <p className="col-span-2 text-center text-gray-400">{t('noRoles')}</p>
               )}
               {roles.map((role) => (
                 <Button
@@ -73,8 +68,8 @@ export default function ChooseRolePage() {
                   variant="secondary"
                   className={`h-14 rounded-xl w-full justify-center text-lg font-semibold flex items-center gap-2 border-2 transition-all duration-150 ${
                     loadingRoleId === role.id
-                      ? "pointer-events-none opacity-70"
-                      : "hover:border-indigo-400 border-transparent"
+                      ? 'pointer-events-none opacity-70'
+                      : 'hover:border-indigo-400 border-transparent'
                   }`}
                   onClick={() => handleSelectRole(role.name, role.id)}
                   disabled={loadingRoleId !== null}
@@ -82,7 +77,7 @@ export default function ChooseRolePage() {
                   {loadingRoleId === role.id ? (
                     <>
                       <Loader2 className="me-2 animate-spin" />
-                      {t("redirecting")}
+                      {t('redirecting')}
                     </>
                   ) : (
                     role.name

@@ -1,5 +1,5 @@
-export { OrganizationSidebar } from "./organization-sidebar"
-export { OrganizationApprovalBadge } from "./OrganizationApprovalBadge"
-export { OrganizationStatusScreen } from "./OrganizationStatusScreen"
-export { OrganizationRouteGuard } from "./OrganizationRouteGuard"
-export { AdminOrganizationsScreen } from "./AdminOrganizationsScreen"
+export { OrganizationSidebar } from './organization-sidebar'
+export { OrganizationApprovalBadge } from './OrganizationApprovalBadge'
+export { OrganizationStatusScreen } from './OrganizationStatusScreen'
+export { OrganizationRouteGuard } from './OrganizationRouteGuard'
+export { AdminOrganizationsScreen } from './AdminOrganizationsScreen'

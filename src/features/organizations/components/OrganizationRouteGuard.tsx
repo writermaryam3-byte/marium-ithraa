@@ -1,11 +1,11 @@
-"use client"
+'use client'
 
-import { usePathname } from "@/i18n/navigation"
-import { ApprovalStatus } from "@/lib/types/enums"
+import { usePathname } from '@/i18n/navigation'
+import { ApprovalStatus } from '@/lib/types/enums'
 
-import type { Organization } from "../types/interfaces"
-import { isOperationalOrganizationRoute } from "../utils/routes"
-import { OrganizationStatusScreen } from "./OrganizationStatusScreen"
+import type { Organization } from '../types/interfaces'
+import { isOperationalOrganizationRoute } from '../utils/routes'
+import { OrganizationStatusScreen } from './OrganizationStatusScreen'
 
 type Props = {
   organization: Organization

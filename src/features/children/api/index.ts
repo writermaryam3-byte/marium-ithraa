@@ -1,6 +1,6 @@
-import { api } from "@/lib/api/api"
-import { buildPaginationQuery, type PaginationParams } from "@/lib/api/pagination"
-import type { ChildType } from "@/lib/types/types/interfaces"
+import { api } from '@/lib/api/api'
+import { buildPaginationQuery, type PaginationParams } from '@/lib/api/pagination'
+import type { ChildType } from '@/lib/types/types/interfaces'
 import {
   type Child,
   type ChildTransferRequest,
@@ -11,8 +11,8 @@ import {
   type ParentSearchResult,
   type TransferRequestResponse,
   type UpdateChildPayload,
-} from "../types/interfaces"
-import { Endpoint, Methods } from "@/lib/types/enums"
+} from '../types/interfaces'
+import { Endpoint, Methods } from '@/lib/types/enums'
 
 export const getChildren = async (userId: string) => {
   return api.server<{
@@ -36,9 +36,7 @@ export const getAllChildrenServer = async (params?: PaginationParams) => {
 }
 
 export const getAllChildrenByOrg = async (orgId: string) => {
-  return api.server<{children: Child[]}>(
-    `/${Endpoint.CHILDREN}/organization/${orgId}`,
-  )
+  return api.server<{ children: Child[] }>(`/${Endpoint.CHILDREN}/organization/${orgId}`)
 }
 
 export const getChildById = async (childId: string) => {
@@ -97,8 +95,12 @@ export const createChildFlow = async (data: CreateChildFlowPayload) => {
   })
 }
 
-export const requestChildTransfer = async (childId: string, childType: ChildType, toOrganizationId: string) => {
-  return api.client<TransferRequestResponse>("/child-transfers", {
+export const requestChildTransfer = async (
+  childId: string,
+  childType: ChildType,
+  toOrganizationId: string,
+) => {
+  return api.client<TransferRequestResponse>('/child-transfers', {
     method: Methods.POST,
     body: JSON.stringify({ childId, childType, toOrganizationId }),
   })
@@ -109,16 +111,10 @@ export const getChildTransferRequests = async (fromOrganizationId: string) => {
     requests?: ChildTransferRequest[]
     transferRequests?: ChildTransferRequest[]
     childTransfers?: ChildTransferRequest[]
-  }>(
-    `/child-transfers?fromOrganizationId=${encodeURIComponent(fromOrganizationId)}&status=pending`,
-  )
+  }>(`/child-transfers?fromOrganizationId=${encodeURIComponent(fromOrganizationId)}&status=pending`)
 
   return {
-    requests:
-      response.requests ??
-      response.transferRequests ??
-      response.childTransfers ??
-      [],
+    requests: response.requests ?? response.transferRequests ?? response.childTransfers ?? [],
   }
 }
 

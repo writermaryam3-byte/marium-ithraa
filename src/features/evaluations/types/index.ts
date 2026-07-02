@@ -1,4 +1,4 @@
-import { z } from "zod"
+import { z } from 'zod'
 
 export type {
   AttemptAnswerPayload,
@@ -21,16 +21,16 @@ export type {
   SaveAttemptProgressPayload,
   StartEvaluationPayload,
   SubmitAttemptPayload,
-} from "@/lib/types/types/interfaces"
+} from '@/lib/types/types/interfaces'
 
 export const evaluationTypeSchema = z.enum([
-  "multiple_intelligences",
-  "pride",
-  "renzulli",
-  "holland",
-  "learning_styles",
-  "torrance",
-  "preschool_giftedness",
+  'multiple_intelligences',
+  'pride',
+  'renzulli',
+  'holland',
+  'learning_styles',
+  'torrance',
+  'preschool_giftedness',
 ])
 
 export const uuidSchema = z.string().uuid()
@@ -50,7 +50,7 @@ export const submitAttemptSchema = z.object({
 
 export const startAttemptSchema = z.object({
   childId: uuidSchema,
-  childType: z.enum(["organization", "private"]),
+  childType: z.enum(['organization', 'private']),
   expiresInSeconds: z.number().int().positive().optional(),
   expiresAt: z.string().datetime().optional(),
 })
@@ -93,8 +93,8 @@ export const createEvaluationSchema = z
     if (unique.size !== codes.length) {
       ctx.addIssue({
         code: z.ZodIssueCode.custom,
-        message: "Duplicate dimension codes are not allowed",
-        path: ["dimensions"],
+        message: 'Duplicate dimension codes are not allowed',
+        path: ['dimensions'],
       })
     }
 
@@ -102,21 +102,17 @@ export const createEvaluationSchema = z
       if (dim.maxScore < dim.minScore) {
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
-          message: "maxScore must be greater than or equal to minScore",
-          path: ["dimensions"],
+          message: 'maxScore must be greater than or equal to minScore',
+          path: ['dimensions'],
         })
       }
     }
 
-    if (
-      data.ageFrom != null &&
-      data.ageTo != null &&
-      data.ageTo < data.ageFrom
-    ) {
+    if (data.ageFrom != null && data.ageTo != null && data.ageTo < data.ageFrom) {
       ctx.addIssue({
         code: z.ZodIssueCode.custom,
-        message: "ageTo must be greater than or equal to ageFrom",
-        path: ["ageTo"],
+        message: 'ageTo must be greater than or equal to ageFrom',
+        path: ['ageTo'],
       })
     }
 
@@ -127,7 +123,7 @@ export const createEvaluationSchema = z
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
           message: `Unknown dimensionCode: ${q.dimensionCode}`,
-          path: ["questions", i, "dimensionCode"],
+          path: ['questions', i, 'dimensionCode'],
         })
       }
     }
@@ -139,4 +135,4 @@ export type SaveAttemptDto = z.infer<typeof saveAttemptSchema>
 export type SubmitAttemptDto = z.infer<typeof submitAttemptSchema>
 
 /** @deprecated Use EvaluationAttempt */
-export type Attempt = import("@/lib/types/types/interfaces").EvaluationAttempt
+export type Attempt = import('@/lib/types/types/interfaces').EvaluationAttempt

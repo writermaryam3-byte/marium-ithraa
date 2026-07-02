@@ -1,17 +1,17 @@
-import { type Child } from "../types/interfaces"
+import { type Child } from '../types/interfaces'
 
 export function getChildGradeName(child: Child): string {
-  if (typeof child.grade === "object" && child.grade?.name) return child.grade.name
-  if (typeof child.grade === "string") return child.grade
+  if (typeof child.grade === 'object' && child.grade?.name) return child.grade.name
+  if (typeof child.grade === 'string') return child.grade
   if (child.gradeName) return child.gradeName
   if (child.class?.grade?.name) return child.class.grade.name
-  return "—"
+  return '—'
 }
 
 export function getChildClassName(child: Child): string {
   if (child.class?.name) return child.class.name
   if (child.className) return child.className
-  return "—"
+  return '—'
 }
 
 export function getChildEvaluationLabel(
@@ -24,28 +24,26 @@ export function getChildEvaluationLabel(
   if (child.evaluationStatus) {
     return {
       label: child.evaluationStatus,
-      className: child.evaluationStatusClassName ?? "text-emerald-600",
+      className: child.evaluationStatusClassName ?? 'text-emerald-600',
     }
   }
-  const evaluated =
-    (child.attemptsUsed ?? 0) > 0 ||
-    child.retakeUsed === true
+  const evaluated = (child.attemptsUsed ?? 0) > 0 || child.retakeUsed === true
   return evaluated
     ? {
-        label: t("evaluationStatus.evaluated"),
-        className: "text-emerald-600",
+        label: t('evaluationStatus.evaluated'),
+        className: 'text-emerald-600',
       }
     : {
-        label: t("evaluationStatus.notEvaluated"),
-        className: "text-amber-600",
+        label: t('evaluationStatus.notEvaluated'),
+        className: 'text-amber-600',
       }
 }
 
-export function formatChildBirthDate(value?: string, locale = "ar"): string {
-  if (!value) return "—"
+export function formatChildBirthDate(value?: string, locale = 'ar'): string {
+  if (!value) return '—'
   const date = new Date(value)
   if (Number.isNaN(date.getTime())) return value
-  return date.toLocaleDateString(locale === "ar" ? "ar-SA" : "en-US")
+  return date.toLocaleDateString(locale === 'ar' ? 'ar-SA' : 'en-US')
 }
 
 export function childMatchesSearch(child: Child, query: string): boolean {

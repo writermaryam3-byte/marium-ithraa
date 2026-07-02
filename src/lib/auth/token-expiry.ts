@@ -11,7 +11,7 @@ export function resolveAccessTokenTtlSeconds(source?: ExpirySource | null): numb
   if (!source) return DEFAULT_ACCESS_TOKEN_TTL_SEC
 
   const raw = source.expiresIn ?? source.expires_in
-  if (typeof raw === "number" && Number.isFinite(raw) && raw > 0) {
+  if (typeof raw === 'number' && Number.isFinite(raw) && raw > 0) {
     // Values > 1 year are likely absolute timestamps (ms), not TTL seconds.
     if (raw > 60 * 60 * 24 * 365) {
       const msUntilExpiry = raw - Date.now()
@@ -24,10 +24,7 @@ export function resolveAccessTokenTtlSeconds(source?: ExpirySource | null): numb
 
   const absolute = source.accessTokenExpires
   if (absolute != null) {
-    const ms =
-      typeof absolute === "number"
-        ? absolute
-        : Date.parse(String(absolute))
+    const ms = typeof absolute === 'number' ? absolute : Date.parse(String(absolute))
     if (Number.isFinite(ms) && ms > Date.now()) {
       return Math.floor((ms - Date.now()) / 1000)
     }

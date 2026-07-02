@@ -1,37 +1,36 @@
-import { ReactNode } from "react";
-import { StatusCode } from "./enums";
-import { ApiError } from "../errors/ApiError";
+import { ReactNode } from 'react'
+import { StatusCode } from './enums'
+import { ApiError } from '../errors/ApiError'
 
 export type SelectData = {
-  id: string | number,
-  value: string,
+  id: string | number
+  value: string
   label: string
 }
 
-
 export type ValidationErrors = {
-  [key: string]: string[];
-};
+  [key: string]: string[]
+}
 
 export type InitialState = {
-  success?: boolean;
-  message?: string;
-  fieldErrors?: Record<string, string>;
-  error?: ValidationErrors;
-  status?: StatusCode | null;
-  formData?: FormData | null;
+  success?: boolean
+  message?: string
+  fieldErrors?: Record<string, string>
+  error?: ValidationErrors
+  status?: StatusCode | null
+  formData?: FormData | null
 }
 
 export type CardInfo = {
-  error?: ApiError|null,
-  isLoading?: boolean,
-  isErr?: boolean,
-  description: string,
-  title: string|number,
-  icon?: ReactNode,
+  error?: ApiError | null
+  isLoading?: boolean
+  isErr?: boolean
+  description: string
+  title: string | number
+  icon?: ReactNode
   badage: {
-    exist: boolean,
-  },
+    exist: boolean
+  }
   footer: {
     exist: boolean
   }

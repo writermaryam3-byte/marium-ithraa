@@ -1,20 +1,20 @@
-"use client"
+'use client'
 
-import { useParams } from "next/navigation"
-import { useLocale, useTranslations } from "next-intl"
+import { useParams } from 'next/navigation'
+import { useLocale, useTranslations } from 'next-intl'
 
-import AttemptSummary from "@/components/evaluation/AttemptSummary"
-import EvaluationRunner from "@/components/evaluation/EvaluationRunner"
-import { AttemptResultView } from "@/components/evaluation/results/AttemptResultView"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Skeleton } from "@/components/ui/skeleton"
-import { useAttempt } from "@/features/evaluations/hooks"
+import AttemptSummary from '@/components/evaluation/AttemptSummary'
+import EvaluationRunner from '@/components/evaluation/EvaluationRunner'
+import { AttemptResultView } from '@/components/evaluation/results/AttemptResultView'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Skeleton } from '@/components/ui/skeleton'
+import { useAttempt } from '@/features/evaluations/hooks'
 
 export default function ParentAttemptPage() {
   const params = useParams<{ attemptId: string }>()
   const attemptId = params.attemptId
   const locale = useLocale()
-  const t = useTranslations("Features.Evaluations")
+  const t = useTranslations('Features.Evaluations')
   const { data: attempt, isLoading } = useAttempt(attemptId)
 
   if (isLoading) {
@@ -30,28 +30,26 @@ export default function ParentAttemptPage() {
     return (
       <Card className="m-4">
         <CardHeader>
-          <CardTitle>{t("error")}</CardTitle>
+          <CardTitle>{t('error')}</CardTitle>
         </CardHeader>
-        <CardContent className="text-sm text-muted-foreground">
-          {t("attemptNotFound")}
-        </CardContent>
+        <CardContent className="text-sm text-muted-foreground">{t('attemptNotFound')}</CardContent>
       </Card>
     )
   }
 
-  const status = attempt.status?.toLowerCase() ?? ""
+  const status = attempt.status?.toLowerCase() ?? ''
 
-  if (status === "approved") {
+  if (status === 'approved') {
     return (
       <div className="space-y-4 p-4 lg:p-6">
         <AttemptSummary attempt={attempt} locale={locale} />
         <Card>
           <CardHeader>
-            <CardTitle className="text-base">{t("result")}</CardTitle>
+            <CardTitle className="text-base">{t('result')}</CardTitle>
           </CardHeader>
           <CardContent>
             <AttemptResultView
-              type={attempt.evaluation?.type ?? "multiple_intelligences"}
+              type={attempt.evaluation?.type ?? 'multiple_intelligences'}
               result={attempt.result}
               title={attempt.evaluation?.title}
             />
@@ -61,13 +59,13 @@ export default function ParentAttemptPage() {
     )
   }
 
-  if (status === "submitted") {
+  if (status === 'submitted') {
     return (
       <div className="space-y-4 p-4 lg:p-6">
         <AttemptSummary attempt={attempt} locale={locale} />
         <Card>
           <CardContent className="py-8 text-center text-sm text-muted-foreground">
-            {t("waitingApproval")}
+            {t('waitingApproval')}
           </CardContent>
         </Card>
       </div>

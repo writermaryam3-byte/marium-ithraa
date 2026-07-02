@@ -1,28 +1,25 @@
-"use client"
+'use client'
 
-import { useCallback, useEffect, useMemo, useRef, useState } from "react"
-import { useTranslations } from "next-intl"
-import { useTranslateBackend } from "@/lib/i18n/backend-messages"
-import { showErrorToast, showInfoToast, showSuccessToast } from "@/lib/toast/app-toast"
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { useTranslations } from 'next-intl'
+import { useTranslateBackend } from '@/lib/i18n/backend-messages'
+import { showErrorToast, showInfoToast, showSuccessToast } from '@/lib/toast/app-toast'
 
-import type { EvaluationAttempt, SubmitAttemptDto } from "../types"
+import type { EvaluationAttempt, SubmitAttemptDto } from '../types'
 import {
   attemptHasRenderableQuestions,
   countAnswersMissingIds,
   toParentFormQuestions,
   type ParentFormQuestion,
-} from "../utils/parent-form"
-import {
-  assertParentAttemptPayload,
-  buildAttemptAnswersPayload,
-} from "../utils/payload"
-import { useAttempt, useEvaluationForm, useSaveAttemptProgress, useSubmitAttempt } from "./index"
+} from '../utils/parent-form'
+import { assertParentAttemptPayload, buildAttemptAnswersPayload } from '../utils/payload'
+import { useAttempt, useEvaluationForm, useSaveAttemptProgress, useSubmitAttempt } from './index'
 
 type AnswerMap = Record<string, string>
 
 function isLocked(attempt: EvaluationAttempt | undefined) {
-  const s = attempt?.status?.toLowerCase?.() ?? ""
-  return s === "submitted" || s === "approved" || s === "expired"
+  const s = attempt?.status?.toLowerCase?.() ?? ''
+  return s === 'submitted' || s === 'approved' || s === 'expired'
 }
 
 function msUntil(iso: string | null | undefined): number | null {
@@ -32,22 +29,17 @@ function msUntil(iso: string | null | undefined): number | null {
   return t - Date.now()
 }
 
-export function useEvaluationSession(
-  attemptId: string,
-  options?: { autosaveMs?: number },
-) {
-  const t = useTranslations("EvaluationSession")
+export function useEvaluationSession(attemptId: string, options?: { autosaveMs?: number }) {
+  const t = useTranslations('EvaluationSession')
   const tb = useTranslateBackend()
   const autosaveMs = options?.autosaveMs ?? 1200
-  const { data: attempt, isLoading, isError, error, refetch } =
-    useAttempt(attemptId)
+  const { data: attempt, isLoading, isError, error, refetch } = useAttempt(attemptId)
   const saveMutation = useSaveAttemptProgress(attemptId)
   const submitMutation = useSubmitAttempt(attemptId)
 
-  const evaluationId = attempt?.evaluationId ?? ""
+  const evaluationId = attempt?.evaluationId ?? ''
   const needsFormFallback =
-    Boolean(attempt) &&
-    !attemptHasRenderableQuestions(attempt?.evaluation?.questions)
+    Boolean(attempt) && !attemptHasRenderableQuestions(attempt?.evaluation?.questions)
 
   const {
     data: formEvaluation,
@@ -61,7 +53,7 @@ export function useEvaluationSession(
   const [answers, setAnswers] = useState<AnswerMap>({})
   const [dirty, setDirty] = useState(false)
   const [now, setNow] = useState(Date.now())
-  const lastSavedRef = useRef<string>("")
+  const lastSavedRef = useRef<string>('')
   const autosaveTimer = useRef<number | null>(null)
 
   const questionList: ParentFormQuestion[] = useMemo(() => {
@@ -78,8 +70,7 @@ export function useEvaluationSession(
   const usesFormFallback = needsFormFallback && Boolean(formEvaluation?.questions)
 
   const missingAnswerIds = useMemo(() => {
-    const raw =
-      attempt?.evaluation?.questions ?? formEvaluation?.questions ?? []
+    const raw = attempt?.evaluation?.questions ?? formEvaluation?.questions ?? []
     return countAnswersMissingIds(raw)
   }, [attempt?.evaluation?.questions, formEvaluation?.questions])
 
@@ -125,11 +116,11 @@ export function useEvaluationSession(
 
     submitMutationRef.current.mutate(payload, {
       onSuccess: () => {
-        showInfoToast({ raw: t("timeExpired") })
+        showInfoToast({ raw: t('timeExpired') })
         void refetchRef.current()
       },
       onError: (e: unknown) => {
-        showErrorToast({ raw: e instanceof Error ? tb(e.message) : t("failedAutoSubmit") })
+        showErrorToast({ raw: e instanceof Error ? tb(e.message) : t('failedAutoSubmit') })
         void refetchRef.current()
       },
     })
@@ -139,10 +130,10 @@ export function useEvaluationSession(
     if (!dirty || locked) return
     const handler = (ev: BeforeUnloadEvent) => {
       ev.preventDefault()
-      ev.returnValue = ""
+      ev.returnValue = ''
     }
-    window.addEventListener("beforeunload", handler)
-    return () => window.removeEventListener("beforeunload", handler)
+    window.addEventListener('beforeunload', handler)
+    return () => window.removeEventListener('beforeunload', handler)
   }, [dirty, locked])
 
   const setAnswer = useCallback(
@@ -173,9 +164,9 @@ export function useEvaluationSession(
       await saveMutation.mutateAsync(payload)
       lastSavedRef.current = snapshot
       setDirty(false)
-      showSuccessToast({ raw: t("progressSaved") })
+      showSuccessToast({ raw: t('progressSaved') })
     } catch (e: unknown) {
-      showErrorToast({ raw: e instanceof Error ? tb(e.message) : t("failedSaveProgress") })
+      showErrorToast({ raw: e instanceof Error ? tb(e.message) : t('failedSaveProgress') })
     }
   }, [answers, buildSavePayload, locked, saveMutation])
 
@@ -197,12 +188,12 @@ export function useEvaluationSession(
     assertParentAttemptPayload(payload)
     try {
       await submitMutation.mutateAsync(payload)
-      showSuccessToast({ raw: t("attemptSubmitted") })
+      showSuccessToast({ raw: t('attemptSubmitted') })
       lastSavedRef.current = JSON.stringify(answers)
       setDirty(false)
       await refetch()
     } catch (e: unknown) {
-      showErrorToast({ raw: e instanceof Error ? tb(e.message) : t("failedSubmitAttempt") })
+      showErrorToast({ raw: e instanceof Error ? tb(e.message) : t('failedSubmitAttempt') })
       throw e
     }
   }, [answers, locked, refetch, submitMutation])
@@ -211,8 +202,7 @@ export function useEvaluationSession(
     return questionList.filter((q) => Boolean(answers[q.id])).length
   }, [answers, questionList])
 
-  const allAnswered =
-    questionList.length > 0 && answeredCount === questionList.length
+  const allAnswered = questionList.length > 0 && answeredCount === questionList.length
 
   const sessionLoading =
     isLoading || (needsFormFallback && isFormLoading && questionList.length === 0)

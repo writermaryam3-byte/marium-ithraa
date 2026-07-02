@@ -1,14 +1,14 @@
-"use client"
+'use client'
 
-import { useTranslations } from "next-intl"
+import { useTranslations } from 'next-intl'
 
-import type { EvaluationType } from "@/features/evaluations/types"
-import { GenericResultView } from "./GenericResultView"
-import { HollandResult } from "./HollandResult"
-import { LearningStylesResult } from "./LearningStylesResult"
-import { MultipleIntelligencesResult } from "./MultipleIntelligencesResult"
-import { PrideResult } from "./PrideResult"
-import { RenzulliResult } from "./RenzulliResult"
+import type { EvaluationType } from '@/features/evaluations/types'
+import { GenericResultView } from './GenericResultView'
+import { HollandResult } from './HollandResult'
+import { LearningStylesResult } from './LearningStylesResult'
+import { MultipleIntelligencesResult } from './MultipleIntelligencesResult'
+import { PrideResult } from './PrideResult'
+import { RenzulliResult } from './RenzulliResult'
 
 type Props = {
   type: EvaluationType
@@ -17,31 +17,24 @@ type Props = {
 }
 
 export function AttemptResultView({ type, result, title }: Props) {
-  const t = useTranslations("Features.EvaluationResults")
+  const t = useTranslations('Features.EvaluationResults')
 
   if (!result || Object.keys(result).length === 0) {
-    return (
-      <p className="text-sm text-muted-foreground">{t("noResult")}</p>
-    )
+    return <p className="text-sm text-muted-foreground">{t('noResult')}</p>
   }
 
   switch (type) {
-    case "multiple_intelligences":
+    case 'multiple_intelligences':
       return <MultipleIntelligencesResult result={result} />
-    case "pride":
+    case 'pride':
       return <PrideResult result={result} />
-    case "renzulli":
+    case 'renzulli':
       return <RenzulliResult result={result} />
-    case "holland":
+    case 'holland':
       return <HollandResult result={result} />
-    case "learning_styles":
+    case 'learning_styles':
       return <LearningStylesResult result={result} />
     default:
-      return (
-        <GenericResultView
-          result={result}
-          title={title ?? t("defaultTitle")}
-        />
-      )
+      return <GenericResultView result={result} title={title ?? t('defaultTitle')} />
   }
 }

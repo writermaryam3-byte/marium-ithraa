@@ -1,38 +1,35 @@
-"use client"
+'use client'
 
-import { useState } from "react"
-import { Send } from "lucide-react"
-import { useTranslations } from "next-intl"
-import { showErrorToast, showSuccessToast } from "@/lib/toast/app-toast"
+import { useState } from 'react'
+import { Send } from 'lucide-react'
+import { useTranslations } from 'next-intl'
+import { showErrorToast, showSuccessToast } from '@/lib/toast/app-toast'
 
-import { ManagementPageHeader } from "@/components/shared/management/ManagementPageHeader"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
+import { ManagementPageHeader } from '@/components/shared/management/ManagementPageHeader'
+import { Button } from '@/components/ui/button'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select"
-import { Textarea } from "@/components/ui/textarea"
-import { useDispatchNotification } from "@/features/notifications/hooks"
-import type {
-  NotificationDelivery,
-  NotificationType,
-} from "@/features/notifications/types"
-import { Link } from "@/i18n/navigation"
-import { ApiError } from "@/lib/errors/ApiError"
+} from '@/components/ui/select'
+import { Textarea } from '@/components/ui/textarea'
+import { useDispatchNotification } from '@/features/notifications/hooks'
+import type { NotificationDelivery, NotificationType } from '@/features/notifications/types'
+import { Link } from '@/i18n/navigation'
+import { ApiError } from '@/lib/errors/ApiError'
 
 type Props = { locale: string }
 
 const DELIVERY_OPTIONS: { value: NotificationDelivery; labelKey: string }[] = [
-  { value: "inapp", labelKey: "deliveryInapp" },
-  { value: "email", labelKey: "deliveryEmail" },
-  { value: "both", labelKey: "deliveryBoth" },
-  { value: "verify_email", labelKey: "deliveryVerifyEmail" },
+  { value: 'inapp', labelKey: 'deliveryInapp' },
+  { value: 'email', labelKey: 'deliveryEmail' },
+  { value: 'both', labelKey: 'deliveryBoth' },
+  { value: 'verify_email', labelKey: 'deliveryVerifyEmail' },
 ]
 
 function parseMetadataJson(raw: string): Record<string, unknown> | null | undefined {
@@ -43,36 +40,36 @@ function parseMetadataJson(raw: string): Record<string, unknown> | null | undefi
   try {
     parsed = JSON.parse(trimmed)
   } catch {
-    throw new Error("INVALID_JSON")
+    throw new Error('INVALID_JSON')
   }
 
   if (parsed === null) return null
-  if (typeof parsed !== "object" || Array.isArray(parsed)) {
-    throw new Error("INVALID_JSON_OBJECT")
+  if (typeof parsed !== 'object' || Array.isArray(parsed)) {
+    throw new Error('INVALID_JSON_OBJECT')
   }
 
   return parsed as Record<string, unknown>
 }
 
 export function AdminDispatchNotificationScreen({ locale }: Props) {
-  const t = useTranslations("Features.Notifications")
-  const isAr = locale === "ar"
+  const t = useTranslations('Features.Notifications')
+  const isAr = locale === 'ar'
 
   const dispatch = useDispatchNotification()
 
-  const [delivery, setDelivery] = useState<NotificationDelivery>("inapp")
-  const [userId, setUserId] = useState("")
-  const [email, setEmail] = useState("")
-  const [title, setTitle] = useState("")
-  const [message, setMessage] = useState("")
-  const [type, setType] = useState<string>("")
-  const [metadataRaw, setMetadataRaw] = useState("")
+  const [delivery, setDelivery] = useState<NotificationDelivery>('inapp')
+  const [userId, setUserId] = useState('')
+  const [email, setEmail] = useState('')
+  const [title, setTitle] = useState('')
+  const [message, setMessage] = useState('')
+  const [type, setType] = useState<string>('')
+  const [metadataRaw, setMetadataRaw] = useState('')
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
 
     if (!userId.trim() || !title.trim() || !message.trim()) {
-      showErrorToast(t, "requiredFields")
+      showErrorToast(t, 'requiredFields')
       return
     }
 
@@ -80,11 +77,11 @@ export function AdminDispatchNotificationScreen({ locale }: Props) {
     try {
       metadata = parseMetadataJson(metadataRaw)
     } catch (err) {
-      if (err instanceof Error && err.message === "INVALID_JSON") {
-        showErrorToast(t, "metadataInvalidJson")
+      if (err instanceof Error && err.message === 'INVALID_JSON') {
+        showErrorToast(t, 'metadataInvalidJson')
         return
       }
-      showErrorToast(t, "metadataInvalidObject")
+      showErrorToast(t, 'metadataInvalidObject')
       return
     }
 
@@ -98,46 +95,39 @@ export function AdminDispatchNotificationScreen({ locale }: Props) {
         type: (type.trim() || undefined) as NotificationType | undefined,
         metadata,
       })
-      showSuccessToast({ raw: isAr ? "تم إرسال الإشعار إلى قائمة الانتظار" : t("dispatchSuccess") })
-      setTitle("")
-      setMessage("")
-      setMetadataRaw("")
+      showSuccessToast({ raw: isAr ? 'تم إرسال الإشعار إلى قائمة الانتظار' : t('dispatchSuccess') })
+      setTitle('')
+      setMessage('')
+      setMetadataRaw('')
     } catch (e: unknown) {
       const msg =
-        e instanceof ApiError
-          ? e.message
-          : e instanceof Error
-            ? e.message
-            : t("loadError")
+        e instanceof ApiError ? e.message : e instanceof Error ? e.message : t('loadError')
       showErrorToast({ raw: msg })
     }
   }
 
   return (
-    <main
-      className="min-h-screen bg-surface py-8"
-      dir={isAr ? "rtl" : "ltr"}
-    >
+    <main className="min-h-screen bg-surface py-8" dir={isAr ? 'rtl' : 'ltr'}>
       <div className="app-container space-y-8">
         <ManagementPageHeader
           breadcrumbs={[
-            { href: "/dashboards/admin", label: isAr ? "الإدارة" : "Admin" },
-            { label: t("dispatchTitle") },
+            { href: '/dashboards/admin', label: isAr ? 'الإدارة' : 'Admin' },
+            { label: t('dispatchTitle') },
           ]}
-          title={t("dispatchTitle")}
-          subtitle={t("dispatchSubtitle")}
+          title={t('dispatchTitle')}
+          subtitle={t('dispatchSubtitle')}
         />
 
         <Card className="max-w-2xl rounded-2xl border bg-white shadow-sm">
           <CardHeader className="border-b border-fuchsia-100/80 bg-white/80">
             <CardTitle className="text-base font-bold text-foreground">
-              {t("dispatchFormTitle")}
+              {t('dispatchFormTitle')}
             </CardTitle>
           </CardHeader>
           <CardContent className="pt-6">
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="delivery">{t("deliveryLabel")}</Label>
+                <Label htmlFor="delivery">{t('deliveryLabel')}</Label>
                 <Select
                   value={delivery}
                   onValueChange={(v) => setDelivery(v as NotificationDelivery)}
@@ -157,7 +147,7 @@ export function AdminDispatchNotificationScreen({ locale }: Props) {
 
               <div className="grid gap-4 sm:grid-cols-2">
                 <div className="space-y-2">
-                  <Label htmlFor="userId">{t("userId")}</Label>
+                  <Label htmlFor="userId">{t('userId')}</Label>
                   <Input
                     id="userId"
                     className="rounded-xl"
@@ -167,7 +157,7 @@ export function AdminDispatchNotificationScreen({ locale }: Props) {
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="email">{t("email")}</Label>
+                  <Label htmlFor="email">{t('email')}</Label>
                   <Input
                     id="email"
                     type="email"
@@ -179,7 +169,7 @@ export function AdminDispatchNotificationScreen({ locale }: Props) {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="title">{t("notificationTitle")}</Label>
+                <Label htmlFor="title">{t('notificationTitle')}</Label>
                 <Input
                   id="title"
                   className="rounded-xl"
@@ -190,7 +180,7 @@ export function AdminDispatchNotificationScreen({ locale }: Props) {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="message">{t("notificationMessage")}</Label>
+                <Label htmlFor="message">{t('notificationMessage')}</Label>
                 <Textarea
                   id="message"
                   className="rounded-xl"
@@ -202,7 +192,7 @@ export function AdminDispatchNotificationScreen({ locale }: Props) {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="type">{t("notificationType")}</Label>
+                <Label htmlFor="type">{t('notificationType')}</Label>
                 <Input
                   id="type"
                   className="rounded-xl"
@@ -213,7 +203,7 @@ export function AdminDispatchNotificationScreen({ locale }: Props) {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="metadata">{t("metadata")}</Label>
+                <Label htmlFor="metadata">{t('metadata')}</Label>
                 <Textarea
                   id="metadata"
                   className="rounded-xl font-mono text-sm"
@@ -232,15 +222,16 @@ export function AdminDispatchNotificationScreen({ locale }: Props) {
                   className="rounded-xl border-fuchsia-500/50 text-fuchsia-600"
                   asChild
                 >
-                  <Link href="/dashboards/admin">{t("cancel")}</Link>
+                  <Link href="/dashboards/admin">{t('cancel')}</Link>
                 </Button>
-                <Button variant="gradient"
+                <Button
+                  variant="gradient"
                   type="submit"
                   className="rounded-xl gap-2"
                   disabled={dispatch.isPending}
                 >
                   <Send className="size-4" />
-                  {dispatch.isPending ? t("sending") : t("dispatchSubmit")}
+                  {dispatch.isPending ? t('sending') : t('dispatchSubmit')}
                 </Button>
               </div>
             </form>

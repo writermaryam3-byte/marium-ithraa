@@ -1,13 +1,10 @@
-"use client"
+'use client'
 
-import { useMemo, useState } from "react"
+import { useMemo, useState } from 'react'
 
-import { getPaginationMeta, paginateArray } from "@/lib/api/pagination"
+import { getPaginationMeta, paginateArray } from '@/lib/api/pagination'
 
-export function useClientPagination<T>(
-  items: T[],
-  pageSize = 12,
-) {
+export function useClientPagination<T>(items: T[], pageSize = 12) {
   const [page, setPage] = useState(1)
 
   const pagination = useMemo(

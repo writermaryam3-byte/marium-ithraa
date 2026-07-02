@@ -1,8 +1,8 @@
-import { ChildrenScreen } from "@/components/pages/dashboards/organization/ChildrenScreen"
-import { getAllChildrenByOrg } from "@/features/children"
-import { getClassesByOrg } from "@/features/classes"
-import { getGradesByOrg } from "@/features/grades"
-import { requireCurrentOrganization } from "@/lib/helpers/getCurrentOrganization"
+import { ChildrenScreen } from '@/components/pages/dashboards/organization/ChildrenScreen'
+import { getAllChildrenByOrg } from '@/features/children'
+import { getClassesByOrg } from '@/features/classes'
+import { getGradesByOrg } from '@/features/grades'
+import { requireCurrentOrganization } from '@/lib/helpers/getCurrentOrganization'
 
 type Props = {
   params: Promise<{ locale: string }>

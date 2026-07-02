@@ -1,4 +1,4 @@
-import { Gender } from "@/lib/types/enums"
+import { Gender } from '@/lib/types/enums'
 
 export interface ParentInfo {
   id?: string
@@ -48,16 +48,14 @@ export interface CreateChildWithParentPayload {
     email: string
     phone: string
     password: string
-  },
+  }
   child: {
     name: string
-  birthDate: string
-  gender: string
-  classId: string
-  organizationId: string
+    birthDate: string
+    gender: string
+    classId: string
+    organizationId: string
   }
-
-
 }
 
 export interface CreatePrivateChildPayload {
@@ -78,31 +76,31 @@ export interface CreateChildFlowPayload {
 
 export type CreateChildResponse =
   | {
-      status: "CREATED"
+      status: 'CREATED'
       message: string
       childId: string
     }
   | {
-      status: "TRANSFER_REQUIRED"
+      status: 'TRANSFER_REQUIRED'
       message: string
       transferRequestId: string
     }
 
 export type ParentSearchResult =
   | {
-      status: "parent_found"
+      status: 'parent_found'
       parent: ParentInfo
-      children: (Child & { type: "organization" | "private" })[]
+      children: (Child & { type: 'organization' | 'private' })[]
     }
-  | { status: "not_found" }
-  | { status: "not_parent"; user: { id: string; name?: string; phone: string; email?: string } }
+  | { status: 'not_found' }
+  | { status: 'not_parent'; user: { id: string; name?: string; phone: string; email?: string } }
 
 export interface TransferRequestResponse {
   message: string
   transferRequestId?: string
 }
 
-export type ChildTransferStatus = "pending" | "approved" | "rejected"
+export type ChildTransferStatus = 'pending' | 'approved' | 'rejected'
 
 export interface ChildTransferRequest {
   id: string

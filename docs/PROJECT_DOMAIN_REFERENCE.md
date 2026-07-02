@@ -6,14 +6,14 @@
 
 Responsible for:
 
-* Activating organizations
-* Activating service providers
-* Managing activities
-* Managing assessments
-* Managing system-wide analytics
-* Handling payment approvals
-* Sending payment links
-* Reviewing audit logs
+- Activating organizations
+- Activating service providers
+- Managing activities
+- Managing assessments
+- Managing system-wide analytics
+- Handling payment approvals
+- Sending payment links
+- Reviewing audit logs
 
 ---
 
@@ -21,13 +21,13 @@ Responsible for:
 
 Responsible for:
 
-* Managing organization
-* Managing teachers
-* Managing stages
-* Managing classes
-* Managing institution children
-* Viewing institution reports
-* Creating deals
+- Managing organization
+- Managing teachers
+- Managing stages
+- Managing classes
+- Managing institution children
+- Viewing institution reports
+- Creating deals
 
 ---
 
@@ -35,10 +35,10 @@ Responsible for:
 
 Responsible for:
 
-* Managing institution children
-* Viewing evaluations
-* Sending reminders
-* Performing evaluations when parent did not
+- Managing institution children
+- Viewing evaluations
+- Sending reminders
+- Performing evaluations when parent did not
 
 ---
 
@@ -50,11 +50,11 @@ ParentProfile
 
 A Parent may:
 
-* Register independently
-* Be auto-created by an organization
-* Have private children
-* Have organization children
-* Be linked to multiple organizations
+- Register independently
+- Be auto-created by an organization
+- Have private children
+- Have organization children
+- Be linked to multiple organizations
 
 A Parent is NOT merely a Role.
 
@@ -66,17 +66,17 @@ There are TWO completely separate child types.
 
 #### Organization Child
 
-* Belongs to an organization
-* Belongs to a stage
-* Belongs to a class
-* Linked to a parent
-* Results visible to organization
+- Belongs to an organization
+- Belongs to a stage
+- Belongs to a class
+- Linked to a parent
+- Results visible to organization
 
 #### Private Child
 
-* Belongs only to parent
-* Not linked to any organization
-* Results remain private
+- Belongs only to parent
+- Not linked to any organization
+- Results remain private
 
 A child can never be both types simultaneously.
 
@@ -93,10 +93,10 @@ Registration
 
 Responsible for:
 
-* Viewing deals
-* Sending proposals
-* Recording attendance
-* Participating in evaluations
+- Viewing deals
+- Sending proposals
+- Recording attendance
+- Participating in evaluations
 
 ---
 
@@ -153,11 +153,11 @@ Guest
 
 Organization can then:
 
-* Create Stages
-* Create Classes
-* Create Teachers
-* Create Children
-* Create Deals
+- Create Stages
+- Create Classes
+- Create Teachers
+- Create Children
+- Create Deals
 
 ---
 
@@ -195,12 +195,12 @@ Assessment is NOT generic.
 
 Each Assessment has:
 
-* Different Questions
-* Different Answers
-* Different Scoring Logic
-* Different Result Categories
-* Different Interpretation Rules
-* Different Report Template
+- Different Questions
+- Different Answers
+- Different Scoring Logic
+- Different Result Categories
+- Different Interpretation Rules
+- Different Report Template
 
 Examples:
 
@@ -223,17 +223,17 @@ Therefore:
 
 Assessment Engine must support:
 
-* Dynamic Questions
-* Dynamic Answer Types
-* Dynamic Scoring Strategies
-* Dynamic Result Calculators
-* Dynamic Report Builders
+- Dynamic Questions
+- Dynamic Answer Types
+- Dynamic Scoring Strategies
+- Dynamic Result Calculators
+- Dynamic Report Builders
 
 Admin can:
 
-* Create Assessment
-* Edit Assessment
-* Archive Assessment
+- Create Assessment
+- Edit Assessment
+- Archive Assessment
 
 ---
 
@@ -259,8 +259,8 @@ BR-02 Phone number must be unique.
 
 BR-03 Parent may own both:
 
-* Organization children
-* Private children
+- Organization children
+- Private children
 
 BR-04 Child cannot be both private and organization child.
 

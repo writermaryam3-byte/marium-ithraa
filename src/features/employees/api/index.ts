@@ -1,9 +1,11 @@
-import { Endpoint, Methods } from "@/lib/types/enums"
-import { CreateEmployee, Employee, UpdateEmployee } from "../types/interfaces"
-import { api } from "@/lib/api/api"
+import { Endpoint, Methods } from '@/lib/types/enums'
+import { CreateEmployee, Employee, UpdateEmployee } from '../types/interfaces'
+import { api } from '@/lib/api/api'
 
 export const getEmployeesByOrganization = async (organizationId: string) => {
-  return api.server<{employees: Employee[]}>(`/${Endpoint.EMPLOYEESBYORGNIZATION}/${organizationId}`)
+  return api.server<{ employees: Employee[] }>(
+    `/${Endpoint.EMPLOYEESBYORGNIZATION}/${organizationId}`,
+  )
 }
 
 export const getEmployeeById = async (employeeId: string) => {

@@ -1,11 +1,11 @@
-"use client"
+'use client'
 
-import Image from "next/image"
-import { useTranslations } from "next-intl"
-import { cn } from "@/lib/utils"
-import { HOME_TESTIMONIALS, type HomeTestimonial } from "@/lib/home.constants"
-import { Card, CardContent } from "@/components/ui/card"
-import { SwiperSlider } from "@/components/shared/swiper/swiper-slider"
+import Image from 'next/image'
+import { useTranslations } from 'next-intl'
+import { cn } from '@/lib/utils'
+import { HOME_TESTIMONIALS, type HomeTestimonial } from '@/lib/home.constants'
+import { Card, CardContent } from '@/components/ui/card'
+import { SwiperSlider } from '@/components/shared/swiper/swiper-slider'
 
 function Stars({ value }: { value: number }) {
   return (
@@ -13,10 +13,7 @@ function Stars({ value }: { value: number }) {
       {Array.from({ length: 5 }).map((_, i) => (
         <span
           key={i}
-          className={cn(
-            "text-sm",
-            i < value ? "text-amber-400" : "text-muted-foreground/30"
-          )}
+          className={cn('text-sm', i < value ? 'text-amber-400' : 'text-muted-foreground/30')}
         >
           ★
         </span>
@@ -26,14 +23,12 @@ function Stars({ value }: { value: number }) {
 }
 
 export default function HomeTestimonials() {
-  const t = useTranslations("HomePage.Testimonials")
+  const t = useTranslations('HomePage.Testimonials')
 
   return (
     <section className="app-container pb-16 lg:pb-24">
       <div className="text-start">
-        <h2 className="text-2xl font-extrabold text-primary sm:text-3xl">
-          {t("title")}
-        </h2>
+        <h2 className="text-2xl font-extrabold text-primary sm:text-3xl">{t('title')}</h2>
       </div>
 
       <div className="mt-8">
@@ -50,10 +45,10 @@ export default function HomeTestimonials() {
             return (
               <Card className="h-full rounded-2xl border border-border/60 bg-[#131E430A] shadow-sm">
                 <CardContent className="p-6">
-                  <div className={cn("flex items-start gap-3")}>
+                  <div className={cn('flex items-start gap-3')}>
                     <Image
                       src={tItem.avatarSrc}
-                      alt={t("avatarAlt")}
+                      alt={t('avatarAlt')}
                       width={48}
                       height={48}
                       className="size-12 rounded-full border border-border/60"
@@ -70,7 +65,7 @@ export default function HomeTestimonials() {
                       </div>
                     </div>
                   </div>
-                  <p className={cn("mt-4 text-sm leading-relaxed text-muted-foreground")}>
+                  <p className={cn('mt-4 text-sm leading-relaxed text-muted-foreground')}>
                     {t(`items.${tItem.key}.quote`)}
                   </p>
                 </CardContent>
@@ -82,4 +77,3 @@ export default function HomeTestimonials() {
     </section>
   )
 }
-

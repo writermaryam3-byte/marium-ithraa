@@ -1,27 +1,27 @@
-"use client"
+'use client'
 
-import { useState } from "react"
-import { useTranslations } from "next-intl"
-import { useTranslateBackend } from "@/lib/i18n/backend-messages"
-import { showErrorToast, showSuccessToast } from "@/lib/toast/app-toast"
+import { useState } from 'react'
+import { useTranslations } from 'next-intl'
+import { useTranslateBackend } from '@/lib/i18n/backend-messages'
+import { showErrorToast, showSuccessToast } from '@/lib/toast/app-toast'
 
-import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
+import { Badge } from '@/components/ui/badge'
+import { Button } from '@/components/ui/button'
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog"
+} from '@/components/ui/dialog'
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select"
-import { Skeleton } from "@/components/ui/skeleton"
+} from '@/components/ui/select'
+import { Skeleton } from '@/components/ui/skeleton'
 import {
   Table,
   TableBody,
@@ -29,24 +29,24 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table"
-import { Textarea } from "@/components/ui/textarea"
-import { SiteHeader } from "@/components/site-header"
+} from '@/components/ui/table'
+import { Textarea } from '@/components/ui/textarea'
+import { SiteHeader } from '@/components/site-header'
 import {
   useApproveCapacityRequest,
   useCapacityRequests,
   useRejectCapacityRequest,
-} from "@/features/capacity-requests"
-import type { CapacityRequest } from "@/features/capacity-requests"
-const statusBadgeVariant: Record<string, "default" | "secondary" | "destructive" | "outline"> = {
-  pending: "secondary",
-  approved: "default",
-  rejected: "destructive",
+} from '@/features/capacity-requests'
+import type { CapacityRequest } from '@/features/capacity-requests'
+const statusBadgeVariant: Record<string, 'default' | 'secondary' | 'destructive' | 'outline'> = {
+  pending: 'secondary',
+  approved: 'default',
+  rejected: 'destructive',
 }
 
 export default function AdminCapacityRequestsPage() {
-  const t = useTranslations("CapacityRequests")
-  const [statusFilter, setStatusFilter] = useState<string>("pending")
+  const t = useTranslations('CapacityRequests')
+  const [statusFilter, setStatusFilter] = useState<string>('pending')
   const { data, isLoading } = useCapacityRequests(statusFilter || undefined)
 
   const capacityRequests = data?.capacityRequests ?? []
@@ -61,10 +61,10 @@ export default function AdminCapacityRequestsPage() {
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="all">{t("filterAll")}</SelectItem>
-              <SelectItem value="pending">{t("filterPending")}</SelectItem>
-              <SelectItem value="approved">{t("filterApproved")}</SelectItem>
-              <SelectItem value="rejected">{t("filterRejected")}</SelectItem>
+              <SelectItem value="all">{t('filterAll')}</SelectItem>
+              <SelectItem value="pending">{t('filterPending')}</SelectItem>
+              <SelectItem value="approved">{t('filterApproved')}</SelectItem>
+              <SelectItem value="rejected">{t('filterRejected')}</SelectItem>
             </SelectContent>
           </Select>
         </div>
@@ -76,17 +76,17 @@ export default function AdminCapacityRequestsPage() {
             ))}
           </div>
         ) : capacityRequests.length === 0 ? (
-          <p className="text-muted-foreground">{t("noResults")}</p>
+          <p className="text-muted-foreground">{t('noResults')}</p>
         ) : (
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead>{t("columnChildName")}</TableHead>
-                <TableHead>{t("columnParent")}</TableHead>
-                <TableHead>{t("columnPhone")}</TableHead>
-                <TableHead>{t("columnGrade")}</TableHead>
-                <TableHead>{t("columnStatus")}</TableHead>
-                <TableHead>{t("columnDate")}</TableHead>
+                <TableHead>{t('columnChildName')}</TableHead>
+                <TableHead>{t('columnParent')}</TableHead>
+                <TableHead>{t('columnPhone')}</TableHead>
+                <TableHead>{t('columnGrade')}</TableHead>
+                <TableHead>{t('columnStatus')}</TableHead>
+                <TableHead>{t('columnDate')}</TableHead>
                 <TableHead />
               </TableRow>
             </TableHeader>
@@ -96,19 +96,15 @@ export default function AdminCapacityRequestsPage() {
                   <TableCell className="font-medium">{req.childName}</TableCell>
                   <TableCell>{req.parentName}</TableCell>
                   <TableCell>{req.parentPhone}</TableCell>
-                  <TableCell>{req.childGrade ?? "—"}</TableCell>
+                  <TableCell>{req.childGrade ?? '—'}</TableCell>
                   <TableCell>
-                    <Badge variant={statusBadgeVariant[req.status]}>
-                      {req.status}
-                    </Badge>
+                    <Badge variant={statusBadgeVariant[req.status]}>{req.status}</Badge>
                   </TableCell>
                   <TableCell className="text-sm text-muted-foreground">
                     {new Date(req.createdAt).toLocaleDateString()}
                   </TableCell>
                   <TableCell>
-                    {req.status === "pending" && (
-                      <CapacityRequestActions request={req} />
-                    )}
+                    {req.status === 'pending' && <CapacityRequestActions request={req} />}
                   </TableCell>
                 </TableRow>
               ))}
@@ -121,19 +117,19 @@ export default function AdminCapacityRequestsPage() {
 }
 
 function CapacityRequestActions({ request }: { request: CapacityRequest }) {
-  const t = useTranslations("CapacityRequests")
+  const t = useTranslations('CapacityRequests')
   const tb = useTranslateBackend()
   const approveMutation = useApproveCapacityRequest()
   const rejectMutation = useRejectCapacityRequest()
   const [rejectOpen, setRejectOpen] = useState(false)
-  const [rejectReason, setRejectReason] = useState("")
+  const [rejectReason, setRejectReason] = useState('')
 
   const handleApprove = async () => {
     try {
       await approveMutation.mutateAsync({ id: request.id })
-      showSuccessToast({ raw: t("approvedToast") })
+      showSuccessToast({ raw: t('approvedToast') })
     } catch {
-      showErrorToast({ raw: t("failedApproveToast") })
+      showErrorToast({ raw: t('failedApproveToast') })
     }
   }
 
@@ -141,31 +137,31 @@ function CapacityRequestActions({ request }: { request: CapacityRequest }) {
     try {
       await rejectMutation.mutateAsync({ id: request.id, reason: rejectReason || undefined })
       setRejectOpen(false)
-      setRejectReason("")
-      showSuccessToast({ raw: t("rejectedToast") })
+      setRejectReason('')
+      showSuccessToast({ raw: t('rejectedToast') })
     } catch {
-      showErrorToast({ raw: t("failedRejectToast") })
+      showErrorToast({ raw: t('failedRejectToast') })
     }
   }
 
   return (
     <div className="flex items-center gap-2">
       <Button size="sm" onClick={handleApprove} disabled={approveMutation.isPending}>
-        {t("approve")}
+        {t('approve')}
       </Button>
       <Dialog open={rejectOpen} onOpenChange={setRejectOpen}>
         <DialogTrigger asChild>
           <Button size="sm" variant="destructive">
-            {t("reject")}
+            {t('reject')}
           </Button>
         </DialogTrigger>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>{t("rejectTitle")}</DialogTitle>
+            <DialogTitle>{t('rejectTitle')}</DialogTitle>
           </DialogHeader>
           <div className="space-y-4">
             <Textarea
-              placeholder={t("rejectReason")}
+              placeholder={t('rejectReason')}
               value={rejectReason}
               onChange={(e) => setRejectReason(e.target.value)}
             />
@@ -174,7 +170,7 @@ function CapacityRequestActions({ request }: { request: CapacityRequest }) {
               variant="destructive"
               disabled={rejectMutation.isPending}
             >
-              {t("confirmReject")}
+              {t('confirmReject')}
             </Button>
           </div>
         </DialogContent>

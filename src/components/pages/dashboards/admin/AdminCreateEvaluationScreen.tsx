@@ -1,63 +1,63 @@
-"use client"
+'use client'
 
-import { useFieldArray, useForm } from "react-hook-form"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useRouter } from "@/i18n/navigation"
-import { useTranslations } from "next-intl"
-import { showErrorToast, showSuccessToast } from "@/lib/toast/app-toast"
-import { Plus, Trash2 } from "lucide-react"
+import { useFieldArray, useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useRouter } from '@/i18n/navigation'
+import { useTranslations } from 'next-intl'
+import { showErrorToast, showSuccessToast } from '@/lib/toast/app-toast'
+import { Plus, Trash2 } from 'lucide-react'
 
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Textarea } from "@/components/ui/textarea"
+import { Button } from '@/components/ui/button'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import { Textarea } from '@/components/ui/textarea'
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select"
+} from '@/components/ui/select'
 import {
   createEvaluationSchema,
   type CreateEvaluationDto,
   type EvaluationType,
-} from "@/features/evaluations/types"
-import { useCreateEvaluation } from "@/features/evaluations/hooks"
-import { EVALUATION_TYPE_LABELS } from "@/features/evaluations/utils/labels"
+} from '@/features/evaluations/types'
+import { useCreateEvaluation } from '@/features/evaluations/hooks'
+import { EVALUATION_TYPE_LABELS } from '@/features/evaluations/utils/labels'
 
 type Props = { locale: string }
 
 const defaultDimension = () => ({
-  name: "",
-  code: "",
+  name: '',
+  code: '',
   minScore: 0,
   maxScore: 10,
   interpretationRules: null as Record<string, unknown> | null,
 })
 
-const defaultAnswer = () => ({ text: "", scoreValue: 1, code: "" })
+const defaultAnswer = () => ({ text: '', scoreValue: 1, code: '' })
 
 const defaultQuestion = () => ({
-  content: "",
-  dimensionCode: "",
+  content: '',
+  dimensionCode: '',
   order: 1,
   answers: [defaultAnswer(), { ...defaultAnswer(), scoreValue: 2 }],
 })
 
 export function AdminCreateEvaluationScreen({ locale }: Props) {
-  const t = useTranslations("Features.Evaluations")
-  const isAr = locale === "ar"
+  const t = useTranslations('Features.Evaluations')
+  const isAr = locale === 'ar'
   const router = useRouter()
   const create = useCreateEvaluation()
 
   const form = useForm<CreateEvaluationDto>({
     resolver: zodResolver(createEvaluationSchema),
     defaultValues: {
-      title: "",
-      type: "multiple_intelligences",
-      institutionId: "",
+      title: '',
+      type: 'multiple_intelligences',
+      institutionId: '',
       ageFrom: null,
       ageTo: null,
       evaluatorTypes: [],
@@ -66,14 +66,17 @@ export function AdminCreateEvaluationScreen({ locale }: Props) {
     },
   })
 
-  const dimensions = useFieldArray({ control: form.control, name: "dimensions" })
-  const questions = useFieldArray({ control: form.control, name: "questions" })
+  const dimensions = useFieldArray({ control: form.control, name: 'dimensions' })
+  const questions = useFieldArray({ control: form.control, name: 'questions' })
 
-  const dimensionCodes = form.watch("dimensions").map((d) => d.code).filter(Boolean)
+  const dimensionCodes = form
+    .watch('dimensions')
+    .map((d) => d.code)
+    .filter(Boolean)
 
   const applyTemplate = (
     qIndex: number,
-    template: "likert4" | "likert5" | "holland" | "learning",
+    template: 'likert4' | 'likert5' | 'holland' | 'learning',
   ) => {
     const templates = {
       likert4: [1, 2, 3, 4].map((n) => ({
@@ -87,12 +90,12 @@ export function AdminCreateEvaluationScreen({ locale }: Props) {
         code: String(n),
       })),
       holland: [
-        { text: isAr ? "نعم" : "Yes", scoreValue: 2, code: "yes" },
-        { text: isAr ? "لا" : "No", scoreValue: 1, code: "no" },
+        { text: isAr ? 'نعم' : 'Yes', scoreValue: 2, code: 'yes' },
+        { text: isAr ? 'لا' : 'No', scoreValue: 1, code: 'no' },
       ],
       learning: [
-        { text: "A", scoreValue: 1, code: "A" },
-        { text: "B", scoreValue: -1, code: "B" },
+        { text: 'A', scoreValue: 1, code: 'A' },
+        { text: 'B', scoreValue: -1, code: 'B' },
       ],
     }
     form.setValue(`questions.${qIndex}.answers`, templates[template])
@@ -101,10 +104,10 @@ export function AdminCreateEvaluationScreen({ locale }: Props) {
   const onSubmit = form.handleSubmit(async (values) => {
     try {
       await create.mutateAsync(values)
-      showSuccessToast(t, "createSuccess")
-      router.push("/dashboards/admin/evaluations")
+      showSuccessToast(t, 'createSuccess')
+      router.push('/dashboards/admin/evaluations')
     } catch (e: unknown) {
-      showErrorToast({ raw: e instanceof Error ? e.message : t("error") })
+      showErrorToast({ raw: e instanceof Error ? e.message : t('error') })
     }
   })
 
@@ -112,63 +115,53 @@ export function AdminCreateEvaluationScreen({ locale }: Props) {
     <form
       onSubmit={onSubmit}
       className="space-y-6 px-4 lg:px-6 max-w-4xl"
-      dir={isAr ? "rtl" : "ltr"}
+      dir={isAr ? 'rtl' : 'ltr'}
     >
       <Card>
         <CardHeader>
-          <CardTitle>{t("create")}</CardTitle>
+          <CardTitle>{t('create')}</CardTitle>
         </CardHeader>
         <CardContent className="grid gap-4 md:grid-cols-2">
           <div className="space-y-2 md:col-span-2">
-            <Label>{t("title")}</Label>
-            <Input {...form.register("title")} />
+            <Label>{t('title')}</Label>
+            <Input {...form.register('title')} />
           </div>
           <div className="space-y-2">
-            <Label>{t("type")}</Label>
+            <Label>{t('type')}</Label>
             <Select
-              value={form.watch("type")}
-              onValueChange={(v) => form.setValue("type", v as EvaluationType)}
+              value={form.watch('type')}
+              onValueChange={(v) => form.setValue('type', v as EvaluationType)}
             >
               <SelectTrigger>
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                {(Object.keys(EVALUATION_TYPE_LABELS) as EvaluationType[]).map(
-                  (type) => (
-                    <SelectItem key={type} value={type}>
-                      {isAr
-                        ? EVALUATION_TYPE_LABELS[type].ar
-                        : EVALUATION_TYPE_LABELS[type].en}
-                    </SelectItem>
-                  ),
-                )}
+                {(Object.keys(EVALUATION_TYPE_LABELS) as EvaluationType[]).map((type) => (
+                  <SelectItem key={type} value={type}>
+                    {isAr ? EVALUATION_TYPE_LABELS[type].ar : EVALUATION_TYPE_LABELS[type].en}
+                  </SelectItem>
+                ))}
               </SelectContent>
             </Select>
           </div>
           <div className="space-y-2">
-            <Label>{t("institutionId")}</Label>
-            <Input {...form.register("institutionId")} placeholder="uuid" />
+            <Label>{t('institutionId')}</Label>
+            <Input {...form.register('institutionId')} placeholder="uuid" />
           </div>
           <div className="space-y-2">
-            <Label>{t("ageFrom")}</Label>
-            <Input
-              type="number"
-              {...form.register("ageFrom", { valueAsNumber: true })}
-            />
+            <Label>{t('ageFrom')}</Label>
+            <Input type="number" {...form.register('ageFrom', { valueAsNumber: true })} />
           </div>
           <div className="space-y-2">
-            <Label>{t("ageTo")}</Label>
-            <Input
-              type="number"
-              {...form.register("ageTo", { valueAsNumber: true })}
-            />
+            <Label>{t('ageTo')}</Label>
+            <Input type="number" {...form.register('ageTo', { valueAsNumber: true })} />
           </div>
         </CardContent>
       </Card>
 
       <Card>
         <CardHeader className="flex flex-row items-center justify-between">
-          <CardTitle>{t("dimensions")}</CardTitle>
+          <CardTitle>{t('dimensions')}</CardTitle>
           <Button
             type="button"
             variant="outline"
@@ -183,11 +176,11 @@ export function AdminCreateEvaluationScreen({ locale }: Props) {
             <div key={field.id} className="rounded-lg border p-4 space-y-3">
               <div className="grid gap-3 md:grid-cols-2">
                 <Input
-                  placeholder={t("dimensionName")}
+                  placeholder={t('dimensionName')}
                   {...form.register(`dimensions.${i}.name`)}
                 />
                 <Input
-                  placeholder={t("dimensionCode")}
+                  placeholder={t('dimensionCode')}
                   {...form.register(`dimensions.${i}.code`)}
                 />
                 <Input
@@ -206,14 +199,12 @@ export function AdminCreateEvaluationScreen({ locale }: Props) {
                 />
               </div>
               <Textarea
-                placeholder={t("interpretationRules")}
+                placeholder={t('interpretationRules')}
                 className="font-mono text-xs min-h-20"
                 defaultValue=""
                 onChange={(e) => {
                   try {
-                    const parsed = e.target.value
-                      ? JSON.parse(e.target.value)
-                      : null
+                    const parsed = e.target.value ? JSON.parse(e.target.value) : null
                     form.setValue(`dimensions.${i}.interpretationRules`, parsed)
                   } catch {
                     /* ignore invalid json while typing */
@@ -236,7 +227,7 @@ export function AdminCreateEvaluationScreen({ locale }: Props) {
 
       <Card>
         <CardHeader className="flex flex-row items-center justify-between">
-          <CardTitle>{t("questions")}</CardTitle>
+          <CardTitle>{t('questions')}</CardTitle>
           <Button
             type="button"
             variant="outline"
@@ -255,18 +246,16 @@ export function AdminCreateEvaluationScreen({ locale }: Props) {
           {questions.fields.map((field, qi) => (
             <div key={field.id} className="rounded-lg border p-4 space-y-3">
               <Textarea
-                placeholder={t("questionContent")}
+                placeholder={t('questionContent')}
                 {...form.register(`questions.${qi}.content`)}
               />
               <div className="flex flex-wrap gap-2">
                 <Select
                   value={form.watch(`questions.${qi}.dimensionCode`)}
-                  onValueChange={(v) =>
-                    form.setValue(`questions.${qi}.dimensionCode`, v)
-                  }
+                  onValueChange={(v) => form.setValue(`questions.${qi}.dimensionCode`, v)}
                 >
                   <SelectTrigger className="w-[200px]">
-                    <SelectValue placeholder={t("dimensionCode")} />
+                    <SelectValue placeholder={t('dimensionCode')} />
                   </SelectTrigger>
                   <SelectContent>
                     {dimensionCodes.map((code) => (
@@ -289,7 +278,7 @@ export function AdminCreateEvaluationScreen({ locale }: Props) {
                   type="button"
                   variant="secondary"
                   size="sm"
-                  onClick={() => applyTemplate(qi, "likert4")}
+                  onClick={() => applyTemplate(qi, 'likert4')}
                 >
                   Likert 1-4
                 </Button>
@@ -297,7 +286,7 @@ export function AdminCreateEvaluationScreen({ locale }: Props) {
                   type="button"
                   variant="secondary"
                   size="sm"
-                  onClick={() => applyTemplate(qi, "likert5")}
+                  onClick={() => applyTemplate(qi, 'likert5')}
                 >
                   Likert 1-5
                 </Button>
@@ -305,7 +294,7 @@ export function AdminCreateEvaluationScreen({ locale }: Props) {
                   type="button"
                   variant="secondary"
                   size="sm"
-                  onClick={() => applyTemplate(qi, "holland")}
+                  onClick={() => applyTemplate(qi, 'holland')}
                 >
                   Holland
                 </Button>
@@ -313,16 +302,12 @@ export function AdminCreateEvaluationScreen({ locale }: Props) {
                   type="button"
                   variant="secondary"
                   size="sm"
-                  onClick={() => applyTemplate(qi, "learning")}
+                  onClick={() => applyTemplate(qi, 'learning')}
                 >
                   A/B
                 </Button>
               </div>
-              <QuestionAnswers
-                form={form}
-                qIndex={qi}
-                t={t}
-              />
+              <QuestionAnswers form={form} qIndex={qi} t={t} />
               <Button
                 type="button"
                 variant="ghost"
@@ -338,7 +323,7 @@ export function AdminCreateEvaluationScreen({ locale }: Props) {
       </Card>
 
       <Button type="submit" disabled={create.isPending}>
-        {create.isPending ? t("saving") : t("create")}
+        {create.isPending ? t('saving') : t('create')}
       </Button>
     </form>
   )
@@ -357,17 +342,17 @@ function QuestionAnswers({
 
   return (
     <div className="space-y-2">
-      <Label>{t("answers")}</Label>
+      <Label>{t('answers')}</Label>
       {answers.map((_, ai) => (
         <div key={ai} className="flex gap-2">
           <Input
-            placeholder={t("answerText")}
+            placeholder={t('answerText')}
             {...form.register(`questions.${qIndex}.answers.${ai}.text`)}
           />
           <Input
             type="number"
             className="w-24"
-            placeholder={t("scoreValue")}
+            placeholder={t('scoreValue')}
             {...form.register(`questions.${qIndex}.answers.${ai}.scoreValue`, {
               valueAsNumber: true,
             })}
@@ -395,10 +380,7 @@ function QuestionAnswers({
         size="sm"
         onClick={() => {
           const current = form.getValues(`questions.${qIndex}.answers`)
-          form.setValue(`questions.${qIndex}.answers`, [
-            ...current,
-            defaultAnswer(),
-          ])
+          form.setValue(`questions.${qIndex}.answers`, [...current, defaultAnswer()])
         }}
       >
         <Plus className="size-4" />

@@ -1,24 +1,24 @@
-"use client"
+'use client'
 
-import { ColumnDef } from "@tanstack/react-table"
-import { useTranslations } from "next-intl"
+import { ColumnDef } from '@tanstack/react-table'
+import { useTranslations } from 'next-intl'
 
-import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
-import { Link } from "@/i18n/navigation"
-import { Pages, Routes } from "@/lib/types/enums"
-import type { Evaluation } from "../types"
-import { formatAgeRange, getEvaluationTypeLabel } from "../utils/labels"
+import { Badge } from '@/components/ui/badge'
+import { Button } from '@/components/ui/button'
+import { Link } from '@/i18n/navigation'
+import { Pages, Routes } from '@/lib/types/enums'
+import type { Evaluation } from '../types'
+import { formatAgeRange, getEvaluationTypeLabel } from '../utils/labels'
 
 const ADMIN_EVALUATIONS = `/${Routes.DASHBOARDS}/${Pages.ADMIN}/evaluations`
 
 function TH({ messageKey }: { messageKey: string }) {
-  const t = useTranslations("Features.Evaluations")
+  const t = useTranslations('Features.Evaluations')
   return t(messageKey)
 }
 
-function TypeBadge({ type }: { type: Evaluation["type"] }) {
-  const t = useTranslations("Features.Evaluations")
+function TypeBadge({ type }: { type: Evaluation['type'] }) {
+  const t = useTranslations('Features.Evaluations')
   return (
     <Badge variant="secondary" className="font-normal">
       {getEvaluationTypeLabel(type, t)}
@@ -27,23 +27,23 @@ function TypeBadge({ type }: { type: Evaluation["type"] }) {
 }
 
 function AgeRangeCell({ evaluation }: { evaluation: Evaluation }) {
-  const t = useTranslations("Features.Evaluations")
+  const t = useTranslations('Features.Evaluations')
   return formatAgeRange(evaluation.ageFrom, evaluation.ageTo, t)
 }
 
 function ViewDetailsLink({ id }: { id: string }) {
-  const t = useTranslations("Features.Evaluations")
+  const t = useTranslations('Features.Evaluations')
   return (
     <Button asChild variant="outline" size="sm">
-      <Link href={`${ADMIN_EVALUATIONS}/${id}`}>{t("viewDetails")}</Link>
+      <Link href={`${ADMIN_EVALUATIONS}/${id}`}>{t('viewDetails')}</Link>
     </Button>
   )
 }
 
 export const evaluationColumns: ColumnDef<Evaluation>[] = [
   {
-    id: "title",
-    accessorKey: "title",
+    id: 'title',
+    accessorKey: 'title',
     header: () => <TH messageKey="title" />,
     cell: ({ row }) => (
       <Link
@@ -55,37 +55,35 @@ export const evaluationColumns: ColumnDef<Evaluation>[] = [
     ),
   },
   {
-    id: "type",
-    accessorKey: "type",
+    id: 'type',
+    accessorKey: 'type',
     header: () => <TH messageKey="type" />,
     cell: ({ row }) => <TypeBadge type={row.original.type} />,
   },
   {
-    id: "ageRange",
+    id: 'ageRange',
     header: () => <TH messageKey="ageRange" />,
     cell: ({ row }) => <AgeRangeCell evaluation={row.original} />,
   },
   {
-    id: "evaluatorTypes",
+    id: 'evaluatorTypes',
     header: () => <TH messageKey="evaluatorTypes" />,
     cell: ({ row }) =>
-      row.original.evaluatorTypes?.length
-        ? row.original.evaluatorTypes.join(", ")
-        : "—",
+      row.original.evaluatorTypes?.length ? row.original.evaluatorTypes.join(', ') : '—',
   },
   {
-    id: "dimensionsCount",
+    id: 'dimensionsCount',
     header: () => <TH messageKey="dimensions" />,
-    cell: ({ row }) => row.original.dimensions?.length ?? "—",
+    cell: ({ row }) => row.original.dimensions?.length ?? '—',
   },
   {
-    id: "questionsCount",
+    id: 'questionsCount',
     header: () => <TH messageKey="questions" />,
-    cell: ({ row }) => row.original.questions?.length ?? "—",
+    cell: ({ row }) => row.original.questions?.length ?? '—',
   },
   {
-    id: "actions",
-    header: "",
+    id: 'actions',
+    header: '',
     cell: ({ row }) => <ViewDetailsLink id={row.original.id} />,
   },
 ]

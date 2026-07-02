@@ -1,9 +1,9 @@
-import { OrganizationStatusScreen } from "@/features/organizations"
-import { getCurrentOrganization } from "@/lib/helpers/getCurrentOrganization"
-import { ApprovalStatus } from "@/lib/types/enums"
-import { OrganizationDashboardScreen } from "@/components/pages/dashboards/OrganizationDashboardScreen"
-import type { ActivityItem } from "@/components/shared/dashboard/ActivityFeed"
-import type { StatCardProps } from "@/components/shared/dashboard/StatCard"
+import { OrganizationStatusScreen } from '@/features/organizations'
+import { getCurrentOrganization } from '@/lib/helpers/getCurrentOrganization'
+import { ApprovalStatus } from '@/lib/types/enums'
+import { OrganizationDashboardScreen } from '@/components/pages/dashboards/OrganizationDashboardScreen'
+import type { ActivityItem } from '@/components/shared/dashboard/ActivityFeed'
+import type { StatCardProps } from '@/components/shared/dashboard/StatCard'
 type Props = {
   params: Promise<{ locale: string }>
 }

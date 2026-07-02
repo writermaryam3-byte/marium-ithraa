@@ -1,15 +1,15 @@
-"use server"
+'use server'
 
-import { revalidatePath } from "next/cache"
+import { revalidatePath } from 'next/cache'
 
-import { actionErrorState } from "@/features/forms/action-errors"
-import { actionSuccess } from "@/features/forms/action-results"
-import { parseFormData } from "@/features/forms/parse-form-data"
-import { updateClassSchema } from "@/features/forms/schemas/class.schema"
-import { StatusCode } from "@/lib/types/enums"
-import { type InitialState } from "@/lib/types/types"
+import { actionErrorState } from '@/features/forms/action-errors'
+import { actionSuccess } from '@/features/forms/action-results'
+import { parseFormData } from '@/features/forms/parse-form-data'
+import { updateClassSchema } from '@/features/forms/schemas/class.schema'
+import { StatusCode } from '@/lib/types/enums'
+import { type InitialState } from '@/lib/types/types'
 
-import { updateClass } from "../api"
+import { updateClass } from '../api'
 
 export async function updateClassAction(
   _prevState: InitialState,
@@ -21,9 +21,9 @@ export async function updateClassAction(
   try {
     const { id, ...payload } = parsed.data
     await updateClass(id, payload)
-    revalidatePath("/dashboards/organization/classes")
+    revalidatePath('/dashboards/organization/classes')
     revalidatePath(`/dashboards/organization/classes/${id}`)
-    return actionSuccess("Actions.classes.updated", StatusCode.OK)
+    return actionSuccess('Actions.classes.updated', StatusCode.OK)
   } catch (error) {
     return actionErrorState(error, formData)
   }

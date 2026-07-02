@@ -1,17 +1,21 @@
-import { toast } from "sonner"
-import { ApiError } from "@/lib/errors/ApiError"
+import { toast } from 'sonner'
+import { ApiError } from '@/lib/errors/ApiError'
 
 type Translator = (key: string) => string
 
 function translate(t: Translator | undefined, key: string): string {
   if (!t) return key
-  try { return t(key) } catch { return key }
+  try {
+    return t(key)
+  } catch {
+    return key
+  }
 }
 
 function getMessageFromError(error: unknown): string {
   if (error instanceof ApiError) return error.message
   if (error instanceof Error) return error.message
-  return "An unexpected error occurred"
+  return 'An unexpected error occurred'
 }
 
 export type NotificationOptions = {
@@ -33,23 +37,20 @@ function resolveMessage(
 ): string {
   if (msg?.raw) return msg.raw
   if (msg?.message) return translate(t, msg.message)
-  return ""
+  return ''
 }
 
-function notify(
-  type: "success" | "error" | "warning" | "info",
-  opts: NotificationOptions,
-): void {
+function notify(type: 'success' | 'error' | 'warning' | 'info', opts: NotificationOptions): void {
   const { t, dedupKey, duration } = opts
 
-  let content = ""
+  let content = ''
   if (opts.error) {
     content = getMessageFromError(opts.error)
   } else {
     content = resolveMessage(t, { message: opts.message, raw: opts.raw })
   }
 
-  if (!content) content = ""
+  if (!content) content = ''
 
   const title = resolveMessage(t, { message: opts.title, raw: opts.titleRaw })
   const description = resolveMessage(t, { message: opts.description, raw: opts.descriptionRaw })
@@ -57,16 +58,16 @@ function notify(
   const toastId = dedupKey ?? undefined
 
   switch (type) {
-    case "success":
+    case 'success':
       toast.success(content, { id: toastId, duration, description })
       break
-    case "warning":
+    case 'warning':
       toast.warning(content, { id: toastId, duration, description })
       break
-    case "info":
+    case 'info':
       toast.info(content, { id: toastId, duration, description })
       break
-    case "error":
+    case 'error':
       toast.error(content, { id: toastId, duration, description })
       break
   }
@@ -79,10 +80,10 @@ export function showSuccessToast(
   tOrOpts: Translator | NotificationOptions,
   messageKey?: string,
 ): void {
-  if (typeof tOrOpts === "function") {
+  if (typeof tOrOpts === 'function') {
     toast.success(translate(tOrOpts, messageKey!))
   } else {
-    notify("success", tOrOpts)
+    notify('success', tOrOpts)
   }
 }
 
@@ -92,10 +93,10 @@ export function showErrorToast(
   tOrOpts: Translator | NotificationOptions,
   messageKey?: string,
 ): void {
-  if (typeof tOrOpts === "function") {
+  if (typeof tOrOpts === 'function') {
     toast.error(translate(tOrOpts, messageKey!))
   } else {
-    notify("error", tOrOpts)
+    notify('error', tOrOpts)
   }
 }
 
@@ -105,10 +106,10 @@ export function showInfoToast(
   tOrOpts: Translator | NotificationOptions,
   messageKey?: string,
 ): void {
-  if (typeof tOrOpts === "function") {
+  if (typeof tOrOpts === 'function') {
     toast.info(translate(tOrOpts, messageKey!))
   } else {
-    notify("info", tOrOpts)
+    notify('info', tOrOpts)
   }
 }
 
@@ -118,10 +119,10 @@ export function showWarningToast(
   tOrOpts: Translator | NotificationOptions,
   messageKey?: string,
 ): void {
-  if (typeof tOrOpts === "function") {
+  if (typeof tOrOpts === 'function') {
     toast.warning(translate(tOrOpts, messageKey!))
   } else {
-    notify("warning", tOrOpts)
+    notify('warning', tOrOpts)
   }
 }
 

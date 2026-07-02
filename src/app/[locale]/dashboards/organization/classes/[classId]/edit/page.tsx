@@ -1,11 +1,11 @@
-import { notFound } from "next/navigation"
+import { notFound } from 'next/navigation'
 
-import { ClassFormScreen } from "@/components/pages/dashboards/organization/ClassFormScreen"
-import { type ClassItem } from "@/features/classes"
-import { getClassById } from "@/features/classes"
-import { getGradesByOrg } from "@/features/grades"
-import { getTeachersByOrg } from "@/features/teachers/api"
-import { requireCurrentOrganization } from "@/lib/helpers/getCurrentOrganization"
+import { ClassFormScreen } from '@/components/pages/dashboards/organization/ClassFormScreen'
+import { type ClassItem } from '@/features/classes'
+import { getClassById } from '@/features/classes'
+import { getGradesByOrg } from '@/features/grades'
+import { getTeachersByOrg } from '@/features/teachers/api'
+import { requireCurrentOrganization } from '@/lib/helpers/getCurrentOrganization'
 
 type Props = {
   params: Promise<{ locale: string; classId: string }>

@@ -1,34 +1,38 @@
-"use client"
+'use client'
 
-import { useMemo, useState } from "react"
-import { useForm, useWatch } from "react-hook-form"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useTranslations } from "next-intl"
-import { useRouter } from "@/i18n/navigation"
+import { useMemo, useState } from 'react'
+import { useForm, useWatch } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useTranslations } from 'next-intl'
+import { useRouter } from '@/i18n/navigation'
 
-import { Form } from "@/components/ui/form"
-import { Button } from "@/components/ui/button"
-import { SubmitButton } from "@/components/shared/forms/SubmitButton"
+import { Form } from '@/components/ui/form'
+import { Button } from '@/components/ui/button'
+import { SubmitButton } from '@/components/shared/forms/SubmitButton'
 
-import BeneficiarySignupTypeStep from "./BeneficiarySignupTypeStep"
-import OrganizationSignupForm from "./OrganizationSignupForm"
-import ParentSignupForm from "./ParentSignupForm"
-import TeacherSignupForm from "./TeacherSignupForm"
-import EnricherSignupForm from "./EnricherSignupForm"
+import BeneficiarySignupTypeStep from './BeneficiarySignupTypeStep'
+import OrganizationSignupForm from './OrganizationSignupForm'
+import ParentSignupForm from './ParentSignupForm'
+import TeacherSignupForm from './TeacherSignupForm'
+import EnricherSignupForm from './EnricherSignupForm'
 import {
   type BeneficiaryOrganizationFormValues,
   createBeneficiaryOrganizationSchema,
-} from "../../schemas/signup.schema"
-import { beneficiariesSignupClient, enrichersSignupClient, parentSignupClient } from "@/features/auth/api"
-import { useAuth } from "@/features/auth/hooks/useAuth"
-import { ApiError } from "@/lib/errors/ApiError"
-import { signInWithPhoneAndRedirect } from "@/lib/auth/signInWithCredentials"
-import { useLocale } from "next-intl"
-import { showErrorToast, showSuccessToast } from "@/lib/toast/app-toast"
+} from '../../schemas/signup.schema'
+import {
+  beneficiariesSignupClient,
+  enrichersSignupClient,
+  parentSignupClient,
+} from '@/features/auth/api'
+import { useAuth } from '@/features/auth/hooks/useAuth'
+import { ApiError } from '@/lib/errors/ApiError'
+import { signInWithPhoneAndRedirect } from '@/lib/auth/signInWithCredentials'
+import { useLocale } from 'next-intl'
+import { showErrorToast, showSuccessToast } from '@/lib/toast/app-toast'
 
 export function SignupWizard() {
-  const t = useTranslations("Signup.Beneficiary.Wizard")
-  const tSignup = useTranslations("Signup")
+  const t = useTranslations('Signup.Beneficiary.Wizard')
+  const tSignup = useTranslations('Signup')
   const router = useRouter()
   const locale = useLocale()
   const { login } = useAuth()
@@ -37,32 +41,27 @@ export function SignupWizard() {
   const [submitError, setSubmitError] = useState<string | null>(null)
 
   const schema = useMemo(
-    () =>
-      createBeneficiaryOrganizationSchema((key) =>
-        tSignup(`Beneficiary.Validation.${key}`)
-      ),
+    () => createBeneficiaryOrganizationSchema((key) => tSignup(`Beneficiary.Validation.${key}`)),
     [tSignup]
   )
 
   const form = useForm<BeneficiaryOrganizationFormValues>({
     resolver: zodResolver(schema),
     defaultValues: {
-      accountType: "organization",
-      name: "",
-      email: "",
-      password: "",
-      phone: "",
-      organizationName: "",
-      organizationType: "",
+      accountType: 'organization',
+      name: '',
+      email: '',
+      password: '',
+      phone: '',
+      organizationName: '',
+      organizationType: '',
     },
-    mode: "onTouched",
+    mode: 'onTouched',
   })
-
-  
 
   const type = useWatch({
     control: form.control,
-    name: "accountType",
+    name: 'accountType',
   })
 
   function next() {
@@ -90,30 +89,29 @@ export function SignupWizard() {
 
       let response: { message?: string }
 
-      if (values.accountType === "parent") {
+      if (values.accountType === 'parent') {
         response = await parentSignupClient(basePayload)
-      } else if (values.accountType === "enricher") {
+      } else if (values.accountType === 'enricher') {
         response = await enrichersSignupClient({
           ...basePayload,
           accountType: values.accountType,
-          organizationName: values.organizationName?.trim() || "",
+          organizationName: values.organizationName?.trim() || '',
         })
       } else {
         response = await beneficiariesSignupClient({
           ...basePayload,
           accountType: values.accountType,
-          organizationName: values.organizationName?.trim() || "",
-          organizationType: values.organizationType || "",
+          organizationName: values.organizationName?.trim() || '',
+          organizationType: values.organizationType || '',
         })
       }
 
-      const isPendingApproval = values.accountType === "organization" || values.accountType === "enricher"
+      const isPendingApproval =
+        values.accountType === 'organization' || values.accountType === 'enricher'
 
-      showSuccessToast(
-        { raw: isPendingApproval
-          ? t("organizationPendingSuccess")
-          : response.message || t("success") }
-      )
+      showSuccessToast({
+        raw: isPendingApproval ? t('organizationPendingSuccess') : response.message || t('success'),
+      })
 
       const loginResult = await signInWithPhoneAndRedirect({
         phone: values.phone,
@@ -124,15 +122,12 @@ export function SignupWizard() {
       })
 
       if (!loginResult.ok) {
-        const message = t("autoLoginFailed")
+        const message = t('autoLoginFailed')
         setSubmitError(message)
         showErrorToast({ raw: message })
       }
     } catch (error) {
-      const message =
-        error instanceof Error
-          ? error.message
-          : t("unableToCreate")
+      const message = error instanceof Error ? error.message : t('unableToCreate')
 
       setSubmitError(message)
       showErrorToast({ raw: message })
@@ -171,10 +166,10 @@ export function SignupWizard() {
 
             {step === 2 && (
               <div className="space-y-6">
-                {type === "teacher" && <TeacherSignupForm />}
-                {type === "parent" && <ParentSignupForm />}
-                {type === "organization" && <OrganizationSignupForm />}
-                {type === "enricher" && <EnricherSignupForm />}
+                {type === 'teacher' && <TeacherSignupForm />}
+                {type === 'parent' && <ParentSignupForm />}
+                {type === 'organization' && <OrganizationSignupForm />}
+                {type === 'enricher' && <EnricherSignupForm />}
               </div>
             )}
 
@@ -187,12 +182,15 @@ export function SignupWizard() {
             <div className="flex items-center justify-between gap-4">
               {step > 1 && (
                 <Button type="button" variant="outline" onClick={back} disabled={isSubmitting}>
-                  {t("back")}
+                  {t('back')}
                 </Button>
               )}
               <div className="ms-auto">
-                <SubmitButton loading={isSubmitting} loadingText={step === 1 ? undefined : t("submitting")}>
-                  {step === 1 ? t("next") : t("submit")}
+                <SubmitButton
+                  loading={isSubmitting}
+                  loadingText={step === 1 ? undefined : t('submitting')}
+                >
+                  {step === 1 ? t('next') : t('submit')}
                 </SubmitButton>
               </div>
             </div>

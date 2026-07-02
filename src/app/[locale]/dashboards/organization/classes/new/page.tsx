@@ -1,7 +1,7 @@
-import { ClassFormScreen } from "@/components/pages/dashboards/organization/ClassFormScreen"
-import { getGradesByOrg } from "@/features/grades"
-import { getTeachersByOrg } from "@/features/teachers/api"
-import { requireCurrentOrganization } from "@/lib/helpers/getCurrentOrganization"
+import { ClassFormScreen } from '@/components/pages/dashboards/organization/ClassFormScreen'
+import { getGradesByOrg } from '@/features/grades'
+import { getTeachersByOrg } from '@/features/teachers/api'
+import { requireCurrentOrganization } from '@/lib/helpers/getCurrentOrganization'
 
 type Props = {
   params: Promise<{ locale: string }>

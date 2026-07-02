@@ -1,9 +1,9 @@
-import { notFound } from "next/navigation"
+import { notFound } from 'next/navigation'
 
-import { GradeFormScreen } from "@/components/pages/dashboards/organization/GradeFormScreen"
-import { type Grade } from "@/features/grades"
-import { getGradeById } from "@/features/grades"
-import { requireCurrentOrganization } from "@/lib/helpers/getCurrentOrganization"
+import { GradeFormScreen } from '@/components/pages/dashboards/organization/GradeFormScreen'
+import { type Grade } from '@/features/grades'
+import { getGradeById } from '@/features/grades'
+import { requireCurrentOrganization } from '@/lib/helpers/getCurrentOrganization'
 
 type Props = {
   params: Promise<{ locale: string; gradeId: string }>
@@ -20,11 +20,5 @@ export default async function EditGradePage({ params }: Props) {
     notFound()
   }
 
-  return (
-    <GradeFormScreen
-      locale={locale}
-      organizationId={org.id}
-      grade={grade}
-    />
-  )
+  return <GradeFormScreen locale={locale} organizationId={org.id} grade={grade} />
 }

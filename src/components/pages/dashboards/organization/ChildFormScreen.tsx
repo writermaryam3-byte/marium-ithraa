@@ -1,41 +1,32 @@
-"use client"
+'use client'
 
-import { Link } from "@/i18n/navigation"
-import { useRouter } from "@/i18n/navigation"
-import { useMemo, useState } from "react"
-import { useTranslations } from "next-intl"
-import { showErrorToast, showSuccessToast } from "@/lib/toast/app-toast"
+import { Link } from '@/i18n/navigation'
+import { useRouter } from '@/i18n/navigation'
+import { useMemo, useState } from 'react'
+import { useTranslations } from 'next-intl'
+import { showErrorToast, showSuccessToast } from '@/lib/toast/app-toast'
 
-import { ManagementPageHeader } from "@/components/shared/management/ManagementPageHeader"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Form } from "@/components/ui/form"
-import {
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form"
+import { ManagementPageHeader } from '@/components/shared/management/ManagementPageHeader'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Button } from '@/components/ui/button'
+import { Form } from '@/components/ui/form'
+import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select"
-import { createChildAction, updateChildAction, type Child } from "@/features/children"
-import { type ClassItem } from "@/features/classes"
-import { type Grade } from "@/features/grades"
-import { z } from "zod"
-import { useFormConfig } from "@/features/forms/hooks/useFormConfig"
-import { useServerActionForm } from "@/features/forms/hooks/useServerActionForm"
-import { RhfFormFields } from "@/features/forms/components/RhfFormFields"
-import {
-  createOrgChildSchema,
-  updateChildSchema,
-} from "@/features/forms/schemas/child.schema"
-import { FormTypes, Gender, StatusCode } from "@/lib/types/enums"
+} from '@/components/ui/select'
+import { createChildAction, updateChildAction, type Child } from '@/features/children'
+import { type ClassItem } from '@/features/classes'
+import { type Grade } from '@/features/grades'
+import { z } from 'zod'
+import { useFormConfig } from '@/features/forms/hooks/useFormConfig'
+import { useServerActionForm } from '@/features/forms/hooks/useServerActionForm'
+import { RhfFormFields } from '@/features/forms/components/RhfFormFields'
+import { createOrgChildSchema, updateChildSchema } from '@/features/forms/schemas/child.schema'
+import { FormTypes, Gender, StatusCode } from '@/lib/types/enums'
 
 type Props = {
   locale: string
@@ -45,29 +36,21 @@ type Props = {
   child?: Child
 }
 
-export function ChildFormScreen({
-  locale,
-  organizationId,
-  grades,
-  classes,
-  child,
-}: Props) {
-  const isAr = locale === "ar"
+export function ChildFormScreen({ locale, organizationId, grades, classes, child }: Props) {
+  const isAr = locale === 'ar'
   const router = useRouter()
-  const t = useTranslations("Forms.Child")
-  const tCommon = useTranslations("Dashboard.common")
+  const t = useTranslations('Forms.Child')
+  const tCommon = useTranslations('Dashboard.common')
   const isEdit = Boolean(child)
   const action = isEdit ? updateChildAction : createChildAction
   const { fields: createFields } = useFormConfig(FormTypes.CHILD_ORG)
   const { fields: updateFields } = useFormConfig(FormTypes.CHILD_UPDATE)
-  const [gradeFilter, setGradeFilter] = useState(
-    child?.gradeId ?? child?.class?.gradeId ?? "",
-  )
+  const [gradeFilter, setGradeFilter] = useState(child?.gradeId ?? child?.class?.gradeId ?? '')
 
   const defaultBirth =
     child?.birthDate && !Number.isNaN(new Date(child.birthDate).getTime())
       ? new Date(child.birthDate).toISOString().slice(0, 10)
-      : ""
+      : ''
 
   const schema = isEdit ? updateChildSchema : createOrgChildSchema
   const defaultValues = isEdit
@@ -76,18 +59,18 @@ export function ChildFormScreen({
         name: child!.name,
         birthDate: defaultBirth,
         gender: (child!.gender as Gender) ?? Gender.MALE,
-        classId: child!.classId ?? child!.class?.id ?? "",
+        classId: child!.classId ?? child!.class?.id ?? '',
       }
     : {
         organizationId,
-        name: "",
-        birthDate: "",
+        name: '',
+        birthDate: '',
         gender: Gender.MALE,
-        classId: "",
-        parentName: "",
-        parentEmail: "",
-        parentPhone: "",
-        parentPassword: "",
+        classId: '',
+        parentName: '',
+        parentEmail: '',
+        parentPhone: '',
+        parentPassword: '',
       }
 
   const { form, submit, isPending } = useServerActionForm({
@@ -97,8 +80,8 @@ export function ChildFormScreen({
     onStatusChange: (state) => {
       if (!state?.status) return
       if (state.status === StatusCode.CREATED || state.status === StatusCode.OK) {
-        showSuccessToast(t, state.message ?? "toast.saved")
-        router.push("/dashboards/organization/children")
+        showSuccessToast(t, state.message ?? 'toast.saved')
+        router.push('/dashboards/organization/children')
       } else if (state.message) showErrorToast(t, state.message)
     },
   })
@@ -108,24 +91,24 @@ export function ChildFormScreen({
     return classes.filter((c) => !gradeFilter || c.gradeId === gradeFilter)
   }, [classes, gradeFilter, isEdit])
 
-  const pageTitle = isEdit ? t("editTitle") : t("addTitle")
+  const pageTitle = isEdit ? t('editTitle') : t('addTitle')
   const parentFields = createFields.filter((f) =>
-    ["parentName", "parentEmail", "parentPhone", "parentPassword"].includes(f.name),
+    ['parentName', 'parentEmail', 'parentPhone', 'parentPassword'].includes(f.name),
   )
   const baseFields = (isEdit ? updateFields : createFields).filter(
     (f) => !parentFields.some((p) => p.name === f.name),
   )
 
   return (
-    <main className="app-container py-8 space-y-10" dir={isAr ? "rtl" : "ltr"}>
+    <main className="app-container py-8 space-y-10" dir={isAr ? 'rtl' : 'ltr'}>
       <ManagementPageHeader
         breadcrumbs={[
-          { href: "/dashboards/organization", label: t("breadcrumb.home") },
-          { href: "/dashboards/organization/children", label: t("breadcrumb.children") },
+          { href: '/dashboards/organization', label: t('breadcrumb.home') },
+          { href: '/dashboards/organization/children', label: t('breadcrumb.children') },
           { label: pageTitle },
         ]}
         title={pageTitle}
-        subtitle={t("subtitle")}
+        subtitle={t('subtitle')}
       />
 
       <Card className="mx-auto max-w-3xl rounded-2xl">
@@ -145,7 +128,7 @@ export function ChildFormScreen({
               {!isEdit && (
                 <>
                   <p className="text-sm font-semibold text-muted-foreground pt-2">
-                    {t("parentSection")}
+                    {t('parentSection')}
                   </p>
                   <RhfFormFields fields={parentFields} />
                 </>
@@ -153,16 +136,16 @@ export function ChildFormScreen({
 
               {!isEdit && (
                 <div className="space-y-2">
-                  <FormLabel>{t("grade.label")}</FormLabel>
+                  <FormLabel>{t('grade.label')}</FormLabel>
                   <Select
                     value={gradeFilter}
                     onValueChange={(v) => {
                       setGradeFilter(v)
-                      form.setValue("classId", "")
+                      form.setValue('classId', '')
                     }}
                   >
                     <SelectTrigger className="w-full rounded-xl">
-                      <SelectValue placeholder={t("grade.placeholder")} />
+                      <SelectValue placeholder={t('grade.placeholder')} />
                     </SelectTrigger>
                     <SelectContent>
                       {grades.map((g) => (
@@ -180,16 +163,16 @@ export function ChildFormScreen({
                 name="gender"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>{t("gender.label")}</FormLabel>
+                    <FormLabel>{t('gender.label')}</FormLabel>
                     <Select value={field.value} onValueChange={field.onChange}>
                       <FormControl>
                         <SelectTrigger className="w-full rounded-xl">
-                          <SelectValue placeholder={t("gender.placeholder")} />
+                          <SelectValue placeholder={t('gender.placeholder')} />
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
-                        <SelectItem value={Gender.MALE}>{t("gender.male")}</SelectItem>
-                        <SelectItem value={Gender.FEMALE}>{t("gender.female")}</SelectItem>
+                        <SelectItem value={Gender.MALE}>{t('gender.male')}</SelectItem>
+                        <SelectItem value={Gender.FEMALE}>{t('gender.female')}</SelectItem>
                       </SelectContent>
                     </Select>
                     <FormMessage />
@@ -202,7 +185,7 @@ export function ChildFormScreen({
                 name="classId"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>{t("class.label")}</FormLabel>
+                    <FormLabel>{t('class.label')}</FormLabel>
                     <Select
                       value={field.value}
                       onValueChange={field.onChange}
@@ -210,7 +193,7 @@ export function ChildFormScreen({
                     >
                       <FormControl>
                         <SelectTrigger className="w-full rounded-xl">
-                          <SelectValue placeholder={t("class.placeholder")} />
+                          <SelectValue placeholder={t('class.placeholder')} />
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
@@ -227,11 +210,16 @@ export function ChildFormScreen({
               />
 
               <div className="flex gap-3 pt-2">
-                <Button variant="gradient" type="submit" className="h-11 flex-1 rounded-xl" disabled={isPending}>
-                  {isPending ? tCommon("saving") : tCommon("saveChanges")}
+                <Button
+                  variant="gradient"
+                  type="submit"
+                  className="h-11 flex-1 rounded-xl"
+                  disabled={isPending}
+                >
+                  {isPending ? tCommon('saving') : tCommon('saveChanges')}
                 </Button>
                 <Button variant="outline" className="h-11 rounded-xl" asChild>
-                  <Link href="/dashboards/organization/children">{tCommon("cancel")}</Link>
+                  <Link href="/dashboards/organization/children">{tCommon('cancel')}</Link>
                 </Button>
               </div>
             </form>

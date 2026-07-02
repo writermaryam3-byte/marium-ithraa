@@ -1,16 +1,16 @@
-"use client"
+'use client'
 
-import type { ReactNode } from "react"
-import type { DefaultValues, FieldValues } from "react-hook-form"
-import type { z } from "zod"
+import type { ReactNode } from 'react'
+import type { DefaultValues, FieldValues } from 'react-hook-form'
+import type { z } from 'zod'
 
-import { Form } from "@/components/ui/form"
-import { FormTypes } from "@/lib/types/enums"
-import type { InitialState } from "@/lib/types/types"
+import { Form } from '@/components/ui/form'
+import { FormTypes } from '@/lib/types/enums'
+import type { InitialState } from '@/lib/types/types'
 
-import { useFormConfig } from "../hooks/useFormConfig"
-import { useServerActionForm } from "../hooks/useServerActionForm"
-import { RhfFormFields } from "./RhfFormFields"
+import { useFormConfig } from '../hooks/useFormConfig'
+import { useServerActionForm } from '../hooks/useServerActionForm'
+import { RhfFormFields } from './RhfFormFields'
 
 type ServerActionFormProps<T extends FieldValues = FieldValues> = {
   formType?: FormTypes
@@ -21,7 +21,7 @@ type ServerActionFormProps<T extends FieldValues = FieldValues> = {
   onStatusChange?: (state: InitialState) => void
   children?: ReactNode
   className?: string
-  fields?: ReturnType<typeof useFormConfig>["fields"]
+  fields?: ReturnType<typeof useFormConfig>['fields']
 }
 
 export function ServerActionForm<T extends FieldValues = FieldValues>({

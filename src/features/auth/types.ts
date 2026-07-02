@@ -1,5 +1,5 @@
-import type { Role } from "@/features/users"
-import type { UserRole } from "@/lib/types/enums"
+import type { Role } from '@/features/users'
+import type { UserRole } from '@/lib/types/enums'
 
 export type VerifyEmailResponse = {
   message: string

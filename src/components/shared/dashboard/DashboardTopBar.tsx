@@ -1,12 +1,12 @@
-"use client"
+'use client'
 
-import { useLocale } from "next-intl"
+import { useLocale } from 'next-intl'
 
-import LanguageSwitcher from "@/components/layouts/header/langSwitch"
-import { NotificationBell } from "@/components/notifications/NotificationBell"
-import { Separator } from "@/components/ui/separator"
-import { SidebarTrigger } from "@/components/ui/sidebar"
-import { cn } from "@/lib/utils"
+import LanguageSwitcher from '@/components/layouts/header/langSwitch'
+import { NotificationBell } from '@/components/notifications/NotificationBell'
+import { Separator } from '@/components/ui/separator'
+import { SidebarTrigger } from '@/components/ui/sidebar'
+import { cn } from '@/lib/utils'
 
 type Props = {
   withSidebar?: boolean
@@ -19,8 +19,8 @@ export function DashboardTopBar({ withSidebar = true, className }: Props) {
   return (
     <header
       className={cn(
-        "sticky top-0 z-10 flex h-(--header-height) shrink-0 items-center gap-2",
-        "border-b border-amber-50/70 bg-white/80 shadow-sm backdrop-blur-md",
+        'sticky top-0 z-10 flex h-(--header-height) shrink-0 items-center gap-2',
+        'border-b border-amber-50/70 bg-white/80 shadow-sm backdrop-blur-md',
         className,
       )}
     >
@@ -28,10 +28,7 @@ export function DashboardTopBar({ withSidebar = true, className }: Props) {
         {withSidebar ? (
           <>
             <SidebarTrigger className="-ms-1" />
-            <Separator
-              orientation="vertical"
-              className="mx-2 data-[orientation=vertical]:h-4"
-            />
+            <Separator orientation="vertical" className="mx-2 data-[orientation=vertical]:h-4" />
           </>
         ) : null}
         <div className="ms-auto flex items-center gap-2">

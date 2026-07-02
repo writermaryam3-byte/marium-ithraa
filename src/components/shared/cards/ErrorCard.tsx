@@ -1,14 +1,14 @@
-"use client"
+'use client'
 
-import type { ReactNode } from "react"
-import { useTranslations } from "next-intl"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip"
-import { Button } from "@/components/ui/button"
-import { ApiError } from "@/lib/errors/ApiError"
-import { useTranslateBackend } from "@/lib/i18n/backend-messages"
-import { AlertTriangle, RefreshCw } from "lucide-react"
-import { cn } from "@/lib/utils"
+import type { ReactNode } from 'react'
+import { useTranslations } from 'next-intl'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
+import { Button } from '@/components/ui/button'
+import { ApiError } from '@/lib/errors/ApiError'
+import { useTranslateBackend } from '@/lib/i18n/backend-messages'
+import { AlertTriangle, RefreshCw } from 'lucide-react'
+import { cn } from '@/lib/utils'
 
 export type ErrorCardProps = {
   title?: string
@@ -24,7 +24,7 @@ export type ErrorCardProps = {
 }
 
 function getErrorMessage(error: ApiError | Error | undefined): string {
-  if (!error) return ""
+  if (!error) return ''
   if (error instanceof ApiError) return error.message
   return error.message
 }
@@ -46,15 +46,15 @@ const ErrorCard = ({
   technicalDetails,
   className,
 }: ErrorCardProps) => {
-  const t = useTranslations("ErrorCard")
+  const t = useTranslations('ErrorCard')
   const tb = useTranslateBackend()
-  const resolvedTitle = title ?? t("defaultTitle")
+  const resolvedTitle = title ?? t('defaultTitle')
   const errorMessage = message || tb(getErrorMessage(error))
   const techDetails = technicalDetails || getTechnicalDetails(error)
   const IconComponent = icon || <AlertTriangle className="size-5 shrink-0" />
 
   return (
-    <Card className={cn("@container/card border-destructive/40 bg-destructive/5", className)}>
+    <Card className={cn('@container/card border-destructive/40 bg-destructive/5', className)}>
       <CardHeader className="flex flex-row items-start justify-between gap-4">
         <div className="min-w-0">
           <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
@@ -79,9 +79,7 @@ const ErrorCard = ({
             {resolvedTitle}
           </CardTitle>
           {errorMessage && (
-            <CardDescription className="mt-1 text-destructive/80">
-              {errorMessage}
-            </CardDescription>
+            <CardDescription className="mt-1 text-destructive/80">{errorMessage}</CardDescription>
           )}
         </div>
       </CardHeader>
@@ -94,7 +92,7 @@ const ErrorCard = ({
             className="border-destructive/30 text-destructive hover:bg-destructive/10"
           >
             <RefreshCw className="size-3.5" />
-            {retry.label ?? t("retry")}
+            {retry.label ?? t('retry')}
           </Button>
         </CardContent>
       )}

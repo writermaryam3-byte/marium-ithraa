@@ -1,10 +1,10 @@
-import { notFound } from "next/navigation"
+import { notFound } from 'next/navigation'
 
-import { ChildFormScreen } from "@/components/pages/dashboards/organization/ChildFormScreen"
-import { getChildById } from "@/features/children"
-import { getClassesByOrg } from "@/features/classes"
-import { getGradesByOrg } from "@/features/grades"
-import { requireCurrentOrganization } from "@/lib/helpers/getCurrentOrganization"
+import { ChildFormScreen } from '@/components/pages/dashboards/organization/ChildFormScreen'
+import { getChildById } from '@/features/children'
+import { getClassesByOrg } from '@/features/classes'
+import { getGradesByOrg } from '@/features/grades'
+import { requireCurrentOrganization } from '@/lib/helpers/getCurrentOrganization'
 
 type Props = {
   params: Promise<{ locale: string; childId: string }>

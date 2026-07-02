@@ -1,10 +1,10 @@
-import type { ReactNode } from "react"
+import type { ReactNode } from 'react'
 
-import { DashboardTopBar } from "@/components/shared/dashboard/DashboardTopBar"
-import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar"
-import RequireRoles from "@/features/auth/components/RequireRoles"
-import { EnricherSidebar } from "@/features/enricher"
-import { UserRole } from "@/lib/types/enums"
+import { DashboardTopBar } from '@/components/shared/dashboard/DashboardTopBar'
+import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar'
+import RequireRoles from '@/features/auth/components/RequireRoles'
+import { EnricherSidebar } from '@/features/enricher'
+import { UserRole } from '@/lib/types/enums'
 
 export default async function EnricherLayout({
   children,
@@ -14,15 +14,15 @@ export default async function EnricherLayout({
   params: Promise<{ locale: string }>
 }) {
   const { locale } = await params
-  const dir = locale === "ar" ? "rtl" : "ltr"
+  const dir = locale === 'ar' ? 'rtl' : 'ltr'
 
   return (
     <RequireRoles allowed={[UserRole.ENRICHER]} redirectTo="/unauthorized" locale={locale}>
       <SidebarProvider
         style={
           {
-            "--sidebar-width": "calc(var(--spacing) * 72)",
-            "--header-height": "calc(var(--spacing) * 12)",
+            '--sidebar-width': 'calc(var(--spacing) * 72)',
+            '--header-height': 'calc(var(--spacing) * 12)',
           } as React.CSSProperties
         }
       >

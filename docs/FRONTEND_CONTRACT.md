@@ -5,10 +5,12 @@
 
 > **Important: Child Entity Split**
 > The legacy `Child` entity has been split into two separate entities:
+>
 > - `OrganizationChild`: Children registered by organizations (linked to a class and organization)
 > - `PrivateChild`: Children registered directly by parents (not linked to any organization)
 >
 > **API Changes:**
+>
 > - Most endpoints that previously accepted just `childId` now require both `childId` and `childType` parameters
 > - `childType` must be either `"organization"` or `"private"`
 > - The backend automatically resolves the correct entity based on the ID and type
@@ -16,6 +18,7 @@
 > - Use the helper functions `resolveChild()`, `getChildId()`, and `getChildType()` for child resolution in backend code
 >
 > **Frontend Migration Guide:**
+>
 > 1. Update all API calls that use `childId` to include `childType` parameter
 > 2. Update response handling to check for `organizationChildId` or `privateChildId` fields
 > 3. Update UI components to display child type information where relevant
@@ -23,54 +26,55 @@
 > 5. Update state management to track child type alongside child ID
 >
 > **TypeScript Types for Frontend:**
+>
 > ```typescript
-> type ChildType = 'organization' | 'private';
-> 
+> type ChildType = 'organization' | 'private'
+>
 > interface ChildReference {
->   childId: string;
->   childType: ChildType;
+>   childId: string
+>   childType: ChildType
 > }
-> 
+>
 > interface OrganizationChild {
->   id: string;
->   name: string;
->   birthDate: string;
->   gender: 'male' | 'female';
->   organizationId: string;
->   classId: string | null;
->   parentId: string;
->   createdAt: string;
->   updatedAt: string;
+>   id: string
+>   name: string
+>   birthDate: string
+>   gender: 'male' | 'female'
+>   organizationId: string
+>   classId: string | null
+>   parentId: string
+>   createdAt: string
+>   updatedAt: string
 > }
-> 
+>
 > interface PrivateChild {
->   id: string;
->   name: string;
->   birthDate: string;
->   gender: 'male' | 'female';
->   parentId: string;
->   createdAt: string;
->   updatedAt: string;
+>   id: string
+>   name: string
+>   birthDate: string
+>   gender: 'male' | 'female'
+>   parentId: string
+>   createdAt: string
+>   updatedAt: string
 > }
-> 
-> type Child = OrganizationChild | PrivateChild;
-> 
+>
+> type Child = OrganizationChild | PrivateChild
+>
 > interface EvaluationAttempt {
->   id: string;
->   organizationChildId: string | null;
->   privateChildId: string | null;
+>   id: string
+>   organizationChildId: string | null
+>   privateChildId: string | null
 >   // Use getChildId(attempt) to get the actual child ID
 > }
-> 
+>
 > // Helper function for frontend
 > function getChildId(attempt: EvaluationAttempt): string | null {
->   return attempt.organizationChildId || attempt.privateChildId || null;
+>   return attempt.organizationChildId || attempt.privateChildId || null
 > }
-> 
+>
 > function getChildType(attempt: EvaluationAttempt): ChildType | null {
->   if (attempt.organizationChildId) return 'organization';
->   if (attempt.privateChildId) return 'private';
->   return null;
+>   if (attempt.organizationChildId) return 'organization'
+>   if (attempt.privateChildId) return 'private'
+>   return null
 > }
 > ```
 
@@ -80,24 +84,25 @@
 
 ### Endpoints Requiring `childType` Parameter
 
-| Endpoint | Method | childType Required | Notes |
-|----------|--------|-------------------|-------|
-| `/child-transfers` | POST | Yes | Required for transfer requests |
-| `/evaluations/:id/start` | POST | Yes | Required to start evaluation |
-| `/evaluations/owner/children/:childId/reminder` | POST | No | Backend auto-resolves from ID |
+| Endpoint                                        | Method | childType Required | Notes                          |
+| ----------------------------------------------- | ------ | ------------------ | ------------------------------ |
+| `/child-transfers`                              | POST   | Yes                | Required for transfer requests |
+| `/evaluations/:id/start`                        | POST   | Yes                | Required to start evaluation   |
+| `/evaluations/owner/children/:childId/reminder` | POST   | No                 | Backend auto-resolves from ID  |
 
 ### Endpoints Returning Child References
 
-| Endpoint | Response Fields | Notes |
-|----------|----------------|-------|
-| `/children` | `organizationChildId` or `privateChildId` | Never both |
-| `/attempts` | `organizationChildId` or `privateChildId` | Never both |
+| Endpoint                                                                | Response Fields                           | Notes      |
+| ----------------------------------------------------------------------- | ----------------------------------------- | ---------- |
+| `/children`                                                             | `organizationChildId` or `privateChildId` | Never both |
+| `/attempts`                                                             | `organizationChildId` or `privateChildId` | Never both |
 | `/evaluations/owner/classes/:classId/evaluations/:evaluationId/summary` | `organizationChildId` or `privateChildId` | Never both |
-| `/child-transfers` | `organizationChildId` or `privateChildId` | Never both |
+| `/child-transfers`                                                      | `organizationChildId` or `privateChildId` | Never both |
 
 ### Response Format Examples
 
 **OrganizationChild Response:**
+
 ```json
 {
   "id": "uuid",
@@ -113,6 +118,7 @@
 ```
 
 **PrivateChild Response:**
+
 ```json
 {
   "id": "uuid",
@@ -126,6 +132,7 @@
 ```
 
 **EvaluationAttempt Response:**
+
 ```json
 {
   "id": "uuid",
@@ -142,104 +149,122 @@
 
 ## Roles
 
-| Role | Value | Scope |
-|------|-------|-------|
-| ADMIN | `ADMIN` | Full system access |
+| Role              | Value               | Scope                        |
+| ----------------- | ------------------- | ---------------------------- |
+| ADMIN             | `ADMIN`             | Full system access           |
 | ORGANIZATIONOWNER | `ORGANIZATIONOWNER` | Owns/manages an organization |
-| TEACHER | `TEACHER` | Works in an organization |
-| PARENT | `PARENT` | Child's guardian |
-| ENRICHER | `ENRICHER` | Service provider (deals) |
+| TEACHER           | `TEACHER`           | Works in an organization     |
+| PARENT            | `PARENT`            | Child's guardian             |
+| ENRICHER          | `ENRICHER`          | Service provider (deals)     |
 
 ---
 
 ## Enums
 
 ### Gender
+
 ```
 MALE = "male", FEMALE = "female"
 ```
 
 ### ApprovalStatus
+
 ```
 PENDING = "pending", APPROVED = "approved", REJECTED = "rejected"
 ```
 
 ### OrganizationType
+
 ```
 CENTER = "center", NURSERY = "nursery", TRAINING = "training", SCHOOL = "school"
 ```
 
 ### AccountType
+
 ```
 PARENT = "parent", TEACHER = "teacher", ORGANIZATION = "organization", ENRICHER = "enricher"
 ```
 
 ### GradeName
+
 ```
 GradeOne = "grade-1"
 ```
 
 ### DealStatus
+
 ```
 OPEN, AWARDED, CLOSED
 ```
 
 ### ProposalStatus
+
 ```
 PENDING, SELECTED, APPROVED, REJECTED
 ```
 
 ### EvaluationType
+
 ```
 multiple_intelligences, pride, renzulli, holland, learning_styles, torrance, preschool_giftedness
 ```
 
 ### CapacityRequestStatus
+
 ```
 pending, approved, rejected, paid, completed
 ```
 
 ### EvaluationAttemptStatus
+
 ```
 in_progress, submitted, approved
 ```
 
 ### TransferRequestStatus
+
 ```
 PENDING, APPROVED, REJECTED
 ```
 
 ### PaymentStatusEnum
+
 ```
 pending, paid, failed, expired
 ```
 
 ### PaymentProviderEnum
+
 ```
 moyasar, paytabs, hyperpay
 ```
 
 ### ParentOrganizationStatus
+
 ```
 active, invited, blocked
 ```
 
 ### ParentOrganizationSource
+
 ```
 child_registration, manual_invite, transfer, backfill
 ```
 
 ### NotificationDelivery
+
 ```
 email, inapp, both, verify_email
 ```
 
 ### AuditAction
+
 ```
 CREATE, UPDATE, DELETE, APPROVE, REJECT, LOGIN, LOGOUT, TRANSFER_REQUEST, TRANSFER_APPROVE, TRANSFER_REJECT, PAYMENT_SUCCESS, PAYMENT_FAILURE, EVALUATION_START, EVALUATION_SUBMIT, EVALUATION_APPROVE, DEAL_CREATE, DEAL_SELECT, DEAL_APPROVE, ORGANIZATION_APPROVE, ORGANIZATION_REJECT
 ```
 
 ### ChildType
+
 ```
 organization = "organization", private = "private"
 ```
@@ -249,19 +274,24 @@ organization = "organization", private = "private"
 ## 1. Authentication (`/auth`)
 
 ### POST `/auth/login` — Login
+
 - **Auth**: `@Public()`
 - **Body**:
+
 ```json
 {
   "phone": "+2015013657687",
   "password": "550e8AEd@400"
 }
 ```
+
 - **Response**: `{ accessToken, refreshToken, user }`
 
 ### POST `/auth/beneficiaries-signup` — Org Owner Signup
+
 - **Auth**: `@Public()`
 - **Body**:
+
 ```json
 {
   "name": "ziad user",
@@ -273,11 +303,14 @@ organization = "organization", private = "private"
   "organizationType": "school"
 }
 ```
+
 - **Response**: `{ user, teacher }`
 
 ### POST `/auth/enrichers-signup` — Service Provider Signup
+
 - **Auth**: `@Public()`
 - **Body**:
+
 ```json
 {
   "name": "ziad user",
@@ -288,11 +321,14 @@ organization = "organization", private = "private"
   "organizationName": "enricher institution"
 }
 ```
+
 - **Response**: `{ user, enricher }`
 
 ### POST `/auth/parent-signup` — Parent Signup
+
 - **Auth**: `@Public()`
 - **Body**:
+
 ```json
 {
   "name": "ziad user",
@@ -301,14 +337,17 @@ organization = "organization", private = "private"
   "phone": "+201503657687"
 }
 ```
+
 - **Response**: `{ user, parentProfile }`
 
 ### POST `/auth/refresh` — Refresh Token
+
 - **Auth**: `@Public()`
 - **Body**: `{ token: "<refreshToken>" }`
 - **Response**: New `{ accessToken, refreshToken }`
 
 ### POST `/auth/logout` — Logout
+
 - **Auth**: Bearer (any authenticated user)
 
 ---
@@ -316,15 +355,19 @@ organization = "organization", private = "private"
 ## 2. Users (`/users`)
 
 ### GET `/users` — List all users
+
 - **Roles**: ADMIN
 - **Response**: Array of `User`
 
 ### GET `/users/roles` — Users grouped by role
+
 - **Roles**: ADMIN
 
 ### GET `/users/me` — Current user profile
+
 - **Auth**: Bearer (any)
 - **Response**:
+
 ```json
 {
   "id": "uuid",
@@ -338,16 +381,20 @@ organization = "organization", private = "private"
 ```
 
 ### GET `/users/:id` — Get user by ID
+
 - **Auth**: ADMIN or self
 - **Response**: User object (same shape as `/me`)
 
 ### GET `/users/organization-owner/:id` — Get org owner detail
+
 - **Roles**: ORGANIZATIONOWNER, ADMIN
 
 ### POST `/users/seed-roles` — Seed default roles
+
 - **Roles**: ADMIN
 
 ### DELETE `/users/:id` — Delete user
+
 - **Roles**: ADMIN
 
 ---
@@ -355,24 +402,31 @@ organization = "organization", private = "private"
 ## 3. Organizations (`/organizations`)
 
 ### GET `/organizations` — List all orgs
+
 - **Roles**: ADMIN
 - **Query**: `?status=pending|approved|rejected`
 
 ### GET `/organizations/pending` — Pending orgs
+
 - **Roles**: ADMIN
 
 ### GET `/organizations/me` — My org
+
 - **Roles**: ORGANIZATIONOWNER
 
 ### GET `/organizations/owner/:ownerId` — By owner
+
 - **Auth**: ADMIN or self
 
 ### GET `/organizations/by-parent/:parentProfileId` — By parent
+
 - **Auth**: Bearer (any)
 
 ### GET `/organizations/:id` — Get by ID
+
 - **Roles**: ADMIN or org owner
 - **Response**:
+
 ```json
 {
   "id": "uuid",
@@ -389,8 +443,10 @@ organization = "organization", private = "private"
 ```
 
 ### PATCH `/organizations/:id` — Update org
+
 - **Roles**: ADMIN or org owner
 - **Body**:
+
 ```json
 {
   "organizationName": "Al Noor School",
@@ -399,11 +455,14 @@ organization = "organization", private = "private"
 ```
 
 ### PATCH `/organizations/:id/approve` — Approve
+
 - **Roles**: ADMIN
 
 ### PATCH `/organizations/:id/reject` — Reject
+
 - **Roles**: ADMIN
 - **Body**:
+
 ```json
 {
   "rejectionReason": "Incomplete documentation provided"
@@ -411,6 +470,7 @@ organization = "organization", private = "private"
 ```
 
 ### DELETE `/organizations/:id` — Delete
+
 - **Roles**: ADMIN
 
 ---
@@ -418,8 +478,10 @@ organization = "organization", private = "private"
 ## 4. Children (`/children`)
 
 ### POST `/children` — Create child (org context, auto-creates parent)
+
 - **Roles**: ORGANIZATIONOWNER, TEACHER
 - **Body**:
+
 ```json
 {
   "name": "child-name",
@@ -431,12 +493,15 @@ organization = "organization", private = "private"
   "parentName": "Parent Name"
 }
 ```
+
 > **Note**: This endpoint creates an `OrganizationChild` entity.
 
 ### GET `/children/all` — All children
+
 - **Roles**: ADMIN
 - **Response**: Returns both `OrganizationChild` and `PrivateChild` entities
 - **Response Format**:
+
 ```json
 {
   "organizationChildren": [
@@ -463,15 +528,18 @@ organization = "organization", private = "private"
 ```
 
 ### GET `/children` — By user
+
 - **Roles**: ADMIN, PARENT
 - **Query**: `?userId=<uuid>`
 - **Response**: Returns both `OrganizationChild` and `PrivateChild` entities for the user
 - **Response Format**: Same as `/children/all`
 
 ### GET `/children/organization/:orgId` — By org
+
 - **Roles**: ORGANIZATIONOWNER, ADMIN, TEACHER
 - **Response**: Returns `OrganizationChild` entities for the organization
 - **Response Format**:
+
 ```json
 [
   {
@@ -487,10 +555,14 @@ organization = "organization", private = "private"
 ```
 
 ### GET `/children/:id` — Get child
+
 - **Roles**: ADMIN, PARENT, ORGANIZATIONOWNER, TEACHER (via policy)
 - **Response**: Returns either `OrganizationChild` or `PrivateChild` entity based on ID
+
 > **Note**: The backend automatically resolves the child type (organization or private) based on the ID.
+
 - **Response Format (OrganizationChild)**:
+
 ```json
 {
   "id": "uuid",
@@ -504,7 +576,9 @@ organization = "organization", private = "private"
   "updatedAt": "2024-01-01T00:00:00.000Z"
 }
 ```
+
 - **Response Format (PrivateChild)**:
+
 ```json
 {
   "id": "uuid",
@@ -518,12 +592,16 @@ organization = "organization", private = "private"
 ```
 
 ### PATCH `/children/:id` — Update child
+
 - **Roles**: PARENT, ORGANIZATIONOWNER, TEACHER, ADMIN
 - **Body**: Partial of create body
+
 > **Note**: The backend automatically resolves the child type based on the ID.
 
 ### DELETE `/children/:id` — Delete child
+
 - **Roles**: PARENT, ORGANIZATIONOWNER, TEACHER, ADMIN
+
 > **Note**: The backend automatically resolves the child type based on the ID.
 
 ---
@@ -531,8 +609,10 @@ organization = "organization", private = "private"
 ## 5. Parent Children (`/parent`)
 
 ### POST `/parent/children` — Create private child
+
 - **Roles**: PARENT
 - **Body**:
+
 ```json
 {
   "name": "child-name",
@@ -540,7 +620,9 @@ organization = "organization", private = "private"
   "gender": "male"
 }
 ```
+
 - **Response**:
+
 ```json
 {
   "id": "uuid",
@@ -554,9 +636,11 @@ organization = "organization", private = "private"
 ```
 
 ### GET `/parent/children` — My private children
+
 - **Roles**: PARENT
 - **Response**: Array of `PrivateChild` entities
 - **Response Format**:
+
 ```json
 [
   {
@@ -572,9 +656,11 @@ organization = "organization", private = "private"
 ```
 
 ### GET `/parent/org-children` — My organization children
+
 - **Roles**: PARENT
 - **Response**: Array of `OrganizationChild` entities
 - **Response Format**:
+
 ```json
 [
   {
@@ -596,15 +682,19 @@ organization = "organization", private = "private"
 ## 6. Capacity Requests (`/capacity-requests`)
 
 ### POST `/capacity-requests` — Create capacity request
+
 - **Roles**: PARENT
 - **Body**:
+
 ```json
 {
   "requestedCapacity": 2,
   "notes": "Need capacity for two more children"
 }
 ```
+
 - **Response**:
+
 ```json
 {
   "id": "uuid",
@@ -619,8 +709,10 @@ organization = "organization", private = "private"
 ```
 
 ### GET `/capacity-requests` — List capacity requests
+
 - **Roles**: PARENT (own requests), ADMIN (all requests)
 - **Response**:
+
 ```json
 [
   {
@@ -638,11 +730,14 @@ organization = "organization", private = "private"
 ```
 
 ### GET `/capacity-requests/:id` — Get capacity request
+
 - **Roles**: PARENT (own request), ADMIN (any request)
 
 ### PATCH `/capacity-requests/:id` — Update capacity request
+
 - **Roles**: ADMIN
 - **Body**:
+
 ```json
 {
   "status": "approved",
@@ -652,10 +747,12 @@ organization = "organization", private = "private"
 ```
 
 ### POST `/capacity-requests/:id/approve` — Approve capacity request
+
 - **Roles**: ADMIN
 - **Response**: Updated capacity request with status `approved`
 
 ### POST `/capacity-requests/:id/reject` — Reject capacity request
+
 - **Roles**: ADMIN
 - **Response**: Updated capacity request with status `rejected`
 
@@ -664,8 +761,10 @@ organization = "organization", private = "private"
 ## 7. Child Transfers (`/child-transfers`)
 
 ### POST `/child-transfers` — Request transfer
+
 - **Roles**: ORGANIZATIONOWNER, ADMIN
 - **Body**:
+
 ```json
 {
   "childId": "uuid",
@@ -673,20 +772,25 @@ organization = "organization", private = "private"
   "toOrganizationId": "uuid"
 }
 ```
+
 > **Note**: `childType` is required to specify whether transferring an `OrganizationChild` or `PrivateChild`.
 
 ### PATCH `/child-transfers/:id/approve` — Approve
+
 - **Roles**: ORGANIZATIONOWNER, ADMIN
 - **Body**: `{ "classId": "uuid" }`
 
 ### PATCH `/child-transfers/:id/reject` — Reject
+
 - **Roles**: ORGANIZATIONOWNER, ADMIN
 
 ### GET `/child-transfers` — List requests
+
 - **Roles**: ORGANIZATIONOWNER, ADMIN
 - **Query**: `?toOrganizationId=&fromOrganizationId=&status=PENDING`
 - **Response**: Each request includes `organizationChildId` or `privateChildId` (never both)
 - **Response Format**:
+
 ```json
 {
   "requests": [
@@ -709,8 +813,10 @@ organization = "organization", private = "private"
 ## 7. Teachers (`/teachers`)
 
 ### POST `/teachers` — Create teacher
+
 - **Roles**: ORGANIZATIONOWNER
 - **Body**:
+
 ```json
 {
   "name": "ziad user",
@@ -722,12 +828,15 @@ organization = "organization", private = "private"
 ```
 
 ### PATCH `/teachers/:id` — Update
+
 - **Roles**: ORGANIZATIONOWNER
 
 ### GET `/teachers/organization/:organizationId` — List by org
+
 - **Roles**: ORGANIZATIONOWNER, ADMIN, TEACHER
 
 ### DELETE `/teachers/:id` — Remove
+
 - **Roles**: ORGANIZATIONOWNER
 
 ---
@@ -735,16 +844,19 @@ organization = "organization", private = "private"
 ## 8. Parents (`/parents`)
 
 ### GET `/parents/search` — Find parent by phone (with all children)
+
 - **Roles**: ORGANIZATIONOWNER, ADMIN
 - **Query**: `?phone=+201503657687`
 - **Response** (3 possible statuses):
 
 **1. User not found:**
+
 ```json
 { "status": "not_found" }
 ```
 
 **2. User exists but has no PARENT role:**
+
 ```json
 {
   "status": "not_parent",
@@ -753,6 +865,7 @@ organization = "organization", private = "private"
 ```
 
 **3. Parent found with all children (org + private):**
+
 ```json
 {
   "status": "parent_found",
@@ -788,6 +901,7 @@ organization = "organization", private = "private"
 ```
 
 **Frontend usage:** This endpoint is the primary way org owners find/reuse existing parents. The `status` field tells the UI what action to take:
+
 - `not_found` → show "Create Parent" form
 - `not_parent` → show "Convert to Parent" option
 - `parent_found` → select parent, see existing children, optionally add new child or request transfer
@@ -797,12 +911,15 @@ organization = "organization", private = "private"
 ## 9. Enrichers (`/enrichers`)
 
 ### GET `/enrichers/deals` — Available open deals
+
 - **Roles**: ENRICHER
 
 ### GET `/enrichers/deals/:dealId` — Deal detail
+
 - **Roles**: ENRICHER
 
 ### GET `/enrichers/proposals` — My proposals
+
 - **Roles**: ENRICHER
 
 ---
@@ -810,8 +927,10 @@ organization = "organization", private = "private"
 ## 10. Grades (`/grades`)
 
 ### POST `/grades` — Create
+
 - **Roles**: ORGANIZATIONOWNER
 - **Body**:
+
 ```json
 {
   "name": "grade-1",
@@ -820,18 +939,23 @@ organization = "organization", private = "private"
 ```
 
 ### GET `/grades` — All
+
 - **Roles**: ADMIN
 
 ### GET `/grades/organization/:orgId` — By org
+
 - **Roles**: ORGANIZATIONOWNER, ADMIN, TEACHER
 
 ### GET `/grades/:id` — Get one
+
 - **Roles**: ORGANIZATIONOWNER, ADMIN, TEACHER
 
 ### PATCH `/grades/:id` — Update
+
 - **Roles**: ORGANIZATIONOWNER
 
 ### DELETE `/grades/:id` — Delete
+
 - **Roles**: ORGANIZATIONOWNER
 
 ---
@@ -839,8 +963,10 @@ organization = "organization", private = "private"
 ## 11. Classes (`/classes`)
 
 ### POST `/classes` — Create
+
 - **Roles**: ORGANIZATIONOWNER
 - **Body**:
+
 ```json
 {
   "name": "class-name",
@@ -850,24 +976,31 @@ organization = "organization", private = "private"
 ```
 
 ### GET `/classes` — All
+
 - **Roles**: ADMIN
 
 ### GET `/classes/organization/:orgId` — By org
+
 - **Roles**: ORGANIZATIONOWNER, ADMIN, TEACHER
 
 ### GET `/classes/:id` — Get class
+
 - **Roles**: ADMIN, ORGANIZATIONOWNER, TEACHER
 
 ### GET `/classes/:id/get-children` — Children in class
+
 - **Roles**: ORGANIZATIONOWNER, ADMIN, TEACHER
 
 ### PATCH `/classes/:id` — Update
+
 - **Roles**: ORGANIZATIONOWNER
 
 ### DELETE `/classes/:id` — Delete
+
 - **Roles**: ORGANIZATIONOWNER
 
 ### POST `/classes/:clsId/asign/:childId` — Assign child to class
+
 - **Roles**: ORGANIZATIONOWNER
 
 ---
@@ -875,12 +1008,15 @@ organization = "organization", private = "private"
 ## 12. Deals (`/deals`)
 
 ### GET `/deals` — List deals
+
 - **Roles**: ORGANIZATIONOWNER, TEACHER, ENRICHER
 - **Query**: `?status=OPEN|AWARDED|CLOSED`
 
 ### GET `/deals/:dealId` — Deal detail
+
 - **Roles**: ORGANIZATIONOWNER, TEACHER, ENRICHER
 - **Response**:
+
 ```json
 {
   "id": "uuid",
@@ -895,8 +1031,10 @@ organization = "organization", private = "private"
 ```
 
 ### POST `/deals` — Create deal
+
 - **Roles**: ORGANIZATIONOWNER, TEACHER
 - **Body**:
+
 ```json
 {
   "activityId": "uuid",
@@ -906,23 +1044,28 @@ organization = "organization", private = "private"
 ```
 
 ### GET `/deals/:dealId/proposals` — List proposals on a deal
+
 - **Roles**: ORGANIZATIONOWNER
 - **Response**: `Proposal[]` (each with `provider`, `price`, `status`)
 
 ### POST `/deals/:dealId/proposals` — Submit proposal
+
 - **Roles**: ENRICHER
 - **Body**:
+
 ```json
 {
-  "price": 1250.50
+  "price": 1250.5
 }
 ```
 
 ### POST `/deals/:dealId/proposals/:proposalId/select` — Select proposal
+
 - **Roles**: ORGANIZATIONOWNER
 - **Response**: Proposal marked SELECTED, deal status → AWARDED
 
 ### POST `/deals/:dealId/proposals/:proposalId/approve` — Admin approve
+
 - **Roles**: ADMIN
 - **Response**: Proposal status → APPROVED
 
@@ -931,8 +1074,10 @@ organization = "organization", private = "private"
 ## 13. Proposals (`/proposals`)
 
 ### PATCH `/proposals/:id` — Update price
+
 - **Roles**: ENRICHER
 - **Body**:
+
 ```json
 {
   "price": 1400
@@ -944,26 +1089,33 @@ organization = "organization", private = "private"
 ## 14. Activities (`/activities`)
 
 ### POST `/activities` — Create
+
 - **Roles**: ADMIN
 - **Body**: `{ "name": "STEM Workshop" }`
 
 ### GET `/activities` — All
+
 - **Roles**: ADMIN, ORGANIZATIONOWNER, TEACHER, ENRICHER
 
 ### GET `/activities/with-deals` — All with deals
+
 - **Roles**: ADMIN, ORGANIZATIONOWNER, TEACHER, ENRICHER
 
 ### GET `/activities/:id` — Get one
+
 - **Roles**: ADMIN, ORGANIZATIONOWNER, TEACHER, ENRICHER
 
 ### GET `/activities/:id/with-deals` — One with deals
+
 - **Roles**: ADMIN, ORGANIZATIONOWNER, TEACHER, ENRICHER
 
 ### PATCH `/activities/:id` — Update
+
 - **Roles**: ADMIN
 - **Body**: `{ "name": "Advanced STEM Workshop (optional)" }`
 
 ### DELETE `/activities/:id` — Delete
+
 - **Roles**: ADMIN
 - **Note**: Fails with 400 if activity has related deals
 
@@ -972,8 +1124,10 @@ organization = "organization", private = "private"
 ## 15. Evaluations (`/evaluations`)
 
 ### POST `/evaluations` — Create evaluation
+
 - **Roles**: ADMIN
 - **Body** (complex — see DTO):
+
 ```json
 {
   "title": "مؤشر الذكاءات الثمانية",
@@ -1006,21 +1160,27 @@ organization = "organization", private = "private"
 ```
 
 ### GET `/evaluations` — All evaluations
+
 - **Roles**: ADMIN
 
 ### GET `/evaluations/available/:childId` — Available for child
+
 - **Roles**: PARENT
 - Returns evaluations matching child's age
 
 ### GET `/evaluations/:id/details` — Full scoring data
+
 - **Roles**: ADMIN
 
 ### GET `/evaluations/:id/form` — Form without scores
+
 - **Roles**: PARENT, ADMIN
 
 ### POST `/evaluations/:id/start` — Start attempt
+
 - **Roles**: PARENT
 - **Body**:
+
 ```json
 {
   "childId": "uuid",
@@ -1029,6 +1189,7 @@ organization = "organization", private = "private"
   "expiresInSeconds": 1800
 }
 ```
+
 > **Note**: `childId` refers to either `organizationChildId` or `privateChildId` based on `childType`. The backend uses this to resolve the correct child entity.
 
 ---
@@ -1036,10 +1197,12 @@ organization = "organization", private = "private"
 ## 16. Evaluation Attempts (`/attempts`)
 
 ### GET `/attempts` — Admin list
+
 - **Roles**: ADMIN
 - **Query**: `?status=in_progress&evaluationId=&organizationChildId=&privateChildId=`
 - **Response**: Attempts include either `organizationChildId` or `privateChildId` (never both)
 - **Response Format**:
+
 ```json
 {
   "attempts": [
@@ -1061,41 +1224,53 @@ organization = "organization", private = "private"
 ```
 
 ### GET `/attempts/child/:childId` — Child's attempts
+
 - **Roles**: PARENT, ADMIN
+
 > **Note**: `childId` can refer to either `organizationChildId` or `privateChildId`. The backend automatically resolves the child type.
+
 - **Response Format**: Same as `/attempts`
 
 ### POST `/attempts/:childId/start` — Start free main slot
+
 - **Roles**: PARENT
+
 > **Note**: Only for private children. `childId` must be a `privateChildId`.
 
 ### POST `/attempts/:childId/retake` — Request free retake
+
 - **Roles**: PARENT
+
 > **Note**: Only for private children. `childId` must be a `privateChildId`.
 
 ### POST `/attempts/:childId/request-extra` — Request paid extra
+
 - **Roles**: PARENT
+
 > **Note**: Only for private children. `childId` must be a `privateChildId`.
 
 ### PATCH `/attempts/:id/save` — Save progress
+
 - **Roles**: PARENT
 - **Body**:
+
 ```json
 {
-  "answers": [
-    { "questionId": "uuid", "selectedAnswerId": "uuid" }
-  ]
+  "answers": [{ "questionId": "uuid", "selectedAnswerId": "uuid" }]
 }
 ```
 
 ### POST `/attempts/:id/submit` — Submit final
+
 - **Roles**: PARENT
 - **Body**: Same as save
 
 ### GET `/attempts/:id` — Get attempt detail
+
 - **Roles**: PARENT, ADMIN, ORGANIZATIONOWNER, TEACHER
 
 ### POST `/attempts/:id/approve` — Approve attempt
+
 - **Roles**: ADMIN
 
 ---
@@ -1103,6 +1278,7 @@ organization = "organization", private = "private"
 ## 17. Admin Private Attempts (`/admin/attempts`)
 
 ### POST `/admin/attempts/:id/approve` — Approve extra attempt
+
 - **Roles**: ADMIN
 - Creates payable checkout session for the extra attempt
 
@@ -1111,15 +1287,19 @@ organization = "organization", private = "private"
 ## 18. Owner Evaluation Results (`/evaluations/owner`)
 
 ### GET `/evaluations/owner/filters` — Get filter options
+
 - **Roles**: ORGANIZATIONOWNER, ADMIN
 
 ### GET `/evaluations/owner/reports` — Report cards
+
 - **Roles**: ORGANIZATIONOWNER, ADMIN
 - **Query**: `?evaluationId=uuid`
 
 ### GET `/evaluations/owner/classes/:classId/evaluations/:evaluationId/summary` — Class summary
+
 - **Roles**: ORGANIZATIONOWNER, ADMIN
 - **Response**:
+
 ```json
 {
   "classId": "uuid",
@@ -1128,11 +1308,11 @@ organization = "organization", private = "private"
   "averageScore": 72.5,
   "lowestScore": 45,
   "topDimensions": [
-    { 
-      "code": "linguistic", 
-      "name": "الذكاء اللغوي", 
-      "percentage": 85, 
-      "score": 10 
+    {
+      "code": "linguistic",
+      "name": "الذكاء اللغوي",
+      "percentage": 85,
+      "score": 10
     }
   ],
   "children": [
@@ -1161,10 +1341,13 @@ organization = "organization", private = "private"
 ```
 
 ### GET `/evaluations/owner/classes/:classId/evaluations/:evaluationId/status` — Class status
+
 - **Roles**: ORGANIZATIONOWNER, ADMIN
 
 ### POST `/evaluations/owner/children/:childId/reminder` — Send reminder to parent
+
 - **Roles**: ORGANIZATIONOWNER, ADMIN
+
 > **Note**: `childId` can refer to either `organizationChildId` or `privateChildId`. The backend automatically resolves the child type.
 
 ---
@@ -1172,11 +1355,13 @@ organization = "organization", private = "private"
 ## 19. Payments (`/payments`)
 
 ### POST `/payments` — Create checkout session
+
 - **Roles**: PARENT
 - **Body**:
+
 ```json
 {
-  "amount": 199.50,
+  "amount": 199.5,
   "currency": "SAR",
   "privateChildId": "uuid",
   "attemptRequestId": "uuid (optional)",
@@ -1185,8 +1370,11 @@ organization = "organization", private = "private"
   "provider": "moyasar (optional)"
 }
 ```
+
 > **Note**: Payments are only for private children (extra attempts).
+
 - **Response**:
+
 ```json
 {
   "id": "uuid",
@@ -1197,13 +1385,16 @@ organization = "organization", private = "private"
 ```
 
 ### POST `/payments/webhook` — Provider callback
+
 - **Auth**: `@Public()` — validated via HMAC signature
 - **Header**: `x-moyasar-signature`
 
 ### POST `/payments/:attemptId/initiate` — Initiate/refresh extra attempt payment
+
 - **Roles**: PARENT
 
 ### POST `/payments/:id/retry` — Retry failed payment
+
 - **Roles**: PARENT
 
 ---
@@ -1211,25 +1402,32 @@ organization = "organization", private = "private"
 ## 20. Notifications (`/notifications`)
 
 ### POST `/notifications/verify-email` — Send verification email
+
 - **Auth**: Bearer (any)
 - **Body**: `{ "email": "string", "userId": "uuid" }`
 
 ### GET `/notifications` — My notifications
+
 - **Auth**: Bearer (any)
 - **Query**: `?page=1&limit=20&unreadOnly=true&type=`
 
 ### GET `/notifications/unread-count` — Unread count
+
 - **Auth**: Bearer (any)
 
 ### PATCH `/notifications/read-all` — Mark all read
+
 - **Auth**: Bearer (any)
 
 ### PATCH `/notifications/:id/read` — Mark one read
+
 - **Auth**: Bearer (any)
 
 ### POST `/notifications/dispatch` — Admin dispatch
+
 - **Roles**: ADMIN
 - **Body**:
+
 ```json
 {
   "delivery": "both",
@@ -1247,13 +1445,16 @@ organization = "organization", private = "private"
 ## 21. Sessions (`/session`)
 
 ### POST `/session` — Create session
+
 - **Auth**: Bearer (any)
 - **Body**: `{ "userId": "uuid", "refreshToken": "string", "device": "optional", "ip": "optional" }`
 
 ### GET `/session` — All sessions
+
 - **Auth**: Bearer (any)
 
 ### GET `/session/:id` — One session
+
 - **Auth**: Bearer (any)
 
 ---
@@ -1261,11 +1462,13 @@ organization = "organization", private = "private"
 ## 22. Uploads (`/uploads`)
 
 ### POST `/uploads/upload` — Upload file
+
 - **Roles**: ADMIN, ORGANIZATIONOWNER, PARENT
 - **Content-Type**: `multipart/form-data`
 - **Field**: `file` (image/jpeg, image/png, image/webp, application/pdf)
 - **Max size**: 5MB
 - **Response**:
+
 ```json
 {
   "message": "file uploaded successfully",
@@ -1282,10 +1485,12 @@ organization = "organization", private = "private"
 The evaluation report builder now supports two formats depending on the evaluation type:
 
 ### 1. Standard Evaluation Result (multiple_intelligences, pride, renzulli, holland, learning_styles, torrance)
+
 - Has `maxTotalScore`, `overallPercentage`, `topDimensions`, `interpretation`, `recommendations`
 - Standard format used for all existing evaluation types
 
 ### 2. Preschool Giftedness Evaluation Result (preschool_giftedness)
+
 ```json
 {
   "totalScore": 180,
@@ -1311,23 +1516,24 @@ The evaluation report builder now supports two formats depending on the evaluati
 
 ## Common HTTP Status Codes
 
-| Code | Meaning |
-|------|---------|
-| 200 | Success |
-| 201 | Created |
-| 400 | Bad Request / Validation error |
-| 401 | Unauthorized (missing/invalid token) |
-| 403 | Forbidden (wrong role) |
-| 404 | Not found |
-| 409 | Conflict (e.g. duplicate) |
-| 429 | Too many requests (rate limit) |
-| 500 | Internal server error |
+| Code | Meaning                              |
+| ---- | ------------------------------------ |
+| 200  | Success                              |
+| 201  | Created                              |
+| 400  | Bad Request / Validation error       |
+| 401  | Unauthorized (missing/invalid token) |
+| 403  | Forbidden (wrong role)               |
+| 404  | Not found                            |
+| 409  | Conflict (e.g. duplicate)            |
+| 429  | Too many requests (rate limit)       |
+| 500  | Internal server error                |
 
 ---
 
 ## Frontend Migration Checklist
 
 ### Phase 1: Type Definitions
+
 - [ ] Add `ChildType` type to shared types
 - [ ] Add `OrganizationChild` and `PrivateChild` interfaces
 - [ ] Add `ChildReference` interface with `childId` and `childType`
@@ -1335,12 +1541,14 @@ The evaluation report builder now supports two formats depending on the evaluati
 - [ ] Update existing `Child` type to be a union of both types
 
 ### Phase 2: API Client Updates
+
 - [ ] Update API client to accept `childType` parameter where required
 - [ ] Update request interceptors to add `childType` when available
 - [ ] Update response interceptors to handle dual child ID fields
 - [ ] Add validation for `childType` in API calls
 
 ### Phase 3: Component Updates
+
 - [ ] Update child selection components to include child type
 - [ ] Update child list components to display child type
 - [ ] Update child detail components to handle both entity types
@@ -1349,12 +1557,14 @@ The evaluation report builder now supports two formats depending on the evaluati
 - [ ] Update payment components to use private child ID
 
 ### Phase 4: State Management
+
 - [ ] Update Redux/Zustand stores to track child type
 - [ ] Update local state in components using child data
 - [ ] Update form state to include child type
 - [ ] Update cache keys to include child type
 
 ### Phase 5: UI/UX Updates
+
 - [ ] Add visual indicators for child type (organization vs private)
 - [ ] Update form labels to clarify child type selection
 - [ ] Add error messages for missing child type
@@ -1362,6 +1572,7 @@ The evaluation report builder now supports two formats depending on the evaluati
 - [ ] Add tooltips/help text for child type selection
 
 ### Phase 6: Testing
+
 - [ ] Unit tests for type definitions
 - [ ] Unit tests for helper functions
 - [ ] Integration tests for API calls with child type
@@ -1371,50 +1582,54 @@ The evaluation report builder now supports two formats depending on the evaluati
 ### Common Patterns
 
 **Pattern 1: Making API Calls with Child Type**
+
 ```typescript
 // Before
-await api.startEvaluation({ childId: 'uuid' });
+await api.startEvaluation({ childId: 'uuid' })
 
 // After
-await api.startEvaluation({ 
-  childId: 'uuid', 
-  childType: 'organization' // or 'private'
-});
+await api.startEvaluation({
+  childId: 'uuid',
+  childType: 'organization', // or 'private'
+})
 ```
 
 **Pattern 2: Handling Child References in Responses**
+
 ```typescript
 // Before
-const childId = attempt.childId;
+const childId = attempt.childId
 
 // After
-const childId = attempt.organizationChildId || attempt.privateChildId;
-const childType = attempt.organizationChildId ? 'organization' : 'private';
+const childId = attempt.organizationChildId || attempt.privateChildId
+const childType = attempt.organizationChildId ? 'organization' : 'private'
 ```
 
 **Pattern 3: Displaying Child Information**
+
 ```typescript
 // Before
-const child = await api.getChild(childId);
+const child = await api.getChild(childId)
 
 // After
-const child = await api.getChild(childId);
-const isOrganizationChild = 'organizationId' in child;
+const child = await api.getChild(childId)
+const isOrganizationChild = 'organizationId' in child
 ```
 
 **Pattern 4: Form Validation**
+
 ```typescript
 // Before
 if (!form.childId) {
-  errors.childId = 'Child is required';
+  errors.childId = 'Child is required'
 }
 
 // After
 if (!form.childId) {
-  errors.childId = 'Child is required';
+  errors.childId = 'Child is required'
 }
 if (!form.childType) {
-  errors.childType = 'Child type is required';
+  errors.childType = 'Child type is required'
 }
 ```
 
@@ -1438,11 +1653,11 @@ The deal system is a **bidding workflow** between Organizations (buyers) and Enr
 
 **Actors & their roles in this flow:**
 
-| Actor | Can do |
-|-------|--------|
-| ORG Owner / Teacher | Create deal, view proposals on their deals, select a winner |
-| ENRICHER | Browse open deals, submit proposals, update their proposal price before deadline |
-| ADMIN | Approve or reject the selected proposal, manage activities |
+| Actor               | Can do                                                                           |
+| ------------------- | -------------------------------------------------------------------------------- |
+| ORG Owner / Teacher | Create deal, view proposals on their deals, select a winner                      |
+| ENRICHER            | Browse open deals, submit proposals, update their proposal price before deadline |
+| ADMIN               | Approve or reject the selected proposal, manage activities                       |
 
 ---
 
@@ -1485,6 +1700,7 @@ Response: Proposal[] (with provider info)
 ```
 
 Each proposal:
+
 ```json
 {
   "id": "uuid",
@@ -1511,12 +1727,14 @@ Response: { id, deal, provider, price, status: "SELECTED", createdAt }
 ```
 
 **What happens:**
+
 - The selected proposal status changes from `PENDING` → `SELECTED`
 - The deal status changes from `OPEN` → `AWARDED`
 - Other proposals remain `PENDING` (they can still be viewed)
 - The deal is now closed for new proposals
 
 **Frontend:** On each proposal row, show a "Select as Winner" button. Button is disabled if deal is not `OPEN`. Click → confirm dialog → `POST` to select endpoint. On success:
+
 - Show success toast
 - Reload deal data
 - Selected proposal gets "SELECTED" badge (green)
@@ -1537,10 +1755,12 @@ Response: { id, deal, provider, price, status: "APPROVED", createdAt }
 ```
 
 **What happens:**
+
 - The selected proposal status changes from `SELECTED` → `APPROVED`
 - The proposal is now finalised
 
-**Frontend (Admin panel):** 
+**Frontend (Admin panel):**
+
 - List deals filtered by `?status=AWARDED`
 - Show "Pending Approval" deals
 - Each deal shows the selected proposal details
@@ -1553,6 +1773,7 @@ Response: { id, deal, provider, price, status: "APPROVED", createdAt }
 #### 6. Proposal Lifecycle (Enricher View)
 
 **Browse open deals:**
+
 ```
 GET /enrichers/deals
 Roles: ENRICHER
@@ -1560,6 +1781,7 @@ Response: Deal[] (only OPEN deals)
 ```
 
 **View deal detail:**
+
 ```
 GET /enrichers/deals/:dealId
 Roles: ENRICHER
@@ -1567,6 +1789,7 @@ Response: Deal detail
 ```
 
 **Submit proposal:**
+
 ```
 POST /deals/:dealId/proposals
 Roles: ENRICHER
@@ -1575,6 +1798,7 @@ Response: Proposal
 ```
 
 **Update price (before deadline):**
+
 ```
 PATCH /proposals/:id
 Roles: ENRICHER
@@ -1582,6 +1806,7 @@ Body: { price: 1400 }
 ```
 
 **View my proposals:**
+
 ```
 GET /enrichers/proposals
 Roles: ENRICHER
@@ -1589,6 +1814,7 @@ Response: Proposal[] (with deal info)
 ```
 
 **Frontend (Enricher panel):**
+
 - "Available Deals" page → list of open deals
 - Click deal → view details → "Submit Proposal" form (price input)
 - "My Proposals" page → list of all proposals with deal name, price, status badge
@@ -1611,15 +1837,15 @@ Proposal: PENDING ──→ SELECTED ──→ APPROVED
 
 ### Frontend State Mapping
 
-| Deal Status | Org Owner Actions | Enricher Actions | Admin Actions |
-|-------------|-------------------|------------------|---------------|
-| `OPEN` | View proposals, select winner | Submit/edit proposals | — |
-| `AWARDED` | View selected proposal (waiting) | View status | Approve or reject |
-| `CLOSED` | Read-only | Read-only | Read-only |
+| Deal Status | Org Owner Actions                | Enricher Actions      | Admin Actions     |
+| ----------- | -------------------------------- | --------------------- | ----------------- |
+| `OPEN`      | View proposals, select winner    | Submit/edit proposals | —                 |
+| `AWARDED`   | View selected proposal (waiting) | View status           | Approve or reject |
+| `CLOSED`    | Read-only                        | Read-only             | Read-only         |
 
-| Proposal Status | Meaning | Badge Color |
-|-----------------|---------|-------------|
-| `PENDING` | Submitted, awaiting org review | Yellow |
-| `SELECTED` | Picked by org, awaiting admin | Blue |
-| `APPROVED` | Finalised by admin | Green |
-| `REJECTED` | Not selected / admin rejected | Red |
+| Proposal Status | Meaning                        | Badge Color |
+| --------------- | ------------------------------ | ----------- |
+| `PENDING`       | Submitted, awaiting org review | Yellow      |
+| `SELECTED`      | Picked by org, awaiting admin  | Blue        |
+| `APPROVED`      | Finalised by admin             | Green       |
+| `REJECTED`      | Not selected / admin rejected  | Red         |

@@ -1,24 +1,20 @@
-"use client"
+'use client'
 
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
-import type {
-  DispatchNotificationPayload,
-  ListNotificationsParams,
-} from "../types"
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import type { DispatchNotificationPayload, ListNotificationsParams } from '../types'
 import {
   dispatchNotification,
   listNotifications,
   markAllRead,
   markOneRead,
   unreadCount,
-} from "../api"
+} from '../api'
 
 export const notificationKeys = {
-  all: ["notifications"] as const,
-  lists: () => [...notificationKeys.all, "list"] as const,
-  list: (params?: ListNotificationsParams) =>
-    [...notificationKeys.lists(), params ?? {}] as const,
-  unreadCount: () => [...notificationKeys.all, "unread-count"] as const,
+  all: ['notifications'] as const,
+  lists: () => [...notificationKeys.all, 'list'] as const,
+  list: (params?: ListNotificationsParams) => [...notificationKeys.lists(), params ?? {}] as const,
+  unreadCount: () => [...notificationKeys.all, 'unread-count'] as const,
 }
 
 export function useUnreadCount(pollMs = 30_000) {
@@ -67,15 +63,11 @@ export function useMarkOneRead() {
 
 export function useDispatchNotification() {
   return useMutation({
-    mutationFn: (payload: DispatchNotificationPayload) =>
-      dispatchNotification(payload),
+    mutationFn: (payload: DispatchNotificationPayload) => dispatchNotification(payload),
   })
 }
 
-export function useNotifications(
-  params?: ListNotificationsParams,
-  options?: { pollMs?: number },
-) {
+export function useNotifications(params?: ListNotificationsParams, options?: { pollMs?: number }) {
   const unread = useUnreadCount(options?.pollMs ?? 30_000)
   const list = useNotificationsList(params)
   const markAll = useMarkAllRead()

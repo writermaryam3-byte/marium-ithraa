@@ -1,14 +1,13 @@
+'use client'
 
-"use client"
-
-import * as React from "react"
-import Image from "next/image"
-import { useLocale, useTranslations } from "next-intl"
-import { Link } from "@/i18n/navigation"
-import { Button } from "@/components/ui/button"
-import { Separator } from "@/components/ui/separator"
-import { Facebook, Instagram, Youtube } from "lucide-react"
-import { SOCIAL_LINKS } from "@/lib/social-links"
+import * as React from 'react'
+import Image from 'next/image'
+import { useLocale, useTranslations } from 'next-intl'
+import { Link } from '@/i18n/navigation'
+import { Button } from '@/components/ui/button'
+import { Separator } from '@/components/ui/separator'
+import { Facebook, Instagram, Youtube } from 'lucide-react'
+import { SOCIAL_LINKS } from '@/lib/social-links'
 
 function XIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
@@ -23,23 +22,23 @@ function XIcon(props: React.SVGProps<SVGSVGElement>) {
 
 const Footer = ({ locale }: { locale?: string }) => {
   const activeLocale = useLocale()
-  const t = useTranslations("Footer")
-  const isRtl = (locale ?? activeLocale) === "ar"
+  const t = useTranslations('Footer')
+  const isRtl = (locale ?? activeLocale) === 'ar'
 
   const pathsLinks = [
-    { label: t("Paths.WaliAlAmr"), href: "/wali-al-amr" },
-    { label: t("Paths.Landmarks"), href: "/landmarks" },
-    { label: t("Paths.Partners"), href: "/partners" },
-    { label: t("Paths.Foundation"), href: "/foundation" },
-    { label: t("Paths.FollowFoundation"), href: "/follow" },
+    { label: t('Paths.WaliAlAmr'), href: '/wali-al-amr' },
+    { label: t('Paths.Landmarks'), href: '/landmarks' },
+    { label: t('Paths.Partners'), href: '/partners' },
+    { label: t('Paths.Foundation'), href: '/foundation' },
+    { label: t('Paths.FollowFoundation'), href: '/follow' },
   ]
 
   const aboutLinks = [
-    { label: t("About.Home"), href: "/" },
-    { label: t("About.WhoWeAre"), href: "/about" },
-    { label: t("About.Services"), href: "/services" },
-    { label: t("About.Blog"), href: "/blog" },
-    { label: t("About.Contact"), href: "/contact" },
+    { label: t('About.Home'), href: '/' },
+    { label: t('About.WhoWeAre'), href: '/about' },
+    { label: t('About.Services'), href: '/services' },
+    { label: t('About.Blog'), href: '/blog' },
+    { label: t('About.Contact'), href: '/contact' },
   ]
 
   return (
@@ -47,8 +46,7 @@ const Footer = ({ locale }: { locale?: string }) => {
       <div
         className="pointer-events-none absolute inset-y-0 inset-s-0 w-[45%] opacity-60 blur-[0.5px]"
         style={{
-          background:
-            "radial-gradient(closest-side, rgba(168, 85, 247, 0.18), transparent 70%)",
+          background: 'radial-gradient(closest-side, rgba(168, 85, 247, 0.18), transparent 70%)',
         }}
       />
 
@@ -58,7 +56,7 @@ const Footer = ({ locale }: { locale?: string }) => {
             <Link href="/" className="inline-flex items-center">
               <Image
                 src="/logo.svg"
-                alt={t("Brand.Alt")}
+                alt={t('Brand.Alt')}
                 width={220}
                 height={70}
                 className="h-12 w-auto"
@@ -72,7 +70,7 @@ const Footer = ({ locale }: { locale?: string }) => {
                   href={SOCIAL_LINKS.youtube}
                   target="_blank"
                   rel="noreferrer"
-                  aria-label={t("Social.YouTube")}
+                  aria-label={t('Social.YouTube')}
                 >
                   <Youtube />
                 </a>
@@ -83,7 +81,7 @@ const Footer = ({ locale }: { locale?: string }) => {
                   href={SOCIAL_LINKS.x}
                   target="_blank"
                   rel="noreferrer"
-                  aria-label={t("Social.X")}
+                  aria-label={t('Social.X')}
                 >
                   <XIcon className="size-4" />
                 </a>
@@ -94,7 +92,7 @@ const Footer = ({ locale }: { locale?: string }) => {
                   href={SOCIAL_LINKS.instagram}
                   target="_blank"
                   rel="noreferrer"
-                  aria-label={t("Social.Instagram")}
+                  aria-label={t('Social.Instagram')}
                 >
                   <Instagram />
                 </a>
@@ -105,7 +103,7 @@ const Footer = ({ locale }: { locale?: string }) => {
                   href={SOCIAL_LINKS.facebook}
                   target="_blank"
                   rel="noreferrer"
-                  aria-label={t("Social.Facebook")}
+                  aria-label={t('Social.Facebook')}
                 >
                   <Facebook />
                 </a>
@@ -114,27 +112,29 @@ const Footer = ({ locale }: { locale?: string }) => {
 
             <div className="mt-6 space-y-2 text-sm text-muted-foreground text-start">
               <a className="block w-fit hover:text-foreground" href={`#`}>
-                {t("Contact.Website")}
+                {t('Contact.Website')}
               </a>
-              <p className="block w-fit hover:text-foreground">
-                {t("Contact.CR")}
-              </p>
-              <a className="block w-fit hover:text-foreground" href={`mailto:${t("Contact.Email")}`}>
-                {t("Contact.Email")}
+              <p className="block w-fit hover:text-foreground">{t('Contact.CR')}</p>
+              <a
+                className="block w-fit hover:text-foreground"
+                href={`mailto:${t('Contact.Email')}`}
+              >
+                {t('Contact.Email')}
               </a>
-              <a className="block w-fit hover:text-foreground" href={`tel:${t("Contact.PhoneTel")}`}>
-                {t("Contact.Phone")}
+              <a
+                className="block w-fit hover:text-foreground"
+                href={`tel:${t('Contact.PhoneTel')}`}
+              >
+                {t('Contact.Phone')}
               </a>
-              <p className="block w-fit hover:text-foreground">
-                {t("Contact.Address")}
-              </p>
+              <p className="block w-fit hover:text-foreground">{t('Contact.Address')}</p>
             </div>
           </div>
 
           <div className="lg:col-span-7">
             <div className="grid gap-8 sm:grid-cols-2">
               <div className="text-start">
-                <h3 className="text-sm font-semibold text-foreground">{t("Paths.Title")}</h3>
+                <h3 className="text-sm font-semibold text-foreground">{t('Paths.Title')}</h3>
                 <ul className="mt-4 space-y-3 text-sm text-muted-foreground">
                   {pathsLinks.map((l) => (
                     <li key={l.href}>
@@ -147,7 +147,7 @@ const Footer = ({ locale }: { locale?: string }) => {
               </div>
 
               <div className="text-start">
-                <h3 className="text-sm font-semibold text-foreground">{t("About.Title")}</h3>
+                <h3 className="text-sm font-semibold text-foreground">{t('About.Title')}</h3>
                 <ul className="mt-4 space-y-3 text-sm text-muted-foreground">
                   {aboutLinks.map((l) => (
                     <li key={l.href}>
@@ -164,11 +164,13 @@ const Footer = ({ locale }: { locale?: string }) => {
 
         <Separator className="my-10" />
 
-        <div className={`flex flex-col gap-3 text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between ${isRtl ? "sm:flex-row-reverse" : ""}`}>
-          <div>{t("Legal.Copyright", { year: new Date().getFullYear() })}</div>
+        <div
+          className={`flex flex-col gap-3 text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between ${isRtl ? 'sm:flex-row-reverse' : ''}`}
+        >
+          <div>{t('Legal.Copyright', { year: new Date().getFullYear() })}</div>
           <div className="flex items-center gap-4">
             <Link className="hover:text-foreground" href="/privacy">
-              {t("Legal.Privacy")}
+              {t('Legal.Privacy')}
             </Link>
             {/* <Link className="hover:text-foreground" href="/terms">
               {t("Legal.Terms")}

@@ -348,7 +348,7 @@ export default async function Page({ params }: Props) {
 }
 
 // Client screen
-"use client"
+;('use client')
 export function FeatureScreen({ initialData }: Props) {
   // search/filter/dialog/pagination state
   // server action dispatch or React Query mutation
@@ -581,7 +581,7 @@ Field rendering:
 Server action pattern:
 
 ```ts
-"use server"
+'use server'
 
 export async function createClassAction(
   _prevState: InitialState,
@@ -592,11 +592,11 @@ export async function createClassAction(
 
   try {
     await createClass(parsed.data)
-    revalidatePath("/dashboards/organization/classes")
-    return actionSuccess("Actions.classes.created", StatusCode.CREATED)
+    revalidatePath('/dashboards/organization/classes')
+    return actionSuccess('Actions.classes.created', StatusCode.CREATED)
   } catch (error) {
     return actionErrorState(error, formData, {
-      conflict: "Actions.classes.conflict",
+      conflict: 'Actions.classes.conflict',
     })
   }
 }
@@ -937,10 +937,10 @@ export default async function Page({ params }: Props) {
 Preferred client screen pattern:
 
 ```tsx
-"use client"
+'use client'
 
 export function SomeScreen({ data }: Props) {
-  const [search, setSearch] = useState("")
+  const [search, setSearch] = useState('')
   const filtered = useMemo(() => filterData(data, search), [data, search])
   return <SharedPattern data={filtered} />
 }

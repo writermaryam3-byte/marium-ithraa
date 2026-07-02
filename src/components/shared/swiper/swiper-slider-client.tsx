@@ -1,18 +1,18 @@
-"use client"
+'use client'
 
-import * as React from "react"
-import { cn } from "@/lib/utils"
-import { ChevronLeft, ChevronRight } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Swiper, SwiperSlide } from "swiper/react"
-import type { Swiper as SwiperType } from "swiper"
-import { A11y, Keyboard, Navigation, Pagination } from "swiper/modules"
+import * as React from 'react'
+import { cn } from '@/lib/utils'
+import { ChevronLeft, ChevronRight } from 'lucide-react'
+import { Button } from '@/components/ui/button'
+import { Swiper, SwiperSlide } from 'swiper/react'
+import type { Swiper as SwiperType } from 'swiper'
+import { A11y, Keyboard, Navigation, Pagination } from 'swiper/modules'
 
-import "swiper/css"
-import "swiper/css/navigation"
-import "swiper/css/pagination"
+import 'swiper/css'
+import 'swiper/css/navigation'
+import 'swiper/css/pagination'
 
-type SliderBreakpoints = NonNullable<React.ComponentProps<typeof Swiper>["breakpoints"]>
+type SliderBreakpoints = NonNullable<React.ComponentProps<typeof Swiper>['breakpoints']>
 
 export type SwiperSliderProps<T> = {
   items: T[]
@@ -40,7 +40,7 @@ export function SwiperSlider<T>({
   const swiperRef = React.useRef<SwiperType | null>(null)
 
   return (
-    <div className={cn("relative", className)}>
+    <div className={cn('relative', className)}>
       <Swiper
         modules={[Navigation, Pagination, A11y, Keyboard]}
         onSwiper={(s) => (swiperRef.current = s)}
@@ -53,7 +53,7 @@ export function SwiperSlider<T>({
         className="pb-10"
       >
         {items.map((item, idx) => (
-          <SwiperSlide key={idx} className={cn("h-auto", slideClassName)}>
+          <SwiperSlide key={idx} className={cn('h-auto', slideClassName)}>
             {renderItem(item, idx)}
           </SwiperSlide>
         ))}
@@ -69,7 +69,6 @@ export function SwiperSlider<T>({
           aria-label="Previous"
         >
           <ChevronRight className="size-4" />
-
         </Button>
         <Button
           type="button"
@@ -80,7 +79,6 @@ export function SwiperSlider<T>({
           aria-label="Next"
         >
           <ChevronLeft className="size-4" />
-
         </Button>
       </div>
     </div>

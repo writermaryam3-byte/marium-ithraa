@@ -1,16 +1,12 @@
-"use client"
+'use client'
 
-import { useQuery } from "@tanstack/react-query"
-import {
-  getEnricherDeals,
-  getEnricherDealById,
-  getEnricherProposals,
-} from "../api"
+import { useQuery } from '@tanstack/react-query'
+import { getEnricherDeals, getEnricherDealById, getEnricherProposals } from '../api'
 
 export const enricherKeys = {
-  deals: ["enricher", "deals"] as const,
-  dealDetail: (id: string) => ["enricher", "deals", id] as const,
-  proposals: ["enricher", "proposals"] as const,
+  deals: ['enricher', 'deals'] as const,
+  dealDetail: (id: string) => ['enricher', 'deals', id] as const,
+  proposals: ['enricher', 'proposals'] as const,
 }
 
 export function useEnricherDeals() {

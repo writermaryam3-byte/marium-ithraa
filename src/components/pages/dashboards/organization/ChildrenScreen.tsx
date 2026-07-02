@@ -1,8 +1,8 @@
-"use client"
+'use client'
 
-import { useActionState, useEffect, useMemo, useState } from "react"
-import { Link } from "@/i18n/navigation"
-import { useLocale, useTranslations } from "next-intl"
+import { useActionState, useEffect, useMemo, useState } from 'react'
+import { Link } from '@/i18n/navigation'
+import { useLocale, useTranslations } from 'next-intl'
 import {
   Baby,
   Calendar,
@@ -12,39 +12,39 @@ import {
   Mail,
   Phone,
   UserRoundPlus,
-} from "lucide-react"
+} from 'lucide-react'
 
-import { DataTablePagination } from "@/components/shared/data-table/DataTablePagination"
-import { ManagementPageHeader } from "@/components/shared/management/ManagementPageHeader"
-import { EntityCard } from "@/components/shared/management/EntityCard"
-import { EmptyState } from "@/components/shared/management/EmptyState"
-import { ListFilters } from "@/components/shared/management/ListFilters"
+import { DataTablePagination } from '@/components/shared/data-table/DataTablePagination'
+import { ManagementPageHeader } from '@/components/shared/management/ManagementPageHeader'
+import { EntityCard } from '@/components/shared/management/EntityCard'
+import { EmptyState } from '@/components/shared/management/EmptyState'
+import { ListFilters } from '@/components/shared/management/ListFilters'
 import {
   Dialog,
   DialogContent,
   DialogDescription,
   DialogHeader,
   DialogTitle,
-} from "@/components/ui/dialog"
-import { Button } from "@/components/ui/button"
-import { type Child } from "@/features/children"
+} from '@/components/ui/dialog'
+import { Button } from '@/components/ui/button'
+import { type Child } from '@/features/children'
 import {
   deleteChildAction,
   type DeleteChildState,
-} from "@/features/children/actions/delete-child.action"
-import { type ClassItem } from "@/features/classes"
-import { type Grade } from "@/features/grades"
+} from '@/features/children/actions/delete-child.action'
+import { type ClassItem } from '@/features/classes'
+import { type Grade } from '@/features/grades'
 import {
   childMatchesSearch,
   formatChildBirthDate,
   getChildClassName,
   getChildEvaluationLabel,
   getChildGradeName,
-} from "@/features/children/utils/display"
-import { useClientPagination } from "@/hooks/useClientPagination"
-import { useActionFeedback } from "@/hooks/useActionFeedback"
-import { getTextDirection } from "@/lib/i18n/locale-utils"
-import { Gender } from "@/lib/types/enums"
+} from '@/features/children/utils/display'
+import { useClientPagination } from '@/hooks/useClientPagination'
+import { useActionFeedback } from '@/hooks/useActionFeedback'
+import { getTextDirection } from '@/lib/i18n/locale-utils'
+import { Gender } from '@/lib/types/enums'
 
 type Props = {
   childrens: Child[]
@@ -54,22 +54,22 @@ type Props = {
 
 export function ChildrenScreen({ childrens, grades, classes }: Props) {
   const locale = useLocale()
-  const t = useTranslations("Dashboard.Children")
-  const tCommon = useTranslations("Dashboard.common")
-  const tPagination = useTranslations("Dashboard.pagination")
+  const t = useTranslations('Dashboard.Children')
+  const tCommon = useTranslations('Dashboard.common')
+  const tPagination = useTranslations('Dashboard.pagination')
   const { notifyDelete } = useActionFeedback()
-  const [search, setSearch] = useState("")
-  const [gradeFilter, setGradeFilter] = useState("")
-  const [classFilter, setClassFilter] = useState("")
+  const [search, setSearch] = useState('')
+  const [gradeFilter, setGradeFilter] = useState('')
+  const [classFilter, setClassFilter] = useState('')
 
-  const [deleteState, deleteAction, isDeleting] = useActionState<
-    DeleteChildState,
-    FormData
-  >(deleteChildAction, { success: false })
+  const [deleteState, deleteAction, isDeleting] = useActionState<DeleteChildState, FormData>(
+    deleteChildAction,
+    { success: false },
+  )
 
   useEffect(() => {
     if (deleteState.success) {
-      notifyDelete(deleteState, "Actions.children.deleted")
+      notifyDelete(deleteState, 'Actions.children.deleted')
     } else if (deleteState.message) {
       notifyDelete(deleteState)
     }
@@ -86,7 +86,7 @@ export function ChildrenScreen({ childrens, grades, classes }: Props) {
       if (gradeFilter) {
         const gId =
           child.gradeId ??
-          (typeof child.grade === "object" ? child.grade?.id : undefined) ??
+          (typeof child.grade === 'object' ? child.grade?.id : undefined) ??
           child.class?.gradeId
         const gName = getChildGradeName(child)
         const grade = grades.find((gr) => gr.id === gradeFilter)
@@ -106,14 +106,14 @@ export function ChildrenScreen({ childrens, grades, classes }: Props) {
     <main className="app-container py-8 space-y-8" dir={getTextDirection(locale)}>
       <ManagementPageHeader
         breadcrumbs={[
-          { href: "/dashboards/organization", label: tCommon("home") },
-          { label: t("title") },
+          { href: '/dashboards/organization', label: tCommon('home') },
+          { label: t('title') },
         ]}
-        title={t("title")}
-        subtitle={t("subtitle")}
+        title={t('title')}
+        subtitle={t('subtitle')}
         action={{
-          label: t("actions.add"),
-          href: "/dashboards/organization/children/new",
+          label: t('actions.add'),
+          href: '/dashboards/organization/children/new',
           icon: <UserRoundPlus />,
         }}
       />
@@ -125,17 +125,17 @@ export function ChildrenScreen({ childrens, grades, classes }: Props) {
           setSearch(value)
           resetPage()
         }}
-        searchPlaceholder={t("searchPlaceholder")}
+        searchPlaceholder={t('searchPlaceholder')}
         gradeFilter={{
           value: gradeFilter,
           onChange: (v) => {
             setGradeFilter(v)
-            setClassFilter("")
+            setClassFilter('')
             resetPage()
           },
           options: grades.map((g) => ({ value: g.id, label: g.name })),
-          label: t("gradeFilter"),
-          allLabel: t("allGrades"),
+          label: t('gradeFilter'),
+          allLabel: t('allGrades'),
         }}
         classFilter={{
           value: classFilter,
@@ -147,20 +147,16 @@ export function ChildrenScreen({ childrens, grades, classes }: Props) {
             value: c.id,
             label: c.name,
           })),
-          label: t("classFilter"),
-          allLabel: t("allClasses"),
+          label: t('classFilter'),
+          allLabel: t('allClasses'),
         }}
       />
 
       {filtered.length === 0 ? (
         <EmptyState
-          title={tCommon("noData")}
-          actionLabel={childrens.length === 0 ? t("actions.add") : undefined}
-          actionHref={
-            childrens.length === 0
-              ? "/dashboards/organization/children/new"
-              : undefined
-          }
+          title={tCommon('noData')}
+          actionLabel={childrens.length === 0 ? t('actions.add') : undefined}
+          actionHref={childrens.length === 0 ? '/dashboards/organization/children/new' : undefined}
         />
       ) : (
         <>
@@ -169,45 +165,45 @@ export function ChildrenScreen({ childrens, grades, classes }: Props) {
               const evalInfo = getChildEvaluationLabel(child, t)
               const genderLabel =
                 child.gender === Gender.MALE
-                  ? t("gender.male")
+                  ? t('gender.male')
                   : child.gender === Gender.FEMALE
-                    ? t("gender.female")
-                    : (child.gender ?? "—")
+                    ? t('gender.female')
+                    : (child.gender ?? '—')
 
               return (
                 <EntityCard
                   key={child.id}
-                  editLabel={tCommon("edit")}
-                  deleteLabel={tCommon("delete")}
+                  editLabel={tCommon('edit')}
+                  deleteLabel={tCommon('delete')}
                   fields={[
                     {
-                      label: t("fields.name"),
+                      label: t('fields.name'),
                       value: child.name,
                       icon: <Baby />,
                     },
                     {
-                      label: t("fields.birthDate"),
+                      label: t('fields.birthDate'),
                       value: formatChildBirthDate(child.birthDate, locale),
                       icon: <Calendar />,
                     },
                     {
-                      label: t("fields.gender"),
+                      label: t('fields.gender'),
                       value: genderLabel,
                     },
                     {
-                      label: t("fields.grade"),
+                      label: t('fields.grade'),
                       value: getChildGradeName(child),
                       icon: <GraduationCap />,
                     },
                     {
-                      label: t("fields.class"),
+                      label: t('fields.class'),
                       value: getChildClassName(child),
                       icon: <Layers3 />,
                     },
                     ...(child.parent?.name
                       ? [
                           {
-                            label: t("fields.parent"),
+                            label: t('fields.parent'),
                             value: child.parent.name,
                           },
                         ]
@@ -215,7 +211,7 @@ export function ChildrenScreen({ childrens, grades, classes }: Props) {
                     ...(child.parent?.email
                       ? [
                           {
-                            label: t("fields.email"),
+                            label: t('fields.email'),
                             value: child.parent.email,
                             icon: <Mail />,
                           },
@@ -224,21 +220,21 @@ export function ChildrenScreen({ childrens, grades, classes }: Props) {
                     ...(child.parent?.phone
                       ? [
                           {
-                            label: t("fields.phone"),
+                            label: t('fields.phone'),
                             value: child.parent.phone,
                             icon: <Phone />,
                           },
                         ]
                       : []),
                     {
-                      label: t("fields.evaluation"),
+                      label: t('fields.evaluation'),
                       value: evalInfo.label,
                       valueClassName: evalInfo.className,
                     },
                     ...(child.attemptsUsed != null
                       ? [
                           {
-                            label: t("fields.attempts"),
+                            label: t('fields.attempts'),
                             value: String(child.attemptsUsed),
                           },
                         ]
@@ -248,15 +244,15 @@ export function ChildrenScreen({ childrens, grades, classes }: Props) {
                     <Dialog open={open} onOpenChange={(v) => !v && onClose()}>
                       <DialogContent className="sm:max-w-sm">
                         <DialogHeader>
-                          <DialogTitle>{tCommon("edit")}</DialogTitle>
-                          <DialogDescription>{t("goToEdit")}</DialogDescription>
+                          <DialogTitle>{tCommon('edit')}</DialogTitle>
+                          <DialogDescription>{t('goToEdit')}</DialogDescription>
                         </DialogHeader>
                         <Button asChild className="w-full rounded-xl">
                           <Link
                             href={`/dashboards/organization/children/${child.id}`}
                             onClick={onClose}
                           >
-                            {tCommon("edit")}
+                            {tCommon('edit')}
                           </Link>
                         </Button>
                       </DialogContent>
@@ -266,10 +262,8 @@ export function ChildrenScreen({ childrens, grades, classes }: Props) {
                     <Dialog open={open} onOpenChange={(v) => !v && onClose()}>
                       <DialogContent className="sm:max-w-sm">
                         <DialogHeader>
-                          <DialogTitle>{t("dialog.deleteTitle")}</DialogTitle>
-                          <DialogDescription>
-                            {t("dialog.deleteConfirmShort")}
-                          </DialogDescription>
+                          <DialogTitle>{t('dialog.deleteTitle')}</DialogTitle>
+                          <DialogDescription>{t('dialog.deleteConfirmShort')}</DialogDescription>
                         </DialogHeader>
                         <form action={deleteAction}>
                           <input type="hidden" name="id" value={child.id} />
@@ -282,10 +276,10 @@ export function ChildrenScreen({ childrens, grades, classes }: Props) {
                             {isDeleting ? (
                               <>
                                 <Loader2 className="h-4 w-4 animate-spin" />
-                                {tCommon("deleting")}
+                                {tCommon('deleting')}
                               </>
                             ) : (
-                              tCommon("delete")
+                              tCommon('delete')
                             )}
                           </Button>
                         </form>
@@ -301,9 +295,9 @@ export function ChildrenScreen({ childrens, grades, classes }: Props) {
               meta={pagination}
               onPageChange={setPage}
               labels={{
-                previous: tPagination("previous"),
-                next: tPagination("next"),
-                page: tPagination("page"),
+                previous: tPagination('previous'),
+                next: tPagination('next'),
+                page: tPagination('page'),
               }}
             />
           )}

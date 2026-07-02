@@ -1,17 +1,9 @@
-"use client"
+'use client'
 
-import {
-  MoreVertical,
-  LogOut,
-  UserCircle,
-} from "lucide-react"
-import { useTranslations } from "next-intl"
+import { MoreVertical, LogOut, UserCircle } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-} from "@/components/ui/avatar"
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -20,16 +12,16 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+} from '@/components/ui/dropdown-menu'
 import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
   useSidebar,
-} from "@/components/ui/sidebar"
-import { Link } from "@/i18n/navigation"
-import { useAuth } from "@/features/auth/hooks/useAuth"
-import { Pages, Routes } from "@/lib/types/enums"
+} from '@/components/ui/sidebar'
+import { Link } from '@/i18n/navigation'
+import { useAuth } from '@/features/auth/hooks/useAuth'
+import { Pages, Routes } from '@/lib/types/enums'
 
 export function NavUser({
   user,
@@ -41,7 +33,7 @@ export function NavUser({
   }
 }) {
   const { isMobile } = useSidebar()
-  const t = useTranslations("Auth")
+  const t = useTranslations('Auth')
   const { logout } = useAuth()
 
   return (
@@ -61,16 +53,14 @@ export function NavUser({
               </Avatar>
               <div className="grid flex-1 text-start text-sm leading-tight">
                 <span className="truncate font-medium">{user.name}</span>
-                <span className="truncate text-xs text-muted-foreground">
-                  {user.email}
-                </span>
+                <span className="truncate text-xs text-muted-foreground">{user.email}</span>
               </div>
               <MoreVertical className="ms-auto size-4" />
             </SidebarMenuButton>
           </DropdownMenuTrigger>
           <DropdownMenuContent
             className="w-(--radix-dropdown-menu-trigger-width) min-w-56 rounded-lg"
-            side={isMobile ? "bottom" : "right"}
+            side={isMobile ? 'bottom' : 'right'}
             align="end"
             sideOffset={4}
           >
@@ -84,9 +74,7 @@ export function NavUser({
                 </Avatar>
                 <div className="grid flex-1 text-start text-sm leading-tight">
                   <span className="truncate font-medium">{user.name}</span>
-                  <span className="truncate text-xs text-muted-foreground">
-                    {user.email}
-                  </span>
+                  <span className="truncate text-xs text-muted-foreground">{user.email}</span>
                 </div>
               </div>
             </DropdownMenuLabel>
@@ -95,14 +83,14 @@ export function NavUser({
               <DropdownMenuItem asChild>
                 <Link href={`/${Routes.AUTH}/${Pages.LOGIN}`}>
                   <UserCircle />
-                  {t("dashboard")}
+                  {t('dashboard')}
                 </Link>
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
             <DropdownMenuItem onClick={() => void logout()}>
               <LogOut />
-              {t("logout")}
+              {t('logout')}
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

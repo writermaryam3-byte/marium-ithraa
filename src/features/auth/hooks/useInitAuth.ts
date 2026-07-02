@@ -1,13 +1,13 @@
-"use client"
+'use client'
 
-import { useEffect, useRef } from "react"
-import { useSession } from "next-auth/react"
-import { useLocale } from "next-intl"
-import { showErrorToast } from "@/lib/toast/app-toast"
+import { useEffect, useRef } from 'react'
+import { useSession } from 'next-auth/react'
+import { useLocale } from 'next-intl'
+import { showErrorToast } from '@/lib/toast/app-toast'
 
-import { clearAuthTokenCache } from "@/lib/api/client-api-client"
+import { clearAuthTokenCache } from '@/lib/api/client-api-client'
 
-import { useAuth } from "./useAuth"
+import { useAuth } from './useAuth'
 
 export function useInitAuth() {
   const locale = useLocale()
@@ -17,21 +17,22 @@ export function useInitAuth() {
   const hasSyncedToken = useRef(false)
 
   useEffect(() => {
-    if (status === "loading") return
+    if (status === 'loading') return
 
     if (sessionExpired && session?.user && !handledExpiry.current) {
       handledExpiry.current = true
       clearAuthTokenCache()
-      showErrorToast(
-        { raw: locale === "ar"
-          ? "انتهت صلاحية الجلسة. يرجى تسجيل الدخول مرة أخرى."
-          : "Your session has expired. Please sign in again." }
-      )
+      showErrorToast({
+        raw:
+          locale === 'ar'
+            ? 'انتهت صلاحية الجلسة. يرجى تسجيل الدخول مرة أخرى.'
+            : 'Your session has expired. Please sign in again.',
+      })
       void logout({ silent: true })
       return
     }
 
-    if (status === "authenticated" && !hasSyncedToken.current) {
+    if (status === 'authenticated' && !hasSyncedToken.current) {
       hasSyncedToken.current = true
       clearAuthTokenCache()
     }

@@ -14,15 +14,15 @@ interface LogMetadata {
 
 export const logger = {
   info: (message: string, metadata?: LogMetadata) => {
-    if (process.env.NODE_ENV === "development") {
-      console.log(`[INFO] ${message}`, metadata || "")
+    if (process.env.NODE_ENV === 'development') {
+      console.log(`[INFO] ${message}`, metadata || '')
     }
   },
   warn: (message: string, metadata?: LogMetadata) => {
-    console.warn(`[WARN] ${message}`, metadata || "")
+    console.warn(`[WARN] ${message}`, metadata || '')
   },
   error: (message: string, metadata?: LogMetadata) => {
-    console.error(`[ERROR] ${message}`, metadata || "")
+    console.error(`[ERROR] ${message}`, metadata || '')
   },
 }
 
@@ -32,14 +32,14 @@ export const metrics = {
   retryCount: 0,
   incrementFailed: () => {
     metrics.failedRequests++
-    if (process.env.NODE_ENV === "development") {
-      console.log("[METRICS] Failed requests:", metrics.failedRequests)
+    if (process.env.NODE_ENV === 'development') {
+      console.log('[METRICS] Failed requests:', metrics.failedRequests)
     }
   },
   incrementRetry: () => {
     metrics.retryCount++
-    if (process.env.NODE_ENV === "development") {
-      console.log("[METRICS] Retry count:", metrics.retryCount)
+    if (process.env.NODE_ENV === 'development') {
+      console.log('[METRICS] Retry count:', metrics.retryCount)
     }
   },
 }

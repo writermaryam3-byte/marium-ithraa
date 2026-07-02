@@ -1,15 +1,15 @@
-"use server"
+'use server'
 
-import { revalidatePath } from "next/cache"
+import { revalidatePath } from 'next/cache'
 
-import { actionErrorState } from "@/features/forms/action-errors"
-import { actionSuccess } from "@/features/forms/action-results"
-import { parseFormData } from "@/features/forms/parse-form-data"
-import { updateEmployeeSchema } from "@/features/forms/schemas/employee.schema"
-import { StatusCode } from "@/lib/types/enums"
-import { type InitialState } from "@/lib/types/types"
+import { actionErrorState } from '@/features/forms/action-errors'
+import { actionSuccess } from '@/features/forms/action-results'
+import { parseFormData } from '@/features/forms/parse-form-data'
+import { updateEmployeeSchema } from '@/features/forms/schemas/employee.schema'
+import { StatusCode } from '@/lib/types/enums'
+import { type InitialState } from '@/lib/types/types'
 
-import { updateEmployee } from "../api"
+import { updateEmployee } from '../api'
 
 export async function updateEmployeeAction(
   _prevState: InitialState,
@@ -21,8 +21,8 @@ export async function updateEmployeeAction(
   try {
     const { id, ...payload } = parsed.data
     await updateEmployee(id, payload)
-    revalidatePath("/dashboards/organization/employees")
-    return actionSuccess("Actions.employees.updated", StatusCode.OK)
+    revalidatePath('/dashboards/organization/employees')
+    return actionSuccess('Actions.employees.updated', StatusCode.OK)
   } catch (error) {
     return actionErrorState(error, formData)
   }

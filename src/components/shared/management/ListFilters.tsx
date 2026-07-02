@@ -1,15 +1,15 @@
-"use client"
+'use client'
 
-import { useTranslations } from "next-intl"
-import { getTextDirection } from "@/lib/i18n/locale-utils"
-import { Input } from "@/components/ui/input"
+import { useTranslations } from 'next-intl'
+import { getTextDirection } from '@/lib/i18n/locale-utils'
+import { Input } from '@/components/ui/input'
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select"
+} from '@/components/ui/select'
 
 type FilterOption = { value: string; label: string }
 
@@ -42,7 +42,7 @@ export function ListFilters({
   gradeFilter,
   classFilter,
 }: ListFiltersProps) {
-  const t = useTranslations("Common")
+  const t = useTranslations('Common')
 
   return (
     <div
@@ -53,7 +53,7 @@ export function ListFilters({
         <Input
           value={search}
           onChange={(e) => onSearchChange(e.target.value)}
-          placeholder={searchPlaceholder ?? t("search")}
+          placeholder={searchPlaceholder ?? t('search')}
           className="rounded-xl"
         />
       </div>
@@ -61,8 +61,8 @@ export function ListFilters({
       {gradeFilter && (
         <div className="w-full md:w-48">
           <Select
-            value={gradeFilter.value || "all"}
-            onValueChange={(v) => gradeFilter.onChange(v === "all" ? "" : v)}
+            value={gradeFilter.value || 'all'}
+            onValueChange={(v) => gradeFilter.onChange(v === 'all' ? '' : v)}
           >
             <SelectTrigger className="rounded-xl w-full">
               <SelectValue placeholder={gradeFilter.label} />
@@ -82,8 +82,8 @@ export function ListFilters({
       {classFilter && (
         <div className="w-full md:w-48">
           <Select
-            value={classFilter.value || "all"}
-            onValueChange={(v) => classFilter.onChange(v === "all" ? "" : v)}
+            value={classFilter.value || 'all'}
+            onValueChange={(v) => classFilter.onChange(v === 'all' ? '' : v)}
           >
             <SelectTrigger className="rounded-xl w-full">
               <SelectValue placeholder={classFilter.label} />

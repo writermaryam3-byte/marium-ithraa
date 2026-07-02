@@ -1,21 +1,17 @@
-import { api } from "@/lib/api/api"
-import { Endpoint, Methods } from "@/lib/types/enums"
-import type { TransferRequest, TransferRequestPayload } from "@/lib/types/types/interfaces"
-import type { TransferRequestResponse } from "@/features/children"
+import { api } from '@/lib/api/api'
+import { Endpoint, Methods } from '@/lib/types/enums'
+import type { TransferRequest, TransferRequestPayload } from '@/lib/types/types/interfaces'
+import type { TransferRequestResponse } from '@/features/children'
 
 export const TransferService = {
-  async createTransferRequest(
-    payload: TransferRequestPayload,
-  ): Promise<TransferRequestResponse> {
+  async createTransferRequest(payload: TransferRequestPayload): Promise<TransferRequestResponse> {
     return api.client<TransferRequestResponse>(`/${Endpoint.TRANSFERS}`, {
       method: Methods.POST,
       body: JSON.stringify(payload),
     })
   },
 
-  async getTransferRequests(
-    fromOrganizationId: string,
-  ): Promise<TransferRequest[]> {
+  async getTransferRequests(fromOrganizationId: string): Promise<TransferRequest[]> {
     const response = await api.client<{
       requests?: TransferRequest[]
       transferRequests?: TransferRequest[]
@@ -26,9 +22,7 @@ export const TransferService = {
       )}&status=pending`,
     )
 
-    return (
-      response.requests ?? response.transferRequests ?? response.childTransfers ?? []
-    )
+    return response.requests ?? response.transferRequests ?? response.childTransfers ?? []
   },
 
   async approveTransferRequest(

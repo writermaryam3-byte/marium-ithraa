@@ -1,6 +1,6 @@
-"use client"
+'use client'
 
-import * as React from "react"
+import * as React from 'react'
 import {
   Brain,
   Database,
@@ -10,10 +10,10 @@ import {
   Users,
   Briefcase,
   Activity,
-} from "lucide-react"
+} from 'lucide-react'
 
-import { NavMain } from "@/components/nav-main"
-import { NavUser } from "@/components/nav-user"
+import { NavMain } from '@/components/nav-main'
+import { NavUser } from '@/components/nav-user'
 import {
   Sidebar,
   SidebarContent,
@@ -22,10 +22,10 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-} from "@/components/ui/sidebar"
-import { useSession } from "next-auth/react"
-import { useTranslations } from "next-intl"
-import { Pages, Routes } from "@/lib/types/enums"
+} from '@/components/ui/sidebar'
+import { useSession } from 'next-auth/react'
+import { useTranslations } from 'next-intl'
+import { Pages, Routes } from '@/lib/types/enums'
 
 const ADMIN_URL = `/${Routes.DASHBOARDS}/${Pages.ADMIN}`
 
@@ -35,63 +35,63 @@ export function AdminSidebar(props: React.ComponentProps<typeof Sidebar>) {
 
   const data = {
     user: {
-      name: session?.user.name || "",
-      email: session?.user.email || "",
-      avatar: "/avatars/shadcn.jpg",
+      name: session?.user.name || '',
+      email: session?.user.email || '',
+      avatar: '/avatars/shadcn.jpg',
     },
     navMain: [
       {
-        title: t("Dashboard.Nav.dashboard"),
+        title: t('Dashboard.Nav.dashboard'),
         url: ADMIN_URL,
         icon: LayoutDashboard,
       },
       {
-        title: t("Dashboard.Nav.users"),
+        title: t('Dashboard.Nav.users'),
         url: `${ADMIN_URL}/${Pages.USERS}`,
         icon: Users,
       },
       {
-        title: t("Features.Organizations.admin.nav"),
+        title: t('Features.Organizations.admin.nav'),
         url: `${ADMIN_URL}/organizations`,
         icon: Users,
       },
       {
-        title: t("Dashboard.Nav.children"),
+        title: t('Dashboard.Nav.children'),
         url: `${ADMIN_URL}/children`,
         icon: Users,
       },
       {
-        title: t("Dashboard.Nav.evaluations"),
+        title: t('Dashboard.Nav.evaluations'),
         url: `${ADMIN_URL}/evaluations`,
         icon: Brain,
       },
       {
-        title: t("Dashboard.Nav.attempts"),
+        title: t('Dashboard.Nav.attempts'),
         url: `${ADMIN_URL}/attempts`,
         icon: FileBarChart,
       },
       {
-        title: t("Features.Notifications.title"),
+        title: t('Features.Notifications.title'),
         url: `/${Routes.DASHBOARDS}/notifications`,
         icon: FileBarChart,
       },
       {
-        title: t("Features.Notifications.dispatchTitle"),
+        title: t('Features.Notifications.dispatchTitle'),
         url: `${ADMIN_URL}/notifications/dispatch`,
         icon: FileBarChart,
       },
       {
-        title: t("Dashboard.Nav.activities"),
+        title: t('Dashboard.Nav.activities'),
         url: `${ADMIN_URL}/activities`,
         icon: Activity,
       },
       {
-        title: t("Dashboard.Nav.capacityRequests"),
+        title: t('Dashboard.Nav.capacityRequests'),
         url: `${ADMIN_URL}/capacity-requests`,
         icon: Database,
       },
       {
-        title: t("Dashboard.Nav.deals"),
+        title: t('Dashboard.Nav.deals'),
         url: `${ADMIN_URL}/deals`,
         icon: Briefcase,
       },
@@ -122,13 +122,10 @@ export function AdminSidebar(props: React.ComponentProps<typeof Sidebar>) {
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
-            <SidebarMenuButton
-              asChild
-              className="data-[slot=sidebar-menu-button]:p-1.5!"
-            >
+            <SidebarMenuButton asChild className="data-[slot=sidebar-menu-button]:p-1.5!">
               <a href="#">
                 <PanelTop className="size-5!" />
-                <span className="text-base font-semibold">{"Admin"}</span>
+                <span className="text-base font-semibold">{'Admin'}</span>
               </a>
             </SidebarMenuButton>
           </SidebarMenuItem>
@@ -145,4 +142,3 @@ export function AdminSidebar(props: React.ComponentProps<typeof Sidebar>) {
     </Sidebar>
   )
 }
-

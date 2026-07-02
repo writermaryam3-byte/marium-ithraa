@@ -1,59 +1,59 @@
-"use client"
+'use client'
 
-import { useState } from "react"
-import { useLocale, useTranslations } from "next-intl"
-import { useRouter } from "@/i18n/navigation"
-import { showErrorToast } from "@/lib/toast/app-toast"
+import { useState } from 'react'
+import { useLocale, useTranslations } from 'next-intl'
+import { useRouter } from '@/i18n/navigation'
+import { showErrorToast } from '@/lib/toast/app-toast'
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select"
-import { Skeleton } from "@/components/ui/skeleton"
-import { useCreateDeal, useActivities } from "@/features/deals"
-import { getTextDirection } from "@/lib/i18n/locale-utils"
-import { Pages, Routes } from "@/lib/types/enums"
+} from '@/components/ui/select'
+import { Skeleton } from '@/components/ui/skeleton'
+import { useCreateDeal, useActivities } from '@/features/deals'
+import { getTextDirection } from '@/lib/i18n/locale-utils'
+import { Pages, Routes } from '@/lib/types/enums'
 
 const ORG_URL = `/${Routes.DASHBOARDS}/${Pages.ORGANIZATION}`
 
 export default function NewDealPage() {
   const locale = useLocale()
-  const t = useTranslations("Features.Deals")
+  const t = useTranslations('Features.Deals')
   const router = useRouter()
   const { data: activities, isLoading: loadingActivities } = useActivities()
   const create = useCreateDeal(() => {
     router.push(`${ORG_URL}/${Pages.DEALS}`)
   })
 
-  const [activityId, setActivityId] = useState("")
-  const [studentsCount, setStudentsCount] = useState("")
-  const [deadline, setDeadline] = useState("")
+  const [activityId, setActivityId] = useState('')
+  const [studentsCount, setStudentsCount] = useState('')
+  const [deadline, setDeadline] = useState('')
 
   const activitiesList = Array.isArray(activities) ? activities : []
 
   const handleSubmit = async () => {
     const count = parseInt(studentsCount, 10)
-    
+
     // 1. التحقق من الحقول الأساسية
     if (!activityId || isNaN(count) || count <= 0) {
-      showErrorToast(t, "validationError")
+      showErrorToast(t, 'validationError')
       return
     }
-    
+
     // 2. التحقق من أن تاريخ الموعد النهائي في المستقبل وليس في الماضي
     if (deadline) {
       const selectedDate = new Date(deadline)
       const now = new Date()
 
       if (selectedDate <= now) {
-        showErrorToast(t, "pastDeadlineError") // تأكد من إضافة هذا المفتاح في ملف الـ JSON للترجمة
+        showErrorToast(t, 'pastDeadlineError') // تأكد من إضافة هذا المفتاح في ملف الـ JSON للترجمة
         return
       }
     }
@@ -65,7 +65,7 @@ export default function NewDealPage() {
         deadline: deadline ? new Date(deadline).toISOString() : undefined,
       })
     } catch {
-      showErrorToast(t, "createError")
+      showErrorToast(t, 'createError')
     }
   }
 
@@ -86,18 +86,18 @@ export default function NewDealPage() {
 
   return (
     <div className="space-y-6 p-4 lg:p-6 max-w-xl" dir={getTextDirection(locale)}>
-      <h2 className="text-xl font-semibold">{t("createDeal")}</h2>
+      <h2 className="text-xl font-semibold">{t('createDeal')}</h2>
 
       <Card>
         <CardHeader>
-          <CardTitle className="text-base">{t("dealDetails")}</CardTitle>
+          <CardTitle className="text-base">{t('dealDetails')}</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="space-y-1">
-            <Label>{t("activity")}</Label>
+            <Label>{t('activity')}</Label>
             <Select value={activityId} onValueChange={setActivityId}>
               <SelectTrigger>
-                <SelectValue placeholder={t("selectActivity")} />
+                <SelectValue placeholder={t('selectActivity')} />
               </SelectTrigger>
               <SelectContent>
                 {activitiesList.map((a) => (
@@ -110,7 +110,7 @@ export default function NewDealPage() {
           </div>
 
           <div className="space-y-1">
-            <Label>{t("studentsCount")}</Label>
+            <Label>{t('studentsCount')}</Label>
             <Input
               type="number"
               value={studentsCount}
@@ -121,7 +121,7 @@ export default function NewDealPage() {
           </div>
 
           <div className="space-y-1">
-            <Label>{t("deadline")}</Label>
+            <Label>{t('deadline')}</Label>
             <Input
               type="datetime-local"
               value={deadline}
@@ -130,12 +130,8 @@ export default function NewDealPage() {
             />
           </div>
 
-          <Button
-            onClick={handleSubmit}
-            disabled={create.isPending}
-            className="w-full"
-          >
-            {create.isPending ? t("creating") : t("publishDeal")}
+          <Button onClick={handleSubmit} disabled={create.isPending} className="w-full">
+            {create.isPending ? t('creating') : t('publishDeal')}
           </Button>
         </CardContent>
       </Card>

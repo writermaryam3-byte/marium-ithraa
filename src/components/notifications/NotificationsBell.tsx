@@ -1,1 +1,1 @@
-export { NotificationBell as default } from "./NotificationBell"
+export { NotificationBell as default } from './NotificationBell'

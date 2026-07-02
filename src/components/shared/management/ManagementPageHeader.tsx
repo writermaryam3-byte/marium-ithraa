@@ -1,8 +1,8 @@
-import * as React from "react"
-import { Link } from "@/i18n/navigation"
+import * as React from 'react'
+import { Link } from '@/i18n/navigation'
 
-import { cn } from "@/lib/utils"
-import { Button } from "@/components/ui/button"
+import { cn } from '@/lib/utils'
+import { Button } from '@/components/ui/button'
 
 export type BreadcrumbItem = {
   href?: string
@@ -29,7 +29,7 @@ export function ManagementPageHeader({
   className,
 }: ManagementPageHeaderProps) {
   return (
-    <div className={cn("space-y-3", className)}>
+    <div className={cn('space-y-3', className)}>
       <nav className="text-xs text-muted-foreground">
         <ol className="flex flex-wrap items-center gap-1">
           {breadcrumbs.map((b, idx) => {
@@ -57,7 +57,11 @@ export function ManagementPageHeader({
         </div>
 
         {action ? (
-          <Button asChild variant="outline" className="gap-2 rounded-xl border-primary/40 text-primary">
+          <Button
+            asChild
+            variant="outline"
+            className="gap-2 rounded-xl border-primary/40 text-primary"
+          >
             <Link href={action.href}>
               {action.icon ? <span className="[&_svg]:size-4">{action.icon}</span> : null}
               {action.label}
@@ -68,4 +72,3 @@ export function ManagementPageHeader({
     </div>
   )
 }
-

@@ -1,7 +1,7 @@
-"use client"
+'use client'
 
-import type { ListNotificationsParams } from "../types"
-import { useMarkAllRead, useMarkOneRead, useNotificationsList, useUnreadCount } from "./index"
+import type { ListNotificationsParams } from '../types'
+import { useMarkAllRead, useMarkOneRead, useNotificationsList, useUnreadCount } from './index'
 
 export function useNotifications(params: ListNotificationsParams, options?: { pollMs?: number }) {
   const unread = useUnreadCount(options?.pollMs ?? 30_000)
@@ -11,4 +11,3 @@ export function useNotifications(params: ListNotificationsParams, options?: { po
 
   return { unread, list, markAll, markOne }
 }
-

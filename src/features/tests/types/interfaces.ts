@@ -1,63 +1,59 @@
-import { Child } from "@/features/children";
+import { Child } from '@/features/children'
 
 export interface TestResult {
-    id: string;
-  
-    assignment: TestAssignment;
+  id: string
 
-    score: number;
-  
-    answers_json: string;
-  
-    created_at: string;
-  }
+  assignment: TestAssignment
 
+  score: number
+
+  answers_json: string
+
+  created_at: string
+}
 
 export interface Answer {
-    id: string;
-  
-    text: string;
-  
-    score: number;
-  
+  id: string
 
-    questionId: string;
-  }
+  text: string
+
+  score: number
+
+  questionId: string
+}
 
 export interface Question {
-    id: string;
+  id: string
 
-    content: string;
+  content: string
 
+  testId: string
 
-    testId: string;
-
-
-    answers: Partial<Answer>[];
+  answers: Partial<Answer>[]
 }
 
 export interface TestAssignment {
-    id: string;
+  id: string
 
-    child: Child;
+  child: Child
 
-    testId: string;
+  testId: string
 
-    due_date: string;
+  due_date: string
 
-    status: string;
+  status: string
 }
 
 export interface Test {
-    id: string;
+  id: string
 
-    title: string;
+  title: string
 
-    description: string;
+  description: string
 
-    questions: Question[];
+  questions: Question[]
 
-    assignments: TestAssignment[];
+  assignments: TestAssignment[]
 
-    questionNo: number;
+  questionNo: number
 }

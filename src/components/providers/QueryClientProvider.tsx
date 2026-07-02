@@ -1,16 +1,11 @@
-"use client"
+'use client'
 
-import {
-  MutationCache,
-  QueryCache,
-  QueryClient,
-  QueryClientProvider,
-} from "@tanstack/react-query"
-import { SessionProvider } from "next-auth/react"
+import { MutationCache, QueryCache, QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { SessionProvider } from 'next-auth/react'
 
-import { AuthInit } from "@/features/auth/components/AuthInit"
-import { notifyError, notifySuccess } from "@/lib/toast/app-toast"
-import { TooltipProvider } from "../ui/tooltip"
+import { AuthInit } from '@/features/auth/components/AuthInit'
+import { notifyError, notifySuccess } from '@/lib/toast/app-toast'
+import { TooltipProvider } from '../ui/tooltip'
 
 const queryClient = new QueryClient({
   queryCache: new QueryCache({
@@ -31,9 +26,9 @@ const queryClient = new QueryClient({
       const meta = mutation.meta as Record<string, unknown> | undefined
       if (meta?.showSuccessToast) {
         const msg =
-          typeof meta.showSuccessToast === "string"
+          typeof meta.showSuccessToast === 'string'
             ? meta.showSuccessToast
-            : "Operation completed successfully"
+            : 'Operation completed successfully'
         notifySuccess(msg)
       }
     },
@@ -51,10 +46,10 @@ const queryClient = new QueryClient({
 export function Providers({ children }: { children: React.ReactNode }) {
   return (
     <QueryClientProvider client={queryClient}>
-        <SessionProvider>
-          <AuthInit />
-          <TooltipProvider>{children}</TooltipProvider>
-        </SessionProvider>
+      <SessionProvider>
+        <AuthInit />
+        <TooltipProvider>{children}</TooltipProvider>
+      </SessionProvider>
     </QueryClientProvider>
   )
 }

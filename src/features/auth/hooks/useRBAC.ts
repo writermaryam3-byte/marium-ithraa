@@ -1,11 +1,11 @@
-"use client"
+'use client'
 
-import { useEffect, useMemo } from "react"
-import { useRouter } from "@/i18n/navigation"
+import { useEffect, useMemo } from 'react'
+import { useRouter } from '@/i18n/navigation'
 
-import type { UserRole } from "@/lib/types/enums"
+import type { UserRole } from '@/lib/types/enums'
 
-import { useAuth } from "./useAuth"
+import { useAuth } from './useAuth'
 
 /**
  * Client-side RBAC convenience hook.
@@ -33,17 +33,9 @@ export function useRBAC(
     }
 
     if (isAuthenticated && !ok) {
-      router.replace(options?.redirectTo ?? "/unauthorized")
+      router.replace(options?.redirectTo ?? '/unauthorized')
     }
-  }, [
-    isAuthenticated,
-    isLoading,
-    ok,
-    options?.redirectTo,
-    options?.requireAuth,
-    router,
-    loginPath,
-  ])
+  }, [isAuthenticated, isLoading, ok, options?.redirectTo, options?.requireAuth, router, loginPath])
 
   return { ok, isLoading, isAuthed: isAuthenticated, user }
 }

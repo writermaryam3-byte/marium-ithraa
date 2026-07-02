@@ -1,28 +1,22 @@
-"use client"
+'use client'
 
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useTranslations } from "next-intl"
-import { useState } from "react"
-import { FormProvider, useFieldArray, useForm, useFormContext } from "react-hook-form"
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useTranslations } from 'next-intl'
+import { useState } from 'react'
+import { FormProvider, useFieldArray, useForm, useFormContext } from 'react-hook-form'
 
-import { Button } from "@/components/ui/button"
-import {
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
+import { Button } from '@/components/ui/button'
+import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
+import { Input } from '@/components/ui/input'
 import {
   testWizardDefaultValues,
   testWizardSchema,
   type TestWizardFormValues,
-} from "@/features/forms/schemas/test.schema"
-import { isActionSuccess } from "@/features/forms/action-results"
-import { showErrorToast, showSuccessToast } from "@/lib/toast/app-toast"
+} from '@/features/forms/schemas/test.schema'
+import { isActionSuccess } from '@/features/forms/action-results'
+import { showErrorToast, showSuccessToast } from '@/lib/toast/app-toast'
 
-import { createTestAction } from "../actions/create-test-action"
+import { createTestAction } from '../actions/create-test-action'
 
 type Props = {
   onSuccess?: () => void
@@ -30,38 +24,38 @@ type Props = {
 }
 
 export function TestCreationForm({ onSuccess, className }: Props) {
-  const t = useTranslations("Forms.Test")
-  const tActions = useTranslations("Actions")
-  const tWizard = useTranslations("Forms.Test.wizard")
+  const t = useTranslations('Forms.Test')
+  const tActions = useTranslations('Actions')
+  const tWizard = useTranslations('Forms.Test.wizard')
   const [step, setStep] = useState(1)
   const [isSubmitting, setIsSubmitting] = useState(false)
 
   const form = useForm<TestWizardFormValues>({
     resolver: zodResolver(testWizardSchema),
     defaultValues: testWizardDefaultValues,
-    mode: "onTouched",
+    mode: 'onTouched',
   })
 
   const { fields: questions, append: appendQuestion } = useFieldArray({
     control: form.control,
-    name: "questions",
+    name: 'questions',
   })
 
   const onSubmit = async (values: TestWizardFormValues) => {
     setIsSubmitting(true)
     try {
       const fd = new FormData()
-      fd.set("title", values.title)
-      fd.set("description", values.description)
-      fd.set("questions", JSON.stringify(values.questions))
+      fd.set('title', values.title)
+      fd.set('description', values.description)
+      fd.set('questions', JSON.stringify(values.questions))
 
       const result = await createTestAction(
-        { message: "", error: {}, status: null, formData: null },
+        { message: '', error: {}, status: null, formData: null },
         fd,
       )
 
       if (isActionSuccess(result)) {
-        showSuccessToast(tActions, result.message ?? "Actions.tests.created")
+        showSuccessToast(tActions, result.message ?? 'Actions.tests.created')
         form.reset(testWizardDefaultValues)
         setStep(1)
         onSuccess?.()
@@ -82,7 +76,7 @@ export function TestCreationForm({ onSuccess, className }: Props) {
           step === 1
             ? (event) => {
                 event.preventDefault()
-                void form.trigger(["title", "description"]).then((ok) => {
+                void form.trigger(['title', 'description']).then((ok) => {
                   if (ok) setStep(2)
                 })
               }
@@ -96,9 +90,9 @@ export function TestCreationForm({ onSuccess, className }: Props) {
               name="title"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>{t("title.label")}</FormLabel>
+                  <FormLabel>{t('title.label')}</FormLabel>
                   <FormControl>
-                    <Input placeholder={t("title.placeholder")} {...field} />
+                    <Input placeholder={t('title.placeholder')} {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -109,9 +103,9 @@ export function TestCreationForm({ onSuccess, className }: Props) {
               name="description"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>{t("description.label")}</FormLabel>
+                  <FormLabel>{t('description.label')}</FormLabel>
                   <FormControl>
-                    <Input placeholder={t("description.placeholder")} {...field} />
+                    <Input placeholder={t('description.placeholder')} {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -128,9 +122,9 @@ export function TestCreationForm({ onSuccess, className }: Props) {
             <Button
               type="button"
               variant="secondary"
-              onClick={() => appendQuestion({ content: "", answers: [{ text: "", score: 0 }] })}
+              onClick={() => appendQuestion({ content: '', answers: [{ text: '', score: 0 }] })}
             >
-              {tWizard("addQuestion")}
+              {tWizard('addQuestion')}
             </Button>
           </div>
         )}
@@ -138,11 +132,11 @@ export function TestCreationForm({ onSuccess, className }: Props) {
         <div className="mt-6 flex items-center justify-between gap-4">
           {step > 1 && (
             <Button type="button" variant="outline" onClick={() => setStep(1)}>
-              {tWizard("back")}
+              {tWizard('back')}
             </Button>
           )}
           <Button type="submit" className="ms-auto" disabled={isSubmitting}>
-            {step === 1 ? tWizard("next") : tWizard("submit")}
+            {step === 1 ? tWizard('next') : tWizard('submit')}
           </Button>
         </div>
       </form>
@@ -170,9 +164,9 @@ function QuestionBlock({
         name={`questions.${qIndex}.content`}
         render={({ field }) => (
           <FormItem>
-            <FormLabel>{tWizard("questionLabel", { index: qIndex + 1 })}</FormLabel>
+            <FormLabel>{tWizard('questionLabel', { index: qIndex + 1 })}</FormLabel>
             <FormControl>
-              <Input placeholder={tWizard("questionPlaceholder")} {...field} />
+              <Input placeholder={tWizard('questionPlaceholder')} {...field} />
             </FormControl>
             <FormMessage />
           </FormItem>
@@ -186,7 +180,7 @@ function QuestionBlock({
             render={({ field }) => (
               <FormItem className="flex-1">
                 <FormControl>
-                  <Input placeholder={tWizard("answerPlaceholder")} {...field} />
+                  <Input placeholder={tWizard('answerPlaceholder')} {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -210,9 +204,9 @@ function QuestionBlock({
         type="button"
         variant="outline"
         size="sm"
-        onClick={() => appendAnswer({ text: "", score: 0 })}
+        onClick={() => appendAnswer({ text: '', score: 0 })}
       >
-        {tWizard("addAnswer")}
+        {tWizard('addAnswer')}
       </Button>
     </div>
   )

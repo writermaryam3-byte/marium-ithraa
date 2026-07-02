@@ -1,31 +1,28 @@
-import { ChartAreaInteractive } from "@/components/chart-area-interactive"
-import DashboardCards from "@/components/shared/cards/DashboardCards"
-import { DataTable } from "@/components/shared/data-table/DataTable"
-import { SiteHeader } from "@/components/site-header"
-import { AddEmployeeDialog, columns, getEmployeesByOrganization } from "@/features/employees"
-import { requireCurrentOrganization } from "@/lib/helpers/getCurrentOrganization"
-import { CardInfo } from "@/lib/types/types"
+import { ChartAreaInteractive } from '@/components/chart-area-interactive'
+import DashboardCards from '@/components/shared/cards/DashboardCards'
+import { DataTable } from '@/components/shared/data-table/DataTable'
+import { SiteHeader } from '@/components/site-header'
+import { AddEmployeeDialog, columns, getEmployeesByOrganization } from '@/features/employees'
+import { requireCurrentOrganization } from '@/lib/helpers/getCurrentOrganization'
+import { CardInfo } from '@/lib/types/types'
 export default async function OrgEmployeesPage() {
-  const organizationOwner = (await requireCurrentOrganization())
+  const organizationOwner = await requireCurrentOrganization()
   const orgId = organizationOwner?.id
   const { employees } = await getEmployeesByOrganization(orgId)
 
   const cards: CardInfo[] = [
     {
       title: employees?.length || 0,
-      description: "Dashboard.cards.employeesCount",
+      description: 'Dashboard.cards.employeesCount',
       footer: {
-        exist: false
+        exist: false,
       },
       badage: {
-        exist: false
+        exist: false,
       },
-
-
-    }
+    },
   ]
   return (
-
     <>
       <SiteHeader titleKey="Dashboard.titles.dashboard" />
       <div className="flex flex-1 flex-col">
@@ -44,6 +41,5 @@ export default async function OrgEmployeesPage() {
         </div>
       </div>
     </>
-
   )
 }

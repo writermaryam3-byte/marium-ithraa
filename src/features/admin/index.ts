@@ -1,1 +1,1 @@
-export { AdminSidebar } from "./components"
+export { AdminSidebar } from './components'

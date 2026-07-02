@@ -1,11 +1,10 @@
-import { ChartAreaInteractive } from "@/components/chart-area-interactive"
-import DashboardCards from "@/components/shared/cards/DashboardCards"
-import { DataTable } from "@/components/shared/data-table/DataTable"
-import { SiteHeader } from "@/components/site-header"
-import { getAllChildrenServer } from "@/features/children/api"
-import { adminColumns } from "@/features/children/components/columns"
-import { getTranslations } from "next-intl/server"
-
+import { ChartAreaInteractive } from '@/components/chart-area-interactive'
+import DashboardCards from '@/components/shared/cards/DashboardCards'
+import { DataTable } from '@/components/shared/data-table/DataTable'
+import { SiteHeader } from '@/components/site-header'
+import { getAllChildrenServer } from '@/features/children/api'
+import { adminColumns } from '@/features/children/components/columns'
+import { getTranslations } from 'next-intl/server'
 
 export default async function AdminChildrenPage() {
   const t = await getTranslations()
@@ -15,16 +14,14 @@ export default async function AdminChildrenPage() {
   const cards = [
     {
       title: children.length,
-      description: "Dashboard.cards.childrenCount",
+      description: 'Dashboard.cards.childrenCount',
       footer: {
-        exist: false
+        exist: false,
       },
       badage: {
-        exist: false
+        exist: false,
       },
-
-
-    }
+    },
   ]
   return (
     <>
@@ -45,4 +42,3 @@ export default async function AdminChildrenPage() {
     </>
   )
 }
-

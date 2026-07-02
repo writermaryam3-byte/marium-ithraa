@@ -1,10 +1,10 @@
-import { z } from "zod"
+import { z } from 'zod'
 
-import { Gender } from "@/lib/types/enums"
+import { Gender } from '@/lib/types/enums'
 
-import { birthDateSchema } from "./birthDate.schema"
-import { emailSchema, nameSchema, passwordSchema, phoneSchema } from "./common.schema"
-import { idSchema } from "./common.schema"
+import { birthDateSchema } from './birthDate.schema'
+import { emailSchema, nameSchema, passwordSchema, phoneSchema } from './common.schema'
+import { idSchema } from './common.schema'
 
 const genderSchema = z.enum([Gender.MALE, Gender.FEMALE])
 
@@ -13,7 +13,7 @@ export const createOrgChildSchema = z.object({
   name: nameSchema,
   birthDate: birthDateSchema,
   gender: genderSchema,
-  classId: z.string().min(1, "Class is required"),
+  classId: z.string().min(1, 'Class is required'),
   parentName: nameSchema,
   parentEmail: emailSchema,
   parentPhone: phoneSchema,

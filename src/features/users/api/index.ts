@@ -1,11 +1,13 @@
-import { api } from "@/lib/api/api"
-import { Endpoint } from "@/lib/types/enums"
-import { IUserResponseDto, User } from "../types"
+import { api } from '@/lib/api/api'
+import { Endpoint } from '@/lib/types/enums'
+import { IUserResponseDto, User } from '../types'
 
 export const getUsersInRoles = () => {
-    return api.client<{teachers: User[], organizationOwners: User[], parents: User[]}>(`/${Endpoint.USERS}/${Endpoint.ROLES}`)
+  return api.client<{ teachers: User[]; organizationOwners: User[]; parents: User[] }>(
+    `/${Endpoint.USERS}/${Endpoint.ROLES}`,
+  )
 }
 
 export const getAllUsers = () => {
-    return api.server<{users: IUserResponseDto[]}>(`/${Endpoint.USERS}`)
+  return api.server<{ users: IUserResponseDto[] }>(`/${Endpoint.USERS}`)
 }

@@ -1,19 +1,16 @@
-"use client"
+'use client'
 
-import { useLocale, useTranslations } from "next-intl"
-import { Baby, Calendar } from "lucide-react"
+import { useLocale, useTranslations } from 'next-intl'
+import { Baby, Calendar } from 'lucide-react'
 
-import { ManagementPageHeader } from "@/components/shared/management/ManagementPageHeader"
-import { EmptyState } from "@/components/shared/management/EmptyState"
-import { Card, CardContent } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { type Child } from "@/features/children"
-import {
-  formatChildBirthDate,
-  getChildEvaluationLabel,
-} from "@/features/children/utils/display"
-import { getTextDirection } from "@/lib/i18n/locale-utils"
-import { Link } from "@/i18n/navigation"
+import { ManagementPageHeader } from '@/components/shared/management/ManagementPageHeader'
+import { EmptyState } from '@/components/shared/management/EmptyState'
+import { Card, CardContent } from '@/components/ui/card'
+import { Button } from '@/components/ui/button'
+import { type Child } from '@/features/children'
+import { formatChildBirthDate, getChildEvaluationLabel } from '@/features/children/utils/display'
+import { getTextDirection } from '@/lib/i18n/locale-utils'
+import { Link } from '@/i18n/navigation'
 
 type Props = {
   orgChildren: Child[]
@@ -21,25 +18,25 @@ type Props = {
 
 export function ParentOrgChildrenScreen({ orgChildren }: Props) {
   const locale = useLocale()
-  const t = useTranslations("Dashboard.Parent.orgChildren")
-  const tParent = useTranslations("Dashboard.Parent")
-  const tChildren = useTranslations("Dashboard.Children")
-  const tCommon = useTranslations("Dashboard.common")
-  const tDashboard = useTranslations("Dashboard.common")
+  const t = useTranslations('Dashboard.Parent.orgChildren')
+  const tParent = useTranslations('Dashboard.Parent')
+  const tChildren = useTranslations('Dashboard.Children')
+  const tCommon = useTranslations('Dashboard.common')
+  const tDashboard = useTranslations('Dashboard.common')
 
   return (
     <main className="app-container py-8 space-y-8" dir={getTextDirection(locale)}>
       <ManagementPageHeader
         breadcrumbs={[
-          { href: "/dashboards/parent", label: tDashboard("home") },
-          { label: t("title") },
+          { href: '/dashboards/parent', label: tDashboard('home') },
+          { label: t('title') },
         ]}
-        title={t("title")}
-        subtitle={t("subtitle")}
+        title={t('title')}
+        subtitle={t('subtitle')}
       />
 
       {orgChildren.length === 0 ? (
-        <EmptyState title={t("empty")} />
+        <EmptyState title={t('empty')} />
       ) : (
         <section className="grid gap-4 md:grid-cols-2">
           {orgChildren.map((child) => {
@@ -56,20 +53,15 @@ export function ParentOrgChildrenScreen({ orgChildren }: Props) {
                     {formatChildBirthDate(child.birthDate, locale)}
                   </p>
                   <p className="text-sm">
-                    {tParent("attempts")}: {child.attemptsUsed ?? 0}
+                    {tParent('attempts')}: {child.attemptsUsed ?? 0}
                   </p>
                   <p className="text-sm">
-                    {tParent("retake")}:{" "}
-                    {child.retakeUsed ? tCommon("yes") : tCommon("no")}
+                    {tParent('retake')}: {child.retakeUsed ? tCommon('yes') : tCommon('no')}
                   </p>
-                  <p className={`text-sm font-medium ${evalInfo.className}`}>
-                    {evalInfo.label}
-                  </p>
+                  <p className={`text-sm font-medium ${evalInfo.className}`}>{evalInfo.label}</p>
                   <Button variant="outline" size="sm" className="mt-2 rounded-xl" asChild>
-                    <Link
-                      href={`/dashboards/parent/children/${child.id}/evaluations`}
-                    >
-                      {tParent("evaluationsLink")}
+                    <Link href={`/dashboards/parent/children/${child.id}/evaluations`}>
+                      {tParent('evaluationsLink')}
                     </Link>
                   </Button>
                 </CardContent>

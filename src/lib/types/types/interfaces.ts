@@ -1,11 +1,11 @@
-import { Child } from "@/features/children"
-import { ChildTransferRequest } from "@/features/children/types/interfaces"
+import { Child } from '@/features/children'
+import { ChildTransferRequest } from '@/features/children/types/interfaces'
 
 // ============================================
 // Child Entity Split — types
 // ============================================
 
-export type ChildType = "organization" | "private"
+export type ChildType = 'organization' | 'private'
 
 export interface ChildReference {
   childId: string
@@ -15,7 +15,8 @@ export interface ChildReference {
 /** Resolve the actual child ID from an object carrying
  *  `organizationChildId` or `privateChildId` (never both). */
 export function getChildId(
-  entity: { organizationChildId?: string | null; privateChildId?: string | null } | null | undefined,
+  entity:
+    { organizationChildId?: string | null; privateChildId?: string | null } | null | undefined,
 ): string | null {
   if (!entity) return null
   return entity.organizationChildId || entity.privateChildId || null
@@ -23,27 +24,25 @@ export function getChildId(
 
 /** Resolve the child type from an object with dual ID fields. */
 export function getChildType(
-  entity: { organizationChildId?: string | null; privateChildId?: string | null } | null | undefined,
+  entity:
+    { organizationChildId?: string | null; privateChildId?: string | null } | null | undefined,
 ): ChildType | null {
   if (!entity) return null
-  if (entity.organizationChildId) return "organization"
-  if (entity.privateChildId) return "private"
+  if (entity.organizationChildId) return 'organization'
+  if (entity.privateChildId) return 'private'
   return null
 }
 
 export type EvaluationType =
-  | "multiple_intelligences"
-  | "pride"
-  | "renzulli"
-  | "holland"
-  | "learning_styles"
-  | "torrance"
-  | "preschool_giftedness"
+  | 'multiple_intelligences'
+  | 'pride'
+  | 'renzulli'
+  | 'holland'
+  | 'learning_styles'
+  | 'torrance'
+  | 'preschool_giftedness'
 
-export type EvaluationAttemptStatus =
-  | "in_progress"
-  | "submitted"
-  | "approved"
+export type EvaluationAttemptStatus = 'in_progress' | 'submitted' | 'approved'
 
 export interface EvaluationDimension {
   id: string

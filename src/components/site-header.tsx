@@ -1,11 +1,11 @@
-"use client"
+'use client'
 
-import { useLocale, useTranslations } from "next-intl"
+import { useLocale, useTranslations } from 'next-intl'
 
-import LanguageSwitcher from "@/components/layouts/header/langSwitch"
-import { Separator } from "@/components/ui/separator"
-import { SidebarTrigger } from "@/components/ui/sidebar"
-import { NotificationBell } from "@/components/notifications/NotificationBell"
+import LanguageSwitcher from '@/components/layouts/header/langSwitch'
+import { Separator } from '@/components/ui/separator'
+import { SidebarTrigger } from '@/components/ui/sidebar'
+import { NotificationBell } from '@/components/notifications/NotificationBell'
 
 export function SiteHeader({
   title,
@@ -27,10 +27,7 @@ export function SiteHeader({
         {withSidebar ? (
           <>
             <SidebarTrigger className="-ms-1" />
-            <Separator
-              orientation="vertical"
-              className="mx-2 data-[orientation=vertical]:h-4"
-            />
+            <Separator orientation="vertical" className="mx-2 data-[orientation=vertical]:h-4" />
           </>
         ) : null}
         <h1 className="text-base font-medium">{resolvedTitle}</h1>

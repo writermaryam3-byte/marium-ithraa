@@ -1,16 +1,16 @@
-"use client"
+'use client'
 
-import { PlusCircle, Mail, type LucideIcon } from "lucide-react"
+import { PlusCircle, Mail, type LucideIcon } from 'lucide-react'
 
-import { Button } from "@/components/ui/button"
+import { Button } from '@/components/ui/button'
 import {
   SidebarGroup,
   SidebarGroupContent,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-} from "@/components/ui/sidebar"
-import { Link } from "@/i18n/navigation"
+} from '@/components/ui/sidebar'
+import { Link } from '@/i18n/navigation'
 
 export function NavMain({
   items,

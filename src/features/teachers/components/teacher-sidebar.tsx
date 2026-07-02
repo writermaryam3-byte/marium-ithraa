@@ -1,12 +1,12 @@
-"use client"
+'use client'
 
-import * as React from "react"
-import { LayoutDashboard, Bell } from "lucide-react"
-import { useSession } from "next-auth/react"
-import { useTranslations } from "next-intl"
+import * as React from 'react'
+import { LayoutDashboard, Bell } from 'lucide-react'
+import { useSession } from 'next-auth/react'
+import { useTranslations } from 'next-intl'
 
-import { NavMain } from "@/components/nav-main"
-import { NavUser } from "@/components/nav-user"
+import { NavMain } from '@/components/nav-main'
+import { NavUser } from '@/components/nav-user'
 import {
   Sidebar,
   SidebarContent,
@@ -15,36 +15,36 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-} from "@/components/ui/sidebar"
-import { Pages, Routes } from "@/lib/types/enums"
+} from '@/components/ui/sidebar'
+import { Pages, Routes } from '@/lib/types/enums'
 
 const TEACHER_URL = `/${Routes.DASHBOARDS}/${Pages.TEACHER}`
 
 export default function TeacherSidebar(props: React.ComponentProps<typeof Sidebar>) {
   const { data: session } = useSession()
-  const t = useTranslations("Dashboard.Nav")
-  const tTeacher = useTranslations("Features.TeacherDashboard")
-  const tNotif = useTranslations("Features.Notifications")
+  const t = useTranslations('Dashboard.Nav')
+  const tTeacher = useTranslations('Features.TeacherDashboard')
+  const tNotif = useTranslations('Features.Notifications')
 
   const data = {
     user: {
-      name: session?.user?.name || "",
-      email: session?.user?.email || "",
-      avatar: "/avatars/shadcn.jpg",
+      name: session?.user?.name || '',
+      email: session?.user?.email || '',
+      avatar: '/avatars/shadcn.jpg',
     },
     navMain: [
       {
-        title: t("dashboard"),
+        title: t('dashboard'),
         url: TEACHER_URL,
         icon: LayoutDashboard,
       },
       {
-        title: tTeacher("classes"),
+        title: tTeacher('classes'),
         url: `${TEACHER_URL}/classes`,
         icon: LayoutDashboard,
       },
       {
-        title: tNotif("title"),
+        title: tNotif('title'),
         url: `/${Routes.DASHBOARDS}/notifications`,
         icon: Bell,
       },
@@ -58,7 +58,7 @@ export default function TeacherSidebar(props: React.ComponentProps<typeof Sideba
           <SidebarMenuItem>
             <SidebarMenuButton asChild className="data-[slot=sidebar-menu-button]:p-1.5!">
               <a href={TEACHER_URL}>
-                <span className="text-base font-semibold">{tTeacher("brand")}</span>
+                <span className="text-base font-semibold">{tTeacher('brand')}</span>
               </a>
             </SidebarMenuButton>
           </SidebarMenuItem>

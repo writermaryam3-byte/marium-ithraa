@@ -1,11 +1,8 @@
-import { clsx, type ClassValue } from "clsx"
-import type { JWT } from "next-auth/jwt"
-import { twMerge } from "tailwind-merge"
+import { clsx, type ClassValue } from 'clsx'
+import type { JWT } from 'next-auth/jwt'
+import { twMerge } from 'tailwind-merge'
 
-import {
-  accessTokenExpiresAt,
-  resolveAccessTokenTtlSeconds,
-} from "@/lib/auth/token-expiry"
+import { accessTokenExpiresAt, resolveAccessTokenTtlSeconds } from '@/lib/auth/token-expiry'
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
@@ -13,28 +10,28 @@ export function cn(...inputs: ClassValue[]) {
 
 export async function refreshAccessToken(token: JWT): Promise<JWT> {
   if (!token.refreshToken) {
-    return { ...token, error: "RefreshAccessTokenError" }
+    return { ...token, error: 'RefreshAccessTokenError' }
   }
 
   const backendUrl = process.env.BACKEND_URL
   if (!backendUrl) {
-    if (process.env.NODE_ENV === "development") {
-      console.error("[auth] BACKEND_URL is not configured")
+    if (process.env.NODE_ENV === 'development') {
+      console.error('[auth] BACKEND_URL is not configured')
     }
-    return { ...token, error: "RefreshAccessTokenError" }
+    return { ...token, error: 'RefreshAccessTokenError' }
   }
 
   try {
     const response = await fetch(`${backendUrl}/api/auth/refresh`, {
-      method: "POST",
+      method: 'POST',
       headers: {
         Authorization: `Bearer ${token.refreshToken}`,
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({
         token: token.refreshToken,
       }),
-      cache: "no-store",
+      cache: 'no-store',
     })
 
     const refreshedTokens = (await response.json().catch(() => ({}))) as {
@@ -44,7 +41,6 @@ export async function refreshAccessToken(token: JWT): Promise<JWT> {
       expires_in?: number
     }
 
-    
     if (!response.ok || !refreshedTokens.accessToken) {
       throw refreshedTokens
     }
@@ -59,12 +55,12 @@ export async function refreshAccessToken(token: JWT): Promise<JWT> {
       error: undefined,
     }
   } catch (error) {
-    if (process.env.NODE_ENV === "development") {
-      console.error("[auth] refreshAccessToken failed", error)
+    if (process.env.NODE_ENV === 'development') {
+      console.error('[auth] refreshAccessToken failed', error)
     }
     return {
       ...token,
-      error: "RefreshAccessTokenError",
+      error: 'RefreshAccessTokenError',
     }
   }
 }

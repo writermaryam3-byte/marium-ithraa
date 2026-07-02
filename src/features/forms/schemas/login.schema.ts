@@ -1,6 +1,6 @@
-import { z } from "zod"
+import { z } from 'zod'
 
-import { passwordSchema, phoneSchema } from "./common.schema"
+import { passwordSchema, phoneSchema } from './common.schema'
 
 export const loginSchema = z.object({
   phone: phoneSchema,
@@ -10,6 +10,6 @@ export const loginSchema = z.object({
 export type LoginFormValues = z.infer<typeof loginSchema>
 
 export const loginDefaultValues: LoginFormValues = {
-  phone: "",
-  password: "",
+  phone: '',
+  password: '',
 }

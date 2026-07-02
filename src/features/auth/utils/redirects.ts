@@ -1,7 +1,7 @@
-import type { Role } from "@/features/users"
-import { Pages, Routes, UserRole } from "@/lib/types/enums"
+import type { Role } from '@/features/users'
+import { Pages, Routes, UserRole } from '@/lib/types/enums'
 
-import { roleNames } from "./rbac"
+import { roleNames } from './rbac'
 
 const DASHBOARD_BY_ROLE: Partial<Record<UserRole, string>> = {
   [UserRole.ADMIN]: `/${Routes.DASHBOARDS}/${Pages.ADMIN}`,
@@ -30,7 +30,7 @@ export function getPostLoginRedirect(
   roles: Role[] | undefined | null,
   options?: { isEmailVerified?: boolean; locale?: string },
 ): string {
-  const prefix = options?.locale ? `/${options.locale}` : ""
+  const prefix = options?.locale ? `/${options.locale}` : ''
 
   if (options?.isEmailVerified === false) {
     return `${prefix}/${Routes.EMAILVERIFICATION}`

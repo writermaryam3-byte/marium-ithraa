@@ -1,7 +1,7 @@
-import type { ReactNode } from "react"
+import type { ReactNode } from 'react'
 
-import RequireRoles from "@/features/auth/components/RequireRoles"
-import { UserRole } from "@/lib/types/enums"
+import RequireRoles from '@/features/auth/components/RequireRoles'
+import { UserRole } from '@/lib/types/enums'
 
 export default async function AdminEvalCreateLayout({
   children,
@@ -18,4 +18,3 @@ export default async function AdminEvalCreateLayout({
     </RequireRoles>
   )
 }
-

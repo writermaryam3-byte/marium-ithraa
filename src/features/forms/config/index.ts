@@ -1,19 +1,19 @@
-import { FormTypes } from "@/lib/types/enums"
+import { FormTypes } from '@/lib/types/enums'
 
 import {
   childAdminFormConfig,
   childOrgFormConfig,
   childPrivateFormConfig,
   childUpdateFormConfig,
-} from "./child.config"
-import { classFormConfig } from "./class.config"
-import { employeeFormConfig } from "./employee.config"
-import { employeeUpdateFormConfig } from "./employee-update.config"
-import { gradeFormConfig } from "./grade.config"
-import { loginFormConfig } from "./login.config"
-import { teacherFormConfig } from "./teacher.config"
-import { testFormConfig } from "./test.config"
-import type { FormRegistryEntry } from "../types"
+} from './child.config'
+import { classFormConfig } from './class.config'
+import { employeeFormConfig } from './employee.config'
+import { employeeUpdateFormConfig } from './employee-update.config'
+import { gradeFormConfig } from './grade.config'
+import { loginFormConfig } from './login.config'
+import { teacherFormConfig } from './teacher.config'
+import { testFormConfig } from './test.config'
+import type { FormRegistryEntry } from '../types'
 
 export const formRegistry: Partial<Record<FormTypes, FormRegistryEntry>> = {
   [FormTypes.SIGNIN]: loginFormConfig,

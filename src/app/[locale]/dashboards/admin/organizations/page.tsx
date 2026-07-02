@@ -1,4 +1,4 @@
-import { AdminOrganizationsScreen } from "@/features/organizations"
+import { AdminOrganizationsScreen } from '@/features/organizations'
 
 type Props = {
   params: Promise<{ locale: string }>

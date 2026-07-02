@@ -1,6 +1,6 @@
-import { getTeacherByUserId } from "@/features/teachers/api"
-import nextAuthOptions from "@/server/auth"
-import { getServerSession } from "next-auth"
+import { getTeacherByUserId } from '@/features/teachers/api'
+import nextAuthOptions from '@/server/auth'
+import { getServerSession } from 'next-auth'
 
 export async function getCurrentTeacher() {
   const session = await getServerSession(nextAuthOptions)

@@ -1,14 +1,14 @@
-import { z } from "zod"
+import { z } from 'zod'
 
-import type { InitialState, ValidationErrors } from "@/lib/types/types"
+import type { InitialState, ValidationErrors } from '@/lib/types/types'
 
-import { actionValidationFailure } from "./action-results"
+import { actionValidationFailure } from './action-results'
 
 export function formDataToRecord(formData: FormData): Record<string, string> {
   const record: Record<string, string> = {}
   for (const [key, value] of formData.entries()) {
-    if (key.startsWith("$ACTION_")) continue
-    if (typeof value === "string") record[key] = value
+    if (key.startsWith('$ACTION_')) continue
+    if (typeof value === 'string') record[key] = value
   }
   return record
 }
@@ -16,7 +16,7 @@ export function formDataToRecord(formData: FormData): Record<string, string> {
 export function zodErrorsToValidationErrors(error: z.ZodError): ValidationErrors {
   const validationErrors: ValidationErrors = {}
   for (const issue of error.issues) {
-    const key = issue.path.length ? issue.path.join(".") : "_form"
+    const key = issue.path.length ? issue.path.join('.') : '_form'
     if (!validationErrors[key]) validationErrors[key] = []
     validationErrors[key].push(issue.message)
   }
@@ -24,8 +24,7 @@ export function zodErrorsToValidationErrors(error: z.ZodError): ValidationErrors
 }
 
 export type ParseFormDataResult<T> =
-  | { success: true; data: T }
-  | { success: false; state: InitialState }
+  { success: true; data: T } | { success: false; state: InitialState }
 
 export function parseFormData<TSchema extends z.ZodType>(
   formData: FormData,
@@ -43,7 +42,7 @@ export function parseFormData<TSchema extends z.ZodType>(
     state: actionValidationFailure(
       validationErrors,
       formData,
-      options?.message ?? "Actions.common.validationFailed",
+      options?.message ?? 'Actions.common.validationFailed',
     ),
   }
 }

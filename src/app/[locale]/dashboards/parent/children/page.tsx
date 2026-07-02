@@ -1,6 +1,6 @@
-import { ParentOrgChildrenScreen } from "@/components/pages/dashboards/parent/ParentOrgChildrenScreen"
-import { ParentPrivateChildrenScreen } from "@/components/pages/dashboards/parent/ParentPrivateChildrenScreen"
-import { getOrgChildren, getPrivateChildren } from "@/features/children"
+import { ParentOrgChildrenScreen } from '@/components/pages/dashboards/parent/ParentOrgChildrenScreen'
+import { ParentPrivateChildrenScreen } from '@/components/pages/dashboards/parent/ParentPrivateChildrenScreen'
+import { getOrgChildren, getPrivateChildren } from '@/features/children'
 
 type Props = {
   params: Promise<{ locale: string }>

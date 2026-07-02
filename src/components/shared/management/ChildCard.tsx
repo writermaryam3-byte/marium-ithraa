@@ -1,11 +1,11 @@
-"use client"
+'use client'
 
-import * as React from "react"
+import * as React from 'react'
 
-import { cn } from "@/lib/utils"
-import { Card, CardContent } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { cn } from '@/lib/utils'
+import { Card, CardContent } from '@/components/ui/card'
+import { Button } from '@/components/ui/button'
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 
 export type ChildCardProps = {
   name: string
@@ -24,7 +24,7 @@ export const ChildCard = React.memo(function ChildCard({
   className,
   evaluationStatus,
   evaluationStatusClassName,
-  imageSrc = "/avatar-placeholder.svg",
+  imageSrc = '/avatar-placeholder.svg',
   editLabel,
   deleteLabel,
   onEdit,
@@ -41,16 +41,18 @@ export const ChildCard = React.memo(function ChildCard({
 
           <div className="min-w-0 space-y-1 text-start text-sm">
             <p className="truncate">
-              <span className="font-semibold text-foreground">الإسم:</span>{" "}
+              <span className="font-semibold text-foreground">الإسم:</span>{' '}
               <span className="text-muted-foreground">{name}</span>
             </p>
             <p className="truncate">
-              <span className="font-semibold text-foreground">الفصل:</span>{" "}
+              <span className="font-semibold text-foreground">الفصل:</span>{' '}
               <span className="text-muted-foreground">{className}</span>
             </p>
             <p className="truncate">
-              <span className="font-semibold text-foreground">التقييم:</span>{" "}
-              <span className={cn("font-semibold", evaluationStatusClassName ?? "text-emerald-600")}>
+              <span className="font-semibold text-foreground">التقييم:</span>{' '}
+              <span
+                className={cn('font-semibold', evaluationStatusClassName ?? 'text-emerald-600')}
+              >
                 {evaluationStatus}
               </span>
             </p>
@@ -74,4 +76,3 @@ export const ChildCard = React.memo(function ChildCard({
     </Card>
   )
 })
-

@@ -1,27 +1,26 @@
-"use client"
+'use client'
 
-import { useCallback, useMemo } from "react"
-import { signIn, signOut, useSession } from "next-auth/react"
-import { useLocale } from "next-intl"
-import { showInfoToast } from "@/lib/toast/app-toast"
+import { useCallback, useMemo } from 'react'
+import { signIn, signOut, useSession } from 'next-auth/react'
+import { useLocale } from 'next-intl'
+import { showInfoToast } from '@/lib/toast/app-toast'
 
-import { logoutClient } from "@/features/auth/api"
-import { clearAuthTokenCache } from "@/lib/api/client-api-client"
-import { Pages, Routes, UserRole } from "@/lib/types/enums"
+import { logoutClient } from '@/features/auth/api'
+import { clearAuthTokenCache } from '@/lib/api/client-api-client'
+import { Pages, Routes, UserRole } from '@/lib/types/enums'
 
-import type { AuthUser, SignInCredentials } from "../types"
-import { hasAnyRole } from "../utils/rbac"
-import { getLoginPath, getPostLoginRedirect } from "../utils/redirects"
-import { mapSessionToAuthUser } from "../utils/session-user"
+import type { AuthUser, SignInCredentials } from '../types'
+import { hasAnyRole } from '../utils/rbac'
+import { getLoginPath, getPostLoginRedirect } from '../utils/redirects'
+import { mapSessionToAuthUser } from '../utils/session-user'
 
 export function useAuth() {
   const locale = useLocale()
   const { data: session, status, update } = useSession()
 
-  const isLoading = status === "loading"
-  const sessionExpired = session?.error === "RefreshAccessTokenError"
-  const isAuthenticated =
-    status === "authenticated" && Boolean(session?.user) && !sessionExpired
+  const isLoading = status === 'loading'
+  const sessionExpired = session?.error === 'RefreshAccessTokenError'
+  const isAuthenticated = status === 'authenticated' && Boolean(session?.user) && !sessionExpired
 
   const user = useMemo<AuthUser | null>(() => {
     if (!isAuthenticated) return null
@@ -41,7 +40,7 @@ export function useAuth() {
     async (credentials: SignInCredentials) => {
       clearAuthTokenCache()
 
-      const result = await signIn("credentials", {
+      const result = await signIn('credentials', {
         phone: credentials.phone,
         password: credentials.password,
         redirect: false,
@@ -50,7 +49,7 @@ export function useAuth() {
       if (!result?.ok) {
         return {
           ok: false as const,
-          error: result?.error ?? "INVALID_CREDENTIALS",
+          error: result?.error ?? 'INVALID_CREDENTIALS',
         }
       }
 
@@ -70,13 +69,12 @@ export function useAuth() {
         // still clear local session if backend logout fails
       }
 
-      const callbackUrl =
-        options?.callbackUrl ?? getLoginPath()
+      const callbackUrl = options?.callbackUrl ?? getLoginPath()
 
       await signOut({ callbackUrl, redirect: true })
 
       if (!options?.silent) {
-        showInfoToast({ raw: locale === "ar" ? "تم تسجيل الخروج" : "Signed out" })
+        showInfoToast({ raw: locale === 'ar' ? 'تم تسجيل الخروج' : 'Signed out' })
       }
     },
     [locale],

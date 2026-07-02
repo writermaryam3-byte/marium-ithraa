@@ -1,12 +1,12 @@
-"use client"
+'use client'
 
-import { useActionState, useEffect, useState } from "react"
-import { useTranslations } from "next-intl"
-import { Loader2, Pencil, Trash2 } from "lucide-react"
-import { isActionSuccess } from "@/features/forms/action-results"
-import { useActionFeedback } from "@/hooks/useActionFeedback"
+import { useActionState, useEffect, useState } from 'react'
+import { useTranslations } from 'next-intl'
+import { Loader2, Pencil, Trash2 } from 'lucide-react'
+import { isActionSuccess } from '@/features/forms/action-results'
+import { useActionFeedback } from '@/hooks/useActionFeedback'
 
-import { Button } from "@/components/ui/button"
+import { Button } from '@/components/ui/button'
 import {
   Dialog,
   DialogContent,
@@ -15,38 +15,35 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog"
-import { ServerActionForm } from "@/features/forms"
-import { FormTypes } from "@/lib/types/enums"
-import type { InitialState } from "@/lib/types/types"
+} from '@/components/ui/dialog'
+import { ServerActionForm } from '@/features/forms'
+import { FormTypes } from '@/lib/types/enums'
+import type { InitialState } from '@/lib/types/types'
 
-import { updateEmployeeAction } from "../actions/update-employee.action"
-import {
-  deleteEmployeeAction,
-  type DeleteEmployeeState,
-} from "../actions/delete-employee.action"
-import type { Employee } from "../types/interfaces"
+import { updateEmployeeAction } from '../actions/update-employee.action'
+import { deleteEmployeeAction, type DeleteEmployeeState } from '../actions/delete-employee.action'
+import type { Employee } from '../types/interfaces'
 
 type Props = {
   employee: Employee
 }
 
 export function EmployeeRowActions({ employee }: Props) {
-  const t = useTranslations("Forms.Employee")
-  const tCommon = useTranslations("Dashboard.common")
+  const t = useTranslations('Forms.Employee')
+  const tCommon = useTranslations('Dashboard.common')
   const { notifyAction, notifyDelete } = useActionFeedback()
   const [updateOpen, setUpdateOpen] = useState(false)
   const [deleteOpen, setDeleteOpen] = useState(false)
 
-  const [deleteState, deleteAction, isDeleting] = useActionState<
-    DeleteEmployeeState,
-    FormData
-  >(deleteEmployeeAction, { success: false })
+  const [deleteState, deleteAction, isDeleting] = useActionState<DeleteEmployeeState, FormData>(
+    deleteEmployeeAction,
+    { success: false },
+  )
 
   useEffect(() => {
     if (!deleteOpen) return
     if (deleteState.success) {
-      notifyDelete(deleteState, "Actions.employees.deleted")
+      notifyDelete(deleteState, 'Actions.employees.deleted')
       setDeleteOpen(false)
     } else if (deleteState.message) {
       notifyDelete(deleteState)
@@ -72,8 +69,8 @@ export function EmployeeRowActions({ employee }: Props) {
         </DialogTrigger>
         <DialogContent className="sm:max-w-sm max-h-150 overflow-y-auto">
           <DialogHeader>
-            <DialogTitle>{t("editTitle")}</DialogTitle>
-            <DialogDescription>{t("editDescription")}</DialogDescription>
+            <DialogTitle>{t('editTitle')}</DialogTitle>
+            <DialogDescription>{t('editDescription')}</DialogDescription>
           </DialogHeader>
           <ServerActionForm
             formType={FormTypes.EMPLOYEE_UPDATE}
@@ -91,7 +88,7 @@ export function EmployeeRowActions({ employee }: Props) {
                 type="submit"
                 className="h-11 rounded-xl bg-linear-to-r from-fuchsia-600 to-violet-600 text-white hover:opacity-95"
               >
-                {tCommon("saveChanges")}
+                {tCommon('saveChanges')}
               </Button>
             </DialogFooter>
           </ServerActionForm>
@@ -112,18 +109,18 @@ export function EmployeeRowActions({ employee }: Props) {
           <form action={deleteAction}>
             <input type="hidden" name="id" value={employee.id} />
             <DialogHeader>
-              <DialogTitle>{t("deleteTitle")}</DialogTitle>
-              <DialogDescription>{t("deleteDescription")}</DialogDescription>
+              <DialogTitle>{t('deleteTitle')}</DialogTitle>
+              <DialogDescription>{t('deleteDescription')}</DialogDescription>
             </DialogHeader>
             <DialogFooter className="mt-4">
               <Button type="submit" variant="destructive" disabled={isDeleting}>
                 {isDeleting ? (
                   <>
                     <Loader2 className="h-4 w-4 animate-spin" />
-                    {tCommon("deleting")}
+                    {tCommon('deleting')}
                   </>
                 ) : (
-                  tCommon("delete")
+                  tCommon('delete')
                 )}
               </Button>
             </DialogFooter>

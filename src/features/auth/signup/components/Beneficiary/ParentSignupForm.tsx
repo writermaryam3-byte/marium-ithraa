@@ -1,16 +1,10 @@
-"use client"
+'use client'
 
-import { useTranslations } from "next-intl"
-import { useFormContext } from "react-hook-form"
-import {
-  FormField,
-  FormItem,
-  FormLabel,
-  FormControl,
-  FormMessage,
-} from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
-import { PhoneInputField } from "@/components/shared/forms/PhoneInputField"
+import { useTranslations } from 'next-intl'
+import { useFormContext } from 'react-hook-form'
+import { FormField, FormItem, FormLabel, FormControl, FormMessage } from '@/components/ui/form'
+import { Input } from '@/components/ui/input'
+import { PhoneInputField } from '@/components/shared/forms/PhoneInputField'
 import {
   Field,
   FieldContent,
@@ -18,18 +12,16 @@ import {
   FieldSet,
   FieldLegend,
   FieldGroup,
-} from "@/components/ui/field"
+} from '@/components/ui/field'
 
 const ParentSignupForm = () => {
-  const t = useTranslations("Signup.Beneficiary.Parent")
+  const t = useTranslations('Signup.Beneficiary.Parent')
   const form = useFormContext()
 
   return (
     <FieldSet>
-      <FieldLegend className="text-xl font-extrabold text-primary">
-        {t("title")}
-      </FieldLegend>
-      <FieldDescription>{t("subtitle")}</FieldDescription>
+      <FieldLegend className="text-xl font-extrabold text-primary">{t('title')}</FieldLegend>
+      <FieldDescription>{t('subtitle')}</FieldDescription>
 
       <FieldGroup>
         <Field>
@@ -39,12 +31,12 @@ const ParentSignupForm = () => {
               name="name"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>{t("fields.name.label")}</FormLabel>
+                  <FormLabel>{t('fields.name.label')}</FormLabel>
                   <FormControl>
                     <Input
-                      placeholder={t("fields.name.placeholder")}
+                      placeholder={t('fields.name.placeholder')}
                       {...field}
-                      value={field.value ?? ""}
+                      value={field.value ?? ''}
                     />
                   </FormControl>
                   <FormMessage />
@@ -61,13 +53,13 @@ const ParentSignupForm = () => {
               name="email"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>{t("fields.email.label")}</FormLabel>
+                  <FormLabel>{t('fields.email.label')}</FormLabel>
                   <FormControl>
                     <Input
                       type="email"
-                      placeholder={t("fields.email.placeholder")}
+                      placeholder={t('fields.email.placeholder')}
                       {...field}
-                      value={field.value ?? ""}
+                      value={field.value ?? ''}
                     />
                   </FormControl>
                   <FormMessage />
@@ -81,8 +73,8 @@ const ParentSignupForm = () => {
           <FieldContent>
             <PhoneInputField
               name="phone"
-              label={t("fields.phone.label")}
-              placeholder={t("fields.phone.placeholder")}
+              label={t('fields.phone.label')}
+              placeholder={t('fields.phone.placeholder')}
             />
           </FieldContent>
         </Field>
@@ -94,13 +86,13 @@ const ParentSignupForm = () => {
               name="password"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>{t("fields.password.label")}</FormLabel>
+                  <FormLabel>{t('fields.password.label')}</FormLabel>
                   <FormControl>
                     <Input
                       type="password"
-                      placeholder={t("fields.password.placeholder")}
+                      placeholder={t('fields.password.placeholder')}
                       {...field}
-                      value={field.value ?? ""}
+                      value={field.value ?? ''}
                     />
                   </FormControl>
                   <FormMessage />

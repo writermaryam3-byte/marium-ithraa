@@ -1,45 +1,42 @@
-import { InputTypes } from "@/lib/types/enums"
+import { InputTypes } from '@/lib/types/enums'
 
-import {
-  createTeacherDefaultValues,
-  createTeacherSchema,
-} from "../schemas/teacher.schema"
-import type { FormRegistryEntry } from "../types"
+import { createTeacherDefaultValues, createTeacherSchema } from '../schemas/teacher.schema'
+import type { FormRegistryEntry } from '../types'
 
 export const teacherFormConfig: FormRegistryEntry<typeof createTeacherSchema> = {
   schema: createTeacherSchema,
   defaultValues: createTeacherDefaultValues,
   fields: [
     {
-      name: "name",
+      name: 'name',
       type: InputTypes.TEXT,
-      labelKey: "Teacher.name.label",
-      placeholderKey: "Teacher.name.placeholder",
+      labelKey: 'Teacher.name.label',
+      placeholderKey: 'Teacher.name.placeholder',
       autoFocus: true,
     },
     {
-      name: "email",
+      name: 'email',
       type: InputTypes.EMAIL,
-      labelKey: "Teacher.email.label",
-      placeholderKey: "Teacher.email.placeholder",
+      labelKey: 'Teacher.email.label',
+      placeholderKey: 'Teacher.email.placeholder',
     },
     {
-      name: "phone",
+      name: 'phone',
       type: InputTypes.TEL,
-      labelKey: "Teacher.phone.label",
-      placeholderKey: "Teacher.phone.placeholder",
+      labelKey: 'Teacher.phone.label',
+      placeholderKey: 'Teacher.phone.placeholder',
     },
     {
-      name: "password",
+      name: 'password',
       type: InputTypes.PASSWORD,
-      labelKey: "Teacher.password.label",
-      placeholderKey: "Teacher.password.placeholder",
+      labelKey: 'Teacher.password.label',
+      placeholderKey: 'Teacher.password.placeholder',
     },
     {
-      name: "jobTitle",
+      name: 'jobTitle',
       type: InputTypes.TEXT,
-      labelKey: "Teacher.jobTitle.label",
-      placeholderKey: "Teacher.jobTitle.placeholder",
+      labelKey: 'Teacher.jobTitle.label',
+      placeholderKey: 'Teacher.jobTitle.placeholder',
     },
   ],
 }

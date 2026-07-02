@@ -1,12 +1,12 @@
-"use client"
+'use client'
 
-import { useActionState, useEffect, useMemo, useState } from "react"
-import { useTranslations } from "next-intl"
-import { Loader2, Pencil, Trash2 } from "lucide-react"
-import { isActionSuccess } from "@/features/forms/action-results"
-import { useActionFeedback } from "@/hooks/useActionFeedback"
+import { useActionState, useEffect, useMemo, useState } from 'react'
+import { useTranslations } from 'next-intl'
+import { Loader2, Pencil, Trash2 } from 'lucide-react'
+import { isActionSuccess } from '@/features/forms/action-results'
+import { useActionFeedback } from '@/hooks/useActionFeedback'
 
-import { Button } from "@/components/ui/button"
+import { Button } from '@/components/ui/button'
 import {
   Dialog,
   DialogContent,
@@ -15,39 +15,33 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog"
-import { Form } from "@/components/ui/form"
+} from '@/components/ui/dialog'
+import { Form } from '@/components/ui/form'
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select"
-import {
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form"
-import { useServerActionForm } from "@/features/forms/hooks/useServerActionForm"
-import { RhfFormFields } from "@/features/forms/components/RhfFormFields"
-import { useFormConfig } from "@/features/forms/hooks/useFormConfig"
-import { updateChildSchema } from "@/features/forms/schemas/child.schema"
-import { FormTypes, Gender } from "@/lib/types/enums"
+} from '@/components/ui/select'
+import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
+import { useServerActionForm } from '@/features/forms/hooks/useServerActionForm'
+import { RhfFormFields } from '@/features/forms/components/RhfFormFields'
+import { useFormConfig } from '@/features/forms/hooks/useFormConfig'
+import { updateChildSchema } from '@/features/forms/schemas/child.schema'
+import { FormTypes, Gender } from '@/lib/types/enums'
 
-import { type Child } from "../types/interfaces"
-import { updateChildAction } from "../actions/update-child.action"
-import { deleteChildAction, type DeleteChildState } from "../actions/delete-child.action"
+import { type Child } from '../types/interfaces'
+import { updateChildAction } from '../actions/update-child.action'
+import { deleteChildAction, type DeleteChildState } from '../actions/delete-child.action'
 
 type Props = {
   child: Child
 }
 
 export function ChildRowActions({ child }: Props) {
-  const t = useTranslations("Dashboard.Children")
-  const tCommon = useTranslations("Dashboard.common")
+  const t = useTranslations('Dashboard.Children')
+  const tCommon = useTranslations('Dashboard.common')
   const { notifyAction, notifyDelete } = useActionFeedback()
   const { fields } = useFormConfig(FormTypes.CHILD_UPDATE)
   const [updateOpen, setUpdateOpen] = useState(false)
@@ -55,7 +49,7 @@ export function ChildRowActions({ child }: Props) {
 
   const defaultBirthDate = useMemo(() => {
     const d = child.birthDate ? new Date(child.birthDate) : null
-    if (!d || Number.isNaN(d.getTime())) return ""
+    if (!d || Number.isNaN(d.getTime())) return ''
     return d.toISOString().slice(0, 10)
   }, [child.birthDate])
 
@@ -78,15 +72,15 @@ export function ChildRowActions({ child }: Props) {
     },
   })
 
-  const [deleteState, deleteAction, isDeleting] = useActionState<
-    DeleteChildState,
-    FormData
-  >(deleteChildAction, { success: false })
+  const [deleteState, deleteAction, isDeleting] = useActionState<DeleteChildState, FormData>(
+    deleteChildAction,
+    { success: false },
+  )
 
   useEffect(() => {
     if (!deleteOpen) return
     if (deleteState.success) {
-      notifyDelete(deleteState, "Actions.children.deleted")
+      notifyDelete(deleteState, 'Actions.children.deleted')
       setDeleteOpen(false)
     } else if (deleteState.message) {
       notifyDelete(deleteState)
@@ -103,8 +97,8 @@ export function ChildRowActions({ child }: Props) {
         </DialogTrigger>
         <DialogContent className="sm:max-w-sm max-h-150 overflow-y-auto">
           <DialogHeader>
-            <DialogTitle>{t("dialog.editTitle")}</DialogTitle>
-            <DialogDescription>{t("dialog.editDescription")}</DialogDescription>
+            <DialogTitle>{t('dialog.editTitle')}</DialogTitle>
+            <DialogDescription>{t('dialog.editDescription')}</DialogDescription>
           </DialogHeader>
           <Form {...form}>
             <form
@@ -117,16 +111,16 @@ export function ChildRowActions({ child }: Props) {
                 name="gender"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>{t("fields.gender")}</FormLabel>
+                    <FormLabel>{t('fields.gender')}</FormLabel>
                     <Select value={field.value} onValueChange={field.onChange}>
                       <FormControl>
                         <SelectTrigger>
-                          <SelectValue placeholder={t("fields.genderPlaceholder")} />
+                          <SelectValue placeholder={t('fields.genderPlaceholder')} />
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
-                        <SelectItem value={Gender.MALE}>{t("gender.male")}</SelectItem>
-                        <SelectItem value={Gender.FEMALE}>{t("gender.female")}</SelectItem>
+                        <SelectItem value={Gender.MALE}>{t('gender.male')}</SelectItem>
+                        <SelectItem value={Gender.FEMALE}>{t('gender.female')}</SelectItem>
                       </SelectContent>
                     </Select>
                     <FormMessage />
@@ -138,10 +132,10 @@ export function ChildRowActions({ child }: Props) {
                   {isPending ? (
                     <>
                       <Loader2 className="h-4 w-4 animate-spin" />
-                      {tCommon("saving")}
+                      {tCommon('saving')}
                     </>
                   ) : (
-                    tCommon("saveChanges")
+                    tCommon('saveChanges')
                   )}
                 </Button>
               </DialogFooter>
@@ -164,18 +158,18 @@ export function ChildRowActions({ child }: Props) {
           <form action={deleteAction}>
             <input type="hidden" name="id" value={child.id} />
             <DialogHeader>
-              <DialogTitle>{t("dialog.deleteTitle")}</DialogTitle>
-              <DialogDescription>{t("dialog.deleteDescription")}</DialogDescription>
+              <DialogTitle>{t('dialog.deleteTitle')}</DialogTitle>
+              <DialogDescription>{t('dialog.deleteDescription')}</DialogDescription>
             </DialogHeader>
             <DialogFooter className="mt-4">
               <Button type="submit" variant="destructive" disabled={isDeleting}>
                 {isDeleting ? (
                   <>
                     <Loader2 className="h-4 w-4 animate-spin" />
-                    {tCommon("deleting")}
+                    {tCommon('deleting')}
                   </>
                 ) : (
-                  tCommon("delete")
+                  tCommon('delete')
                 )}
               </Button>
             </DialogFooter>

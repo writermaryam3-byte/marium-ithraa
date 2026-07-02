@@ -1,4 +1,4 @@
-import { ApprovalStatus, OrganizationType } from "@/lib/types/enums"
+import { ApprovalStatus, OrganizationType } from '@/lib/types/enums'
 
 export type { ApprovalStatus, OrganizationType }
 

@@ -1,8 +1,15 @@
-"use client"
+'use client'
 
-import { useTranslations } from "next-intl"
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog"
-import { Button } from "@/components/ui/button"
+import { useTranslations } from 'next-intl'
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog'
+import { Button } from '@/components/ui/button'
 
 export default function SubmitModal({
   open,
@@ -15,25 +22,24 @@ export default function SubmitModal({
   onConfirm: () => void
   isSubmitting?: boolean
 }) {
-  const t = useTranslations("SubmitModal")
+  const t = useTranslations('SubmitModal')
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>{t("title")}</DialogTitle>
-          <DialogDescription>{t("description")}</DialogDescription>
+          <DialogTitle>{t('title')}</DialogTitle>
+          <DialogDescription>{t('description')}</DialogDescription>
         </DialogHeader>
         <DialogFooter>
           <Button variant="outline" onClick={() => onOpenChange(false)} disabled={isSubmitting}>
-            {t("cancel")}
+            {t('cancel')}
           </Button>
           <Button onClick={onConfirm} disabled={isSubmitting}>
-            {isSubmitting ? t("submitting") : t("submitFinal")}
+            {isSubmitting ? t('submitting') : t('submitFinal')}
           </Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
   )
 }
-

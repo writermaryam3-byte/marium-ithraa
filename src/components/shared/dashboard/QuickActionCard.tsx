@@ -1,12 +1,12 @@
-"use client"
+'use client'
 
-import * as React from "react"
-import type { ReactNode } from "react"
-import { Link } from "@/i18n/navigation"
+import * as React from 'react'
+import type { ReactNode } from 'react'
+import { Link } from '@/i18n/navigation'
 
-import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
-import { cn } from "@/lib/utils"
+import { Button } from '@/components/ui/button'
+import { Card, CardContent } from '@/components/ui/card'
+import { cn } from '@/lib/utils'
 
 type Props = {
   title: string
@@ -28,7 +28,7 @@ export const QuickActionCard = React.memo(function QuickActionCard({
   return (
     <Card
       className={cn(
-        "rounded-2xl border bg-card shadow-sm transition-shadow hover:shadow-md",
+        'rounded-2xl border bg-card shadow-sm transition-shadow hover:shadow-md',
         className,
       )}
     >

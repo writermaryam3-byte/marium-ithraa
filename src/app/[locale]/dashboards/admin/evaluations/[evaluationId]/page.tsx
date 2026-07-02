@@ -1,8 +1,8 @@
-import { notFound } from "next/navigation"
+import { notFound } from 'next/navigation'
 
-import { SiteHeader } from "@/components/site-header"
-import { AdminEvaluationDetailsScreen } from "@/components/pages/dashboards/admin/AdminEvaluationDetailsScreen"
-import { getEvaluationDetails } from "@/features/evaluations/api"
+import { SiteHeader } from '@/components/site-header'
+import { AdminEvaluationDetailsScreen } from '@/components/pages/dashboards/admin/AdminEvaluationDetailsScreen'
+import { getEvaluationDetails } from '@/features/evaluations/api'
 
 type Props = {
   params: Promise<{ locale: string; evaluationId: string }>

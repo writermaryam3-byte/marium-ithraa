@@ -1,7 +1,7 @@
-"use client"
+'use client'
 
-import { Button } from "@/components/ui/button"
-import type { PaginatedMeta } from "@/lib/api/pagination"
+import { Button } from '@/components/ui/button'
+import type { PaginatedMeta } from '@/lib/api/pagination'
 
 type Props = {
   meta: PaginatedMeta
@@ -14,9 +14,9 @@ type Props = {
 }
 
 export function DataTablePagination({ meta, onPageChange, labels }: Props) {
-  const previous = labels?.previous ?? "Previous"
-  const next = labels?.next ?? "Next"
-  const pageLabel = labels?.page ?? "Page"
+  const previous = labels?.previous ?? 'Previous'
+  const next = labels?.next ?? 'Next'
+  const pageLabel = labels?.page ?? 'Page'
 
   return (
     <div className="flex items-center justify-between gap-3 px-2 py-4">

@@ -1,9 +1,5 @@
-import { Child } from "@/features/children"
-import {
-  EvaluationAttempt,
-  PaymentResponse,
-  TransferRequest,
-} from "@/lib/types/types/interfaces"
+import { Child } from '@/features/children'
+import { EvaluationAttempt, PaymentResponse, TransferRequest } from '@/lib/types/types/interfaces'
 
 export function normalizeChild(child: Partial<Child> | null | undefined): Child | undefined {
   if (!child) {
@@ -16,28 +12,21 @@ export function normalizeChild(child: Partial<Child> | null | undefined): Child 
   } as Child
 }
 
-export function normalizeEvaluationAttempt(
-  attempt: EvaluationAttempt,
-): EvaluationAttempt {
+export function normalizeEvaluationAttempt(attempt: EvaluationAttempt): EvaluationAttempt {
   return {
     ...attempt,
     parentUserId:
-      attempt.parentUserId ??
-      (attempt.parent as { userId?: string } | undefined)?.userId,
+      attempt.parentUserId ?? (attempt.parent as { userId?: string } | undefined)?.userId,
   }
 }
 
-export function normalizePaymentResponse(
-  response: PaymentResponse,
-): PaymentResponse {
+export function normalizePaymentResponse(response: PaymentResponse): PaymentResponse {
   return {
     ...response,
   }
 }
 
-export function normalizeTransferRequest(
-  request: TransferRequest,
-): TransferRequest {
+export function normalizeTransferRequest(request: TransferRequest): TransferRequest {
   return {
     ...request,
   }

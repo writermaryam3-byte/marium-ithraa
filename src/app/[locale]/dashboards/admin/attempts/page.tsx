@@ -1,5 +1,5 @@
-import { SiteHeader } from "@/components/site-header"
-import { AdminAttemptsScreen } from "@/components/pages/dashboards/admin/AdminAttemptsScreen"
+import { SiteHeader } from '@/components/site-header'
+import { AdminAttemptsScreen } from '@/components/pages/dashboards/admin/AdminAttemptsScreen'
 
 type Props = {
   params: Promise<{ locale: string }>

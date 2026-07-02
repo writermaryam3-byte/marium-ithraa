@@ -1,21 +1,13 @@
-import {
-  Bell,
-  ClipboardCheck,
-  CreditCard,
-  MessageCircle,
-  type LucideIcon,
-} from "lucide-react"
+import { Bell, ClipboardCheck, CreditCard, MessageCircle, type LucideIcon } from 'lucide-react'
 
-import type { NotificationItem, NotificationMetadata } from "@/features/notifications/types"
+import type { NotificationItem, NotificationMetadata } from '@/features/notifications/types'
 
-export function getNotificationHref(
-  metadata: NotificationMetadata,
-): string | null {
-  if (!metadata || typeof metadata !== "object") return null
+export function getNotificationHref(metadata: NotificationMetadata): string | null {
+  if (!metadata || typeof metadata !== 'object') return null
 
-  for (const key of ["url", "href", "path"] as const) {
+  for (const key of ['url', 'href', 'path'] as const) {
     const value = metadata[key]
-    if (typeof value === "string" && value.trim()) {
+    if (typeof value === 'string' && value.trim()) {
       return value.trim()
     }
   }
@@ -23,18 +15,12 @@ export function getNotificationHref(
   return null
 }
 
-export function formatNotificationDate(
-  createdAt: string,
-  locale: string,
-): string {
+export function formatNotificationDate(createdAt: string, locale: string): string {
   try {
-    return new Date(createdAt).toLocaleString(
-      locale === "ar" ? "ar-SA" : undefined,
-      {
-        dateStyle: "medium",
-        timeStyle: "short",
-      },
-    )
+    return new Date(createdAt).toLocaleString(locale === 'ar' ? 'ar-SA' : undefined, {
+      dateStyle: 'medium',
+      timeStyle: 'short',
+    })
   } catch {
     return createdAt
   }
@@ -42,34 +28,34 @@ export function formatNotificationDate(
 
 export function isEvaluationNotificationType(type?: string): boolean {
   if (!type) return false
-  return type.startsWith("evaluation")
+  return type.startsWith('evaluation')
 }
 
 export function isPaymentNotificationType(type?: string): boolean {
   if (!type) return false
-  return type.startsWith("payment")
+  return type.startsWith('payment')
 }
 
 export function filterNotificationsByCategory(
   items: NotificationItem[],
   category: string,
 ): NotificationItem[] {
-  if (!category || category === "all") return items
+  if (!category || category === 'all') return items
 
-  if (category === "evaluations") {
+  if (category === 'evaluations') {
     return items.filter((n) => isEvaluationNotificationType(n.type))
   }
 
-  if (category === "reminders") {
-    return items.filter((n) => n.type === "evaluation_reminder")
+  if (category === 'reminders') {
+    return items.filter((n) => n.type === 'evaluation_reminder')
   }
 
-  if (category === "payment") {
+  if (category === 'payment') {
     return items.filter((n) => isPaymentNotificationType(n.type))
   }
 
-  if (category === "general") {
-    return items.filter((n) => !n.type || n.type === "general" || n.type === "account")
+  if (category === 'general') {
+    return items.filter((n) => !n.type || n.type === 'general' || n.type === 'account')
   }
 
   return items
@@ -77,15 +63,15 @@ export function filterNotificationsByCategory(
 
 export function getNotificationTypeIcon(type?: string): LucideIcon {
   if (!type) return Bell
-  if (type.startsWith("evaluation")) return ClipboardCheck
-  if (type.startsWith("payment")) return CreditCard
-  if (type === "evaluation_reminder") return MessageCircle
+  if (type.startsWith('evaluation')) return ClipboardCheck
+  if (type.startsWith('payment')) return CreditCard
+  if (type === 'evaluation_reminder') return MessageCircle
   return Bell
 }
 
 export function getApiTypeFilter(category: string): string | undefined {
-  if (category === "reminders") return "evaluation_reminder"
-  if (category === "payment") return "payment_required"
-  if (category === "general") return "general"
+  if (category === 'reminders') return 'evaluation_reminder'
+  if (category === 'payment') return 'payment_required'
+  if (category === 'general') return 'general'
   return undefined
 }

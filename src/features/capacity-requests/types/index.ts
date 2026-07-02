@@ -8,7 +8,7 @@ export interface CapacityRequest {
   parentPhone: string
   parentName: string
   parentEmail?: string
-  status: "pending" | "approved" | "rejected"
+  status: 'pending' | 'approved' | 'rejected'
   adminNotes?: string
   rejectionReason?: string
   organizationId?: string
@@ -16,7 +16,7 @@ export interface CapacityRequest {
   updatedAt: string
 }
 
-export type CapacityRequestStatus = CapacityRequest["status"]
+export type CapacityRequestStatus = CapacityRequest['status']
 
 export interface CreateCapacityRequestPayload {
   childName: string

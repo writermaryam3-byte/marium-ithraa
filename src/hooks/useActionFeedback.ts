@@ -1,17 +1,17 @@
-"use client"
+'use client'
 
-import { useTranslations } from "next-intl"
+import { useTranslations } from 'next-intl'
 
 import {
   isActionFailure,
   isActionSuccess,
   type DeleteActionResult,
-} from "@/features/forms/action-results"
-import { showErrorToast, showSuccessToast } from "@/lib/toast/app-toast"
-import type { InitialState } from "@/lib/types/types"
+} from '@/features/forms/action-results'
+import { showErrorToast, showSuccessToast } from '@/lib/toast/app-toast'
+import type { InitialState } from '@/lib/types/types'
 
 export function useActionFeedback() {
-  const t = useTranslations("Actions")
+  const t = useTranslations('Actions')
 
   return {
     notifyAction(state: InitialState) {
@@ -23,10 +23,7 @@ export function useActionFeedback() {
         showErrorToast(t, state.message)
       }
     },
-    notifyDelete(
-      state: DeleteActionResult,
-      successKey = "Actions.common.deleted",
-    ) {
+    notifyDelete(state: DeleteActionResult, successKey = 'Actions.common.deleted') {
       if (state.success) {
         showSuccessToast(t, successKey)
         return

@@ -1,26 +1,25 @@
-"use client"
+'use client'
 
-import { Suspense, useEffect, useState } from "react"
-import Image from "next/image"
-import { useRouter, useParams, useSearchParams } from "next/navigation"
-import { useSession } from "next-auth/react"
-import { useTranslations } from "next-intl"
-import { Loader2 } from "lucide-react"
+import { Suspense, useEffect, useState } from 'react'
+import Image from 'next/image'
+import { useRouter, useParams, useSearchParams } from 'next/navigation'
+import { useSession } from 'next-auth/react'
+import { useTranslations } from 'next-intl'
+import { Loader2 } from 'lucide-react'
 
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Link } from "@/i18n/navigation"
-import { verifyEmailClient } from "@/features/auth"
-
+import { Button } from '@/components/ui/button'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Link } from '@/i18n/navigation'
+import { verifyEmailClient } from '@/features/auth'
 
 function VerifyEmailContent() {
-  const t = useTranslations("VerifyEmail")
+  const t = useTranslations('VerifyEmail')
   const router = useRouter()
   const params = useParams()
   const locale = params.locale as string
   const { update } = useSession()
   const searchParams = useSearchParams()
-  const token = searchParams.get("token")
+  const token = searchParams.get('token')
 
   const [result, setResult] = useState<{ ok: boolean; message: string } | null>(null)
 
@@ -40,7 +39,7 @@ function VerifyEmailContent() {
         }
       })
       .catch(() => {
-        setResult({ ok: false, message: t("failed") })
+        setResult({ ok: false, message: t('failed') })
       })
   }, [token, update, router, locale, t])
 
@@ -63,7 +62,7 @@ function VerifyEmailContent() {
                 />
               </div>
               <CardTitle className="text-center text-2xl font-bold text-blue-500">
-                {t("title")}
+                {t('title')}
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-5">
@@ -73,7 +72,7 @@ function VerifyEmailContent() {
                 </div>
               ) : !token ? (
                 <div className="rounded-lg border border-destructive/30 bg-destructive/5 px-4 py-3 text-sm text-destructive">
-                  {t("missingToken")}
+                  {t('missingToken')}
                 </div>
               ) : result?.ok ? (
                 <div className="rounded-lg border border-emerald-500/30 bg-emerald-500/5 px-4 py-3 text-sm text-emerald-700">
@@ -81,7 +80,7 @@ function VerifyEmailContent() {
                 </div>
               ) : (
                 <div className="rounded-lg border border-destructive/30 bg-destructive/5 px-4 py-3 text-sm text-destructive">
-                  {result?.message ?? t("failed")}
+                  {result?.message ?? t('failed')}
                 </div>
               )}
 
@@ -89,7 +88,7 @@ function VerifyEmailContent() {
                 asChild
                 className="h-11 w-full rounded-xl bg-linear-to-r from-fuchsia-600 to-violet-600 text-white hover:opacity-95"
               >
-                <Link href={`/auth/login`}>{t("goToLogin")}</Link>
+                <Link href={`/auth/login`}>{t('goToLogin')}</Link>
               </Button>
             </CardContent>
           </Card>
@@ -106,12 +105,8 @@ function VerifyEmailContent() {
                   className="h-auto w-full"
                   priority
                 />
-                <p className="mt-6 text-lg font-semibold text-foreground">
-                  {t("almostDone")}
-                </p>
-                <p className="mt-2 text-sm text-muted-foreground">
-                  {t("onceVerified")}
-                </p>
+                <p className="mt-6 text-lg font-semibold text-foreground">{t('almostDone')}</p>
+                <p className="mt-2 text-sm text-muted-foreground">{t('onceVerified')}</p>
               </div>
             </div>
           </div>

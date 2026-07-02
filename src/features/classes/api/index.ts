@@ -1,33 +1,21 @@
-import { api } from "@/lib/api/api"
-import { Endpoint, Methods } from "@/lib/types/enums"
-import {
-  type ClassItem,
-  type CreateClassPayload,
-  type UpdateClassPayload,
-} from "../types"
+import { api } from '@/lib/api/api'
+import { Endpoint, Methods } from '@/lib/types/enums'
+import { type ClassItem, type CreateClassPayload, type UpdateClassPayload } from '../types'
 
 export const getClassesByOrg = async (orgId: string) => {
-  return api.server<{ classes: ClassItem[] }>(
-    `/${Endpoint.CLASSES}/organization/${orgId}`,
-  )
+  return api.server<{ classes: ClassItem[] }>(`/${Endpoint.CLASSES}/organization/${orgId}`)
 }
 
 export const getOrganizationClasses = async (organizationId: string) => {
-  return api.client<{ classes: ClassItem[] }>(
-    `/${Endpoint.CLASSES}/organization/${organizationId}`,
-  )
+  return api.client<{ classes: ClassItem[] }>(`/${Endpoint.CLASSES}/organization/${organizationId}`)
 }
 
 export const getClassesByGrade = async (gradeId: string) => {
-  return api.server<{ classes: ClassItem[] }>(
-    `/${Endpoint.CLASSES}/grade/${gradeId}`,
-  )
+  return api.server<{ classes: ClassItem[] }>(`/${Endpoint.CLASSES}/grade/${gradeId}`)
 }
 
 export const getClassesByTeacher = async (teacherId: string) => {
-  return api.server<{ classes: ClassItem[] }>(
-    `/${Endpoint.CLASSES}/teacher/${teacherId}`,
-  )
+  return api.server<{ classes: ClassItem[] }>(`/${Endpoint.CLASSES}/teacher/${teacherId}`)
 }
 
 export const getClassById = async (classId: string) => {

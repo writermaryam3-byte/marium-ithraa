@@ -1,4 +1,4 @@
-import { redirect } from "@/i18n/navigation"
+import { redirect } from '@/i18n/navigation'
 
 type Props = {
   params: Promise<{ locale: string }>
@@ -6,5 +6,5 @@ type Props = {
 
 export default async function LegacyNotificationsPage({ params }: Props) {
   const { locale } = await params
-  redirect({ href: "/dashboards/notifications", locale })
+  redirect({ href: '/dashboards/notifications', locale })
 }

@@ -1,7 +1,7 @@
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 
-import type { ApprovalStatus } from "@/lib/types/enums"
-import { ApprovalStatus as ApprovalStatusEnum } from "@/lib/types/enums"
+import type { ApprovalStatus } from '@/lib/types/enums'
+import { ApprovalStatus as ApprovalStatusEnum } from '@/lib/types/enums'
 
 import {
   approveOrganization,
@@ -10,20 +10,20 @@ import {
   getOrganizationsByStatus,
   getPendingOrganizations,
   rejectOrganization,
-} from "../api"
-import type { RejectOrganizationPayload } from "../types/interfaces"
+} from '../api'
+import type { RejectOrganizationPayload } from '../types/interfaces'
 
 export const organizationKeys = {
-  all: ["organizations"] as const,
-  pending: ["organizations", "pending"] as const,
-  byStatus: (status: ApprovalStatus) => ["organizations", { status }] as const,
-  me: ["organizations", "me"] as const,
-  detail: (id: string) => ["organizations", id] as const,
+  all: ['organizations'] as const,
+  pending: ['organizations', 'pending'] as const,
+  byStatus: (status: ApprovalStatus) => ['organizations', { status }] as const,
+  me: ['organizations', 'me'] as const,
+  detail: (id: string) => ['organizations', id] as const,
 }
 
 export function useOrganization(userId?: string) {
   return useQuery({
-    queryKey: ["organization", userId],
+    queryKey: ['organization', userId],
     queryFn: getMyOrganization,
     enabled: !!userId,
     staleTime: 1000 * 60 * 10,
@@ -101,4 +101,4 @@ export function useRejectOrganization() {
   })
 }
 
-export { useOrganizationApproval } from "./useOrganizationApproval"
+export { useOrganizationApproval } from './useOrganizationApproval'

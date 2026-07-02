@@ -1,7 +1,7 @@
-import { CreateChildPage } from "@/components/pages/dashboards/organization/CreateChildPage"
-import { getClassesByOrg } from "@/features/classes"
-import { getGradesByOrg } from "@/features/grades"
-import { requireCurrentOrganization } from "@/lib/helpers/getCurrentOrganization"
+import { CreateChildPage } from '@/components/pages/dashboards/organization/CreateChildPage'
+import { getClassesByOrg } from '@/features/classes'
+import { getGradesByOrg } from '@/features/grades'
+import { requireCurrentOrganization } from '@/lib/helpers/getCurrentOrganization'
 
 type Props = {
   params: Promise<{ locale: string }>
@@ -14,10 +14,7 @@ export default async function NewChildPage({ params, searchParams }: Props) {
   const org = await requireCurrentOrganization()
   const orgId = org.id
 
-  const [gradesRes, classesRes] = await Promise.all([
-    getGradesByOrg(orgId),
-    getClassesByOrg(orgId),
-  ])
+  const [gradesRes, classesRes] = await Promise.all([getGradesByOrg(orgId), getClassesByOrg(orgId)])
 
   return (
     <CreateChildPage

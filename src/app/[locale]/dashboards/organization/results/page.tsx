@@ -1,4 +1,4 @@
-import { OwnerEvaluationResultsScreen } from "@/components/pages/dashboards/organization/OwnerEvaluationResultsScreen"
+import { OwnerEvaluationResultsScreen } from '@/components/pages/dashboards/organization/OwnerEvaluationResultsScreen'
 
 type Props = {
   params: Promise<{ locale: string }>

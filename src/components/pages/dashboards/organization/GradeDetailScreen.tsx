@@ -1,14 +1,14 @@
-"use client"
+'use client'
 
-import { Link } from "@/i18n/navigation"
-import { useLocale, useTranslations } from "next-intl"
-import { Layers3, Plus } from "lucide-react"
+import { Link } from '@/i18n/navigation'
+import { useLocale, useTranslations } from 'next-intl'
+import { Layers3, Plus } from 'lucide-react'
 
-import { ManagementPageHeader } from "@/components/shared/management/ManagementPageHeader"
-import { EmptyState } from "@/components/shared/management/EmptyState"
-import { type Grade } from "@/features/grades"
-import { type Child } from "@/features/children"
-import { getTextDirection } from "@/lib/i18n/locale-utils"
+import { ManagementPageHeader } from '@/components/shared/management/ManagementPageHeader'
+import { EmptyState } from '@/components/shared/management/EmptyState'
+import { type Grade } from '@/features/grades'
+import { type Child } from '@/features/children'
+import { getTextDirection } from '@/lib/i18n/locale-utils'
 
 type Props = {
   grade: Grade
@@ -17,23 +17,23 @@ type Props = {
 
 export function GradeDetailScreen({ grade, childrenByClass }: Props) {
   const locale = useLocale()
-  const t = useTranslations("Dashboard.GradeDetail")
-  const tCommon = useTranslations("Dashboard.common")
-  const tNav = useTranslations("Layout.OrganizationNav")
+  const t = useTranslations('Dashboard.GradeDetail')
+  const tCommon = useTranslations('Dashboard.common')
+  const tNav = useTranslations('Layout.OrganizationNav')
   const classes = grade.classes ?? []
 
   return (
     <main className="app-container py-8 space-y-10" dir={getTextDirection(locale)}>
       <ManagementPageHeader
         breadcrumbs={[
-          { href: "/dashboards/organization", label: tCommon("home") },
-          { href: "/dashboards/organization/grades", label: tNav("grades") },
+          { href: '/dashboards/organization', label: tCommon('home') },
+          { href: '/dashboards/organization/grades', label: tNav('grades') },
           { label: grade.name },
         ]}
         title={grade.name}
-        subtitle={t("subtitle", { count: classes.length })}
+        subtitle={t('subtitle', { count: classes.length })}
         action={{
-          label: t("addClass"),
+          label: t('addClass'),
           href: `/dashboards/organization/classes/new?gradeId=${grade.id}`,
           icon: <Plus />,
         }}
@@ -41,8 +41,8 @@ export function GradeDetailScreen({ grade, childrenByClass }: Props) {
 
       {classes.length === 0 ? (
         <EmptyState
-          title={t("emptyClasses")}
-          actionLabel={t("addClass")}
+          title={t('emptyClasses')}
+          actionLabel={t('addClass')}
           actionHref={`/dashboards/organization/classes/new?gradeId=${grade.id}`}
         />
       ) : (
@@ -62,12 +62,12 @@ export function GradeDetailScreen({ grade, childrenByClass }: Props) {
                     </Link>
                   </h2>
                   <span className="text-sm text-muted-foreground">
-                    {t("childrenCount", { count: kids.length })}
+                    {t('childrenCount', { count: kids.length })}
                   </span>
                 </div>
 
                 {kids.length === 0 ? (
-                  <p className="text-sm text-muted-foreground">{t("emptyChildren")}</p>
+                  <p className="text-sm text-muted-foreground">{t('emptyChildren')}</p>
                 ) : (
                   <ul className="grid gap-2 md:grid-cols-2 lg:grid-cols-3">
                     {kids.map((child) => (

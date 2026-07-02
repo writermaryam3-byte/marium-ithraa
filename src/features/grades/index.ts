@@ -1,14 +1,5 @@
-export type { Grade, CreateGradePayload, UpdateGradePayload } from "./types"
-export {
-  getGradesByOrg,
-  getGradeById,
-  createGrade,
-  updateGrade,
-  deleteGrade,
-} from "./api"
-export { createGradeAction } from "./actions/create-grade.action"
-export { updateGradeAction } from "./actions/update-grade.action"
-export {
-  deleteGradeAction,
-  type DeleteGradeState,
-} from "./actions/delete-grade.action"
+export type { Grade, CreateGradePayload, UpdateGradePayload } from './types'
+export { getGradesByOrg, getGradeById, createGrade, updateGrade, deleteGrade } from './api'
+export { createGradeAction } from './actions/create-grade.action'
+export { updateGradeAction } from './actions/update-grade.action'
+export { deleteGradeAction, type DeleteGradeState } from './actions/delete-grade.action'

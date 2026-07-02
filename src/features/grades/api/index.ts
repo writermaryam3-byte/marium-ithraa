@@ -1,15 +1,9 @@
-import { api } from "@/lib/api/api"
-import { Endpoint, Methods } from "@/lib/types/enums"
-import {
-  type CreateGradePayload,
-  type Grade,
-  type UpdateGradePayload,
-} from "../types"
+import { api } from '@/lib/api/api'
+import { Endpoint, Methods } from '@/lib/types/enums'
+import { type CreateGradePayload, type Grade, type UpdateGradePayload } from '../types'
 
 export const getGradesByOrg = async (orgId: string) => {
-  return api.server<{ grades: Grade[] }>(
-    `/${Endpoint.GRADES}/organization/${orgId}`,
-  )
+  return api.server<{ grades: Grade[] }>(`/${Endpoint.GRADES}/organization/${orgId}`)
 }
 
 export const getGradeById = async (gradeId: string) => {

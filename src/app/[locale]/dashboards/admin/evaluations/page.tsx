@@ -1,7 +1,7 @@
-import { SiteHeader } from "@/components/site-header"
-import { AdminEvaluationsScreen } from "@/components/pages/dashboards/admin/AdminEvaluationsScreen"
-import { getEvaluations } from "@/features/evaluations/api"
-import type { Evaluation } from "@/features/evaluations/types"
+import { SiteHeader } from '@/components/site-header'
+import { AdminEvaluationsScreen } from '@/components/pages/dashboards/admin/AdminEvaluationsScreen'
+import { getEvaluations } from '@/features/evaluations/api'
+import type { Evaluation } from '@/features/evaluations/types'
 
 type Props = {
   params: Promise<{ locale: string }>

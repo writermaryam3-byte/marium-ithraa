@@ -1,18 +1,14 @@
-"use client"
+'use client'
 
-import { useTranslations } from "next-intl"
+import { useTranslations } from 'next-intl'
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { ProgressBar } from "@/components/shared/ProgressBar"
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { ProgressBar } from '@/components/shared/ProgressBar'
 
 type DimScore = { code?: string; name?: string; score?: number; max?: number }
 
-export function MultipleIntelligencesResult({
-  result,
-}: {
-  result: Record<string, unknown>
-}) {
-  const t = useTranslations("Features.EvaluationResults.multipleIntelligences")
+export function MultipleIntelligencesResult({ result }: { result: Record<string, unknown> }) {
+  const t = useTranslations('Features.EvaluationResults.multipleIntelligences')
   const dimensions = (result.dimensions as DimScore[]) ?? []
   const top3 = (result.top3 as DimScore[]) ?? dimensions.slice(0, 3)
 
@@ -20,19 +16,19 @@ export function MultipleIntelligencesResult({
     <div className="space-y-4">
       <Card>
         <CardHeader>
-          <CardTitle className="text-base">{t("top3")}</CardTitle>
+          <CardTitle className="text-base">{t('top3')}</CardTitle>
         </CardHeader>
         <CardContent className="space-y-2">
           {top3.map((d, i) => (
             <p key={d.code ?? i} className="text-sm font-medium">
-              {i + 1}. {d.name ?? d.code} — {d.score ?? "—"}
+              {i + 1}. {d.name ?? d.code} — {d.score ?? '—'}
             </p>
           ))}
         </CardContent>
       </Card>
       <Card>
         <CardHeader>
-          <CardTitle className="text-base">{t("dimensions")}</CardTitle>
+          <CardTitle className="text-base">{t('dimensions')}</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
           {dimensions.map((d) => {

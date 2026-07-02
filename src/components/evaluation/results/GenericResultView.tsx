@@ -1,6 +1,6 @@
-"use client"
+'use client'
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 
 export function GenericResultView({
   result,
@@ -21,9 +21,7 @@ export function GenericResultView({
           <div key={key} className="rounded-md border p-3 text-sm">
             <p className="font-medium text-muted-foreground">{key}</p>
             <p className="mt-1 wrap-break-word">
-              {typeof value === "object"
-                ? JSON.stringify(value, null, 2)
-                : String(value)}
+              {typeof value === 'object' ? JSON.stringify(value, null, 2) : String(value)}
             </p>
           </div>
         ))}

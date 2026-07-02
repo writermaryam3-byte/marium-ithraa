@@ -1,7 +1,7 @@
-import * as React from "react"
+import * as React from 'react'
 
-import { cn } from "@/lib/utils"
-import { Card, CardContent } from "@/components/ui/card"
+import { cn } from '@/lib/utils'
+import { Card, CardContent } from '@/components/ui/card'
 
 export type ActivityItem = {
   id: string
@@ -18,7 +18,7 @@ export type ActivityFeedProps = {
 
 export function ActivityFeed({ title, items, className }: ActivityFeedProps) {
   return (
-    <section className={cn("space-y-4", className)}>
+    <section className={cn('space-y-4', className)}>
       <h2 className="text-xl font-bold text-foreground text-start">{title}</h2>
       <div className="grid gap-4 lg:grid-cols-2">
         {items.map((item) => (
@@ -42,4 +42,3 @@ export function ActivityFeed({ title, items, className }: ActivityFeedProps) {
     </section>
   )
 }
-

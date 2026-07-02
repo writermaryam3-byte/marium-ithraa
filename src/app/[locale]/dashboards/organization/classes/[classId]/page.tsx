@@ -1,10 +1,10 @@
-import { notFound } from "next/navigation"
+import { notFound } from 'next/navigation'
 
-import { ClassDetailScreen } from "@/components/pages/dashboards/organization/ClassDetailScreen"
-import { getAllChildrenByOrg } from "@/features/children"
-import { type Child } from "@/features/children/types/interfaces"
-import { type ClassItem } from "@/features/classes"
-import { getClassById } from "@/features/classes"
+import { ClassDetailScreen } from '@/components/pages/dashboards/organization/ClassDetailScreen'
+import { getAllChildrenByOrg } from '@/features/children'
+import { type Child } from '@/features/children/types/interfaces'
+import { type ClassItem } from '@/features/classes'
+import { getClassById } from '@/features/classes'
 
 type Props = {
   params: Promise<{ locale: string; classId: string }>
@@ -28,7 +28,5 @@ export default async function ClassDetailPage({ params }: Props) {
     notFound()
   }
 
-  return (
-    <ClassDetailScreen classItem={classItem} classChildren={children} />
-  )
+  return <ClassDetailScreen classItem={classItem} classChildren={children} />
 }

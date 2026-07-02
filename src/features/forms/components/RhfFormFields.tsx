@@ -1,18 +1,12 @@
-"use client"
+'use client'
 
-import { useState } from "react"
-import { EyeIcon, EyeOffIcon } from "lucide-react"
-import { useFormContext } from "react-hook-form"
-import {
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
-import { PhoneInputField } from "@/components/shared/forms/PhoneInputField"
-import { Checkbox } from "@/components/ui/checkbox"
+import { useState } from 'react'
+import { EyeIcon, EyeOffIcon } from 'lucide-react'
+import { useFormContext } from 'react-hook-form'
+import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
+import { Input } from '@/components/ui/input'
+import { PhoneInputField } from '@/components/shared/forms/PhoneInputField'
+import { Checkbox } from '@/components/ui/checkbox'
 import {
   Select,
   SelectContent,
@@ -20,10 +14,10 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select"
-import { Textarea } from "@/components/ui/textarea"
-import { InputTypes } from "@/lib/types/enums"
-import type { IFormField } from "@/lib/types/interfaces"
+} from '@/components/ui/select'
+import { Textarea } from '@/components/ui/textarea'
+import { InputTypes } from '@/lib/types/enums'
+import type { IFormField } from '@/lib/types/interfaces'
 
 type Props = {
   fields: IFormField[]
@@ -42,7 +36,7 @@ export function RhfFormFields({ fields }: Props) {
             <PhoneInputField
               key={field.name}
               name={field.name}
-              label={field.label ?? ""}
+              label={field.label ?? ''}
               placeholder={field.placeholder}
               disabled={field.disabled}
             />
@@ -86,7 +80,7 @@ function renderControl(
         placeholder={field.placeholder}
         disabled={field.disabled}
         autoFocus={field.autoFocus}
-        value={String(rhfField.value ?? "")}
+        value={String(rhfField.value ?? '')}
         onChange={rhfField.onChange}
         onBlur={rhfField.onBlur}
         ref={rhfField.ref}
@@ -108,7 +102,7 @@ function renderControl(
       <Textarea
         placeholder={field.placeholder}
         disabled={field.disabled}
-        value={String(rhfField.value ?? "")}
+        value={String(rhfField.value ?? '')}
         onChange={(e) => rhfField.onChange(e.target.value)}
         onBlur={rhfField.onBlur}
       />
@@ -118,7 +112,7 @@ function renderControl(
   if (type === InputTypes.SELECT && field.data) {
     return (
       <Select
-        value={String(rhfField.value ?? "")}
+        value={String(rhfField.value ?? '')}
         onValueChange={(value) => rhfField.onChange(value)}
       >
         <SelectTrigger>
@@ -139,12 +133,20 @@ function renderControl(
 
   return (
     <Input
-      type={type === InputTypes.EMAIL ? "email" : type === InputTypes.NUMBER ? "number" :  type === InputTypes.DATE ? "date" : "text"}
+      type={
+        type === InputTypes.EMAIL
+          ? 'email'
+          : type === InputTypes.NUMBER
+            ? 'number'
+            : type === InputTypes.DATE
+              ? 'date'
+              : 'text'
+      }
       placeholder={field.placeholder}
       disabled={field.disabled}
       autoFocus={field.autoFocus}
       name={rhfField.name}
-      value={String(rhfField.value ?? "")}
+      value={String(rhfField.value ?? '')}
       onChange={rhfField.onChange}
       onBlur={rhfField.onBlur}
       ref={rhfField.ref}
@@ -175,7 +177,7 @@ function PasswordInput({
     <div className="relative flex items-center">
       <Input
         ref={ref}
-        type={showPassword ? "text" : "password"}
+        type={showPassword ? 'text' : 'password'}
         placeholder={placeholder}
         disabled={disabled}
         autoFocus={autoFocus}
@@ -189,13 +191,9 @@ function PasswordInput({
         onClick={() => setShowPassword((prev) => !prev)}
         onMouseDown={(event) => event.preventDefault()}
         className="absolute inset-e-3"
-        aria-label={showPassword ? "Hide password" : "Show password"}
+        aria-label={showPassword ? 'Hide password' : 'Show password'}
       >
-        {showPassword ? (
-          <EyeOffIcon className="h-4 w-4" />
-        ) : (
-          <EyeIcon className="h-4 w-4" />
-        )}
+        {showPassword ? <EyeOffIcon className="h-4 w-4" /> : <EyeIcon className="h-4 w-4" />}
       </button>
     </div>
   )

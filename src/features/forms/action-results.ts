@@ -1,9 +1,7 @@
-import { StatusCode } from "@/lib/types/enums"
-import type { InitialState, ValidationErrors } from "@/lib/types/types"
+import { StatusCode } from '@/lib/types/enums'
+import type { InitialState, ValidationErrors } from '@/lib/types/types'
 
-export function validationErrorsToFieldErrors(
-  errors: ValidationErrors,
-): Record<string, string> {
+export function validationErrorsToFieldErrors(errors: ValidationErrors): Record<string, string> {
   const fieldErrors: Record<string, string> = {}
   for (const [key, messages] of Object.entries(errors)) {
     if (messages?.[0]) fieldErrors[key] = messages[0]
@@ -43,7 +41,7 @@ export function actionFailure(
 export function actionValidationFailure(
   errors: ValidationErrors,
   formData: FormData,
-  messageKey = "Actions.common.validationFailed",
+  messageKey = 'Actions.common.validationFailed',
 ): InitialState {
   const fieldErrors = validationErrorsToFieldErrors(errors)
   return {
@@ -58,10 +56,7 @@ export function actionValidationFailure(
 
 export function isActionSuccess(state: InitialState): boolean {
   if (state.success === true) return true
-  return (
-    state.status === StatusCode.OK ||
-    state.status === StatusCode.CREATED
-  )
+  return state.status === StatusCode.OK || state.status === StatusCode.CREATED
 }
 
 export function isActionFailure(state: InitialState): boolean {
