@@ -1,0 +1,60 @@
+[
+    {
+      "id": "free",
+      "title": "الباقة المجانية",
+      "description": "ابدأ بمعرفة ذكاءات طفلك — بدون أي تكلفة وإلى الأبد",
+      "priceMonthly": 0,
+      "priceYearly": 0,
+      "isPopular": false,
+      "icon": "🎁",
+      "features": [
+        { "text": "مقياس الذكاءات المتعددة لـ 100 طالب", "included": true },
+        { "text": "تقارير مؤشرات الذكاء لأولياء الأمور", "included": true },
+        { "text": "محاضرات توعوية دورية للأهالي", "included": true },
+        { "text": "خصومات الأنشطة لإثراء الذكاء الحصرية", "included": true },
+        { "text": "أنشطة الطلاب أونلاين", "included": true },
+        { "text": "بوابة دفع إلكتروني وتمارا", "included": true },
+        { "text": "إدارة الأنشطة اللاصفية", "included": false },
+        { "text": "شراكة وإقامة أنشطة بالمدرسة", "included": false }
+      ]
+    },
+    {
+      "id": "premium",
+      "title": "الباقة الشاملة",
+      "description": "نظام ذكي متكامل لاكتشاف المواهب وإدارة الأنشطة",
+      "priceMonthly": 29,
+      "priceYearly": 189,
+      "isPopular": true,
+      "icon": "👑",
+      "features": [
+        { "text": "كل شيء في الأساسية وأكثر", "included": true },
+        { "text": "أنشطة ما بعد المدرسة ومعسكرات صيفية", "included": true },
+        { "text": "مشاركة العوائد مع المدرسة من الأنشطة", "included": true },
+        { "text": "أنشطة اليوم الواحد بعدد غير محدود", "included": true },
+        { "text": "تخصيص فائق لمواهب كل طالب بشكل مستقل", "included": true },
+        { "text": "تقارير خاصة متقدمة للمدرسة والأهالي", "included": true },
+        { "text": "دورات معتمدة لمعلمات المدرسة", "included": true },
+        { "text": "ترشيح الأنشطة للأطفال غير المسجلين", "included": true },
+        { "text": "ندوات في المدرسة وعن بُعد للأهالي", "included": true }
+      ]
+    },
+    {
+      "id": "basic",
+      "title": "الباقة الأساسية",
+      "description": "مثالية للمدارس لبدء أسس اكتشاف المواهب",
+      "priceMonthly": 39,
+      "priceYearly": 275,
+      "isPopular": false,
+      "icon": "📦",
+      "features": [
+        { "text": "كل شيء في المجانية وأكثر", "included": true },
+        { "text": "مكتبة المقاييس العلمية الكاملة مع تحديث مستمر", "included": true },
+        { "text": "تقارير شاملة للذكاءات والمواهب لكل فصل دراسي", "included": true },
+        { "text": "إدارة التعديل والجدولة والدمج والتعديل", "included": true },
+        { "text": "توظيف مقدمي أنشطة متخصصين", "included": true },
+        { "text": "أنشطة اليوم الواحد بعدد محدود", "included": true },
+        { "text": "استضافة أبناء المعلمات وموظفات المدرسة", "included": true },
+        { "text": "أنشطة ما بعد المدرسة والمعسكرات الصيفية", "included": false }
+      ]
+    }
+  ]

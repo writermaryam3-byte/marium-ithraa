@@ -3,4 +3,5 @@ export const SOCIAL_LINKS = {
   x: 'https://x.com',
   instagram: 'https://instagram.com',
   facebook: 'https://facebook.com',
+  tiktok: 'https://vt.tiktok.com/ZSCxtC5Go/',
 }

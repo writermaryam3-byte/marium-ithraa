@@ -41,8 +41,8 @@
       "Facebook": "Facebook"
     },
     "Contact": {
-      "Email": "support@ithraa.com",
-      "Phone": "0503977564",
+      "Email": "Email: support@ithrathaka.com",
+      "Phone": "Phone: 0503977564",
       "Website": "ithrathaka.com",
       "CR": "CR: 7053545971",
       "PhoneTel": "0503977564",
@@ -1192,15 +1192,15 @@
     "description": "Our smart platform connects parents and schools with activity and educational service providers, offering customized extracurricular and recreational paths designed based on children's multiple intelligences and interests. We ensure high-quality connections to support children's growth and skill development, building their future with confidence and excellence.",
     "stats": {
       "children": {
-        "value": "+1,500",
+        "value": "+1,000",
         "label": "Children discovered their passion"
       },
       "families": {
-        "value": "+500",
+        "value": "+300",
         "label": "Benefiting families"
       },
       "partners": {
-        "value": "+80",
+        "value": "+20",
         "label": "Partner schools & institutions"
       }
     },
@@ -1368,7 +1368,7 @@
         },
         "generalEmail": {
           "label": "General Inquiries",
-          "value": "hello@ithrathaka.com",
+          "value": "support@ithrathaka.com",
           "website": "Official website: ithrathaka.com"
         }
       }

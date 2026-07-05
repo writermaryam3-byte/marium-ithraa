@@ -6,7 +6,7 @@ import { useLocale, useTranslations } from 'next-intl'
 import { Link } from '@/i18n/navigation'
 import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
-import { Facebook, Instagram, Youtube } from 'lucide-react'
+import { Facebook, Instagram, Music2Icon } from 'lucide-react'
 import { SOCIAL_LINKS } from '@/lib/social-links'
 
 function XIcon(props: React.SVGProps<SVGSVGElement>) {
@@ -67,12 +67,12 @@ const Footer = ({ locale }: { locale?: string }) => {
             <div className="mt-5 flex items-center gap-2">
               <Button asChild variant="ghost" size="icon-sm">
                 <a
-                  href={SOCIAL_LINKS.youtube}
+                  href={SOCIAL_LINKS.tiktok}
                   target="_blank"
                   rel="noreferrer"
                   aria-label={t('Social.YouTube')}
                 >
-                  <Youtube />
+                  <Music2Icon />
                 </a>
               </Button>
 
@@ -111,9 +111,6 @@ const Footer = ({ locale }: { locale?: string }) => {
             </div>
 
             <div className="mt-6 space-y-2 text-sm text-muted-foreground text-start">
-              <a className="block w-fit hover:text-foreground" href={`#`}>
-                {t('Contact.Website')}
-              </a>
               <p className="block w-fit hover:text-foreground">{t('Contact.CR')}</p>
               <a
                 className="block w-fit hover:text-foreground"

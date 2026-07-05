@@ -62,7 +62,7 @@ export function OrganizationStatusScreen({ organization, locale }: Props) {
         {isRejected ? (
           <div className="flex flex-wrap gap-3">
             <Button asChild variant="outline">
-              <a href="mailto:support@ithraa.com">
+              <a href="mailto:support@ithrathaka.com">
                 <Mail className="size-4" />
                 {t('rejected.contactSupport')}
               </a>
