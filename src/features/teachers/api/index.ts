@@ -19,6 +19,13 @@ export const createTeacher = async (data: Partial<Teacher>) => {
   return api.server(`/${Endpoint.TEACHERS}`, { method: Methods.POST, body: JSON.stringify(data) })
 }
 
+export const updateTeacher = async (userId: string, data: Partial<Teacher>) => {
+  return api.server(`/${Endpoint.USERS}/${userId}`, {
+    method: Methods.PATCH,
+    body: JSON.stringify(data),
+  })
+}
+
 export const deleteTeacher = async (teacherId: string) => {
   return api.server(`/${Endpoint.USERS}/${teacherId}`, {
     method: Methods.DELETE,

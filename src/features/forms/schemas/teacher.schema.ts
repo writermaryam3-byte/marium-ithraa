@@ -11,9 +11,18 @@ export const createTeacherSchema = z.object({
   jobTitle: z.string().min(1, 'Job title is required'),
 })
 
+export const updateTeacherSchema = z.object({
+  id: idSchema.shape.id,
+  name: nameSchema.optional(),
+  email: emailSchema.optional(),
+  phone: phoneSchema.optional(),
+  jobTitle: z.string().min(1, 'Job title is required').optional(),
+})
+
 export const deleteTeacherSchema = idSchema
 
 export type CreateTeacherFormValues = z.infer<typeof createTeacherSchema>
+export type UpdateTeacherFormValues = z.infer<typeof updateTeacherSchema>
 
 export const createTeacherDefaultValues: CreateTeacherFormValues = {
   name: '',

@@ -1,5 +1,5 @@
-import { ChildrenScreen } from '@/components/pages/dashboards/organization/ChildrenScreen'
 import { getAllChildrenByOrg } from '@/features/children'
+import { ChildrenScreen } from '@/features/children/components/ChildrenScreen'
 import { getClassesByOrg } from '@/features/classes'
 import { getGradesByOrg } from '@/features/grades'
 import { requireCurrentOrganization } from '@/lib/helpers/getCurrentOrganization'

@@ -15,11 +15,10 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { Skeleton } from '@/components/ui/skeleton'
-import LanguageSwitcher from '@/components/layouts/header/langSwitch'
-import { NotificationBell } from '@/components/notifications/NotificationBell'
 
 import { useAuth } from '../hooks/useAuth'
 import { Routes, Pages } from '@/lib/types/enums'
+import NotificationBell from '@/features/notifications/components/NotificationsBell'
 
 type Props = {
   locale: string

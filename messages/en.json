@@ -663,6 +663,7 @@
     },
     "teachers": {
       "created": "Teacher added successfully",
+      "updated": "Teacher updated successfully",
       "deleted": "Teacher deleted successfully",
       "deleteFailed": "Failed to delete teacher"
     },
@@ -1443,6 +1444,7 @@
       },
       "addTitle": "Add grade",
       "editTitle": "Edit grade",
+      "editDescription": "Update grade information and save.",
       "breadcrumb": {
         "home": "Home",
         "grades": "Grades"
@@ -1458,6 +1460,7 @@
     "Class": {
       "addTitle": "Add class",
       "editTitle": "Edit class",
+      "editDescription": "Update class information and save.",
       "breadcrumb": {
         "home": "Home",
         "classes": "Classes"
@@ -1556,6 +1559,8 @@
     "Teacher": {
       "pageTitle": "Add teacher",
       "pageSubtitle": "Enter teacher details to add them to the organization.",
+      "editTitle": "Edit teacher",
+      "editDescription": "Update teacher information and save.",
       "name": {
         "label": "Full name",
         "placeholder": "Enter teacher name"
@@ -1577,7 +1582,8 @@
         "placeholder": "Enter job title"
       },
       "toast": {
-        "created": "Teacher added successfully"
+        "created": "Teacher added successfully",
+        "updated": "Teacher updated successfully"
       },
       "Actions": {
         "common": {

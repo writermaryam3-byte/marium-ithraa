@@ -23,6 +23,8 @@ import { type Grade } from '@/features/grades'
 import { useClientPagination } from '@/hooks/useClientPagination'
 import { useActionFeedback } from '@/hooks/useActionFeedback'
 
+import { UpdateClassDialog } from './UpdateClassDialog'
+
 type Props = {
   classes: ClassItem[]
   grades: Grade[]
@@ -140,21 +142,14 @@ export function ClassesScreenClient({ classes, grades }: Props) {
                   },
                 ]}
                 renderEditDialog={({ open, onClose }) => (
-                  <Dialog open={open} onOpenChange={(v) => !v && onClose()}>
-                    <DialogContent className="sm:max-w-sm">
-                      <DialogHeader>
-                        <DialogTitle>{t('editTitle')}</DialogTitle>
-                      </DialogHeader>
-                      <Button asChild className="w-full rounded-xl">
-                        <Link
-                          href={`/dashboards/organization/classes/${c.id}/edit`}
-                          onClick={onClose}
-                        >
-                          {tCommon('edit')}
-                        </Link>
-                      </Button>
-                    </DialogContent>
-                  </Dialog>
+                  <UpdateClassDialog
+                    open={open}
+                    onOpenChange={(v) => !v && onClose()}
+                    classId={c.id}
+                    className={c.name}
+                    gradeId={c.gradeId}
+                    teacherId={c.teacherId}
+                  />
                 )}
                 renderDeleteDialog={({ open, onClose }) => (
                   <Dialog open={open} onOpenChange={(v) => !v && onClose()}>

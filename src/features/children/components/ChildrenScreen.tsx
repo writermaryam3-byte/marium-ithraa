@@ -46,6 +46,8 @@ import { useActionFeedback } from '@/hooks/useActionFeedback'
 import { getTextDirection } from '@/lib/i18n/locale-utils'
 import { Gender } from '@/lib/types/enums'
 
+import { UpdateChildDialog } from './UpdateChildDialog'
+
 type Props = {
   childrens: Child[]
   grades: Grade[]
@@ -241,22 +243,14 @@ export function ChildrenScreen({ childrens, grades, classes }: Props) {
                       : []),
                   ]}
                   renderEditDialog={({ open, onClose }) => (
-                    <Dialog open={open} onOpenChange={(v) => !v && onClose()}>
-                      <DialogContent className="sm:max-w-sm">
-                        <DialogHeader>
-                          <DialogTitle>{tCommon('edit')}</DialogTitle>
-                          <DialogDescription>{t('goToEdit')}</DialogDescription>
-                        </DialogHeader>
-                        <Button asChild className="w-full rounded-xl">
-                          <Link
-                            href={`/dashboards/organization/children/${child.id}`}
-                            onClick={onClose}
-                          >
-                            {tCommon('edit')}
-                          </Link>
-                        </Button>
-                      </DialogContent>
-                    </Dialog>
+                    <UpdateChildDialog
+                      open={open}
+                      onOpenChange={(v) => !v && onClose()}
+                      childId={child.id}
+                      childName={child.name}
+                      birthDate={child.birthDate ?? ''}
+                      gender={(child.gender as Gender) ?? Gender.MALE}
+                    />
                   )}
                   renderDeleteDialog={({ open, onClose }) => (
                     <Dialog open={open} onOpenChange={(v) => !v && onClose()}>

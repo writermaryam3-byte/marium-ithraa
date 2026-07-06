@@ -26,6 +26,8 @@ import {
 import { useClientPagination } from '@/hooks/useClientPagination'
 import { useActionFeedback } from '@/hooks/useActionFeedback'
 
+import { UpdateTeacherDialog } from './UpdateTeacherDialog'
+
 export function TeachersScreen({ teachers }: { teachers: Teacher[] }) {
   const locale = useLocale()
   const t = useTranslations('Dashboard.Teachers')
@@ -1103,22 +1105,15 @@ export function TeachersScreen({ teachers }: { teachers: Teacher[] }) {
                     },
                   ]}
                   renderEditDialog={({ open, onClose }) => (
-                    <Dialog open={open} onOpenChange={(v) => !v && onClose()}>
-                      <DialogContent className="sm:max-w-sm">
-                        <DialogHeader>
-                          <DialogTitle>{tCommon('edit')}</DialogTitle>
-                          <DialogDescription>{t('subtitle')}</DialogDescription>
-                        </DialogHeader>
-                        <Button asChild className="w-full rounded-xl">
-                          <Link
-                            href={`/dashboards/organization/teachers/${teacher.userId}/edit`}
-                            onClick={onClose}
-                          >
-                            {tCommon('edit')}
-                          </Link>
-                        </Button>
-                      </DialogContent>
-                    </Dialog>
+                    <UpdateTeacherDialog
+                      open={open}
+                      onOpenChange={(v) => !v && onClose()}
+                      userId={teacher.userId}
+                      name={teacher.name}
+                      email={teacher.email}
+                      phone={teacher.phone}
+                      jobTitle={teacher.jobTitle}
+                    />
                   )}
 
                   renderDeleteDialog={({ open, onClose }) => (

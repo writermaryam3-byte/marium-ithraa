@@ -22,6 +22,8 @@ import { type Grade, deleteGradeAction, type DeleteGradeState } from '@/features
 import { useClientPagination } from '@/hooks/useClientPagination'
 import { useActionFeedback } from '@/hooks/useActionFeedback'
 
+import { UpdateGradeDialog } from './UpdateGradeDialog'
+
 export function GradesScreen({ grades }: { grades: Grade[] }) {
   const locale = useLocale()
   const t = useTranslations('Dashboard.Grades')
@@ -116,21 +118,12 @@ export function GradesScreen({ grades }: { grades: Grade[] }) {
                   },
                 ]}
                 renderEditDialog={({ open, onClose }) => (
-                  <Dialog open={open} onOpenChange={(v) => !v && onClose()}>
-                    <DialogContent className="sm:max-w-sm">
-                      <DialogHeader>
-                        <DialogTitle>{t('editTitle')}</DialogTitle>
-                      </DialogHeader>
-                      <Button asChild className="w-full rounded-xl">
-                        <Link
-                          href={`/dashboards/organization/grades/${grade.id}/edit`}
-                          onClick={onClose}
-                        >
-                          {tCommon('edit')}
-                        </Link>
-                      </Button>
-                    </DialogContent>
-                  </Dialog>
+                  <UpdateGradeDialog
+                    open={open}
+                    onOpenChange={(v) => !v && onClose()}
+                    gradeId={grade.id}
+                    gradeName={grade.name}
+                  />
                 )}
                 renderDeleteDialog={({ open, onClose }) => (
                   <Dialog open={open} onOpenChange={(v) => !v && onClose()}>

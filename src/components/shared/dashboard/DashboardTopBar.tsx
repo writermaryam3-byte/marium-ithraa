@@ -3,10 +3,10 @@
 import { useLocale } from 'next-intl'
 
 import LanguageSwitcher from '@/components/layouts/header/langSwitch'
-import { NotificationBell } from '@/components/notifications/NotificationBell'
 import { Separator } from '@/components/ui/separator'
 import { SidebarTrigger } from '@/components/ui/sidebar'
 import { cn } from '@/lib/utils'
+import NotificationBell from '@/features/notifications/components/NotificationsBell'
 
 type Props = {
   withSidebar?: boolean
