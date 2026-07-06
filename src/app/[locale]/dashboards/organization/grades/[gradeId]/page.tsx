@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation'
 
-import { GradeDetailScreen } from '@/components/pages/dashboards/organization/GradeDetailScreen'
+import { GradeDetailScreen } from '@/features/grades/components/GradeDetailScreen'
 import { getAllChildrenByOrg } from '@/features/children'
 import { type Child } from '@/features/children/types/interfaces'
 import { type Grade } from '@/features/grades'

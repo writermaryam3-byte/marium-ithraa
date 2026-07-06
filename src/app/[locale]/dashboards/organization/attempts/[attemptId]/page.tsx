@@ -1,4 +1,4 @@
-import { OwnerAttemptResultScreen } from '@/components/pages/dashboards/organization/OwnerAttemptResultScreen'
+import { OwnerAttemptResultScreen } from '@/features/evaluations/components/OwnerAttemptResultScreen'
 
 export default async function OwnerAttemptResultPage() {
   return <OwnerAttemptResultScreen />

@@ -1,5 +1,5 @@
-import { ParentOrgChildrenScreen } from '@/components/pages/dashboards/parent/ParentOrgChildrenScreen'
-import { ParentPrivateChildrenScreen } from '@/components/pages/dashboards/parent/ParentPrivateChildrenScreen'
+import { ParentOrgChildrenScreen } from '@/features/parent/components/ParentOrgChildrenScreen'
+import { ParentPrivateChildrenScreen } from '@/features/parent/components/ParentPrivateChildrenScreen'
 import { getOrgChildren, getPrivateChildren } from '@/features/children'
 
 type Props = {

@@ -1,7 +1,7 @@
 import { getSession, signOut } from 'next-auth/react'
 
 import { ApiError } from '../errors/ApiError'
-import { Pages, Routes, StatusCode } from '../types/enums'
+import { ApiErrorCodes, Pages, Routes, StatusCode } from '../types/enums'
 import { logger, metrics } from '../logger'
 import { buildHeaders, parseResponse } from './utils'
 
@@ -97,7 +97,10 @@ export async function clientApiFetch<T>(
         callbackUrl: `/${Routes.AUTH}/${Pages.LOGIN}`,
         redirect: true,
       })
-      throw new ApiError('Unauthorized', StatusCode.UNAUTHORIZED)
+      throw new ApiError(endpoint, StatusCode.UNAUTHORIZED, {
+        code: ApiErrorCodes.UNAUTHORIZED,
+        message: 'unautharized',
+      })
     }
 
     if (!res.ok && shouldRetry(res.status, attempt)) {

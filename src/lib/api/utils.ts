@@ -1,75 +1,33 @@
 import { ApiError } from '../errors/ApiError'
-import { StatusCode } from '../types/enums'
-import type { ValidationErrors } from '../types/types'
+import { ApiErrorCodes, StatusCode } from '../types/enums'
 import { logger } from '../logger'
-
-export function getApiErrorMessage(data: unknown): string {
-  if (typeof data === 'string') return data
-
-  if (typeof data !== 'object' || data === null) return 'Request failed'
-
-  const maybeMessage = (data as { message?: unknown }).message
-  if (typeof maybeMessage === 'string') return maybeMessage
-  if (Array.isArray(maybeMessage)) {
-    return maybeMessage.filter((item): item is string => typeof item === 'string').join(', ')
-  }
-
-  const maybeErrors = (data as { errors?: unknown }).errors
-  if (typeof maybeErrors === 'object' && maybeErrors !== null) {
-    const messages = Object.values(maybeErrors)
-      .flatMap((value) => (Array.isArray(value) ? value : [value]))
-      .filter((value): value is string => typeof value === 'string')
-
-    if (messages.length > 0) return messages.join(', ')
-  }
-
-  return 'Request failed'
-}
-
-export function getValidationErrors(data: unknown): ValidationErrors | undefined {
-  if (typeof data !== 'object' || data === null) return undefined
-
-  const record = data as Record<string, unknown>
-  const maybeErrors = record.errors ?? record.message
-
-  if (typeof maybeErrors === 'object' && maybeErrors !== null && !Array.isArray(maybeErrors)) {
-    const errors = Object.entries(maybeErrors).reduce<ValidationErrors>((acc, [key, value]) => {
-      if (Array.isArray(value)) {
-        const messages = value.filter((item): item is string => typeof item === 'string')
-        if (messages.length > 0) acc[key] = messages
-        return acc
-      }
-
-      if (typeof value === 'string') acc[key] = [value]
-      return acc
-    }, {})
-
-    return Object.keys(errors).length > 0 ? errors : undefined
-  }
-
-  return undefined
-}
+import { ApiErrorResponse, ApiSuccessResponse } from '../types/types/interfaces'
 
 export async function parseResponse<T>(res: Response): Promise<T> {
-  let data: unknown
+  let data: ApiSuccessResponse<T> | ApiErrorResponse
   try {
     data = await res.json()
+    console.log("i'am the res of api server=> ", data)
   } catch (err) {
     logger.error('Failed to parse JSON response', { error: err })
-    throw new ApiError('Invalid server response', StatusCode.INTERNALSERVERERROR)
+    throw new ApiError('', StatusCode.INTERNALSERVERERROR, {
+      code: ApiErrorCodes.INTERNAL_SERVER_ERROR,
+      message: 'internal server error',
+    })
   }
 
-  if (!res.ok) {
-    const message = getApiErrorMessage(data)
-    const errors = getValidationErrors(data)
+  if (!res.ok || !data.success) {
+    data = data as ApiErrorResponse
+    const message = data.error.message
     logger.error('API request failed', {
       statusCode: res.status,
       message,
+      path: data.path,
     })
-    throw new ApiError(message, res.status, errors)
+    throw new ApiError(data.path, data.statusCode, data.error)
   }
 
-  return data as T
+  return data.data
 }
 
 export function buildHeaders(

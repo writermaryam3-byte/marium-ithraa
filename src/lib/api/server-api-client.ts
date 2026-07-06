@@ -38,7 +38,7 @@ export async function serverApiFetch<T>(
       duration,
     })
 
-    if (res.status === 401) {
+    if (res.status === StatusCode.UNAUTHORIZED) {
       logger.warn('Unauthorized, redirecting to login', { endpoint })
       redirect('/auth/login')
     }

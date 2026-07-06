@@ -1,4 +1,4 @@
-import { TeacherDashboardScreen } from '@/components/pages/dashboards/teacher/TeacherDashboardScreen'
+import { TeacherDashboardScreen } from '@/features/teachers/components/TeacherDashboardScreen'
 import { getClassesByTeacher } from '@/features/classes/api'
 import { getCurrentTeacher } from '@/lib/helpers/getCurrentTeacher'
 

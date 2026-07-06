@@ -1,4 +1,4 @@
-import { TeacherFormScreen } from '@/components/pages/dashboards/organization/TeacherFormScreen'
+import { TeacherFormScreen } from '@/features/teachers/components/TeacherFormScreen'
 
 type Props = {
   params: Promise<{ locale: string }>

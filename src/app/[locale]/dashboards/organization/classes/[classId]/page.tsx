@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation'
 
-import { ClassDetailScreen } from '@/components/pages/dashboards/organization/ClassDetailScreen'
+import { ClassDetailScreen } from '@/features/classes/components/ClassDetailScreen'
 import { getAllChildrenByOrg } from '@/features/children'
 import { type Child } from '@/features/children/types/interfaces'
 import { type ClassItem } from '@/features/classes'
@@ -21,8 +21,8 @@ export default async function ClassDetailPage({ params }: Props) {
     const orgId = classItem.organizationId
     children = orgId
       ? (await getAllChildrenByOrg(orgId)).children.filter(
-          (c) => (c.classId ?? c.class?.id) === classId,
-        )
+        (c) => (c.classId ?? c.class?.id) === classId,
+      )
       : (classItem.children ?? [])
   } catch {
     notFound()

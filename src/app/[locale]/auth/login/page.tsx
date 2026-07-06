@@ -2,7 +2,7 @@ import Image from 'next/image'
 import { useTranslations } from 'next-intl'
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import LoginForm from '@/components/pages/login/LoginForm'
+import LoginForm from '@/features/auth/components/LoginForm'
 
 export default function LoginPage() {
   const t = useTranslations('Auth.Login')

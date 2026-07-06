@@ -42,7 +42,7 @@ export function SignupWizard() {
 
   const schema = useMemo(
     () => createBeneficiaryOrganizationSchema((key) => tSignup(`Beneficiary.Validation.${key}`)),
-    [tSignup]
+    [tSignup],
   )
 
   const form = useForm<BeneficiaryOrganizationFormValues>({
@@ -133,7 +133,7 @@ export function SignupWizard() {
       showErrorToast({ raw: message })
 
       if (error instanceof ApiError) {
-        Object.entries(error.validationErrors ?? {}).forEach(([name, messages]) => {
+        Object.entries(error.error.details ?? {}).forEach(([name, messages]) => {
           const firstMessage = messages[0]
           if (!firstMessage) return
 

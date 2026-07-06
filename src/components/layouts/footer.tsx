@@ -7,7 +7,7 @@ import { Link } from '@/i18n/navigation'
 import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
 import { Facebook, Instagram, Music2Icon } from 'lucide-react'
-import { SOCIAL_LINKS } from '@/lib/social-links'
+import { SOCIAL_LINKS } from '@/lib/types/constants/social-links'
 
 function XIcon(props: React.SVGProps<SVGSVGElement>) {
   return (

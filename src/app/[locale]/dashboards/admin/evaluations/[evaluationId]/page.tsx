@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation'
 
 import { SiteHeader } from '@/components/site-header'
-import { AdminEvaluationDetailsScreen } from '@/components/pages/dashboards/admin/AdminEvaluationDetailsScreen'
+import { AdminEvaluationDetailsScreen } from '@/features/evaluations/components/AdminEvaluationDetailsScreen'
 import { getEvaluationDetails } from '@/features/evaluations/api'
 
 type Props = {

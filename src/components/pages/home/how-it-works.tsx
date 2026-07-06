@@ -2,7 +2,7 @@
 
 import { useTranslations } from 'next-intl'
 import { cn } from '@/lib/utils'
-import { HOME_HOW_STEPS } from '@/lib/home.constants'
+import { HOME_HOW_STEPS } from '@/lib/types/constants/home.constants'
 import { Card, CardContent } from '@/components/ui/card'
 
 export default function HomeHowItWorks() {
