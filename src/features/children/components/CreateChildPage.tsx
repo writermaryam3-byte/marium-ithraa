@@ -4,10 +4,10 @@ import { useMemo, useState } from 'react'
 import type { ReactNode } from 'react'
 import { useTranslations } from 'next-intl'
 import { useTranslateBackend } from '@/lib/i18n/backend-messages'
+import { showErrorToast, showSuccessToast } from '@/lib/toast/app-toast'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { AlertTriangle, CheckCircle2, Loader2, Plus, UserRound } from 'lucide-react'
 import { useForm, useWatch, type UseFormReturn } from 'react-hook-form'
-import { toast } from 'sonner'
 import { z } from 'zod'
 
 import { ManagementPageHeader } from '@/components/shared/management/ManagementPageHeader'
@@ -151,7 +151,7 @@ export function CreateChildPage({
       setSelectionStatus('transfer')
     } catch (err) {
       setSelectionStatus('idle')
-      toast.error(err instanceof Error ? err.message : t('unableToLoadChild'))
+      showErrorToast({ error: err })
     }
   }
 
@@ -162,10 +162,10 @@ export function CreateChildPage({
     try {
       await requestChildTransfer(selectedChild.id, 'organization', organizationId)
       setSelectionStatus('sent')
-      toast.success(t('transferRequestSent'))
+      showSuccessToast({ raw: t('transferRequestSent') })
     } catch (err) {
       setSelectionStatus('transfer')
-      toast.error(err instanceof Error ? err.message : t('unableToRequestTransfer'))
+      showErrorToast({ error: err })
     }
   }
 

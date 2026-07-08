@@ -133,14 +133,13 @@ export function SignupWizard() {
       showErrorToast({ raw: message })
 
       if (error instanceof ApiError) {
-        Object.entries(error.error.details ?? {}).forEach(([name, messages]) => {
-          const firstMessage = messages[0]
-          if (!firstMessage) return
+        for (const fe of error.fieldErrors) {
+          if (!fe.message) continue
 
-          form.setError(name as keyof BeneficiaryOrganizationFormValues, {
-            message: firstMessage,
+          form.setError(fe.field as keyof BeneficiaryOrganizationFormValues, {
+            message: fe.message,
           })
-        })
+        }
       }
     } finally {
       setIsSubmitting(false)

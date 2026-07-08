@@ -6,7 +6,7 @@ import { useTranslateBackend } from '@/lib/i18n/backend-messages'
 
 import { showErrorToast, showSuccessToast } from '@/lib/toast/app-toast'
 import { getFriendlyApiErrorMessage } from '@/lib/helpers/apiErrorMessages'
-import type { TransferRequest, TransferRequestPayload } from '@/lib/types/types/interfaces'
+import type { TransferRequest, TransferRequestPayload } from '@/lib/types/interfaces'
 import {
   approveTransferRequest,
   createTransferRequest,

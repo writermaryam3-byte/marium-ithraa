@@ -1,6 +1,6 @@
 import { api } from '@/lib/api/api'
 import { buildPaginationQuery, type PaginationParams } from '@/lib/api/pagination'
-import type { ChildType } from '@/lib/types/types/interfaces'
+import type { ChildType } from '@/lib/types/interfaces'
 import {
   type Child,
   type ChildTransferRequest,

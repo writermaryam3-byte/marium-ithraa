@@ -95,7 +95,7 @@ export function AdminDispatchNotificationScreen({ locale }: Props) {
         type: (type.trim() || undefined) as NotificationType | undefined,
         metadata,
       })
-      showSuccessToast({ raw: isAr ? 'تم إرسال الإشعار إلى قائمة الانتظار' : t('dispatchSuccess') })
+      showSuccessToast({ raw: t('dispatchSuccess') })
       setTitle('')
       setMessage('')
       setMetadataRaw('')

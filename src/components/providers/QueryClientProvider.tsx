@@ -1,49 +1,80 @@
 'use client'
 
+import { useEffect, useMemo } from 'react'
 import { MutationCache, QueryCache, QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { SessionProvider } from 'next-auth/react'
+import { useTranslations } from 'next-intl'
 
 import { AuthInit } from '@/features/auth/components/AuthInit'
+import { ApiError } from '@/lib/errors/ApiError'
+import { setApiErrorsTranslator } from '@/lib/i18n/client-translator'
 import { notifyError, notifySuccess } from '@/lib/toast/app-toast'
 import { TooltipProvider } from '../ui/tooltip'
 
-const queryClient = new QueryClient({
-  queryCache: new QueryCache({
-    onError: (error, query) => {
-      const meta = query.meta as Record<string, unknown> | undefined
-      if (meta?.showErrorToast) {
-        notifyError(error)
-      }
-    },
-  }),
-  mutationCache: new MutationCache({
-    onError: (error, _variables, _context, mutation) => {
-      const meta = mutation.meta as Record<string, unknown> | undefined
-      if (meta?.skipGlobalError) return
-      notifyError(error)
-    },
-    onSuccess: (_data, _variables, _context, mutation) => {
-      const meta = mutation.meta as Record<string, unknown> | undefined
-      if (meta?.showSuccessToast) {
-        const msg =
-          typeof meta.showSuccessToast === 'string'
-            ? meta.showSuccessToast
-            : 'Operation completed successfully'
-        notifySuccess(msg)
-      }
-    },
-  }),
-  defaultOptions: {
-    queries: {
-      staleTime: 1000 * 60 * 5,
-      gcTime: 1000 * 60 * 10,
-      refetchOnWindowFocus: false,
-      retry: 1,
-    },
-  },
-})
-
 export function Providers({ children }: { children: React.ReactNode }) {
+  const t = useTranslations('apiErrors')
+  const tActions = useTranslations('actions')
+
+  useEffect(() => {
+    setApiErrorsTranslator((key: string) => {
+      try {
+        return t(key as any)
+      } catch {
+        return key
+      }
+    })
+  }, [t])
+
+  const queryClient = useMemo(
+    () =>
+      new QueryClient({
+        queryCache: new QueryCache({
+          onError: (error, query) => {
+            const meta = query.meta as Record<string, unknown> | undefined
+            if (meta?.showErrorToast) {
+              const msg = error instanceof ApiError ? t(error.message as any) : undefined
+              if (msg) {
+                notifyError(msg)
+              } else {
+                notifyError(error)
+              }
+            }
+          },
+        }),
+        mutationCache: new MutationCache({
+          onError: (error, _variables, _context, mutation) => {
+            const meta = mutation.meta as Record<string, unknown> | undefined
+            if (meta?.skipGlobalError) return
+            const msg = error instanceof ApiError ? t(error.message as any) : undefined
+            if (msg) {
+              notifyError(msg)
+            } else {
+              notifyError(error)
+            }
+          },
+          onSuccess: (_data, _variables, _context, mutation) => {
+            const meta = mutation.meta as Record<string, unknown> | undefined
+            if (meta?.showSuccessToast) {
+              const msg =
+                typeof meta.showSuccessToast === 'string'
+                  ? meta.showSuccessToast
+                  : tActions('common.success')
+              notifySuccess(msg)
+            }
+          },
+        }),
+        defaultOptions: {
+          queries: {
+            staleTime: 1000 * 60 * 5,
+            gcTime: 1000 * 60 * 10,
+            refetchOnWindowFocus: false,
+            retry: 1,
+          },
+        },
+      }),
+    [t, tActions],
+  )
+
   return (
     <QueryClientProvider client={queryClient}>
       <SessionProvider>

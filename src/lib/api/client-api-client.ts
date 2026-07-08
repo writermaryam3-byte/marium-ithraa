@@ -99,7 +99,7 @@ export async function clientApiFetch<T>(
       })
       throw new ApiError(endpoint, StatusCode.UNAUTHORIZED, {
         code: ApiErrorCodes.UNAUTHORIZED,
-        message: 'unautharized',
+        message: 'errors.common.unauthorized',
       })
     }
 

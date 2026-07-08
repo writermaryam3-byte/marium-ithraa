@@ -74,7 +74,7 @@ export function ApproveChildTransferDialog({
       })
       .catch((error) => {
         if (!isActive) return
-        showErrorToast({ raw: error instanceof Error ? error.message : t('unableToLoadClasses') })
+        showErrorToast({ error })
       })
       .finally(() => {
         if (isActive) setIsLoadingClasses(false)
@@ -100,7 +100,7 @@ export function ApproveChildTransferDialog({
       onOpenChange(false)
       showSuccessToast({ raw: response.message || t('approvedToast') })
     } catch (error) {
-      showErrorToast({ raw: error instanceof Error ? error.message : t('unableToApprove') })
+      showErrorToast({ error })
     } finally {
       setIsSubmitting(false)
     }

@@ -52,7 +52,7 @@ export function ChildTransferRequestsScreen({ locale, requests }: Props) {
         showSuccessToast({ raw: response.message || t('transferRequestRejected') })
         setRejectRequest(null)
       } catch (error) {
-        showErrorToast({ raw: error instanceof Error ? error.message : t('unableToUpdate') })
+        showErrorToast({ error })
       }
     })
   }

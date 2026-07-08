@@ -1,5 +1,5 @@
 import { TransferService } from '@/services/TransferService'
-import type { TransferRequest, TransferRequestPayload } from '@/lib/types/types/interfaces'
+import type { TransferRequest, TransferRequestPayload } from '@/lib/types/interfaces'
 import type { TransferRequestResponse } from '@/features/children'
 
 export const createTransferRequest = (

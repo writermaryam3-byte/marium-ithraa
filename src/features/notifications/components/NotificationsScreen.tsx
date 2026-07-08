@@ -99,7 +99,7 @@ export function NotificationsScreen({ locale }: Props) {
       await markAll.mutateAsync()
       showSuccessToast(t, 'markAllRead')
     } catch (e: unknown) {
-      showErrorToast({ raw: e instanceof Error ? e.message : t('loadError') })
+      showErrorToast({ error: e })
     }
   }
 
@@ -222,7 +222,7 @@ export function NotificationsScreen({ locale }: Props) {
                   try {
                     await markOne.mutateAsync(item.id)
                   } catch (e: unknown) {
-                    showErrorToast({ raw: e instanceof Error ? e.message : t('loadError') })
+                    showErrorToast({ error: e })
                   }
                 }}
                 onOpen={() => void handleOpen(item)}

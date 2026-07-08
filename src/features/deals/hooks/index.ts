@@ -57,7 +57,7 @@ export function useCreateDeal(onSuccess?: () => void) {
       onSuccess?.()
     },
     onError: (error: unknown) => {
-      showErrorToast({ raw: error instanceof Error ? tb(error.message) : t('failedCreate') })
+      showErrorToast({ error })
     },
   })
 }

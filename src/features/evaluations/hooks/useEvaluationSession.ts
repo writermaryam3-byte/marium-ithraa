@@ -120,7 +120,7 @@ export function useEvaluationSession(attemptId: string, options?: { autosaveMs?:
         void refetchRef.current()
       },
       onError: (e: unknown) => {
-        showErrorToast({ raw: e instanceof Error ? tb(e.message) : t('failedAutoSubmit') })
+        showErrorToast({ error: e })
         void refetchRef.current()
       },
     })
@@ -166,7 +166,7 @@ export function useEvaluationSession(attemptId: string, options?: { autosaveMs?:
       setDirty(false)
       showSuccessToast({ raw: t('progressSaved') })
     } catch (e: unknown) {
-      showErrorToast({ raw: e instanceof Error ? tb(e.message) : t('failedSaveProgress') })
+      showErrorToast({ error: e })
     }
   }, [answers, buildSavePayload, locked, saveMutation])
 
@@ -193,7 +193,7 @@ export function useEvaluationSession(attemptId: string, options?: { autosaveMs?:
       setDirty(false)
       await refetch()
     } catch (e: unknown) {
-      showErrorToast({ raw: e instanceof Error ? tb(e.message) : t('failedSubmitAttempt') })
+      showErrorToast({ error: e })
       throw e
     }
   }, [answers, locked, refetch, submitMutation])

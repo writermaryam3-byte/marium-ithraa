@@ -107,7 +107,7 @@ export function AdminCreateEvaluationScreen({ locale }: Props) {
       showSuccessToast(t, 'createSuccess')
       router.push('/dashboards/admin/evaluations')
     } catch (e: unknown) {
-      showErrorToast({ raw: e instanceof Error ? e.message : t('error') })
+      showErrorToast({ error: e })
     }
   })
 

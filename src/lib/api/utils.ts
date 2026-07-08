@@ -1,33 +1,37 @@
 import { ApiError } from '../errors/ApiError'
 import { ApiErrorCodes, StatusCode } from '../types/enums'
 import { logger } from '../logger'
-import { ApiErrorResponse, ApiSuccessResponse } from '../types/types/interfaces'
+import { ApiErrorResponse, ApiSuccessResponse } from '../types/interfaces'
 
 export async function parseResponse<T>(res: Response): Promise<T> {
   let data: ApiSuccessResponse<T> | ApiErrorResponse
   try {
     data = await res.json()
-    console.log("i'am the res of api server=> ", data)
   } catch (err) {
     logger.error('Failed to parse JSON response', { error: err })
     throw new ApiError('', StatusCode.INTERNALSERVERERROR, {
       code: ApiErrorCodes.INTERNAL_SERVER_ERROR,
-      message: 'internal server error',
+      message: 'errors.common.internalServerError',
     })
   }
 
   if (!res.ok || !data.success) {
     data = data as ApiErrorResponse
-    const message = data.error.message
     logger.error('API request failed', {
       statusCode: res.status,
-      message,
       path: data.path,
+    } as any)
+    throw new ApiError(data.path, res.status, {
+      code: data.error.code as ApiErrorCodes,
+      message: data.error.message,
+      details: data.error.details,
+      fieldErrors: data.error.fieldErrors,
+      requestId: data.requestId,
+      timestamp: data.timestamp,
     })
-    throw new ApiError(data.path, data.statusCode, data.error)
   }
 
-  return data.data
+  return (data as ApiSuccessResponse<T>).data
 }
 
 export function buildHeaders(

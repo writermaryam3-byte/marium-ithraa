@@ -24,6 +24,7 @@ export function useCreateChild(options?: {
   onConflict?: (message: string) => void
 }) {
   const t = useTranslations('children.create')
+  const tApiErrors = useTranslations('apiErrors')
   const tb = useTranslateBackend()
   const [requestState, setRequestState] = useState<RequestState>('idle')
   const [isPending, startTransition] = useTransition()
@@ -58,7 +59,7 @@ export function useCreateChild(options?: {
         const message = err instanceof Error ? err.message : t('toast.unableToCreateChild')
 
         if (status === 409) {
-          showErrorToast({ raw: message || 'Child already exists in your school' })
+          showErrorToast({ raw: message || tApiErrors('childExists') })
           options?.onConflict?.(message || 'Child already exists in your school')
           return
         }

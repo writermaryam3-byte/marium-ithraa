@@ -143,7 +143,7 @@ export default function EnricherDealDetailPage() {
                   setPrice('')
                 } catch {
                   showErrorToast({
-                    raw: existingProposal ? 'Failed to update proposal' : t('submitError'),
+                    raw: existingProposal ? t('failedUpdateProposal') : t('submitError'),
                   })
                 }
               }}

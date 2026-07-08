@@ -108,7 +108,7 @@ export default function AdminAttemptDetailPage() {
                   showSuccessToast(t, 'approveSuccess')
                   setConfirmOpen(false)
                 } catch (e: unknown) {
-                  showErrorToast({ raw: e instanceof Error ? e.message : t('error') })
+                  showErrorToast({ error: e })
                 }
               }}
               disabled={approve.isPending}

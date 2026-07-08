@@ -31,8 +31,8 @@ import {
 import { Skeleton } from '@/components/ui/skeleton'
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Textarea } from '@/components/ui/textarea'
-import { getFriendlyApiErrorMessage, getFieldValidationError } from '@/lib/helpers/apiErrorMessages'
-import { ApprovalStatus } from '@/lib/types/enums'
+import { getFriendlyApiErrorMessage, getFieldError } from '@/lib/helpers/apiErrorMessages'
+import { ApprovalStatus, StatusCode } from '@/lib/types/enums'
 import { ApiError } from '@/lib/errors/ApiError'
 import type { ColumnDef } from '@tanstack/react-table'
 
@@ -181,7 +181,7 @@ export function AdminOrganizationsScreen({ locale }: { locale: string }) {
       setRejectTarget(null)
       rejectionForm.reset({ rejectionReason: '' })
     } catch (err) {
-      const fieldError = getFieldValidationError(err, 'rejectionReason')
+      const fieldError = getFieldError(err, 'rejectionReason')
       if (fieldError) {
         rejectionForm.setError('rejectionReason', { message: fieldError })
       }
@@ -220,7 +220,7 @@ export function AdminOrganizationsScreen({ locale }: { locale: string }) {
           {isError ? (
             <ErrorCard
               message={
-                error instanceof ApiError && error.status === 403
+                error instanceof ApiError && error.status === StatusCode.FORBIDDEN
                   ? t('errors.forbidden')
                   : getFriendlyApiErrorMessage(error, t('errors.loadFailed'))
               }

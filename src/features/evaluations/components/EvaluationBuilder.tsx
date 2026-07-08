@@ -54,7 +54,7 @@ export default function EvaluationBuilder({ evaluationId }: { evaluationId: stri
               const attempt = await start.mutateAsync(parsed.data)
               router.push(`/dashboards/parent/attempts/${attempt.id}`)
             } catch (e: unknown) {
-              showErrorToast({ raw: e instanceof Error ? e.message : t('errorFailed') })
+              showErrorToast({ error: e })
             }
           }}
           disabled={start.isPending}

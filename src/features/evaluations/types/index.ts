@@ -21,7 +21,7 @@ export type {
   SaveAttemptProgressPayload,
   StartEvaluationPayload,
   SubmitAttemptPayload,
-} from '@/lib/types/types/interfaces'
+} from '@/lib/types/interfaces'
 
 export const evaluationTypeSchema = z.enum([
   'multiple_intelligences',
@@ -135,4 +135,4 @@ export type SaveAttemptDto = z.infer<typeof saveAttemptSchema>
 export type SubmitAttemptDto = z.infer<typeof submitAttemptSchema>
 
 /** @deprecated Use EvaluationAttempt */
-export type Attempt = import('@/lib/types/types/interfaces').EvaluationAttempt
+export type Attempt = import('@/lib/types/interfaces').EvaluationAttempt

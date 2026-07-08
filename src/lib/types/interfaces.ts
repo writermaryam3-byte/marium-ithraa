@@ -314,7 +314,7 @@ export interface AttemptsResponse {
 
 export interface BaseApiResponse {
   success: boolean
-  timestamp: string
+  timestamp?: string
   statusCode: number
 }
 
@@ -324,14 +324,22 @@ export interface ApiSuccessResponse<T> extends BaseApiResponse {
   meta?: Record<string, unknown>
 }
 
+export interface ApiFieldError {
+  field: string
+  message: string
+  code: string
+  context?: Record<string, unknown>
+}
+
 export interface ApiErrorResponse extends BaseApiResponse {
   success: false
-
   error: {
-    code: ApiErrorCodes
+    code: string
     message: string
     details?: Record<string, unknown>
+    fieldErrors?: ApiFieldError[]
   }
-
+  requestId?: string
+  timestamp?: string
   path: string
 }

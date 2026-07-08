@@ -62,7 +62,7 @@ export function NotificationBell() {
       await markAll.mutateAsync()
       showSuccessToast(t, 'markAllRead')
     } catch (e: unknown) {
-      showErrorToast({ raw: e instanceof Error ? e.message : t('loadError') })
+      showErrorToast({ error: e })
     }
   }
 

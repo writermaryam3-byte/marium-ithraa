@@ -37,7 +37,7 @@ import { getEvaluationTypeLabel } from '@/features/evaluations/utils/labels'
 import { Link } from '@/i18n/navigation'
 import { getDateLocale, getTextDirection } from '@/lib/i18n/locale-utils'
 import { cn } from '@/lib/utils'
-import { getChildId } from '@/lib/types/types/interfaces'
+import { getChildId } from '@/lib/types/interfaces'
 
 type Props = { locale: string }
 
@@ -586,10 +586,10 @@ function StatusTab({
             try {
               await reminderMutation.mutateAsync(getChildId(item)!)
               showSuccessToast({
-                raw: locale === 'ar' ? 'تم إرسال التذكير بنجاح' : t('reminderSuccess'),
+                raw: t('reminderSuccess'),
               })
             } catch (e: unknown) {
-              showErrorToast({ raw: e instanceof Error ? e.message : t('error') })
+              showErrorToast({ error: e })
             }
           }}
         />

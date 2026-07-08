@@ -10,7 +10,7 @@ import {
   AttemptsResponse,
   SaveAttemptProgressPayload,
   SubmitAttemptPayload,
-} from '@/lib/types/types/interfaces'
+} from '@/lib/types/interfaces'
 export type OwnerEvaluationFiltersResponse = {
   classes: {
     id: string

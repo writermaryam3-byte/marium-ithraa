@@ -1,6 +1,6 @@
 import { api } from '@/lib/api/api'
 import { Endpoint, Methods } from '@/lib/types/enums'
-import type { TransferRequest, TransferRequestPayload } from '@/lib/types/types/interfaces'
+import type { TransferRequest, TransferRequestPayload } from '@/lib/types/interfaces'
 import type { TransferRequestResponse } from '@/features/children'
 
 export const TransferService = {

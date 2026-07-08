@@ -55,7 +55,7 @@ export function ParentChildEvaluationsScreen({ childId }: Props) {
       void available.refetch()
       void attempts.refetch()
     } catch (e: unknown) {
-      showErrorToast({ raw: e instanceof Error ? e.message : t('error') })
+      showErrorToast({ error: e })
     }
   }
 
@@ -106,7 +106,7 @@ export function ParentChildEvaluationsScreen({ childId }: Props) {
                   await extra.mutateAsync()
                   showSuccessToast(t, 'savedSuccess')
                 } catch (e: unknown) {
-                  showErrorToast({ raw: e instanceof Error ? e.message : t('error') })
+                  showErrorToast({ error: e })
                 }
               }}
             >
@@ -194,7 +194,7 @@ function AvailableEvaluationCard({
                 }
                 router.push(`/dashboards/parent/attempts/${attempt.id}`)
               } catch (e: unknown) {
-                showErrorToast({ raw: e instanceof Error ? e.message : t('error') })
+                showErrorToast({ error: e })
               }
             }}
           >

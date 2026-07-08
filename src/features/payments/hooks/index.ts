@@ -6,7 +6,7 @@ import { useTranslateBackend } from '@/lib/i18n/backend-messages'
 
 import { showErrorToast, showSuccessToast } from '@/lib/toast/app-toast'
 import { getFriendlyApiErrorMessage } from '@/lib/helpers/apiErrorMessages'
-import type { CreatePaymentPayload, PaymentResponse } from '@/lib/types/types/interfaces'
+import type { CreatePaymentPayload, PaymentResponse } from '@/lib/types/interfaces'
 import { createPayment, initiatePayment, retryPayment } from '@/features/payments/api'
 
 export function useCreatePayment(onSuccess?: (response: PaymentResponse) => void) {

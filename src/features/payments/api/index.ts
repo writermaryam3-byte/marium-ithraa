@@ -1,5 +1,5 @@
 import { PaymentService } from '@/services/PaymentService'
-import type { CreatePaymentPayload, PaymentResponse } from '@/lib/types/types/interfaces'
+import type { CreatePaymentPayload, PaymentResponse } from '@/lib/types/interfaces'
 
 export const createPayment = (payload: CreatePaymentPayload) =>
   PaymentService.createPayment(payload)

@@ -12,10 +12,11 @@ import { Skeleton } from '@/components/ui/skeleton'
 import { useAttempt } from '@/features/evaluations/hooks'
 import { Link } from '@/i18n/navigation'
 import { ApiError } from '@/lib/errors/ApiError'
+import { StatusCode } from '@/lib/types/enums'
 import { getTextDirection } from '@/lib/i18n/locale-utils'
 
 function isForbiddenError(error: unknown): boolean {
-  return error instanceof ApiError && (error.status === 403 || error.status === 401)
+  return error instanceof ApiError && (error.status === StatusCode.FORBIDDEN || error.status === StatusCode.UNAUTHORIZED)
 }
 
 export function OwnerAttemptResultScreen() {

@@ -1,5 +1,5 @@
 import { Child } from '@/features/children'
-import { EvaluationAttempt, PaymentResponse, TransferRequest } from '@/lib/types/types/interfaces'
+import { EvaluationAttempt, PaymentResponse, TransferRequest } from '@/lib/types/interfaces'
 
 export function normalizeChild(child: Partial<Child> | null | undefined): Child | undefined {
   if (!child) {
