@@ -5,7 +5,7 @@ import { getCurrentTeacher } from '@/lib/helpers/getCurrentTeacher'
 import { TeacherClassesScreen } from '@/features/teachers/components/TeacherClassesScreen'
 
 export default async function TeacherClassesPage() {
-  const t = await getTranslations('Features.TeacherDashboard')
+  const t = await getTranslations('teachers.dashboard')
   const teacher = await getCurrentTeacher()
 
   if (!teacher?.teacherId) {

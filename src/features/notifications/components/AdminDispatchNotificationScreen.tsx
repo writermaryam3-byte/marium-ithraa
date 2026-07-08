@@ -52,7 +52,7 @@ function parseMetadataJson(raw: string): Record<string, unknown> | null | undefi
 }
 
 export function AdminDispatchNotificationScreen({ locale }: Props) {
-  const t = useTranslations('Features.Notifications')
+  const t = useTranslations('notifications')
   const isAr = locale === 'ar'
 
   const dispatch = useDispatchNotification()

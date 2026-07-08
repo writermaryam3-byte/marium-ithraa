@@ -6,7 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 
 export function HollandResult({ result }: { result: Record<string, unknown> }) {
-  const t = useTranslations('Features.EvaluationResults.holland')
+  const t = useTranslations('evaluations.results.holland')
   const hollandCode = result.hollandCode as string | undefined
   const totalLevel = result.totalLevel as string | undefined
   const dimensions =

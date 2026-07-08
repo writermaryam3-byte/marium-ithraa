@@ -15,7 +15,7 @@ import {
 import { cn } from '@/lib/utils'
 
 export default function AboutPage() {
-  const t = useTranslations('About')
+  const t = useTranslations('about')
 
   const stats = [
     {

@@ -40,8 +40,8 @@ export function AuthNavActions({
   showLanguage = true,
   signupHref,
 }: Props) {
-  const t = useTranslations('Header')
-  const tAuth = useTranslations('Auth')
+  const t = useTranslations('navigation.header')
+  const tAuth = useTranslations('auth')
   const { user, isAuthenticated, isLoading, logout, loginPath, signupPath } = useAuth()
 
   if (isLoading) {

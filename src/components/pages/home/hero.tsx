@@ -10,7 +10,7 @@ import { cn } from '@/lib/utils'
 
 const Hero = () => {
   const locale = useLocale()
-  const t = useTranslations('HomePage.Hero')
+  const t = useTranslations('landing.hero')
   const isRtl = locale === 'ar'
 
   const baseAuth = `/${Routes.AUTH}`

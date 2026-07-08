@@ -9,7 +9,7 @@ import { columns } from '@/features/users'
 
 export default async function AdminDashboardPage(props: { params: Promise<{ locale: string }> }) {
   const { locale } = await props.params
-  const t = await getTranslations({ locale, namespace: 'AdminUsers' })
+  const t = await getTranslations({ locale, namespace: 'dashboard.adminUsers' })
 
   const users = await getAllUsers()
   const cards: CardInfo[] = [

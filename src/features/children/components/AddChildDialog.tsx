@@ -36,8 +36,8 @@ import { FormTypes, Gender, StatusCode } from '@/lib/types/enums'
 import { createChildAction } from '../actions/create-child.action'
 
 export function AddChildDialog() {
-  const t = useTranslations('Dashboard.Children')
-  const tCommon = useTranslations('Dashboard.common')
+  const t = useTranslations('children')
+  const tCommon = useTranslations('common')
   const { fields } = useFormConfig(FormTypes.CHILD_ADMIN)
   const [isOpen, setIsOpen] = useState(false)
   const { data: session } = useSession()

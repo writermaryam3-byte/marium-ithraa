@@ -29,10 +29,10 @@ type Props = {
 
 export function ClassDetailScreen({ classItem, classChildren }: Props) {
   const locale = useLocale()
-  const t = useTranslations('Dashboard.ClassDetail')
-  const tChildren = useTranslations('Dashboard.Children')
-  const tCommon = useTranslations('Dashboard.common')
-  const tNav = useTranslations('Layout.OrganizationNav')
+  const t = useTranslations('organizations.classDetail')
+  const tChildren = useTranslations('children')
+  const tCommon = useTranslations('common')
+  const tNav = useTranslations('navigation.organization')
   const [deleteTarget, setDeleteTarget] = useState<Child | null>(null)
   const { notifyDelete } = useActionFeedback()
 

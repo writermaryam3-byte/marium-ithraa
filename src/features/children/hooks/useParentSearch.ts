@@ -10,7 +10,7 @@ type ParentState = null | 'found' | 'creating' | 'not_parent'
 type RequestState = 'idle' | 'loading' | 'success'
 
 export function useParentSearch(phone: string) {
-  const t = useTranslations('CreateChild')
+  const t = useTranslations('children.create')
   const normalizedPhone = useMemo(() => phone.trim(), [phone])
   const [parent, setParent] = useState<ParentInfo | null>(null)
   const [parentState, setParentState] = useState<ParentState>(null)

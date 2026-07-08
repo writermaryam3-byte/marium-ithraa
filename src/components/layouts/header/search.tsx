@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button'
 
 const Searchbar = () => {
   const [open, setOpen] = useState(false)
-  const t = useTranslations('Header')
+  const t = useTranslations('navigation.header')
 
   return (
     <>

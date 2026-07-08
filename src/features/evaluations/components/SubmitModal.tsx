@@ -22,7 +22,7 @@ export default function SubmitModal({
   onConfirm: () => void
   isSubmitting?: boolean
 }) {
-  const t = useTranslations('SubmitModal')
+  const t = useTranslations('evaluations.submitModal')
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>

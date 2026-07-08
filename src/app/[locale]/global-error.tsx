@@ -12,7 +12,7 @@ export default function GlobalError({
   error: Error & { digest?: string }
   reset: () => void
 }) {
-  const t = useTranslations('GlobalError')
+  const t = useTranslations('errors.global')
   useEffect(() => {
     if (process.env.NODE_ENV === 'development') {
       console.error(error)

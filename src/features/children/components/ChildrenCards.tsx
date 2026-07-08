@@ -45,9 +45,9 @@ export function ChildrenCards({ cards }: { cards: CardInfo[] }) {
           {card.footer.exist && (
             <CardFooter className="flex-col items-start gap-1.5 text-sm">
               <div className="line-clamp-1 flex gap-2 font-medium">
-                {t('Dashboard.cards.trendingUp')} <TrendingUp className="size-4" />
+                {t('dashboard.cards.trendingUp')} <TrendingUp className="size-4" />
               </div>
-              <div className="text-muted-foreground">{t('Dashboard.cards.last6Months')}</div>
+              <div className="text-muted-foreground">{t('dashboard.cards.last6Months')}</div>
             </CardFooter>
           )}
         </Card>

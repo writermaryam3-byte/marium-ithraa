@@ -13,12 +13,12 @@ import { getAttemptStatusLabel } from '../utils/labels'
 const ADMIN_ATTEMPTS = `/${Routes.DASHBOARDS}/${Pages.ADMIN}/attempts`
 
 function TH({ messageKey }: { messageKey: string }) {
-  const t = useTranslations('Features.Evaluations')
+  const t = useTranslations('evaluations')
   return t(messageKey)
 }
 
 function StatusBadge({ status }: { status: string }) {
-  const t = useTranslations('Features.Evaluations')
+  const t = useTranslations('evaluations')
   const label = getAttemptStatusLabel(status, t)
   const variant =
     status === 'approved' ? 'default' : status === 'submitted' ? 'secondary' : 'outline'
@@ -26,7 +26,7 @@ function StatusBadge({ status }: { status: string }) {
 }
 
 function AttemptViewLink({ attemptId }: { attemptId: string }) {
-  const t = useTranslations('Features.Evaluations')
+  const t = useTranslations('evaluations')
   return (
     <Button asChild variant="outline" size="sm">
       <Link href={`${ADMIN_ATTEMPTS}/${attemptId}`}>{t('viewDetails')}</Link>

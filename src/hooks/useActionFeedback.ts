@@ -11,7 +11,7 @@ import { showErrorToast, showSuccessToast } from '@/lib/toast/app-toast'
 import type { InitialState } from '@/lib/types/types'
 
 export function useActionFeedback() {
-  const t = useTranslations('Actions')
+  const t = useTranslations('actions')
 
   return {
     notifyAction(state: InitialState) {
@@ -23,7 +23,7 @@ export function useActionFeedback() {
         showErrorToast(t, state.message)
       }
     },
-    notifyDelete(state: DeleteActionResult, successKey = 'Actions.common.deleted') {
+    notifyDelete(state: DeleteActionResult, successKey = 'actions.common.deleted') {
       if (state.success) {
         showSuccessToast(t, successKey)
         return

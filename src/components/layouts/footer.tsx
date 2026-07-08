@@ -22,7 +22,7 @@ function XIcon(props: React.SVGProps<SVGSVGElement>) {
 
 const Footer = ({ locale }: { locale?: string }) => {
   const activeLocale = useLocale()
-  const t = useTranslations('Footer')
+  const t = useTranslations('landing.footer')
   const isRtl = (locale ?? activeLocale) === 'ar'
 
   const pathsLinks = [

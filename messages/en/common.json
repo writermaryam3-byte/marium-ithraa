@@ -1,0 +1,46 @@
+{
+  "buttons": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "add": "Add",
+    "create": "Create",
+    "update": "Update",
+    "submit": "Submit",
+    "confirm": "Confirm",
+    "approve": "Approve",
+    "reject": "Reject",
+    "retry": "Retry",
+    "back": "Back",
+    "next": "Next",
+    "close": "Close",
+    "done": "Done",
+    "open": "Open"
+  },
+  "states": {
+    "loading": "Loading…",
+    "saving": "Saving…",
+    "adding": "Adding…",
+    "deleting": "Deleting…",
+    "sending": "Sending…",
+    "submitting": "Submitting…",
+    "redirecting": "Redirecting…",
+    "checking": "Checking session…"
+  },
+  "empty": {
+    "noData": "No data",
+    "noResults": "No results found"
+  },
+  "yesNo": {
+    "yes": "Yes",
+    "no": "No"
+  },
+  "general": {
+    "home": "Home",
+    "search": "Search…",
+    "unauthorized": "Unauthorized",
+    "confirmDelete": "Are you sure?",
+    "done": "Done"
+  }
+}

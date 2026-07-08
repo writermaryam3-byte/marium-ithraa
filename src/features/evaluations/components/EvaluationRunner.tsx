@@ -14,7 +14,7 @@ import QuestionCard from './QuestionCard'
 import { useEvaluationSession } from '@/features/evaluations/hooks/useEvaluationSession'
 
 export default function EvaluationRunner({ attemptId }: { attemptId: string }) {
-  const t = useTranslations('Features.Evaluations')
+  const t = useTranslations('evaluations')
   const [confirmOpen, setConfirmOpen] = useState(false)
   const session = useEvaluationSession(attemptId, { autosaveMs: 1200 })
 

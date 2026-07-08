@@ -38,8 +38,8 @@ type Props = {
 }
 
 export function ParentPrivateChildDialog({ open, onOpenChange, currentCount, onSuccess }: Props) {
-  const t = useTranslations('Forms.Child')
-  const tCommon = useTranslations('Dashboard.common')
+  const t = useTranslations('children.forms')
+  const tCommon = useTranslations('common')
   const { fields } = useFormConfig(FormTypes.CHILD_PRIVATE)
   const { notifyAction } = useActionFeedback()
 

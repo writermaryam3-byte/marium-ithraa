@@ -30,7 +30,7 @@ function msUntil(iso: string | null | undefined): number | null {
 }
 
 export function useEvaluationSession(attemptId: string, options?: { autosaveMs?: number }) {
-  const t = useTranslations('EvaluationSession')
+  const t = useTranslations('evaluations.session')
   const tb = useTranslateBackend()
   const autosaveMs = options?.autosaveMs ?? 1200
   const { data: attempt, isLoading, isError, error, refetch } = useAttempt(attemptId)

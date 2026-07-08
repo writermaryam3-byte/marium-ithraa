@@ -1,0 +1,30 @@
+{
+  "login": {
+    "phone": {
+      "label": "Phone number",
+      "placeholder": "Enter your phone number"
+    },
+    "password": {
+      "label": "Password",
+      "placeholder": "Enter your password"
+    }
+  },
+  "shared": {
+    "name": {
+      "label": "Name",
+      "placeholder": "Enter name"
+    },
+    "email": {
+      "label": "Email",
+      "placeholder": "Enter email"
+    },
+    "phone": {
+      "label": "Phone",
+      "placeholder": "Enter phone"
+    },
+    "password": {
+      "label": "Password",
+      "placeholder": "Enter password"
+    }
+  }
+}

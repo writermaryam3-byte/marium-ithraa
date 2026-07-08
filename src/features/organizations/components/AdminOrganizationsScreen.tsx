@@ -51,8 +51,8 @@ function formatDate(value?: string | null) {
 }
 
 export function AdminOrganizationsScreen({ locale }: { locale: string }) {
-  const t = useTranslations('Features.Organizations.admin')
-  const tValidation = useTranslations('Features.Organizations.admin.rejectValidation')
+  const t = useTranslations('organizations.admin')
+  const tValidation = useTranslations('organizations.validation.rejectReason')
   const isAr = locale === 'ar'
 
   const [statusFilter, setStatusFilter] = useState<StatusFilter>(ApprovalStatus.PENDING)

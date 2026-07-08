@@ -1,0 +1,7 @@
+{
+  "previous": "Previous",
+  "next": "Next",
+  "page": "Page",
+  "items": "items",
+  "pageOf": "Page {page} of {total}"
+}

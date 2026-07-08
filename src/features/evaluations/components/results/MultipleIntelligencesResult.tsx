@@ -8,7 +8,7 @@ import { ProgressBar } from '@/components/shared/ProgressBar'
 type DimScore = { code?: string; name?: string; score?: number; max?: number }
 
 export function MultipleIntelligencesResult({ result }: { result: Record<string, unknown> }) {
-  const t = useTranslations('Features.EvaluationResults.multipleIntelligences')
+  const t = useTranslations('evaluations.results.multipleIntelligences')
   const dimensions = (result.dimensions as DimScore[]) ?? []
   const top3 = (result.top3 as DimScore[]) ?? dimensions.slice(0, 3)
 

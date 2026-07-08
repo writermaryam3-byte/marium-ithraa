@@ -15,7 +15,7 @@ import {
 } from '@/components/ui/field'
 
 const EnricherSignupForm = () => {
-  const t = useTranslations('Signup.Beneficiary.Enricher')
+  const t = useTranslations('signup.beneficiary.enricher')
   const form = useFormContext()
 
   return (

@@ -16,7 +16,7 @@ type Props = {
 }
 
 export function OrganizationStatusScreen({ organization, locale }: Props) {
-  const t = useTranslations('Features.Organizations')
+  const t = useTranslations('organizations')
   const isAr = locale === 'ar'
   const isPending = organization.approvalStatus === ApprovalStatus.PENDING
   const isRejected = organization.approvalStatus === ApprovalStatus.REJECTED

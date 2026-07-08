@@ -31,8 +31,8 @@ import { useLocale } from 'next-intl'
 import { showErrorToast, showSuccessToast } from '@/lib/toast/app-toast'
 
 export function SignupWizard() {
-  const t = useTranslations('Signup.Beneficiary.Wizard')
-  const tSignup = useTranslations('Signup')
+  const t = useTranslations('signup.beneficiary.wizard')
+  const tSignup = useTranslations('signup')
   const router = useRouter()
   const locale = useLocale()
   const { login } = useAuth()

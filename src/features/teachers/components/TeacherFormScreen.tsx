@@ -14,8 +14,8 @@ import type { InitialState } from '@/lib/types/types'
 
 export function TeacherFormScreen({ locale }: { locale: string }) {
   const router = useRouter()
-  const t = useTranslations('Forms.Teacher')
-  const tCommon = useTranslations('Dashboard.common')
+  const t = useTranslations('teachers.forms')
+  const tCommon = useTranslations('common')
   const isAr = locale === 'ar'
 
   const handleStatus = (state: InitialState) => {

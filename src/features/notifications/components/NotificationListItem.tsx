@@ -37,7 +37,7 @@ export function NotificationListItem({
   onMarkRead,
   isMarking = false,
 }: Props) {
-  const t = useTranslations('Features.Notifications')
+  const t = useTranslations('notifications')
   const isAr = locale === 'ar'
   const Icon = getNotificationTypeIcon(item.type)
 

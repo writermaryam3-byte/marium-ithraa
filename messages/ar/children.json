@@ -1,0 +1,191 @@
+{
+  "title": "الأطفال",
+  "description": "إدارة أطفال المؤسسة وتعيينهم على الفصول",
+  "page": {
+    "title": "الأطفال"
+  },
+  "actions": {
+    "add": "إضافة طفل"
+  },
+  "fields": {
+    "genderPlaceholder": "اختر الجنس",
+    "name": "الاسم",
+    "birthDate": "تاريخ الميلاد",
+    "gender": "النوع",
+    "grade": "المرحلة",
+    "class": "الفصل",
+    "parent": "ولي الأمر",
+    "email": "البريد الإلكتروني",
+    "phone": "رقم الهاتف",
+    "evaluation": "حالة التقييم",
+    "attempts": "المحاولات",
+    "genderOptions": {
+      "male": "ذكر",
+      "female": "أنثى"
+    }
+  },
+  "filters": {
+    "grade": "المرحلة",
+    "allGrades": "كل المراحل",
+    "class": "الفصل",
+    "allClasses": "كل الفصول",
+    "searchPlaceholder": "بحث باسم الطفل أو ولي الأمر…"
+  },
+  "dialogs": {
+    "addTitle": "إضافة طفل",
+    "addDescription": "أدخل بيانات الطفل ثم احفظ.",
+    "editTitle": "تعديل طفل",
+    "editDescription": "حدّث بيانات الطفل ثم احفظ.",
+    "deleteTitle": "حذف طفل",
+    "deleteDescription": "هل أنت متأكد من حذف الطفل؟ لا يمكن التراجع عن هذه العملية.",
+    "deleteConfirmShort": "هل أنت متأكد؟ لا يمكن التراجع."
+  },
+  "table": {
+    "name": "الاسم",
+    "grade": "الصف",
+    "birthDate": "تاريخ الميلاد",
+    "gender": "الجنس"
+  },
+  "status": {
+    "evaluation": {
+      "evaluated": "تم التقييم",
+      "notEvaluated": "لم يتم التقييم"
+    }
+  },
+  "goToEdit": "انتقل لصفحة التعديل",
+  "transferRequests": {
+    "title": "طلبات نقل الأطفال",
+    "subtitle": "راجع طلبات نقل الأطفال الواردة إلى مؤسستك واعتمدها من هنا.",
+    "noPending": "لا توجد طلبات نقل معلقة",
+    "incoming": "طلب نقل وارد",
+    "pendingBadge": "معلق",
+    "fromOrganization": "من مؤسسة",
+    "birthDate": "تاريخ الميلاد",
+    "currentClass": "الفصل الحالي",
+    "requestedBy": "مقدم الطلب",
+    "approveTransfer": "اعتماد النقل",
+    "reject": "رفض",
+    "rejectTitle": "رفض طلب النقل؟",
+    "rejectDescription": "سيتم إرسال قرار الرفض إلى الخادم وإزالة الطلب من القائمة.",
+    "cancel": "إلغاء",
+    "unknownChild": "طفل غير معروف",
+    "anotherOrganization": "مؤسسة أخرى",
+    "transferRequestRejected": "تم رفض طلب النقل",
+    "unableToUpdate": "تعذر تحديث طلب النقل",
+    "dashboardBreadcrumb": "لوحة التحكم",
+    "transferRequestsBreadcrumb": "طلبات النقل"
+  },
+  "approveTransfer": {
+    "title": "اعتماد نقل الطفل",
+    "description": "اختر الفصل الذي سينضم إليه {childName} في {organizationName}.",
+    "classLabel": "الفصل",
+    "loadingClasses": "جاري تحميل الفصول…",
+    "selectClass": "اختر الفصل",
+    "noClasses": "لا توجد فصول متاحة لهذه المؤسسة.",
+    "cancel": "إلغاء",
+    "approveTransfer": "اعتماد النقل",
+    "targetOrganization": "المؤسسة المستهدفة",
+    "unableToIdentify": "تعذر تحديد المؤسسة المستهدفة.",
+    "unableToLoadClasses": "تعذر تحميل الفصول.",
+    "approvedToast": "تم اعتماد طلب النقل.",
+    "unableToApprove": "تعذر اعتماد طلب النقل.",
+    "theChild": "الطفل"
+  },
+  "create": {
+    "breadcrumb": {
+      "dashboard": "لوحة التحكم",
+      "children": "الأطفال"
+    },
+    "title": "إنشاء طفل",
+    "subtitle": "ابحث عن ولي الأمر أولاً، ثم اختر طفلاً موجوداً أو أنشئ ملفاً جديداً.",
+    "parentIdentification": "بيانات ولي الأمر",
+    "labels": {
+      "parentPhone": "هاتف ولي الأمر",
+      "parentName": "اسم ولي الأمر",
+      "parentEmail": "بريد ولي الأمر",
+      "childName": "الاسم",
+      "birthDate": "تاريخ الميلاد",
+      "gender": "النوع",
+      "grade": "المرحلة",
+      "class": "الفصل"
+    },
+    "childAlreadyExists": "الطفل موجود بالفعل في مدرستك",
+    "unableToLoadChild": "تعذر تحميل بيانات الطفل",
+    "transferRequestSent": "تم إرسال طلب النقل",
+    "unableToRequestTransfer": "تعذر إرسال طلب النقل",
+    "addNewChild": "إضافة طفل جديد",
+    "createChild": "إنشاء طفل",
+    "cancel": "إلغاء",
+    "parentNotFound": "لم يتم العثور على ولي الأمر",
+    "noChildrenFound": "لا يوجد أطفال لهذا ولي الأمر.",
+    "children": "الأطفال",
+    "unnamedParent": "ولي أمر بدون اسم",
+    "parentFound": "تم العثور على ولي الأمر",
+    "birthDateUnavailable": "تاريخ الميلاد غير متوفر",
+    "selectChild": "اختيار الطفل",
+    "newChild": "طفل جديد",
+    "selectGender": "اختر النوع",
+    "male": "ذكر",
+    "female": "أنثى",
+    "selectGrade": "اختر المرحلة",
+    "selectClass": "اختر الفصل",
+    "transferAlert": "هذا الطفل ينتمي إلى مدرسة أخرى أو تابع لولي أمر",
+    "requestTransfer": "طلب نقل",
+    "childExistsDialog": "الطفل موجود في مدرسة أخرى",
+    "transferCreated": "تم إنشاء طلب النقل",
+    "requestId": "رقم الطلب: {id}",
+    "done": "تم",
+    "assignParentRole": "المستخدم موجود - تعيين دور ولي الأمر",
+    "assignParentDescription": "المستخدم {phone} موجود بالفعل لكنه ليس ولي أمر. أدخل الاسم لإنشاء ملف ولي أمر له.",
+    "toast": {
+      "unableToCreateChild": "تعذر إنشاء الطفل",
+      "unableToSearchParent": "تعذر البحث عن ولي الأمر"
+    }
+  },
+  "forms": {
+    "addTitle": "إضافة طفل",
+    "editTitle": "تعديل طفل",
+    "subtitle": "أدخل بيانات الطفل وولي الأمر",
+    "parentSection": "بيانات ولي الأمر",
+    "breadcrumb": {
+      "home": "الرئيسية",
+      "children": "الأطفال"
+    },
+    "name": {
+      "label": "اسم الطفل",
+      "placeholder": "أدخل اسم الطفل"
+    },
+    "birthDate": {
+      "label": "تاريخ الميلاد"
+    },
+    "parentName": {
+      "label": "اسم ولي الأمر"
+    },
+    "parentEmail": {
+      "label": "بريد ولي الأمر"
+    },
+    "parentPhone": {
+      "label": "هاتف ولي الأمر"
+    },
+    "parentPassword": {
+      "label": "كلمة مرور ولي الأمر"
+    },
+    "grade": {
+      "label": "المرحلة",
+      "placeholder": "اختر المرحلة"
+    },
+    "class": {
+      "label": "الفصل",
+      "placeholder": "اختر الفصل"
+    },
+    "gender": {
+      "label": "النوع",
+      "placeholder": "اختر النوع",
+      "male": "ذكر",
+      "female": "أنثى"
+    },
+    "toast": {
+      "saved": "تم حفظ بيانات الطفل بنجاح"
+    }
+  }
+}

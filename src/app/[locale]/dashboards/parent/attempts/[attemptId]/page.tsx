@@ -14,7 +14,7 @@ export default function ParentAttemptPage() {
   const params = useParams<{ attemptId: string }>()
   const attemptId = params.attemptId
   const locale = useLocale()
-  const t = useTranslations('Features.Evaluations')
+  const t = useTranslations('evaluations')
   const { data: attempt, isLoading } = useAttempt(attemptId)
 
   if (isLoading) {

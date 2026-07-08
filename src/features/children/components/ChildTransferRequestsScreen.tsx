@@ -34,7 +34,7 @@ export function ChildTransferRequestsScreen({ locale, requests }: Props) {
   const [approveRequest, setApproveRequest] = useState<ChildTransferRequest | null>(null)
   const [rejectRequest, setRejectRequest] = useState<ChildTransferRequest | null>(null)
   const [isPending, startTransition] = useTransition()
-  const t = useTranslations('Dashboard.ChildTransferRequests')
+  const t = useTranslations('children.transferRequests')
 
   const pendingItems = useMemo(() => items.filter((item) => item.status === 'pending'), [items])
 

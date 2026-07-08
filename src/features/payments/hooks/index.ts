@@ -10,7 +10,7 @@ import type { CreatePaymentPayload, PaymentResponse } from '@/lib/types/types/in
 import { createPayment, initiatePayment, retryPayment } from '@/features/payments/api'
 
 export function useCreatePayment(onSuccess?: (response: PaymentResponse) => void) {
-  const t = useTranslations('Payments')
+  const t = useTranslations('actions.payments')
   const tb = useTranslateBackend()
   return useMutation({
     mutationFn: createPayment,
@@ -26,7 +26,7 @@ export function useCreatePayment(onSuccess?: (response: PaymentResponse) => void
 }
 
 export function useInitiatePayment(onSuccess?: (response: PaymentResponse) => void) {
-  const t = useTranslations('Payments')
+  const t = useTranslations('actions.payments')
   const tb = useTranslateBackend()
   return useMutation({
     mutationFn: initiatePayment,
@@ -42,7 +42,7 @@ export function useInitiatePayment(onSuccess?: (response: PaymentResponse) => vo
 }
 
 export function useRetryPayment(onSuccess?: (response: PaymentResponse) => void) {
-  const t = useTranslations('Payments')
+  const t = useTranslations('actions.payments')
   const tb = useTranslateBackend()
   return useMutation({
     mutationFn: retryPayment,

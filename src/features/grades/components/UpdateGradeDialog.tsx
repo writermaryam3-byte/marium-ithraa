@@ -33,8 +33,8 @@ export function UpdateGradeDialog({
   gradeId,
   gradeName,
 }: UpdateGradeDialogProps) {
-  const t = useTranslations('Forms.Grade')
-  const tCommon = useTranslations('Dashboard.common')
+  const t = useTranslations('organizations.grades.forms')
+  const tCommon = useTranslations('common')
 
   const handleStatus = (state: InitialState) => {
     if (state.status === StatusCode.OK) {

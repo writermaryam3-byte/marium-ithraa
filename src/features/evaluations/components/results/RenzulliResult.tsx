@@ -5,7 +5,7 @@ import { useTranslations } from 'next-intl'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 
 export function RenzulliResult({ result }: { result: Record<string, unknown> }) {
-  const t = useTranslations('Features.EvaluationResults.renzulli')
+  const t = useTranslations('evaluations.results.renzulli')
   const average = result.average ?? result.avg
   const level = result.level as string | undefined
   const dimensions =

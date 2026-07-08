@@ -75,7 +75,7 @@ function MetricCard({ title, value, variant = 'purple' }: ClassMetric) {
 }
 
 function ChildResultCard({ child, locale }: { child: ChildResultItem; locale: string }) {
-  const t = useTranslations('OrgResults')
+  const t = useTranslations('evaluations.orgResults')
   return (
     <Card className="rounded-2xl border bg-card shadow-sm">
       <CardContent className="p-3">
@@ -104,7 +104,7 @@ function ChildResultCard({ child, locale }: { child: ChildResultItem; locale: st
 }
 
 function EvaluationStatusCard({ item, locale }: { item: EvaluationStatusItem; locale: string }) {
-  const t = useTranslations('OrgResults')
+  const t = useTranslations('evaluations.orgResults')
   return (
     <Card className="rounded-2xl border bg-card shadow-sm">
       <CardContent className="space-y-3 p-3">
@@ -142,7 +142,7 @@ function EvaluationStatusCard({ item, locale }: { item: EvaluationStatusItem; lo
 }
 
 function ReportCard({ item, locale }: { item: ReportItem; locale: string }) {
-  const t = useTranslations('OrgResults')
+  const t = useTranslations('evaluations.orgResults')
   return (
     <Card className="rounded-2xl border bg-card shadow-sm">
       <CardContent className="space-y-3 p-4 text-end">
@@ -179,7 +179,7 @@ export function ResultsScreen({
   defaultTab?: 'evaluation' | 'results' | 'reports'
 }) {
   const isAr = locale === 'ar'
-  const t = useTranslations('OrgResults')
+  const t = useTranslations('evaluations.orgResults')
 
   return (
     <main className="app-container py-8 space-y-8" dir={isAr ? 'rtl' : 'ltr'}>

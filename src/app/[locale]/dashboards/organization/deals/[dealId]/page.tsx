@@ -27,7 +27,7 @@ const ORG_URL = `/${Routes.DASHBOARDS}/${Pages.ORGANIZATION}`
 export default function OrganizationDealDetailPage() {
   const params = useParams<{ dealId: string }>()
   const locale = useLocale()
-  const t = useTranslations('Features.Deals')
+  const t = useTranslations('deals')
   const { data: deal, isLoading: dealLoading } = useDealDetail(params.dealId)
   const { data: proposalsData, isLoading: proposalsLoading } = useDealProposals(params.dealId)
   const select = useSelectProposal(params.dealId)

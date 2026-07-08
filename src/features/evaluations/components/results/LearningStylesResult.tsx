@@ -5,7 +5,7 @@ import { useTranslations } from 'next-intl'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 
 export function LearningStylesResult({ result }: { result: Record<string, unknown> }) {
-  const t = useTranslations('Features.EvaluationResults.learningStyles')
+  const t = useTranslations('evaluations.results.learningStyles')
   const dimensions =
     (result.dimensions as Array<{
       name?: string

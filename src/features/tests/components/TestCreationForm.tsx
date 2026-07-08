@@ -24,9 +24,9 @@ type Props = {
 }
 
 export function TestCreationForm({ onSuccess, className }: Props) {
-  const t = useTranslations('Forms.Test')
-  const tActions = useTranslations('Actions')
-  const tWizard = useTranslations('Forms.Test.wizard')
+  const t = useTranslations('evaluations.testForms')
+  const tActions = useTranslations('actions')
+  const tWizard = useTranslations('evaluations.testForms.wizard')
   const [step, setStep] = useState(1)
   const [isSubmitting, setIsSubmitting] = useState(false)
 

@@ -24,7 +24,7 @@ export default function AttemptSummary({
   locale?: string
 }) {
   const locale = useLocale()
-  const t = useTranslations('Features.Evaluations')
+  const t = useTranslations('evaluations')
   const b = statusBadge(attempt.status ?? 'unknown', t)
 
   return (

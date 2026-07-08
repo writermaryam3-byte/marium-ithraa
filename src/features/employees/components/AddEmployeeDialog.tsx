@@ -24,8 +24,8 @@ import type { InitialState } from '@/lib/types/types'
 import { createEmployeeAction } from '../actions/create-employee.action'
 
 export function AddEmployeeDialog({ organizationId }: { organizationId: string }) {
-  const t = useTranslations('Forms.Employee')
-  const tCommon = useTranslations('Dashboard.common')
+  const t = useTranslations('employees.forms')
+  const tCommon = useTranslations('common')
   const [isOpen, setIsOpen] = useState(false)
 
   const handleStatus = (state: InitialState) => {

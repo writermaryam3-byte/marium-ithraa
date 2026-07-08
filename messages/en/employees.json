@@ -1,0 +1,57 @@
+{
+  "title": "Employees",
+  "page": {
+    "details": "Employee Details"
+  },
+  "fields": {
+    "email": "Email",
+    "phone": "Phone",
+    "role": "Role",
+    "job": "Job"
+  },
+  "dialogs": {
+    "addTitle": "Add employee",
+    "addDescription": "Add a new employee to your organization.",
+    "editTitle": "Edit employee",
+    "editDescription": "Update employee information.",
+    "deleteTitle": "Delete employee",
+    "deleteDescription": "Are you sure you want to delete this employee?"
+  },
+  "table": {
+    "name": "Name",
+    "email": "Email",
+    "phone": "Phone",
+    "jobTitle": "Job title"
+  },
+  "messages": {
+    "loadFailed": "Failed to load employee"
+  },
+  "forms": {
+    "dialogTitle": "Add employee",
+    "dialogDescription": "Add a new employee to your organization.",
+    "editTitle": "Edit employee",
+    "editDescription": "Update employee information.",
+    "deleteTitle": "Delete employee",
+    "deleteDescription": "Are you sure you want to delete this employee?",
+    "name": {
+      "label": "Full name",
+      "placeholder": "Enter employee name"
+    },
+    "phone": {
+      "label": "Phone",
+      "placeholder": "Enter phone number"
+    },
+    "email": {
+      "label": "Email",
+      "placeholder": "Enter email address"
+    },
+    "password": {
+      "label": "Password",
+      "placeholder": "Enter password"
+    },
+    "jobTitle": {
+      "label": "Job title",
+      "placeholder": "Enter job title"
+    }
+  }
+}

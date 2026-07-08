@@ -27,7 +27,7 @@ const ADMIN_URL = `/${Routes.DASHBOARDS}/${Pages.ADMIN}`
 export default function AdminDealDetailPage() {
   const params = useParams<{ dealId: string }>()
   const locale = useLocale()
-  const t = useTranslations('Features.Deals')
+  const t = useTranslations('deals')
   const { data: deal, isLoading: dealLoading } = useDealDetail(params.dealId)
   const { data: proposalsData, isLoading: proposalsLoading } = useDealProposals(params.dealId)
   const approve = useApproveProposal(params.dealId)

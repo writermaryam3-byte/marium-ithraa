@@ -30,7 +30,7 @@ const ORGANIZATION_TYPES = [
 ] as const
 
 export default function OrganizationSignupForm() {
-  const t = useTranslations('Signup.Beneficiary.Organization')
+  const t = useTranslations('signup.beneficiary.organization')
   const form = useFormContext()
 
   return (

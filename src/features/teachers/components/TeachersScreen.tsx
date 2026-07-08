@@ -30,9 +30,9 @@ import { UpdateTeacherDialog } from './UpdateTeacherDialog'
 
 export function TeachersScreen({ teachers }: { teachers: Teacher[] }) {
   const locale = useLocale()
-  const t = useTranslations('Dashboard.Teachers')
-  const tCommon = useTranslations('Dashboard.common')
-  const tPagination = useTranslations('Dashboard.pagination')
+  const t = useTranslations('teachers')
+  const tCommon = useTranslations('common')
+  const tPagination = useTranslations('pagination')
   const { notifyDelete } = useActionFeedback()
 
   const [deleteState, deleteAction, isDeleting] = useActionState<DeleteTeacherState, FormData>(

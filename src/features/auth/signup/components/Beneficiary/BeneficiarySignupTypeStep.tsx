@@ -18,7 +18,7 @@ interface Props {
 }
 
 export default function BeneficiarySignupTypeStep({ control }: Props) {
-  const t = useTranslations('Signup.Beneficiary.TypeStep')
+  const t = useTranslations('signup.beneficiary.typeStep')
 
   return (
     <div className="space-y-6 text-start">

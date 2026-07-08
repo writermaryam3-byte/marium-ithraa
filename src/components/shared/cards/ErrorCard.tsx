@@ -46,7 +46,7 @@ const ErrorCard = ({
   technicalDetails,
   className,
 }: ErrorCardProps) => {
-  const t = useTranslations('ErrorCard')
+  const t = useTranslations('errors.errorCard')
   const tb = useTranslateBackend()
   const resolvedTitle = title ?? t('defaultTitle')
   const errorMessage = message || tb(getErrorMessage(error))

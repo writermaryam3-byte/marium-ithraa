@@ -39,7 +39,7 @@ export function ApproveChildTransferDialog({
   onOpenChange,
   onApproved,
 }: Props) {
-  const t = useTranslations('Dashboard.ApproveChildTransfer')
+  const t = useTranslations('children.approveTransfer')
   const [classes, setClasses] = useState<ClassItem[]>([])
   const [selectedClassId, setSelectedClassId] = useState('')
   const [isLoadingClasses, setIsLoadingClasses] = useState(false)

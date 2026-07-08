@@ -18,8 +18,8 @@ const PARENT_URL = `/${Routes.DASHBOARDS}/${Pages.PARENT}`
 
 export function ParentDashboardScreen() {
   const locale = useLocale()
-  const tParent = useTranslations('Features.ParentDashboard')
-  const tNotif = useTranslations('Features.Notifications')
+  const tParent = useTranslations('dashboard.parent')
+  const tNotif = useTranslations('notifications')
   const { data: session } = useSession()
 
   const unread = useUnreadCount(30_000)

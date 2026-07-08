@@ -23,7 +23,7 @@ function Stars({ value }: { value: number }) {
 }
 
 export default function HomeTestimonials() {
-  const t = useTranslations('HomePage.Testimonials')
+  const t = useTranslations('landing.testimonials')
 
   return (
     <section className="app-container pb-16 lg:pb-24">

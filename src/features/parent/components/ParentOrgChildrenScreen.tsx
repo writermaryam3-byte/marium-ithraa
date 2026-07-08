@@ -18,11 +18,11 @@ type Props = {
 
 export function ParentOrgChildrenScreen({ orgChildren }: Props) {
   const locale = useLocale()
-  const t = useTranslations('Dashboard.Parent.orgChildren')
-  const tParent = useTranslations('Dashboard.Parent')
-  const tChildren = useTranslations('Dashboard.Children')
-  const tCommon = useTranslations('Dashboard.common')
-  const tDashboard = useTranslations('Dashboard.common')
+  const t = useTranslations('dashboard.parent.orgChildren')
+  const tParent = useTranslations('dashboard.parent')
+  const tChildren = useTranslations('children')
+  const tCommon = useTranslations('common')
+  const tDashboard = useTranslations('common')
 
   return (
     <main className="app-container py-8 space-y-8" dir={getTextDirection(locale)}>

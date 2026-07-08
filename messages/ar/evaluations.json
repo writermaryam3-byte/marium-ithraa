@@ -1,0 +1,234 @@
+{
+  "title": "التقييمات",
+  "description": "تفاصيل التقييم",
+  "listTitle": "التقييمات",
+  "detailsTitle": "تفاصيل التقييم",
+  "create": "إنشاء تقييم",
+  "type": "نوع التقييم",
+  "ageRange": "المرحلة العمرية",
+  "evaluatorTypes": "أنواع المقيّم",
+  "dimensions": "المحاور",
+  "questions": "الأسئلة",
+  "answers": "الإجابات",
+  "scoreValue": "قيمة الدرجة",
+  "viewDetails": "عرض التفاصيل",
+  "searchPlaceholder": "بحث بالعنوان",
+  "filterByType": "تصفية حسب النوع",
+  "allTypes": "كل الأنواع",
+  "empty": "لا توجد بيانات",
+  "error": "حدث خطأ",
+  "loading": "جاري التحميل…",
+  "retry": "إعادة المحاولة",
+  "adminScoreWarning": "قيم الدرجات ظاهرة للمسؤول فقط ومخفية عن نماذج ولي الأمر والطالب.",
+  "scoreRange": "نطاق الدرجة",
+  "institutionId": "معرف المؤسسة",
+  "ageFrom": "العمر من",
+  "ageTo": "العمر إلى",
+  "dimensionName": "اسم المحور",
+  "dimensionCode": "رمز المحور",
+  "interpretationRules": "قواعد التفسير (JSON)",
+  "questionContent": "نص السؤال",
+  "answerText": "نص الإجابة",
+  "createSuccess": "تم إنشاء التقييم بنجاح",
+  "saving": "جاري الحفظ…",
+  "savedSuccess": "تم الحفظ بنجاح",
+  "attemptsTitle": "المحاولات",
+  "child": "الطفل",
+  "parent": "ولي الأمر",
+  "evaluation": "التقييم",
+  "attemptNumber": "رقم المحاولة",
+  "status": "الحالة",
+  "score": "الدرجة",
+  "submittedAt": "تاريخ الإرسال",
+  "allStatuses": "كل الحالات",
+  "inProgress": "قيد التنفيذ",
+  "submitted": "تم الإرسال",
+  "approved": "معتمد",
+  "evaluationIdFilter": "معرف التقييم",
+  "childIdFilter": "معرف الطفل",
+  "approveAttempt": "اعتماد النتيجة",
+  "approveConfirm": "اعتماد نتيجة هذه المحاولة؟",
+  "approveSuccess": "تم اعتماد المحاولة",
+  "cancel": "إلغاء",
+  "childEvaluations": "تقييمات الطفل",
+  "availableEvaluations": "التقييمات المتاحة",
+  "previousAttempts": "المحاولات السابقة",
+  "startEvaluation": "بدء التقييم",
+  "continueAttempt": "متابعة التقييم",
+  "waitingApproval": "في انتظار الاعتماد",
+  "viewResult": "عرض النتيجة",
+  "privateSlots": "فتحات التقييم الخاص",
+  "openMainSlot": "فتح المحاولة الرئيسية",
+  "requestRetake": "طلب إعادة التقييم",
+  "requestExtra": "طلب محاولة إضافية",
+  "saveProgress": "حفظ التقدّم",
+  "submitEvaluation": "إرسال التقييم",
+  "result": "النتيجة",
+  "attemptSummary": "ملخص المحاولة",
+  "attemptNotFound": "المحاولة غير موجودة",
+  "progress": "{answered} / {total} تمت الإجابة",
+  "answerAllRequired": "يرجى الإجابة على جميع الأسئلة قبل الإرسال",
+  "timeExpired": "انتهى الوقت",
+  "timeExpiredHint": "جاري إرسال المحاولة تلقائياً وستصبح للقراءة فقط.",
+  "noQuestions": "لا توجد أسئلة",
+  "formFallbackNotice": "تم تحميل الأسئلة من نموذج التقييم الآمن (الدرجات مخفية).",
+  "missingAnswerIds": "{count} خيار/خيارات إجابة بدون معرف ولا يمكن إرسالها.",
+  "privateSlotHint": "افتح فتحة أولاً، ثم ابدأ التقييم من القائمة أدناه.",
+  "slotOpened": "تم فتح الفتحة بنجاح",
+  "slotOpenedPickEvaluation": "الفتحة جاهزة. اختر تقييماً واضغط بدء التقييم.",
+  "childAge": "عمر الطفل: {age} سنة",
+  "types": {
+    "multipleIntelligences": "مؤشر الذكاءات الثمانية",
+    "pride": "مقياس برايد",
+    "renzulli": "مقياس رنزولي",
+    "holland": "مقياس هولاند",
+    "learningStyles": "مقياس أساليب التعلم",
+    "torrance": "مقياس تورانس",
+    "preschoolGiftedness": "مقياس الموهبة في مرحلة ما قبل المدرسة"
+  },
+  "ageRangeOptions": {
+    "all": "كل الأعمار",
+    "range": "{from} - {to} سنة",
+    "from": "من {from}",
+    "upTo": "حتى {to}"
+  },
+  "attemptStatus": {
+    "inProgress": "قيد التنفيذ",
+    "submitted": "تم الإرسال",
+    "approved": "معتمد"
+  },
+  "results": {
+    "noResult": "لا توجد نتيجة بعد",
+    "defaultTitle": "النتيجة",
+    "multipleIntelligences": {
+      "top3": "أعلى ثلاث ذكاءات",
+      "dimensions": "درجات المحاور"
+    },
+    "pride": {
+      "total": "المجموع",
+      "level": "المستوى",
+      "breakdown": "تفصيل المحاور"
+    },
+    "renzulli": {
+      "average": "المتوسط",
+      "level": "المستوى",
+      "dimensions": "المحاور"
+    },
+    "holland": {
+      "totalLevel": "المستوى الكلي",
+      "interests": "الاهتمامات",
+      "suitable": "مناسب",
+      "notSuitable": "غير مناسب"
+    },
+    "learningStyles": {
+      "dimensions": "أبعاد الأسلوب",
+      "dominant": "القطب السائد",
+      "strength": "القوة"
+    }
+  },
+  "builder": {
+    "title": "تقييم",
+    "childId": "معرف الطفل",
+    "childIdPlaceholder": "uuid",
+    "childType": "نوع الطفل",
+    "privateOption": "خاص",
+    "organizationOption": "مؤسسة",
+    "startAttempt": "بدء المحاولة",
+    "starting": "جارٍ البدء…",
+    "errorMessage": "يرجى تقديم معرف الطفل ونوعه بشكل صحيح.",
+    "errorFailed": "فشل بدء التقييم.",
+    "info": "يمكنك إجراء محاولتين كحد أقصى لكل طفل. يتم حظر إعادة المحاولة بعد الموافقة."
+  },
+  "start": {
+    "title": "بدء التقييم",
+    "childId": "معرف الطفل",
+    "childIdPlaceholder": "uuid",
+    "childType": "نوع الطفل",
+    "privateOption": "خاص",
+    "organizationOption": "مؤسسة",
+    "expiresInSeconds": "تنتهي بالثواني (اختياري)",
+    "expiresPlaceholder": "مثال: 900",
+    "start": "بدء",
+    "starting": "جارٍ البدء…",
+    "errorMessage": "يرجى تقديم معرف الطفل ونوعه بشكل صحيح.",
+    "errorFailed": "فشل بدء التقييم.",
+    "helperText": "إذا رأيت \"تم الوصول إلى الحد الأقصى للمحاولات\" أو \"غير مسموح بإعادة المحاولة\"، فقد تم تفعيل قواعد النظام."
+  },
+  "submitModal": {
+    "title": "تقديم المحاولة؟",
+    "description": "لا يمكنك تعديل الإجابات بعد التقديم.",
+    "cancel": "إلغاء",
+    "submitting": "جارٍ التقديم…",
+    "submitFinal": "تقديم نهائي"
+  },
+  "session": {
+    "timeExpired": "انتهى الوقت. تم تقديم المحاولة.",
+    "failedAutoSubmit": "فشل التقديم التلقائي.",
+    "progressSaved": "تم حفظ التقدم.",
+    "failedSaveProgress": "فشل حفظ التقدم.",
+    "attemptSubmitted": "تم تقديم المحاولة.",
+    "failedSubmitAttempt": "فشل تقديم المحاولة."
+  },
+  "capacityRequests": {
+    "filterAll": "الكل",
+    "filterPending": "قيد الانتظار",
+    "filterApproved": "تمت الموافقة",
+    "filterRejected": "مرفوض",
+    "noResults": "لا توجد طلبات سعة.",
+    "columnChildName": "اسم الطفل",
+    "columnParent": "ولي الأمر",
+    "columnPhone": "الهاتف",
+    "columnGrade": "المرحلة",
+    "columnStatus": "الحالة",
+    "columnDate": "التاريخ",
+    "approve": "موافقة",
+    "reject": "رفض",
+    "rejectTitle": "رفض الطلب",
+    "rejectReason": "سبب الرفض (اختياري)",
+    "confirmReject": "تأكيد الرفض",
+    "approvedToast": "تمت الموافقة على طلب السعة",
+    "failedApproveToast": "فشل الموافقة",
+    "rejectedToast": "تم رفض طلب السعة",
+    "failedRejectToast": "فشل الرفض"
+  },
+  "tests": {
+    "title": "عنوان الاختبار",
+    "questionCount": "عدد الأسئلة",
+    "assignmentCount": "عدد التسليمات",
+    "tableTitle": "جدول الاختبارات",
+    "toast": {
+      "created": "تم إنشاء الاختبار بنجاح"
+    },
+    "actions": {
+      "add": "إضافة"
+    }
+  },
+  "testsPage": {
+    "title": "هذه الصفحة غير متاحة حالياً. يرجى استخدام التقييمات.",
+    "description": "تم إيقاف واجهة الاختبارات القديمة. يمكنك متابعة تقييمات الأطفال من صفحة التقييمات.",
+    "openEvaluations": "فتح التقييمات"
+  },
+  "testForms": {
+    "title": {
+      "label": "عنوان الاختبار",
+      "placeholder": "أدخل عنوان الاختبار"
+    },
+    "description": {
+      "label": "الوصف",
+      "placeholder": "أدخل الوصف"
+    },
+    "toast": {
+      "created": "تم إنشاء الاختبار بنجاح"
+    },
+    "wizard": {
+      "back": "رجوع",
+      "next": "التالي",
+      "submit": "إنشاء الاختبار",
+      "addQuestion": "إضافة سؤال",
+      "addAnswer": "إضافة إجابة",
+      "questionLabel": "السؤال {index}",
+      "questionPlaceholder": "أدخل نص السؤال",
+      "answerPlaceholder": "نص الإجابة"
+    }
+  }
+}

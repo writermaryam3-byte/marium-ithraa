@@ -32,9 +32,9 @@ type Props = {
 
 export function ClassesScreenClient({ classes, grades }: Props) {
   const locale = useLocale()
-  const t = useTranslations('Dashboard.Classes')
-  const tCommon = useTranslations('Dashboard.common')
-  const tPagination = useTranslations('Dashboard.pagination')
+  const t = useTranslations('organizations.classes')
+  const tCommon = useTranslations('common')
+  const tPagination = useTranslations('pagination')
   const { notifyDelete } = useActionFeedback()
   const [search, setSearch] = useState('')
   const [gradeFilter, setGradeFilter] = useState('')

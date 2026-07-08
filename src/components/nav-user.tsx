@@ -33,7 +33,7 @@ export function NavUser({
   }
 }) {
   const { isMobile } = useSidebar()
-  const t = useTranslations('Auth')
+  const t = useTranslations('auth')
   const { logout } = useAuth()
 
   return (

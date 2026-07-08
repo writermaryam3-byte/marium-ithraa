@@ -39,8 +39,8 @@ type Props = {
 export function ChildFormScreen({ locale, organizationId, grades, classes, child }: Props) {
   const isAr = locale === 'ar'
   const router = useRouter()
-  const t = useTranslations('Forms.Child')
-  const tCommon = useTranslations('Dashboard.common')
+  const t = useTranslations('children.forms')
+  const tCommon = useTranslations('common')
   const isEdit = Boolean(child)
   const action = isEdit ? updateChildAction : createChildAction
   const { fields: createFields } = useFormConfig(FormTypes.CHILD_ORG)

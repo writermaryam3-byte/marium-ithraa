@@ -39,8 +39,8 @@ export function UpdateTeacherDialog({
   phone,
   jobTitle,
 }: UpdateTeacherDialogProps) {
-  const t = useTranslations('Forms.Teacher')
-  const tCommon = useTranslations('Dashboard.common')
+  const t = useTranslations('teachers.forms')
+  const tCommon = useTranslations('common')
 
   const handleStatus = (state: InitialState) => {
     if (state.status === StatusCode.OK) {

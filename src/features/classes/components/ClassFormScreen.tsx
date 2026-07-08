@@ -39,8 +39,8 @@ type Props = {
 export function ClassFormScreen({ locale, grades, teachers, defaultGradeId, classItem }: Props) {
   const isAr = locale === 'ar'
   const router = useRouter()
-  const t = useTranslations('Forms.Class')
-  const tCommon = useTranslations('Dashboard.common')
+  const t = useTranslations('organizations.classes.forms')
+  const tCommon = useTranslations('common')
   const { fields } = useFormConfig(FormTypes.CLASS)
   const isEdit = Boolean(classItem)
   const action = isEdit ? updateClassAction : createClassAction

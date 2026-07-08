@@ -13,7 +13,7 @@ import { Link } from '@/i18n/navigation'
 import { verifyEmailClient } from '@/features/auth'
 
 function VerifyEmailContent() {
-  const t = useTranslations('VerifyEmail')
+  const t = useTranslations('verifyEmail')
   const router = useRouter()
   const params = useParams()
   const locale = params.locale as string

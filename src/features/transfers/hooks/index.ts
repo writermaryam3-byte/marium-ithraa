@@ -28,7 +28,7 @@ export function useTransferRequests(
 }
 
 export function useCreateTransferRequest(onSuccess?: () => void) {
-  const t = useTranslations('Transfers')
+  const t = useTranslations('actions.transfers')
   const tb = useTranslateBackend()
   return useMutation({
     mutationFn: createTransferRequest,
@@ -44,7 +44,7 @@ export function useCreateTransferRequest(onSuccess?: () => void) {
 }
 
 export function useApproveTransferRequest(onSuccess?: () => void) {
-  const t = useTranslations('Transfers')
+  const t = useTranslations('actions.transfers')
   const tb = useTranslateBackend()
   return useMutation({
     mutationFn: ({ requestId, classId }: { requestId: string; classId: string }) =>
@@ -61,7 +61,7 @@ export function useApproveTransferRequest(onSuccess?: () => void) {
 }
 
 export function useRejectTransferRequest(onSuccess?: () => void) {
-  const t = useTranslations('Transfers')
+  const t = useTranslations('actions.transfers')
   const tb = useTranslateBackend()
   return useMutation({
     mutationFn: rejectTransferRequest,

@@ -1,0 +1,80 @@
+{
+  "title": "المعلمين",
+  "description": "إدارة معلمي المؤسسة وتعيينهم على الفصول",
+  "page": {
+    "title": "المعلمين"
+  },
+  "actions": {
+    "add": "إضافة معلم"
+  },
+  "fields": {
+    "name": "الاسم",
+    "jobTitle": "المسمى الوظيفي",
+    "class": "الفصل",
+    "noClasses": "لا توجد فصول مسندة للمعلم.",
+    "email": "البريد الإلكتروني",
+    "phone": "رقم الهاتف"
+  },
+  "messages": {
+    "empty": "لا يوجد معلمين بعد"
+  },
+  "emptyStates": {
+    "list": "لا يوجد معلمين بعد"
+  },
+  "dashboard": {
+    "brand": "المعلم",
+    "defaultName": "المعلم",
+    "subtitle": "إدارة فصولك ومتابعة الإشعارات",
+    "classes": "الفصول",
+    "classesDescription": "عرض الفصول المسندة إليك",
+    "classesPlaceholder": "ستظهر الفصول المسندة إليك هنا.",
+    "notificationsDescription": "عرض التنبيهات والتحديثات",
+    "statsTitle": "نظرة عامة",
+    "quickActionsTitle": "اختصارات سريعة",
+    "recentActivityTitle": "النشاط الأخير",
+    "noActivity": "لا توجد نشاطات حديثة",
+    "profileNotFound": "تعذر تحميل ملف المعلم. تواصل مع إدارة المؤسسة.",
+    "classesWelcome": "الفصول المسندة إلى {name}",
+    "noClasses": "لا توجد فصول مسندة بعد",
+    "grade": "المرحلة",
+    "childrenCount": "الطلاب",
+    "welcome": "مرحباً {name}",
+    "open": "فتح"
+  },
+  "forms": {
+    "pageTitle": "إضافة معلم",
+    "pageSubtitle": "أدخل بيانات المعلم لإضافته إلى المؤسسة.",
+    "editTitle": "تعديل معلم",
+    "editDescription": "تحديث بيانات المعلم ثم الحفظ.",
+    "name": {
+      "label": "الاسم الكامل",
+      "placeholder": "أدخل اسم المعلم"
+    },
+    "phone": {
+      "label": "رقم الهاتف",
+      "placeholder": "أدخل رقم الهاتف"
+    },
+    "email": {
+      "label": "البريد الإلكتروني",
+      "placeholder": "أدخل البريد الإلكتروني"
+    },
+    "password": {
+      "label": "كلمة المرور",
+      "placeholder": "أدخل كلمة المرور"
+    },
+    "jobTitle": {
+      "label": "المسمى الوظيفي",
+      "placeholder": "أدخل المسمى الوظيفي"
+    },
+    "toast": {
+      "created": "تم إضافة المعلم بنجاح",
+      "updated": "تم تحديث المعلم بنجاح"
+    },
+    "actions": {
+      "common": {
+        "conflict": "هذا الحساب موجود بالفعل",
+        "validationFailed": "يرجى التحقق من حقول النموذج."
+      }
+    }
+  }
+}

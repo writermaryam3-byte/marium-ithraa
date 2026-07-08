@@ -31,7 +31,7 @@ export function OrganizationDashboardScreen({
   activities,
 }: OrganizationDashboardScreenProps) {
   const isAr = locale === 'ar'
-  const t = useTranslations('OrgDashboard')
+  const t = useTranslations('organizations.dashboard')
 
   return (
     <main className="app-container py-8 space-y-10" dir={isAr ? 'rtl' : 'ltr'}>

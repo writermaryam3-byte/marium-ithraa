@@ -45,7 +45,7 @@ export function useDealDetail(dealId: string) {
 }
 
 export function useCreateDeal(onSuccess?: () => void) {
-  const t = useTranslations('Deals')
+  const t = useTranslations('actions.deals')
   const tb = useTranslateBackend()
   const queryClient = useQueryClient()
   return useMutation({
@@ -71,7 +71,7 @@ export function useDealProposals(dealId: string) {
 }
 
 export function useUpdateProposal(onSuccess?: () => void) {
-  const t = useTranslations('Deals')
+  const t = useTranslations('actions.deals')
   const tb = useTranslateBackend()
   const queryClient = useQueryClient()
   return useMutation({
@@ -92,7 +92,7 @@ export function useUpdateProposal(onSuccess?: () => void) {
 }
 
 export function useSubmitProposal(dealId: string, onSuccess?: () => void) {
-  const t = useTranslations('Deals')
+  const t = useTranslations('actions.deals')
   const tb = useTranslateBackend()
   const queryClient = useQueryClient()
   return useMutation({
@@ -112,7 +112,7 @@ export function useSubmitProposal(dealId: string, onSuccess?: () => void) {
 }
 
 export function useSelectProposal(dealId: string, onSuccess?: () => void) {
-  const t = useTranslations('Deals')
+  const t = useTranslations('actions.deals')
   const tb = useTranslateBackend()
   const queryClient = useQueryClient()
   return useMutation({
@@ -133,7 +133,7 @@ export function useSelectProposal(dealId: string, onSuccess?: () => void) {
 }
 
 export function useApproveProposal(dealId: string, onSuccess?: () => void) {
-  const t = useTranslations('Deals')
+  const t = useTranslations('actions.deals')
   const tb = useTranslateBackend()
   const queryClient = useQueryClient()
   return useMutation({
@@ -168,7 +168,7 @@ export function useActivitiesWithDeals() {
 }
 
 export function useCreateActivity(onSuccess?: () => void) {
-  const t = useTranslations('Deals')
+  const t = useTranslations('actions.deals')
   const tb = useTranslateBackend()
   const queryClient = useQueryClient()
   return useMutation({
@@ -188,7 +188,7 @@ export function useCreateActivity(onSuccess?: () => void) {
 }
 
 export function useUpdateActivity(onSuccess?: () => void) {
-  const t = useTranslations('Deals')
+  const t = useTranslations('actions.deals')
   const tb = useTranslateBackend()
   const queryClient = useQueryClient()
   return useMutation({
@@ -208,7 +208,7 @@ export function useUpdateActivity(onSuccess?: () => void) {
 }
 
 export function useDeleteActivity(onSuccess?: () => void) {
-  const t = useTranslations('Deals')
+  const t = useTranslations('actions.deals')
   const tb = useTranslateBackend()
   const queryClient = useQueryClient()
   return useMutation({

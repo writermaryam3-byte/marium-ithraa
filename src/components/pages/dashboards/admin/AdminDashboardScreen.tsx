@@ -19,8 +19,8 @@ const ADMIN_URL = `/${Routes.DASHBOARDS}/${Pages.ADMIN}`
 
 export function AdminDashboardScreen() {
   const locale = useLocale()
-  const tNav = useTranslations('Dashboard.Nav')
-  const tNotif = useTranslations('Features.Notifications')
+  const tNav = useTranslations('navigation.dashboard')
+  const tNotif = useTranslations('notifications')
   const isAr = locale === 'ar'
   const { data: session } = useSession()
 

@@ -19,7 +19,7 @@ const dashboardMap: Record<string, string> = {
 
 export default function ChooseRolePage() {
   const router = useRouter()
-  const t = useTranslations('ChoseRole')
+  const t = useTranslations('dashboard.choseRole')
   const { user, isAuthenticated, isLoading, loginPath, sessionExpired } = useAuth()
   const [loadingRoleId, setLoadingRoleId] = useState<string | null>(null)
 

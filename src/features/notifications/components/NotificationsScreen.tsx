@@ -42,7 +42,7 @@ const tabTriggerClass =
   'h-11 rounded-xl bg-white/80 text-base data-[state=active]:bg-surface-accent data-[state=active]:shadow'
 
 export function NotificationsScreen({ locale }: Props) {
-  const t = useTranslations('Features.Notifications')
+  const t = useTranslations('notifications')
   const router = useRouter()
   const isAr = locale === 'ar'
 

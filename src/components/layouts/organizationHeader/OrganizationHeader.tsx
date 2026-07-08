@@ -40,7 +40,7 @@ const OrganizationHeader = ({
   approvalStatus = ApprovalStatus.APPROVED,
 }: OrganizationHeaderProps) => {
   const pathname = usePathname()
-  const t = useTranslations('Layout.OrganizationNav')
+  const t = useTranslations('navigation.organization')
   const [mobileOpen, setMobileOpen] = useState(false)
   const isApproved = approvalStatus === ApprovalStatus.APPROVED
 

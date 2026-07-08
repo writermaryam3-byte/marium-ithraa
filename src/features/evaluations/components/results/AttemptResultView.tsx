@@ -17,7 +17,7 @@ type Props = {
 }
 
 export function AttemptResultView({ type, result, title }: Props) {
-  const t = useTranslations('Features.EvaluationResults')
+  const t = useTranslations('evaluations.results')
 
   if (!result || Object.keys(result).length === 0) {
     return <p className="text-sm text-muted-foreground">{t('noResult')}</p>

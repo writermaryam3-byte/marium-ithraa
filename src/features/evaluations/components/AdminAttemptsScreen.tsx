@@ -21,7 +21,7 @@ type Props = { locale: string }
 const ALL = 'all'
 
 export function AdminAttemptsScreen({ locale }: Props) {
-  const t = useTranslations('Features.Evaluations')
+  const t = useTranslations('evaluations')
   const isAr = locale === 'ar'
   const [status, setStatus] = useState(ALL)
   const [evaluationId, setEvaluationId] = useState('')

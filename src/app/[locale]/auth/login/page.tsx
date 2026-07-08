@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import LoginForm from '@/features/auth/components/LoginForm'
 
 export default function LoginPage() {
-  const t = useTranslations('Auth.Login')
+  const t = useTranslations('auth.login')
 
   return (
     <main className="min-h-dvh pt-36 pb-16">

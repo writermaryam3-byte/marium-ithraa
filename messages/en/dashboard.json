@@ -1,0 +1,55 @@
+{
+  "titles": {
+    "dashboard": "Dashboard",
+    "children": "Children"
+  },
+  "cards": {
+    "employeesCount": "Employees Count",
+    "childrenCount": "Children Count",
+    "trendingUp": "Trending up this month",
+    "last6Months": "Last 6 months"
+  },
+  "tables": {
+    "childrenTitle": "Children Table"
+  },
+  "parent": {
+    "privateChildren": {
+      "title": "My children",
+      "subtitle": "You can add up to {limit} children for private evaluation",
+      "limitReached": "Child limit reached (2 children)",
+      "addChild": "Add child",
+      "empty": "No children yet"
+    },
+    "orgChildren": {
+      "title": "Organization children",
+      "subtitle": "Evaluate your organization's children here",
+      "empty": "No children yet"
+    },
+    "attempts": "Attempts",
+    "retake": "Retake",
+    "evaluationsLink": "Evaluations",
+    "childAge": "Child age: {age} years",
+    "subtitle": "Start evaluations and track your children's results in one place",
+    "welcome": "Welcome, {name}",
+    "defaultName": "Parent",
+    "overview": "Overview",
+    "quickActions": "Quick actions",
+    "viewChildren": "View children",
+    "recentNotifications": "Recent notifications",
+    "children": "Children",
+    "childrenDesc": "View and manage your registered children",
+    "evaluations": "Evaluations",
+    "evaluationsDesc": "Start and track child evaluations",
+    "notificationsDesc": "Stay updated with alerts"
+  },
+  "choseRole": {
+    "title": "Choose a Role",
+    "subtitle": "Please select which role you want to use for this session:",
+    "noRoles": "No roles found for your account.",
+    "redirecting": "Redirecting…"
+  },
+  "adminUsers": {
+    "usersCount": "Users count",
+    "usersTable": "Users table"
+  }
+}

@@ -28,7 +28,7 @@ import { NotificationListItem } from '../NotificationListItem'
 import { getNotificationHref } from '../notification-utils'
 
 export function NotificationBell() {
-  const t = useTranslations('Features.Notifications')
+  const t = useTranslations('notifications')
   const locale = useLocale()
   const router = useRouter()
   // const isAr = locale === "ar"

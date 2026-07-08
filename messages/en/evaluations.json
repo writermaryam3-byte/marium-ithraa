@@ -1,0 +1,234 @@
+{
+  "title": "Evaluations",
+  "description": "Evaluation details",
+  "listTitle": "Evaluations",
+  "detailsTitle": "Evaluation details",
+  "create": "Create evaluation",
+  "type": "Evaluation type",
+  "ageRange": "Age range",
+  "evaluatorTypes": "Evaluator types",
+  "dimensions": "Dimensions",
+  "questions": "Questions",
+  "answers": "Answers",
+  "scoreValue": "Score value",
+  "viewDetails": "View details",
+  "searchPlaceholder": "Search by title",
+  "filterByType": "Filter by type",
+  "allTypes": "All types",
+  "empty": "No data",
+  "error": "An error occurred",
+  "loading": "Loading…",
+  "retry": "Retry",
+  "adminScoreWarning": "Scoring values are visible only to admins and hidden from parent/student forms.",
+  "scoreRange": "Score range",
+  "institutionId": "Institution ID",
+  "ageFrom": "Age from",
+  "ageTo": "Age to",
+  "dimensionName": "Dimension name",
+  "dimensionCode": "Dimension code",
+  "interpretationRules": "Interpretation rules (JSON)",
+  "questionContent": "Question content",
+  "answerText": "Answer text",
+  "createSuccess": "Evaluation created successfully",
+  "saving": "Saving…",
+  "savedSuccess": "Saved successfully",
+  "attemptsTitle": "Attempts",
+  "child": "Child",
+  "parent": "Parent",
+  "evaluation": "Evaluation",
+  "attemptNumber": "Attempt #",
+  "status": "Status",
+  "score": "Score",
+  "submittedAt": "Submitted at",
+  "allStatuses": "All statuses",
+  "inProgress": "In progress",
+  "submitted": "Submitted",
+  "approved": "Approved",
+  "evaluationIdFilter": "Evaluation ID",
+  "childIdFilter": "Child ID",
+  "approveAttempt": "Approve result",
+  "approveConfirm": "Approve this attempt result?",
+  "approveSuccess": "Attempt approved",
+  "cancel": "Cancel",
+  "childEvaluations": "Child evaluations",
+  "availableEvaluations": "Available evaluations",
+  "previousAttempts": "Previous attempts",
+  "startEvaluation": "Start evaluation",
+  "continueAttempt": "Continue evaluation",
+  "waitingApproval": "Waiting for approval",
+  "viewResult": "View result",
+  "privateSlots": "Private evaluation slots",
+  "openMainSlot": "Open main slot",
+  "requestRetake": "Request retake",
+  "requestExtra": "Request extra attempt",
+  "saveProgress": "Save progress",
+  "submitEvaluation": "Submit evaluation",
+  "result": "Result",
+  "attemptSummary": "Attempt summary",
+  "attemptNotFound": "Attempt not found",
+  "progress": "{answered} / {total} answered",
+  "answerAllRequired": "Please answer all questions before submitting",
+  "timeExpired": "Time expired",
+  "timeExpiredHint": "Your attempt is being submitted automatically and will become read-only.",
+  "noQuestions": "No questions",
+  "formFallbackNotice": "Questions loaded from the safe evaluation form (scores hidden).",
+  "missingAnswerIds": "{count} answer option(s) are missing IDs and cannot be submitted.",
+  "privateSlotHint": "Open a slot first, then start an evaluation below.",
+  "slotOpened": "Slot opened successfully",
+  "slotOpenedPickEvaluation": "Slot is ready. Choose an evaluation and tap Start.",
+  "childAge": "Child age: {age} years",
+  "types": {
+    "multipleIntelligences": "Multiple Intelligences",
+    "pride": "PRIDE Scale",
+    "renzulli": "Renzulli Scale",
+    "holland": "Holland Scale",
+    "learningStyles": "Learning Styles",
+    "torrance": "Torrance Scale",
+    "preschoolGiftedness": "Preschool Giftedness"
+  },
+  "ageRangeOptions": {
+    "all": "All ages",
+    "range": "{from} - {to} years",
+    "from": "From {from}",
+    "upTo": "Up to {to}"
+  },
+  "attemptStatus": {
+    "inProgress": "In progress",
+    "submitted": "Submitted",
+    "approved": "Approved"
+  },
+  "results": {
+    "noResult": "No result available yet",
+    "defaultTitle": "Result",
+    "multipleIntelligences": {
+      "top3": "Top 3 intelligences",
+      "dimensions": "Dimension scores"
+    },
+    "pride": {
+      "total": "Total",
+      "level": "Level",
+      "breakdown": "Dimension breakdown"
+    },
+    "renzulli": {
+      "average": "Average",
+      "level": "Level",
+      "dimensions": "Dimensions"
+    },
+    "holland": {
+      "totalLevel": "Total level",
+      "interests": "Interests",
+      "suitable": "Suitable",
+      "notSuitable": "Not suitable"
+    },
+    "learningStyles": {
+      "dimensions": "Style dimensions",
+      "dominant": "Dominant",
+      "strength": "Strength"
+    }
+  },
+  "builder": {
+    "title": "Evaluation",
+    "childId": "Child ID",
+    "childIdPlaceholder": "uuid",
+    "childType": "Child Type",
+    "privateOption": "Private",
+    "organizationOption": "Organization",
+    "startAttempt": "Start attempt",
+    "starting": "Starting…",
+    "errorMessage": "Please provide a valid childId and childType.",
+    "errorFailed": "Failed to start evaluation.",
+    "info": "You can take a maximum of 2 attempts per child. Retake is blocked after approval."
+  },
+  "start": {
+    "title": "Start evaluation",
+    "childId": "Child ID",
+    "childIdPlaceholder": "uuid",
+    "childType": "Child Type",
+    "privateOption": "Private",
+    "organizationOption": "Organization",
+    "expiresInSeconds": "Expires in seconds (optional)",
+    "expiresPlaceholder": "e.g. 900",
+    "start": "Start",
+    "starting": "Starting…",
+    "errorMessage": "Please provide a valid childId and childType.",
+    "errorFailed": "Failed to start evaluation.",
+    "helperText": "If you see \"Maximum attempts reached\" or \"Retake not allowed\", the backend rules were triggered."
+  },
+  "submitModal": {
+    "title": "Submit attempt?",
+    "description": "You cannot edit answers after submission.",
+    "cancel": "Cancel",
+    "submitting": "Submitting…",
+    "submitFinal": "Submit final"
+  },
+  "session": {
+    "timeExpired": "Time expired. Attempt submitted.",
+    "failedAutoSubmit": "Failed to auto-submit.",
+    "progressSaved": "Progress saved.",
+    "failedSaveProgress": "Failed to save progress.",
+    "attemptSubmitted": "Attempt submitted.",
+    "failedSubmitAttempt": "Failed to submit attempt."
+  },
+  "capacityRequests": {
+    "filterAll": "All",
+    "filterPending": "Pending",
+    "filterApproved": "Approved",
+    "filterRejected": "Rejected",
+    "noResults": "No capacity requests found.",
+    "columnChildName": "Child Name",
+    "columnParent": "Parent",
+    "columnPhone": "Phone",
+    "columnGrade": "Grade",
+    "columnStatus": "Status",
+    "columnDate": "Date",
+    "approve": "Approve",
+    "reject": "Reject",
+    "rejectTitle": "Reject Request",
+    "rejectReason": "Reason for rejection (optional)",
+    "confirmReject": "Confirm Reject",
+    "approvedToast": "Capacity request approved",
+    "failedApproveToast": "Failed to approve",
+    "rejectedToast": "Capacity request rejected",
+    "failedRejectToast": "Failed to reject"
+  },
+  "tests": {
+    "title": "Test Title",
+    "questionCount": "Questions number",
+    "assignmentCount": "Assignments number",
+    "tableTitle": "Tests table",
+    "toast": {
+      "created": "Test created successfully"
+    },
+    "actions": {
+      "add": "Add"
+    }
+  },
+  "testsPage": {
+    "title": "This tests flow is no longer available. Please use evaluations.",
+    "description": "The legacy tests interface has been retired. Child assessments now live in evaluations.",
+    "openEvaluations": "Open evaluations"
+  },
+  "testForms": {
+    "title": {
+      "label": "Test title",
+      "placeholder": "Enter test title"
+    },
+    "description": {
+      "label": "Description",
+      "placeholder": "Enter description"
+    },
+    "toast": {
+      "created": "Test created successfully"
+    },
+    "wizard": {
+      "back": "Back",
+      "next": "Next",
+      "submit": "Create test",
+      "addQuestion": "Add question",
+      "addAnswer": "Add answer",
+      "questionLabel": "Question {index}",
+      "questionPlaceholder": "Enter question text",
+      "answerPlaceholder": "Answer text"
+    }
+  }
+}

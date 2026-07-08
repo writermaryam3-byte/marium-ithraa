@@ -1,0 +1,55 @@
+{
+  "header": {
+    "menu": {
+      "home": "Home",
+      "about": "About Us",
+      "services": "Our Services",
+      "blog": "Ithraa Blog",
+      "contact": "Contact Us"
+    },
+    "search": "Search",
+    "login": "Login"
+  },
+  "footer": {
+    "menu": {
+      "title": "About Ithraa",
+      "home": "Home",
+      "whoWeAre": "Who we are",
+      "services": "Our services",
+      "blog": "Ithraa blog",
+      "contact": "Contact us"
+    }
+  },
+  "dashboard": {
+    "users": "Users",
+    "dashboard": "Dashboard",
+    "employees": "Employees",
+    "children": "Children",
+    "childTransfers": "Transfer requests",
+    "capacityRequests": "Capacity requests",
+    "analytics": "Analytics",
+    "projects": "Projects",
+    "team": "Team",
+    "settings": "Settings",
+    "getHelp": "Get Help",
+    "search": "Search",
+    "dataLibrary": "Data Library",
+    "reports": "Reports",
+    "wordAssistant": "Word Assistant",
+    "tests": "Tests Library",
+    "evaluations": "Evaluations",
+    "attempts": "Attempts",
+    "deals": "Deals",
+    "activities": "Activities"
+  },
+  "organization": {
+    "home": "Home",
+    "grades": "Grades",
+    "classes": "Classes",
+    "children": "Children",
+    "teachers": "Teachers",
+    "results": "Results",
+    "deals": "Deals",
+    "menu": "Menu"
+  }
+}

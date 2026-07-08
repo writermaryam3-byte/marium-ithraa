@@ -1,0 +1,280 @@
+{
+  "title": "Organizations",
+  "description": "Review and manage organization registration requests.",
+  "statusLabel": "Organization status",
+  "status": {
+    "pending": "Pending approval",
+    "approved": "Approved",
+    "rejected": "Rejected"
+  },
+  "types": {
+    "center": "Educational center",
+    "nursery": "Nursery",
+    "training": "Training center",
+    "school": "School"
+  },
+  "messages": {
+    "pending": {
+      "title": "Your organization registration is awaiting admin approval.",
+      "description": "You will be able to manage classes, children, grades, and teachers after approval."
+    },
+    "rejected": {
+      "title": "Your organization registration was rejected.",
+      "description": "Please review the reason below and contact support if you need help.",
+      "reasonLabel": "Rejection reason",
+      "contactSupport": "Contact support",
+      "backToLogin": "Back to login"
+    },
+    "approvalRequired": "Your organization must be approved before you can perform this action."
+  },
+  "validation": {
+    "rejectReason": {
+      "min": "Rejection reason must be at least 3 characters.",
+      "max": "Rejection reason must be at most 500 characters."
+    }
+  },
+  "emptyStates": {
+    "pending": "No organizations awaiting review.",
+    "approved": "No approved organizations yet.",
+    "rejected": "No rejected organizations yet."
+  },
+  "admin": {
+    "nav": "Organizations",
+    "title": "Organizations",
+    "subtitle": "Review and manage organization registration requests.",
+    "tabs": {
+      "pending": "Pending",
+      "approved": "Approved",
+      "rejected": "Rejected"
+    },
+    "columns": {
+      "name": "Organization",
+      "type": "Type",
+      "owner": "Owner",
+      "email": "Owner email",
+      "status": "Status",
+      "submitted": "Submitted",
+      "reviewed": "Reviewed",
+      "actions": "Actions"
+    },
+    "approve": "Approve",
+    "reject": "Reject",
+    "cancel": "Cancel",
+    "retry": "Retry",
+    "approveAria": "Approve {name}",
+    "rejectAria": "Reject {name}",
+    "approveSuccess": "Organization approved successfully",
+    "approveFailed": "Unable to approve organization",
+    "rejectSuccess": "Organization rejected successfully",
+    "rejectFailed": "Unable to reject organization",
+    "approveDialog": {
+      "title": "Approve organization",
+      "description": "Are you sure you want to approve {name}?"
+    },
+    "rejectDialog": {
+      "title": "Reject organization",
+      "description": "Provide a reason for rejecting {name}.",
+      "reasonLabel": "Rejection reason",
+      "reasonPlaceholder": "Explain why this registration cannot be approved",
+      "reasonHelp": "Required. Between 3 and 500 characters."
+    },
+    "empty": {
+      "pending": "No organizations awaiting review.",
+      "approved": "No approved organizations yet.",
+      "rejected": "No rejected organizations yet."
+    },
+    "errors": {
+      "forbidden": "You do not have permission to manage organizations.",
+      "loadFailed": "Unable to load organizations."
+    }
+  },
+  "dashboard": {
+    "welcome": {
+      "title": "Welcome to {organizationName}",
+      "subtitle": "Manage your organization from one place"
+    },
+    "platformStats": "Platform stats",
+    "recentActivity": "Recent activity"
+  },
+  "results": {
+    "breadcrumb": {
+      "home": "Home"
+    },
+    "title": "Results",
+    "subtitle": "Track children assessment results",
+    "tabs": {
+      "evaluation": "Evaluation status",
+      "results": "Results",
+      "reports": "Reports"
+    },
+    "childResult": {
+      "name": "Name: {name}",
+      "class": "Class: {className}",
+      "result": "Result: {value}"
+    },
+    "evaluationStatus": {
+      "name": "Name: {name}",
+      "class": "Class: {className}",
+      "status": "Status: {status}"
+    },
+    "sendReminder": "Send reminder",
+    "downloadExcel": "Excel",
+    "downloadPdf": "PDF",
+    "classStats": "Class stats",
+    "topIntelligences": "Top 3 intelligences",
+    "childrenResults": "Children results"
+  },
+  "grades": {
+    "title": "Grades",
+    "description": "Manage grades and their classes",
+    "actions": {
+      "add": "Add grade"
+    },
+    "fields": {
+      "name": "Name",
+      "classesCount": "Classes",
+      "childrenCount": "Children"
+    },
+    "filters": {
+      "searchPlaceholder": "Search by grade name…"
+    },
+    "dialogs": {
+      "editTitle": "Edit grade",
+      "deleteTitle": "Delete grade"
+    },
+    "forms": {
+      "addTitle": "Add grade",
+      "editTitle": "Edit grade",
+      "editDescription": "Update grade information and save.",
+      "breadcrumb": {
+        "home": "Home",
+        "grades": "Grades"
+      },
+      "name": {
+        "label": "Grade name",
+        "placeholder": "Enter grade name"
+      },
+      "toast": {
+        "saved": "Grade saved successfully"
+      }
+    }
+  },
+  "classes": {
+    "title": "Classes",
+    "description": "Manage classes and assignments",
+    "actions": {
+      "add": "Add class"
+    },
+    "fields": {
+      "name": "Class",
+      "grade": "Grade",
+      "teacher": "Teacher",
+      "students": "Students",
+      "unassigned": "—"
+    },
+    "filters": {
+      "searchPlaceholder": "Search by class name…",
+      "grade": "Grade",
+      "allGrades": "All grades"
+    },
+    "dialogs": {
+      "editTitle": "Edit class",
+      "deleteTitle": "Delete class"
+    },
+    "forms": {
+      "addTitle": "Add class",
+      "editTitle": "Edit class",
+      "editDescription": "Update class information and save.",
+      "breadcrumb": {
+        "home": "Home",
+        "classes": "Classes"
+      },
+      "name": {
+        "label": "Class name",
+        "placeholder": "Enter class name"
+      },
+      "grade": {
+        "label": "Grade",
+        "placeholder": "Select grade"
+      },
+      "teacher": {
+        "label": "Teacher (optional)",
+        "placeholder": "Select teacher",
+        "none": "None"
+      },
+      "toast": {
+        "saved": "Class saved successfully"
+      }
+    }
+  },
+  "gradeDetail": {
+    "addClass": "Add class",
+    "emptyClasses": "No classes in this grade",
+    "childrenCount": "{count} children",
+    "emptyChildren": "No children in this class",
+    "subtitle": "{count} classes",
+    "gradesBreadcrumb": "Grades"
+  },
+  "classDetail": {
+    "addChild": "Add child",
+    "empty": "No children in this class",
+    "birth": "Birth",
+    "deleteTitle": "Delete child",
+    "gradeSubtitle": "Grade: {grade}",
+    "classesBreadcrumb": "Classes",
+    "children": {
+      "genderPlaceholder": "Select gender",
+      "name": "Name",
+      "birthDate": "Birth date",
+      "gender": "Gender",
+      "grade": "Grade",
+      "class": "Class",
+      "parent": "Parent",
+      "email": "Email",
+      "phone": "Phone",
+      "evaluation": "Evaluation status",
+      "attempts": "Attempts"
+    }
+  },
+  "organizationEvaluations": {
+    "results": "Results",
+    "subtitle": "Track your institution's children evaluation results",
+    "reportsTab": "Reports",
+    "resultsTab": "Results",
+    "statusTab": "Evaluation status",
+    "class": "Class",
+    "evaluation": "Evaluation",
+    "selectClass": "Select class",
+    "selectEvaluation": "Select evaluation",
+    "selectClassAndEvaluation": "Select a class and evaluation to view data",
+    "highestScore": "Highest score",
+    "averageScore": "Class average",
+    "lowestScore": "Lowest score",
+    "topDimensions": "Top 3 dimensions",
+    "childrenResults": "Children results",
+    "childrenCount": "Children count",
+    "approved": "Approved",
+    "waitingApproval": "Waiting for approval",
+    "inProgress": "In progress",
+    "notStarted": "Not started yet",
+    "sendReminder": "Send reminder",
+    "reminderSuccess": "Reminder sent successfully",
+    "empty": "No data",
+    "error": "An error occurred",
+    "retry": "Retry",
+    "classStats": "Class statistics",
+    "score": "Score",
+    "result": "Result",
+    "downloadPdf": "Download PDF",
+    "downloadExcel": "Download Excel",
+    "noTopDimensions": "No dimensions available for this evaluation",
+    "attemptResult": "Evaluation result",
+    "attemptForbidden": "You cannot view this result. It may not be approved yet or you do not have access.",
+    "attemptNotApproved": "This evaluation has been submitted but not approved yet. Results will appear after approval.",
+    "attemptNoResultYet": "No result is available for this evaluation yet.",
+    "backToResults": "Back to results",
+    "pdfExportSoon": "PDF download will be supported soon",
+    "excelExportSoon": "Excel export will be supported soon",
+    "childrenUnit": "children"
+  }
+}

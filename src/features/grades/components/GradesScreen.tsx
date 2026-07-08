@@ -26,9 +26,9 @@ import { UpdateGradeDialog } from './UpdateGradeDialog'
 
 export function GradesScreen({ grades }: { grades: Grade[] }) {
   const locale = useLocale()
-  const t = useTranslations('Dashboard.Grades')
-  const tCommon = useTranslations('Dashboard.common')
-  const tPagination = useTranslations('Dashboard.pagination')
+  const t = useTranslations('organizations.grades')
+  const tCommon = useTranslations('common')
+  const tPagination = useTranslations('pagination')
   const { notifyDelete } = useActionFeedback()
   const [search, setSearch] = useState('')
 

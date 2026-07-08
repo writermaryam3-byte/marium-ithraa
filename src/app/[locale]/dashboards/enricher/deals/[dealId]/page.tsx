@@ -25,7 +25,7 @@ export default function EnricherDealDetailPage() {
   const params = useParams<{ dealId: string }>()
   const router = useRouter()
   const locale = useLocale()
-  const t = useTranslations('Features.EnricherDashboard')
+  const t = useTranslations('deals.enricher')
   const [price, setPrice] = useState('')
   const { data: deal, isLoading } = useEnricherDealDetail(params.dealId)
   const { data: myProposals } = useEnricherProposals()

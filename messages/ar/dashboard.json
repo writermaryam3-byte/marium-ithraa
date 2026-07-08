@@ -1,0 +1,55 @@
+{
+  "titles": {
+    "dashboard": "لوحة التحكم",
+    "children": "الأطفال"
+  },
+  "cards": {
+    "employeesCount": "عدد الموظفين",
+    "childrenCount": "عدد الأطفال",
+    "trendingUp": "في تحسّن هذا الشهر",
+    "last6Months": "آخر 6 أشهر"
+  },
+  "tables": {
+    "childrenTitle": "جدول الأطفال"
+  },
+  "parent": {
+    "privateChildren": {
+      "title": "أطفالي",
+      "subtitle": "يمكنك إضافة حتى {limit} أطفال للتقييم الخاص",
+      "limitReached": "تم الوصول إلى الحد الأقصى (طفلان)",
+      "addChild": "إضافة طفل",
+      "empty": "لا يوجد أطفال بعد"
+    },
+    "orgChildren": {
+      "title": "أطفال المؤسسة",
+      "subtitle": "يمكنك تقييم أطفال مؤسستك من هنا",
+      "empty": "لا يوجد أطفال بعد"
+    },
+    "attempts": "المحاولات",
+    "retake": "إعادة التقييم",
+    "evaluationsLink": "التقييمات",
+    "childAge": "عمر الطفل: {age} سنة",
+    "subtitle": "ابدأ التقييمات وتابع نتائج أطفالك من مكان واحد",
+    "welcome": "مرحباً {name}",
+    "defaultName": "ولي الأمر",
+    "overview": "نظرة عامة",
+    "quickActions": "اختصارات سريعة",
+    "viewChildren": "عرض الأطفال",
+    "recentNotifications": "آخر التنبيهات",
+    "children": "الأطفال",
+    "childrenDesc": "عرض وإدارة أطفالك المسجّلين",
+    "evaluations": "التقييمات",
+    "evaluationsDesc": "بدء ومتابعة تقييمات الأطفال",
+    "notificationsDesc": "متابعة التنبيهات والتحديثات"
+  },
+  "choseRole": {
+    "title": "اختر الدور",
+    "subtitle": "يرجى اختيار الدور الذي تريد استخدامه في هذه الجلسة:",
+    "noRoles": "لا توجد أدوار لحسابك.",
+    "redirecting": "جاري التحويل…"
+  },
+  "adminUsers": {
+    "usersCount": "عدد المستخدمين",
+    "usersTable": "جدول المستخدمين"
+  }
+}

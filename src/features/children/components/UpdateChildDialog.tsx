@@ -49,8 +49,8 @@ export function UpdateChildDialog({
   birthDate,
   gender,
 }: UpdateChildDialogProps) {
-  const t = useTranslations('Dashboard.Children')
-  const tCommon = useTranslations('Dashboard.common')
+  const t = useTranslations('children')
+  const tCommon = useTranslations('common')
   const { fields } = useFormConfig(FormTypes.CHILD_UPDATE)
 
   const { form, submit, isPending } = useServerActionForm({

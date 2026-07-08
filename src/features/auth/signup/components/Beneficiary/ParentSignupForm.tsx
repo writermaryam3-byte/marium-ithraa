@@ -15,7 +15,7 @@ import {
 } from '@/components/ui/field'
 
 const ParentSignupForm = () => {
-  const t = useTranslations('Signup.Beneficiary.Parent')
+  const t = useTranslations('signup.beneficiary.parent')
   const form = useFormContext()
 
   return (

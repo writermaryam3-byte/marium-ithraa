@@ -20,7 +20,7 @@ const ENRICHER_URL = `/${Routes.DASHBOARDS}/${Pages.ENRICHER}`
 
 export default function EnricherDealsPage() {
   const locale = useLocale()
-  const t = useTranslations('Features.EnricherDashboard')
+  const t = useTranslations('deals.enricher')
   const [search, setSearch] = useState('')
   const { data, isLoading, isError } = useEnricherDeals()
   const deals = useMemo(() => {

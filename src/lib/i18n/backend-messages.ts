@@ -105,6 +105,6 @@ export function translateBackendMessage(msg: string, t: TranslateFn): string {
 }
 
 export function useTranslateBackend() {
-  const t = useTranslations('Backend')
+  const t = useTranslations('apiErrors')
   return (msg: string) => translateBackendMessage(msg, t)
 }

@@ -26,8 +26,8 @@ type Props = {
 export function GradeFormScreen({ locale, organizationId, grade }: Props) {
   const isAr = locale === 'ar'
   const router = useRouter()
-  const t = useTranslations('Forms.Grade')
-  const tCommon = useTranslations('Dashboard.common')
+  const t = useTranslations('organizations.grades.forms')
+  const tCommon = useTranslations('common')
   const isEdit = Boolean(grade)
   const action = isEdit ? updateGradeAction : createGradeAction
   const { fields } = useFormConfig(FormTypes.GRADE)

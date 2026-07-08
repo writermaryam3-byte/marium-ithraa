@@ -1,0 +1,30 @@
+{
+  "login": {
+    "phone": {
+      "label": "رقم الهاتف",
+      "placeholder": "أدخل رقم الهاتف"
+    },
+    "password": {
+      "label": "كلمة المرور",
+      "placeholder": "أدخل كلمة المرور"
+    }
+  },
+  "shared": {
+    "name": {
+      "label": "الاسم",
+      "placeholder": "أدخل الاسم"
+    },
+    "email": {
+      "label": "البريد الإلكتروني",
+      "placeholder": "أدخل البريد الإلكتروني"
+    },
+    "phone": {
+      "label": "الهاتف",
+      "placeholder": "أدخل رقم الهاتف"
+    },
+    "password": {
+      "label": "كلمة المرور",
+      "placeholder": "أدخل كلمة المرور"
+    }
+  }
+}

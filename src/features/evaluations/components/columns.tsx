@@ -13,12 +13,12 @@ import { formatAgeRange, getEvaluationTypeLabel } from '../utils/labels'
 const ADMIN_EVALUATIONS = `/${Routes.DASHBOARDS}/${Pages.ADMIN}/evaluations`
 
 function TH({ messageKey }: { messageKey: string }) {
-  const t = useTranslations('Features.Evaluations')
+  const t = useTranslations('evaluations')
   return t(messageKey)
 }
 
 function TypeBadge({ type }: { type: Evaluation['type'] }) {
-  const t = useTranslations('Features.Evaluations')
+  const t = useTranslations('evaluations')
   return (
     <Badge variant="secondary" className="font-normal">
       {getEvaluationTypeLabel(type, t)}
@@ -27,12 +27,12 @@ function TypeBadge({ type }: { type: Evaluation['type'] }) {
 }
 
 function AgeRangeCell({ evaluation }: { evaluation: Evaluation }) {
-  const t = useTranslations('Features.Evaluations')
+  const t = useTranslations('evaluations')
   return formatAgeRange(evaluation.ageFrom, evaluation.ageTo, t)
 }
 
 function ViewDetailsLink({ id }: { id: string }) {
-  const t = useTranslations('Features.Evaluations')
+  const t = useTranslations('evaluations')
   return (
     <Button asChild variant="outline" size="sm">
       <Link href={`${ADMIN_EVALUATIONS}/${id}`}>{t('viewDetails')}</Link>

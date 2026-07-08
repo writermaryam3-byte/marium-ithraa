@@ -19,7 +19,7 @@ import { FormTypes } from '@/lib/types/enums'
 import { showSuccessToast } from '@/lib/toast/app-toast'
 
 const LoginForm = () => {
-  const t = useTranslations('Auth.Login')
+  const t = useTranslations('auth.login')
   const locale = useLocale()
   const router = useRouter()
   const { login } = useAuth()

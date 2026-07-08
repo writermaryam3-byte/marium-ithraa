@@ -22,9 +22,9 @@ const PARENT_URL = `/${Routes.DASHBOARDS}/${Pages.PARENT}`
 
 export default function ParentSidebar(props: React.ComponentProps<typeof Sidebar>) {
   const { data: session } = useSession()
-  const t = useTranslations('Dashboard.Nav')
-  const tParent = useTranslations('Features.ParentDashboard')
-  const tNotif = useTranslations('Features.Notifications')
+  const t = useTranslations('navigation.dashboard')
+  const tParent = useTranslations('dashboard.parent')
+  const tNotif = useTranslations('notifications')
 
   const data = {
     user: {

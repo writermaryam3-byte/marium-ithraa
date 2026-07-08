@@ -27,7 +27,7 @@ import type { Activity } from '@/features/deals'
 
 export default function AdminActivitiesPage() {
   const locale = useLocale()
-  const t = useTranslations('Features.Activities')
+  const t = useTranslations('activities')
   const { data, isLoading } = useActivitiesWithDeals()
   const create = useCreateActivity()
   const update = useUpdateActivity()

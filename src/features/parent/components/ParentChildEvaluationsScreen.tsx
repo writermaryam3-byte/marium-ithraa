@@ -32,8 +32,8 @@ type Props = {
 
 export function ParentChildEvaluationsScreen({ childId }: Props) {
   const locale = useLocale()
-  const t = useTranslations('Features.Evaluations')
-  const tParent = useTranslations('Dashboard.Parent')
+  const t = useTranslations('evaluations')
+  const tParent = useTranslations('dashboard.parent')
 
   const available = useAvailableEvaluations(childId)
   const attempts = useChildAttempts(childId)

@@ -13,7 +13,7 @@ import { useStartEvaluation } from '@/features/evaluations/hooks'
 import { startAttemptSchema } from '@/features/evaluations/types'
 
 export default function StartEvaluationPage() {
-  const t = useTranslations('StartEvaluation')
+  const t = useTranslations('evaluations.start')
   const params = useParams<{ evaluationId: string }>()
   const router = useRouter()
   const evaluationId = params.evaluationId

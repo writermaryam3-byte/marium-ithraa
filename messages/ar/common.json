@@ -1,0 +1,46 @@
+{
+  "buttons": {
+    "save": "حفظ",
+    "cancel": "إلغاء",
+    "delete": "حذف",
+    "edit": "تعديل",
+    "add": "إضافة",
+    "create": "إنشاء",
+    "update": "تحديث",
+    "submit": "إرسال",
+    "confirm": "تأكيد",
+    "approve": "اعتماد",
+    "reject": "رفض",
+    "retry": "إعادة المحاولة",
+    "back": "رجوع",
+    "next": "التالي",
+    "close": "إغلاق",
+    "done": "تم",
+    "open": "فتح"
+  },
+  "states": {
+    "loading": "جاري التحميل…",
+    "saving": "جاري الحفظ…",
+    "adding": "جاري الإضافة…",
+    "deleting": "جاري الحذف…",
+    "sending": "جاري الإرسال…",
+    "submitting": "جاري الإرسال…",
+    "redirecting": "جاري التحويل…",
+    "checking": "جاري التحقق من الجلسة…"
+  },
+  "empty": {
+    "noData": "لا توجد بيانات",
+    "noResults": "لم يتم العثور على نتائج"
+  },
+  "yesNo": {
+    "yes": "نعم",
+    "no": "لا"
+  },
+  "general": {
+    "home": "الرئيسية",
+    "search": "بحث…",
+    "unauthorized": "غير مصرح",
+    "confirmDelete": "هل أنت متأكد؟",
+    "done": "تم"
+  }
+}

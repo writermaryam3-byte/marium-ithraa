@@ -1,0 +1,26 @@
+{
+  "title": "الأنشطة",
+  "actions": {
+    "create": "إضافة نشاط"
+  },
+  "fields": {
+    "name": "الاسم",
+    "namePlaceholder": "أدخل اسم النشاط",
+    "dealsCount": "الصفقات"
+  },
+  "dialogs": {
+    "createTitle": "إنشاء نشاط",
+    "editTitle": "تعديل النشاط",
+    "deleteTitle": "حذف النشاط",
+    "deleteConfirm": "هل أنت متأكد من حذف \"{name}\"؟"
+  },
+  "table": {
+    "actions": "الإجراءات"
+  },
+  "messages": {
+    "empty": "لا توجد أنشطة بعد"
+  },
+  "emptyStates": {
+    "list": "لا توجد أنشطة بعد"
+  }
+}

@@ -23,11 +23,11 @@ type Props = {
 
 export function ParentPrivateChildrenScreen({ privateChildren }: Props) {
   const locale = useLocale()
-  const t = useTranslations('Dashboard.Parent.privateChildren')
-  const tParent = useTranslations('Dashboard.Parent')
-  const tChildren = useTranslations('Dashboard.Children')
-  const tCommon = useTranslations('Dashboard.common')
-  const tDashboard = useTranslations('Dashboard.common')
+  const t = useTranslations('dashboard.parent.privateChildren')
+  const tParent = useTranslations('dashboard.parent')
+  const tChildren = useTranslations('children')
+  const tCommon = useTranslations('common')
+  const tDashboard = useTranslations('common')
   const [open, setOpen] = useState(false)
   const atLimit = privateChildren.length >= PRIVATE_CHILD_LIMIT
 

@@ -25,7 +25,7 @@ const ORG_URL = `/${Routes.DASHBOARDS}/${Pages.ORGANIZATION}`
 
 export default function NewDealPage() {
   const locale = useLocale()
-  const t = useTranslations('Features.Deals')
+  const t = useTranslations('deals')
   const router = useRouter()
   const { data: activities, isLoading: loadingActivities } = useActivities()
   const create = useCreateDeal(() => {

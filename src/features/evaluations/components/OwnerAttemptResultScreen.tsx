@@ -22,9 +22,9 @@ export function OwnerAttemptResultScreen() {
   const locale = useLocale()
   const params = useParams<{ attemptId: string }>()
   const attemptId = params.attemptId ?? ''
-  const t = useTranslations('Features.OrganizationEvaluations')
-  const tEval = useTranslations('Features.Evaluations')
-  const tCommon = useTranslations('Dashboard.common')
+  const t = useTranslations('evaluations.organization')
+  const tEval = useTranslations('evaluations')
+  const tCommon = useTranslations('common')
 
   const { data: attempt, isLoading, isError, error, refetch } = useAttempt(attemptId)
 

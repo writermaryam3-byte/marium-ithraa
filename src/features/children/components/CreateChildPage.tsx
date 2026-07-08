@@ -83,7 +83,7 @@ export function CreateChildPage({
 }: Props) {
   const router = useRouter()
   const isAr = locale === 'ar'
-  const t = useTranslations('CreateChild')
+  const t = useTranslations('children.create')
   const tb = useTranslateBackend()
   const [childState, setChildState] = useState<ChildState>('selecting')
   const [selectedChild, setSelectedChild] = useState<Child | null>(null)
@@ -341,7 +341,7 @@ function ParentPhoneInput({
   form: UseFormReturn<CreateChildFlowValues>
   isSearching: boolean
 }) {
-  const t = useTranslations('CreateChild')
+  const t = useTranslations('children.create')
   return (
     <FormField
       control={form.control}
@@ -377,7 +377,7 @@ function ParentPhoneInput({
 }
 
 function ParentCard({ parent, children }: { parent: ParentInfo; children: ReactNode }) {
-  const t = useTranslations('CreateChild')
+  const t = useTranslations('children.create')
   return (
     <div className="space-y-4 rounded-xl border bg-card p-4">
       <div className="flex items-start gap-3">
@@ -409,7 +409,7 @@ function ChildrenList({
   disabled: boolean
   onSelect: (childId: string) => void
 }) {
-  const t = useTranslations('CreateChild')
+  const t = useTranslations('children.create')
   if (!items.length) {
     return <p className="text-sm text-muted-foreground">{t('noChildrenFound')}</p>
   }
@@ -445,7 +445,7 @@ function ChildrenList({
 }
 
 function CreateParentFields({ form }: { form: UseFormReturn<CreateChildFlowValues> }) {
-  const t = useTranslations('CreateChild')
+  const t = useTranslations('children.create')
   return (
     <div className="space-y-4 rounded-xl border border-amber-200 bg-amber-50/50 p-4">
       <p className="text-sm font-medium text-amber-800">{t('parentNotFound')}</p>
@@ -490,7 +490,7 @@ function ChildForm({
   classesForGrade: ClassItem[]
   onGradeChange: (gradeId: string) => void
 }) {
-  const t = useTranslations('CreateChild')
+  const t = useTranslations('children.create')
   const gradeId = useWatch({ control: form.control, name: 'gradeId' })
 
   return (
@@ -606,7 +606,7 @@ function TransferAlert({
   child: Child
   onRequestTransfer: () => void
 }) {
-  const t = useTranslations('CreateChild')
+  const t = useTranslations('children.create')
   return (
     <div className="rounded-xl border border-amber-200 bg-amber-50 p-4 text-amber-900">
       <div className="flex gap-3">
@@ -634,7 +634,7 @@ function TransferModal({
   response: Extract<CreateChildResponse, { status: 'TRANSFER_REQUIRED' }> | null
   onOpenChange: (open: boolean) => void
 }) {
-  const t = useTranslations('CreateChild')
+  const t = useTranslations('children.create')
   const tb = useTranslateBackend()
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -667,7 +667,7 @@ function NotParentFields({
   form: UseFormReturn<CreateChildFlowValues>
   user: { id: string; name?: string; phone: string; email?: string }
 }) {
-  const t = useTranslations('CreateChild')
+  const t = useTranslations('children.create')
   return (
     <div className="space-y-4 rounded-xl border border-amber-200 bg-amber-50/50 p-4">
       <p className="text-sm font-medium text-amber-800">{t('assignParentRole')}</p>

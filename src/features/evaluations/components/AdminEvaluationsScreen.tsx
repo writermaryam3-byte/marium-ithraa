@@ -30,7 +30,7 @@ type Props = {
 const ALL_TYPES = 'all'
 
 export function AdminEvaluationsScreen({ evaluations, locale }: Props) {
-  const t = useTranslations('Features.Evaluations')
+  const t = useTranslations('evaluations')
   const isAr = locale === 'ar'
   const [search, setSearch] = useState('')
   const [typeFilter, setTypeFilter] = useState<string>(ALL_TYPES)

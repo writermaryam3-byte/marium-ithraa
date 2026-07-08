@@ -13,7 +13,7 @@ export default async function OrgEmployeesPage() {
   const cards: CardInfo[] = [
     {
       title: employees?.length || 0,
-      description: 'Dashboard.cards.employeesCount',
+      description: 'dashboard.cards.employeesCount',
       footer: {
         exist: false,
       },

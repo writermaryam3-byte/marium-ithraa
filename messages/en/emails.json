@@ -1,0 +1,23 @@
+{
+  "verification": {
+    "title": "Check your email",
+    "sentLink": "We sent a verification link to",
+    "instruction": "Open the email and click the link to verify your account.",
+    "resend": "Resend Email",
+    "resendIn": "Resend in {cooldown}s",
+    "sendSuccess": "Email sent successfully",
+    "sendFailed": "Failed to send email"
+  },
+  "resetPassword": {
+    "title": "Reset password",
+    "instruction": "Click the link in your email to reset your password."
+  },
+  "invitation": {
+    "title": "Invitation",
+    "instruction": "You have been invited to join {organizationName}."
+  },
+  "welcome": {
+    "title": "Welcome",
+    "instruction": "Welcome to Ithraa Intelligence."
+  }
+}

@@ -42,7 +42,7 @@ export function ListFilters({
   gradeFilter,
   classFilter,
 }: ListFiltersProps) {
-  const t = useTranslations('Common')
+  const t = useTranslations('common')
 
   return (
     <div

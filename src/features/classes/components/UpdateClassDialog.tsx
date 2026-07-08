@@ -37,8 +37,8 @@ export function UpdateClassDialog({
   gradeId = '',
   teacherId = '',
 }: UpdateClassDialogProps) {
-  const t = useTranslations('Forms.Class')
-  const tCommon = useTranslations('Dashboard.common')
+  const t = useTranslations('organizations.classes.forms')
+  const tCommon = useTranslations('common')
 
   const handleStatus = (state: InitialState) => {
     if (state.status === StatusCode.OK) {

@@ -127,8 +127,8 @@ function FiltersBar({
   }[]
   disabled?: boolean
 }) {
-  const t = useTranslations('Features.OrganizationEvaluations')
-  const tEval = useTranslations('Features.Evaluations')
+  const t = useTranslations('evaluations.organization')
+  const tEval = useTranslations('evaluations')
 
   return (
     <div className="grid gap-4 md:grid-cols-2">
@@ -178,7 +178,7 @@ function FiltersBar({
 }
 
 function ReportsTab({ locale, evaluationId }: { locale: string; evaluationId: string }) {
-  const t = useTranslations('Features.OrganizationEvaluations')
+  const t = useTranslations('evaluations.organization')
   const reportsQuery = useOwnerEvaluationReports(evaluationId || undefined)
 
   const showPdfExportSoon = () => {
@@ -241,7 +241,7 @@ function ReportCard({
   onExcelExport: () => void
   locale: string
 }) {
-  const t = useTranslations('Features.OrganizationEvaluations')
+  const t = useTranslations('evaluations.organization')
   const dateLabel = report.reportDate
     ? new Date(report.reportDate).toLocaleDateString(getDateLocale(locale))
     : '—'
@@ -291,7 +291,7 @@ function ReportCard({
 }
 
 function ResultsTab({ classId, evaluationId }: { classId: string; evaluationId: string }) {
-  const t = useTranslations('Features.OrganizationEvaluations')
+  const t = useTranslations('evaluations.organization')
   const summaryQuery = useOwnerClassEvaluationSummary(classId, evaluationId)
 
   if (!classId || !evaluationId) {
@@ -346,7 +346,7 @@ function ResultsTabSkeleton() {
 }
 
 function ResultsTabContent({ summary }: { summary: OwnerClassEvaluationSummary }) {
-  const t = useTranslations('Features.OrganizationEvaluations')
+  const t = useTranslations('evaluations.organization')
   const isLearningStyles = summary.evaluationType === 'learning_styles'
   const topDims = summary.topDimensions ?? []
 
@@ -465,7 +465,7 @@ function ChildResultCard({
   child: OwnerClassEvaluationSummary['children'][number]
   isLearningStyles: boolean
 }) {
-  const t = useTranslations('Features.OrganizationEvaluations')
+  const t = useTranslations('evaluations.organization')
 
   const resultLine = isLearningStyles
     ? [child.topResultLabel, child.topDimensionName].filter(Boolean).join(' · ') || '—'
@@ -537,7 +537,7 @@ function StatusTab({
   classId: string
   evaluationId: string
 }) {
-  const t = useTranslations('Features.OrganizationEvaluations')
+  const t = useTranslations('evaluations.organization')
   const statusQuery = useOwnerClassEvaluationStatus(classId, evaluationId)
   const reminderMutation = useSendOwnerEvaluationReminder(classId, evaluationId)
 
@@ -614,7 +614,7 @@ function StatusChildCard({
   onReminder: () => void
   isPending: boolean
 }) {
-  const t = useTranslations('Features.OrganizationEvaluations')
+  const t = useTranslations('evaluations.organization')
 
   return (
     <Card className="rounded-2xl border bg-card shadow-sm hover:border-brand-navy/20 transition-all duration-300">
@@ -652,8 +652,8 @@ function StatusChildCard({
 }
 
 export function OwnerEvaluationResultsScreen({ locale }: Props) {
-  const t = useTranslations('Features.OrganizationEvaluations')
-  const tCommon = useTranslations('Dashboard.common')
+  const t = useTranslations('evaluations.organization')
+  const tCommon = useTranslations('common')
 
   const filtersQuery = useOwnerEvaluationFilters()
   const [classId, setClassId] = useState<string | null>(null)

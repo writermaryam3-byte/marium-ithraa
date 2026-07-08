@@ -5,7 +5,7 @@ import { useTranslations } from 'next-intl'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 
 export function PrideResult({ result }: { result: Record<string, unknown> }) {
-  const t = useTranslations('Features.EvaluationResults.pride')
+  const t = useTranslations('evaluations.results.pride')
   const total = result.totalScore ?? result.score
   const level = result.level as string | undefined
   const dimensions = (result.dimensions as Array<{ name?: string; score?: number }>) ?? []

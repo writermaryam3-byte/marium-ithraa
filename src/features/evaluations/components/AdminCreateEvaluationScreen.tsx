@@ -47,7 +47,7 @@ const defaultQuestion = () => ({
 })
 
 export function AdminCreateEvaluationScreen({ locale }: Props) {
-  const t = useTranslations('Features.Evaluations')
+  const t = useTranslations('evaluations')
   const isAr = locale === 'ar'
   const router = useRouter()
   const create = useCreateEvaluation()

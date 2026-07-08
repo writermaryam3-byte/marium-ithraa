@@ -56,9 +56,9 @@ type Props = {
 
 export function ChildrenScreen({ childrens, grades, classes }: Props) {
   const locale = useLocale()
-  const t = useTranslations('Dashboard.Children')
-  const tCommon = useTranslations('Dashboard.common')
-  const tPagination = useTranslations('Dashboard.pagination')
+  const t = useTranslations('children')
+  const tCommon = useTranslations('common')
+  const tPagination = useTranslations('pagination')
   const { notifyDelete } = useActionFeedback()
   const [search, setSearch] = useState('')
   const [gradeFilter, setGradeFilter] = useState('')

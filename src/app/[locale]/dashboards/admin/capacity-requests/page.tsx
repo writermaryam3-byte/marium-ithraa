@@ -45,7 +45,7 @@ const statusBadgeVariant: Record<string, 'default' | 'secondary' | 'destructive'
 }
 
 export default function AdminCapacityRequestsPage() {
-  const t = useTranslations('CapacityRequests')
+  const t = useTranslations('evaluations.capacityRequests')
   const [statusFilter, setStatusFilter] = useState<string>('pending')
   const { data, isLoading } = useCapacityRequests(statusFilter || undefined)
 
@@ -117,7 +117,7 @@ export default function AdminCapacityRequestsPage() {
 }
 
 function CapacityRequestActions({ request }: { request: CapacityRequest }) {
-  const t = useTranslations('CapacityRequests')
+  const t = useTranslations('evaluations.capacityRequests')
   const tb = useTranslateBackend()
   const approveMutation = useApproveCapacityRequest()
   const rejectMutation = useRejectCapacityRequest()

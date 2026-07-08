@@ -40,8 +40,8 @@ type Props = {
 }
 
 export function ChildRowActions({ child }: Props) {
-  const t = useTranslations('Dashboard.Children')
-  const tCommon = useTranslations('Dashboard.common')
+  const t = useTranslations('children')
+  const tCommon = useTranslations('common')
   const { notifyAction, notifyDelete } = useActionFeedback()
   const { fields } = useFormConfig(FormTypes.CHILD_UPDATE)
   const [updateOpen, setUpdateOpen] = useState(false)

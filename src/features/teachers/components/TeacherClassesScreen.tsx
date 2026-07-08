@@ -16,7 +16,7 @@ type Props = {
 
 export function TeacherClassesScreen({ classes, teacherName }: Props) {
   const locale = useLocale()
-  const t = useTranslations('Features.TeacherDashboard')
+  const t = useTranslations('teachers.dashboard')
 
   return (
     <main className="app-container space-y-8 py-8" dir={getTextDirection(locale)}>

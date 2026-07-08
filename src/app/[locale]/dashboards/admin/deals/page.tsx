@@ -25,7 +25,7 @@ const ADMIN_URL = `/${Routes.DASHBOARDS}/${Pages.ADMIN}`
 
 export default function AdminDealsPage() {
   const locale = useLocale()
-  const t = useTranslations('Features.Deals')
+  const t = useTranslations('deals')
   const [statusFilter, setStatusFilter] = useState<string>('all')
   const [search, setSearch] = useState('')
   const { data, isLoading } = useDeals()

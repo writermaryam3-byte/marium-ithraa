@@ -15,7 +15,7 @@ type Props = {
 
 export function AdminEvaluationDetailsScreen({ evaluation }: Props) {
   const locale = useLocale()
-  const t = useTranslations('Features.Evaluations')
+  const t = useTranslations('evaluations')
 
   const groupedQuestions = useMemo(() => {
     const map = new Map<string, typeof evaluation.questions>()

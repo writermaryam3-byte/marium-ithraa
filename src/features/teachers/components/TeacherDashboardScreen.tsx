@@ -20,9 +20,9 @@ type Props = {
 
 export function TeacherDashboardScreen({ classCount = 0, teacherName }: Props) {
   const locale = useLocale()
-  const tTeacher = useTranslations('Features.TeacherDashboard')
-  const tNav = useTranslations('Dashboard.Nav')
-  const tNotif = useTranslations('Features.Notifications')
+  const tTeacher = useTranslations('teachers.dashboard')
+  const tNav = useTranslations('navigation.dashboard')
+  const tNotif = useTranslations('notifications')
   const { data: session } = useSession()
 
   const displayName = teacherName ?? session?.user?.name ?? tTeacher('defaultName')

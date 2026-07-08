@@ -17,9 +17,9 @@ type Props = {
 
 export function GradeDetailScreen({ grade, childrenByClass }: Props) {
   const locale = useLocale()
-  const t = useTranslations('Dashboard.GradeDetail')
-  const tCommon = useTranslations('Dashboard.common')
-  const tNav = useTranslations('Layout.OrganizationNav')
+  const t = useTranslations('organizations.gradeDetail')
+  const tCommon = useTranslations('common')
+  const tNav = useTranslations('navigation.organization')
   const classes = grade.classes ?? []
 
   return (

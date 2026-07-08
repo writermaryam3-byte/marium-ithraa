@@ -10,8 +10,8 @@ import Searchbar from './search'
 import { Menu, X } from 'lucide-react'
 
 const Header = ({ locale }: { locale: string }) => {
-  const t = useTranslations('Header')
-  const tAuth = useTranslations('Auth')
+  const t = useTranslations('navigation.header')
+  const tAuth = useTranslations('auth')
   const { isAuthenticated, logout, loginPath } = useAuth()
   const navLinks = [
     {
