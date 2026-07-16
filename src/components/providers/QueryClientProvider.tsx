@@ -12,7 +12,7 @@ import { notifyError, notifySuccess } from '@/lib/toast/app-toast'
 import { TooltipProvider } from '../ui/tooltip'
 
 export function Providers({ children }: { children: React.ReactNode }) {
-  const t = useTranslations('apiErrors')
+  const t = useTranslations('errors')
   const tActions = useTranslations('actions')
 
   useEffect(() => {

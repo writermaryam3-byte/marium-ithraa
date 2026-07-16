@@ -3,9 +3,9 @@
 import { useParams } from 'next/navigation'
 import { useLocale, useTranslations } from 'next-intl'
 
-import AttemptSummary from '@/components/evaluation/AttemptSummary'
-import EvaluationRunner from '@/components/evaluation/EvaluationRunner'
-import { AttemptResultView } from '@/components/evaluation/results/AttemptResultView'
+import AttemptSummary from '@/features/evaluations/components/AttemptSummary'
+import EvaluationRunner from '@/features/evaluations/components/EvaluationRunner'
+import { AttemptResultView } from '@/features/evaluations/components/results/AttemptResultView'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Skeleton } from '@/components/ui/skeleton'
 import { useAttempt } from '@/features/evaluations/hooks'

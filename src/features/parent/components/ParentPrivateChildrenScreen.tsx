@@ -5,6 +5,8 @@ import { useLocale, useTranslations } from 'next-intl'
 import { Baby, Calendar, Plus } from 'lucide-react'
 
 import { ParentPrivateChildDialog } from './ParentPrivateChildDialog'
+import { ParentCapacityRequestDialog } from './ParentCapacityRequestDialog'
+import { ParentApprovedCapacityBanner } from './ParentApprovedCapacityBanner'
 
 import { ManagementPageHeader } from '@/components/shared/management/ManagementPageHeader'
 import { EmptyState } from '@/components/shared/management/EmptyState'
@@ -29,6 +31,7 @@ export function ParentPrivateChildrenScreen({ privateChildren }: Props) {
   const tCommon = useTranslations('common')
   const tDashboard = useTranslations('common')
   const [open, setOpen] = useState(false)
+  const [capacityOpen, setCapacityOpen] = useState(false)
   const atLimit = privateChildren.length >= PRIVATE_CHILD_LIMIT
 
   return (
@@ -42,10 +45,15 @@ export function ParentPrivateChildrenScreen({ privateChildren }: Props) {
         subtitle={t('subtitle', { limit: PRIVATE_CHILD_LIMIT })}
       />
 
+      <ParentApprovedCapacityBanner />
+
       {atLimit && (
-        <p className="rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900">
-          {t('limitReached')}
-        </p>
+        <div className="flex flex-col gap-3 rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900 sm:flex-row sm:items-center sm:justify-between">
+          <p>{t('limitReached')}</p>
+          <Button type="button" variant="outline" size="sm" onClick={() => setCapacityOpen(true)}>
+            {t('requestCapacity')}
+          </Button>
+        </div>
       )}
 
       {/* <div className="flex justify-end">
@@ -80,14 +88,6 @@ export function ParentPrivateChildrenScreen({ privateChildren }: Props) {
           <Plus className="size-4" />
           {t('addChild')}
         </Button>
-
-        {/* الـ Dialog يتم استدعاؤه كـ Component منفصل هنا */}
-        <ParentPrivateChildDialog
-          open={open}
-          onOpenChange={setOpen}
-          currentCount={privateChildren.length}
-          onSuccess={() => {}}
-        />
       </div>
 
       {privateChildren.length === 0 ? (
@@ -125,6 +125,14 @@ export function ParentPrivateChildrenScreen({ privateChildren }: Props) {
           })}
         </section>
       )}
+
+      <ParentPrivateChildDialog
+        open={open}
+        onOpenChange={setOpen}
+        currentCount={privateChildren.length}
+        onSuccess={() => {}}
+      />
+      <ParentCapacityRequestDialog open={capacityOpen} onOpenChange={setCapacityOpen} />
     </main>
   )
 }

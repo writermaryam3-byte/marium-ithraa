@@ -39,7 +39,9 @@ export function NotificationBell() {
   const markAll = useMarkAllRead()
 
   const count = unreadQuery.data?.count ?? 0
-  const items = listQuery.data?.data ?? []
+  const items = listQuery.data?.items ?? []
+
+  console.log(items)
 
   const handleOpen = async (item: NotificationItem) => {
     const href = getNotificationHref(item.metadata)
@@ -126,7 +128,7 @@ export function NotificationBell() {
             <p className="px-3 py-8 text-center text-sm text-muted-foreground">{t('empty')}</p>
           ) : (
             <div className="space-y-2">
-              {items.map((item) => (
+              {/* {items.map((item) => (
                 <NotificationListItem
                   key={item.id}
                   item={item}
@@ -134,7 +136,7 @@ export function NotificationBell() {
                   compact
                   onOpen={() => void handleOpen(item)}
                 />
-              ))}
+              ))} */}
             </div>
           )}
         </div>

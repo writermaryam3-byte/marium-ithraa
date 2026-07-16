@@ -1,11 +1,9 @@
-// lib/server-api-client.ts
-
 import { getServerSession } from 'next-auth'
 import { redirect } from 'next/navigation'
 import { StatusCode } from '../types/enums'
 import nextAuthOptions from '@/server/auth'
 import { logger, metrics } from '../logger'
-import { buildHeaders, parseResponse } from './utils'
+import { buildHeaders, fetchData } from './utils'
 
 export async function serverApiFetch<T>(
   endpoint: string,
@@ -23,9 +21,14 @@ export async function serverApiFetch<T>(
   const timeoutId = setTimeout(() => controller.abort(), timeoutMs)
 
   try {
+    const headers: Record<string, string> = {
+      'Content-Type': 'application/json',
+      ...buildHeaders(token, options.headers),
+    }
+
     const res = await fetch(`${process.env.BACKEND_URL}/api${endpoint}`, {
       ...options,
-      headers: buildHeaders(token, options.headers),
+      headers,
       cache: 'no-store',
       signal: controller.signal,
     })
@@ -43,7 +46,7 @@ export async function serverApiFetch<T>(
       redirect('/auth/login')
     }
 
-    const data = await parseResponse<T>(res)
+    const data = await fetchData<T>(res)
     return data
   } catch (err) {
     const duration = Date.now() - start

@@ -1,5 +1,6 @@
 {
   "common": {
+    "success": "Success",
     "validationFailed": "Please check the form fields.",
     "serverError": "Something went wrong. Please contact support.",
     "conflict": "This record already exists.",

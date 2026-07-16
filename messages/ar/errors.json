@@ -10,6 +10,15 @@
   },
   "serverUnavailable": "الخادم غير متاح مؤقتاً.",
   "sessionExpired": "انتهت صلاحية الجلسة. يرجى تسجيل الدخول مرة أخرى.",
+  "phone_required": "رقم الهاتف مطلوب.",
+  "password_min": "كلمة المرور يجب أن تكون 8 أحرف على الأقل.",
+  "invalid_email": "البريد الإلكتروني غير صالح.",
+  "name_required": "الاسم مطلوب.",
+  "invalid_id": "معرف غير صالح.",
+  "birthDate_required": "تاريخ الميلاد مطلوب.",
+  "birthDate_invalid": "تاريخ ميلاد غير صالح.",
+  "birthDate_future": "لا يمكن أن يكون تاريخ الميلاد في المستقبل.",
+  "birthDate_max": "تاريخ الميلاد قديم جداً.",
   "global": {
     "title": "عذراً، حدث خطأ ما!",
     "description": "حدث خطأ حرج. يرجى المحاولة مرة أخرى.",
@@ -19,7 +28,117 @@
   "auth": {
     "title": "خطأ في المصادقة",
     "description": "حدث خطأ أثناء المصادقة.",
-    "tryAgain": "حاول مرة أخرى"
+    "tryAgain": "حاول مرة أخرى",
+    "unauthorized": "رمز المصادقة مفقود أو غير صالح.",
+    "invalidCredentials": "رقم الجوال أو كلمة المرور غير صحيحة.",
+    "forbidden": "ليس لديك صلاحية تنفيذ هذا الإجراء.",
+    "refreshTokenMissing": "رمز التحديث مفقود.",
+    "sessionCompromised": "الجلسة مخترقة. يرجى تسجيل الدخول مرة أخرى.",
+    "tokenInvalid": "رمز المصادقة غير صالح.",
+    "tokenExpired": "انتهت صلاحية رمز المصادقة. يرجى تسجيل الدخول مرة أخرى.",
+    "logoutFailed": "تعذر تسجيل الخروج من هذه الجلسة."
+  },
+  "user": {
+    "notFound": "المستخدم غير موجود.",
+    "alreadyExists": "المستخدم موجود بالفعل.",
+    "emailInUse": "البريد الإلكتروني مستخدم بالفعل.",
+    "phoneInUse": "رقم الهاتف مستخدم بالفعل."
+  },
+  "organization": {
+    "notFound": "المؤسسة غير موجودة.",
+    "alreadyExists": "المؤسسة موجودة بالفعل.",
+    "notApproved": "لم تتم الموافقة على المؤسسة بعد.",
+    "alreadyApproved": "تمت الموافقة على المؤسسة بالفعل.",
+    "alreadyRejected": "تم رفض المؤسسة بالفعل."
+  },
+  "child": {
+    "notFound": "الطفل غير موجود.",
+    "limitReached": "تم الوصول إلى الحد الأقصى للأطفال.",
+    "accessDenied": "ليس لديك حق الوصول إلى هذا الطفل.",
+    "alreadyAssigned": "الطفل معين بالفعل لهذا الفصل.",
+    "invalidType": "لا يمكن مزج أطفال المؤسسات والأطفال الخاصين.",
+    "duplicate": "الطفل موجود بالفعل في هذه المدرسة."
+  },
+  "teacher": {
+    "notFound": "المعلم غير موجود.",
+    "alreadyExists": "المعلم موجود بالفعل."
+  },
+  "grade": {
+    "notFound": "المرحلة الدراسية غير موجودة.",
+    "alreadyExists": "المرحلة الدراسية موجودة بالفعل في هذه المؤسسة."
+  },
+  "class": {
+    "notFound": "الفصل غير موجود.",
+    "alreadyExists": "الفصل موجود بالفعل في هذه المرحلة.",
+    "full": "وصل الفصل إلى الحد الأقصى للسعة."
+  },
+  "evaluation": {
+    "notFound": "التقييم غير موجود.",
+    "attemptNotFound": "محاولة التقييم غير موجودة.",
+    "attemptLocked": "محاولة التقييم مقفلة.",
+    "maxAttemptsReached": "تم الوصول إلى الحد الأقصى للمحاولات.",
+    "dimensionMissing": "بعد تقييم غير معروف.",
+    "duplicateDimensions": "رموز الأبعاد المكررة غير مسموح بها.",
+    "duplicateAnswers": "الإجابات المكررة غير مسموح بها.",
+    "invalidTransition": "انتقال حالة غير صالح.",
+    "slotNotFound": "لا يوجد موعد تقييم متاح.",
+    "invalidQuestion": "السؤال ليس جزءاً من هذا التقييم.",
+    "invalidAnswer": "الإجابة غير صالحة لهذا السؤال.",
+    "notSuitableAge": "عمر الطفل لا يناسب هذا التقييم.",
+    "notAvailable": "هذا التقييم غير متاح."
+  },
+  "payment": {
+    "notFound": "الدفع غير موجود.",
+    "failed": "فشلت عملية الدفع.",
+    "expired": "انتهت صلاحية جلسة الدفع.",
+    "maxRetries": "تم الوصول إلى الحد الأقصى لإعادة المحاولة.",
+    "invalidProvider": "مزود الدفع غير مكون.",
+    "currencyNotSupported": "عملة الريال السعودي فقط مدعومة.",
+    "webhookInvalid": "توقيع Webhook غير صالح.",
+    "webhookMissing": "بيانات Webhook مفقودة.",
+    "providerUnavailable": "مزود الدفع غير متاح مؤقتاً.",
+    "invalidJson": "بيانات Webhook الدفع غير صالحة."
+  },
+  "deal": {
+    "notFound": "الصفقة غير موجودة.",
+    "closed": "هذه الصفقة مغلقة.",
+    "deadlinePassed": "انتهى موعد الصفقة.",
+    "duplicateProposal": "لقد قدمت عرضاً لهذه الصفقة بالفعل.",
+    "cannotCreate": "غير مسموح لك بإنشاء صفقات.",
+    "proposalNotFound": "العرض غير موجود.",
+    "proposalInvalidState": "العرض في حالة غير صالحة."
+  },
+  "activity": {
+    "notFound": "النشاط غير موجود.",
+    "hasDeals": "لا يمكن حذف النشذل وجود صفقات مرتبطة."
+  },
+  "transfer": {
+    "notFound": "طلب النقل غير موجود.",
+    "alreadyResolved": "تم البت في طلب النقل بالفعل.",
+    "invalidChildType": "لا يمكن نقل هذا النوع من الطفل."
+  },
+  "notification": {
+    "notFound": "الإشعار غير موجود.",
+    "emailRequired": "البريد الإلكتروني مطلوب لإرسال الإشعار."
+  },
+  "capacity": {
+    "notFound": "طلب السعة غير موجود.",
+    "accessDenied": "ليس لديك حق الوصول إلى طلب السعة هذا."
+  },
+  "database": {
+    "duplicateKey": "يوجد سجل بهذا القيمة بالفعل.",
+    "foreignKeyViolation": "السجل المرجعي غير موجود.",
+    "notNullViolation": "حقل مطلوب مفقود.",
+    "checkViolation": "لم تتم تلبية قيد التحقق.",
+    "genericError": "حدث خطأ في قاعدة البيانات."
+  },
+  "common": {
+    "tooManyRequests": "طلبات كثيرة جداً. يرجى المحاولة لاحقاً.",
+    "internalServerError": "حدث خطأ غير متوقع في الخادم. يرجى المحاولة مرة أخرى.",
+    "unauthorized": "لم يتم التحقق من هويتك. يرجى تسجيل الدخول."
+  },
+  "validation": {
+    "failed": "فشل التحقق. يرجى التحقق من المدخلات."
   },
   "dashboard": {
     "title": "خطأ في لوحة التحكم",

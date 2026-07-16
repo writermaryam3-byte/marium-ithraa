@@ -31,15 +31,7 @@ export type ListNotificationsParams = {
   type?: string
 }
 
-export type ListNotificationsResponse = {
-  data: NotificationItem[]
-  meta: {
-    page: number
-    limit: number
-    total: number
-    totalPages: number
-  }
-}
+export type ListNotificationsResponse = NotificationItem[]
 
 export type UnreadCountResponse = {
   count: number

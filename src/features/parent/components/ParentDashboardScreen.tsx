@@ -59,7 +59,7 @@ export function ParentDashboardScreen() {
   )
 
   const activities: ActivityItem[] = useMemo(() => {
-    const items = notificationsData?.data ?? []
+    const items = notificationsData?.items ?? []
     if (items.length === 0) {
       return [
         {

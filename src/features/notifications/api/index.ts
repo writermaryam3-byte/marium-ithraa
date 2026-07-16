@@ -1,12 +1,19 @@
 import { api } from '@/lib/api/api'
+import { parseResponse } from '@/lib/api/utils'
 import { Endpoint, Methods } from '@/lib/types/enums'
+import type { PaginationMeta } from '@/lib/types/interfaces'
 import type {
   DispatchNotificationPayload,
   DispatchNotificationResponse,
   ListNotificationsParams,
-  ListNotificationsResponse,
+  NotificationItem,
   UnreadCountResponse,
 } from '../types'
+
+export type ListNotificationsPaginatedResponse = {
+  items: NotificationItem[]
+  meta: PaginationMeta
+}
 
 const getNotificationsQuery = (params?: ListNotificationsParams) => {
   const qs = new URLSearchParams()
@@ -36,12 +43,34 @@ const getNotificationsQuery = (params?: ListNotificationsParams) => {
  * Client calls
  */
 
-export const listNotifications = async (params?: ListNotificationsParams) => {
+export const listNotifications = async (
+  params?: ListNotificationsParams,
+): Promise<ListNotificationsPaginatedResponse> => {
   const query = getNotificationsQuery(params)
 
-  return api.client<ListNotificationsResponse>(`/${Endpoint.NOTIFICATIONS}${query}`, {
-    method: Methods.GET,
-  })
+  const session = await import('next-auth/react').then((m) => m.getSession())
+  const token = session?.user?.accessToken
+
+  const headers: Record<string, string> = {}
+  if (token) headers.Authorization = `Bearer ${token}`
+
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/${Endpoint.NOTIFICATIONS}${query}`,
+    { method: Methods.GET, headers },
+  )
+
+  const envelope = await parseResponse<NotificationItem[]>(res)
+  return {
+    items: envelope.data,
+    meta: envelope.meta ?? {
+      page: 1,
+      limit: 20,
+      total: 0,
+      totalPages: 0,
+      hasNextPage: false,
+      hasPreviousPage: false,
+    },
+  }
 }
 
 export const unreadCount = async () => {
@@ -51,7 +80,7 @@ export const unreadCount = async () => {
 }
 
 export const markAllRead = async () => {
-  return api.client<void>(`/${Endpoint.NOTIFICATIONS}/${Endpoint.READ_ALL}`, {
+  return api.client<{ updated: number }>(`/${Endpoint.NOTIFICATIONS}/${Endpoint.READ_ALL}`, {
     method: Methods.PATCH,
   })
 }
@@ -76,12 +105,36 @@ export const dispatchNotification = async (payload: DispatchNotificationPayload)
  * Server calls
  */
 
-export const listNotificationsServer = async (params?: ListNotificationsParams) => {
+export const listNotificationsServer = async (
+  params?: ListNotificationsParams,
+): Promise<ListNotificationsPaginatedResponse> => {
   const query = getNotificationsQuery(params)
 
-  return api.server<ListNotificationsResponse>(`/${Endpoint.NOTIFICATIONS}${query}`, {
-    method: Methods.GET,
-  })
+  const { getServerSession } = await import('next-auth')
+  const { default: nextAuthOptions } = await import('@/server/auth')
+  const session = await getServerSession(nextAuthOptions)
+  const token = session?.user?.accessToken
+
+  const headers: Record<string, string> = {}
+  if (token) headers.Authorization = `Bearer ${token}`
+
+  const res = await fetch(
+    `${process.env.BACKEND_URL}/api/${Endpoint.NOTIFICATIONS}${query}`,
+    { method: Methods.GET, headers, cache: 'no-store' },
+  )
+
+  const envelope = await parseResponse<NotificationItem[]>(res)
+  return {
+    items: envelope.data,
+    meta: envelope.meta ?? {
+      page: 1,
+      limit: 20,
+      total: 0,
+      totalPages: 0,
+      hasNextPage: false,
+      hasPreviousPage: false,
+    },
+  }
 }
 
 export const unreadCountServer = async () => {

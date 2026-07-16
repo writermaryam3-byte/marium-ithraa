@@ -5,12 +5,12 @@ import { useMemo, useState } from 'react'
 import { useTranslations } from 'next-intl'
 import { showErrorToast, showSuccessToast } from '@/lib/toast/app-toast'
 
-import { NotificationListItem } from '@/components/notifications/NotificationListItem'
+import { NotificationListItem } from '@/features/notifications/components/NotificationListItem'
 import {
   filterNotificationsByCategory,
   getApiTypeFilter,
   getNotificationHref,
-} from '@/components/notifications/notification-utils'
+} from '@/features/notifications/components/notification-utils'
 import { StatsGrid } from '@/components/shared/dashboard/StatsGrid'
 import { ManagementPageHeader } from '@/components/shared/management/ManagementPageHeader'
 import { EmptyState } from '@/components/shared/management/EmptyState'
@@ -66,11 +66,11 @@ export function NotificationsScreen({ locale }: Props) {
   const markAll = useMarkAllRead()
 
   const items = useMemo(() => {
-    const rawItems = listQuery.data?.data ?? []
+    const rawItems = listQuery.data?.items ?? []
     return typeFilter === 'evaluations'
       ? filterNotificationsByCategory(rawItems, 'evaluations')
       : rawItems
-  }, [listQuery.data?.data, typeFilter])
+  }, [listQuery.data?.items, typeFilter])
 
   const meta = listQuery.data?.meta
   const totalPages = meta?.totalPages ?? 1

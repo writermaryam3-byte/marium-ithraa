@@ -12,7 +12,7 @@ import {
 } from '@/components/ui/table'
 import { ReactNode } from 'react'
 
-import type { PaginatedMeta } from '@/lib/api/pagination'
+import type { PaginationMeta } from '@/lib/types/interfaces'
 
 import { DataTablePagination } from './DataTablePagination'
 
@@ -20,7 +20,7 @@ interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
   data: TData[]
   children?: ReactNode
-  pagination?: PaginatedMeta
+  pagination?: PaginationMeta
   onPageChange?: (page: number) => void
   emptyMessage?: string
 }

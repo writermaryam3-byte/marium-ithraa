@@ -1,6 +1,6 @@
 import { api } from '@/lib/api/api'
 import { buildPaginationQuery, type PaginationParams } from '@/lib/api/pagination'
-import type { ChildType } from '@/lib/types/interfaces'
+import type { ChildType, PaginationMeta } from '@/lib/types/interfaces'
 import {
   type Child,
   type ChildTransferRequest,
@@ -9,30 +9,31 @@ import {
   type CreateChildWithParentPayload,
   type CreatePrivateChildPayload,
   type ParentSearchResult,
-  type TransferRequestResponse,
   type UpdateChildPayload,
 } from '../types/interfaces'
 import { Endpoint, Methods } from '@/lib/types/enums'
 
-export const getChildren = async (userId: string) => {
-  return api.server<{
-    organizationChildren: Child[]
-    privateChildren: Child[]
-  }>(`/${Endpoint.CHILDREN}?userId=${userId}`)
+export const getChildren = async (userId: string, params?: PaginationParams) => {
+  const query = buildPaginationQuery(params)
+  return api.client<Child[]>(`/${Endpoint.CHILDREN}?userId=${userId}${query}`)
 }
 
-export const getAllChildren = async () => {
-  return api.client<{
-    organizationChildren: Child[]
-    privateChildren: Child[]
-  }>(`/${Endpoint.CHILDREN}/${Endpoint.ALL}`)
+export type PaginatedChildrenResponse = {
+  data: Child[]
+  meta: PaginationMeta
+}
+
+export const getAllChildren = async (
+  params?: PaginationParams,
+): Promise<PaginatedChildrenResponse> => {
+  const query = buildPaginationQuery(params)
+  return api.client<PaginatedChildrenResponse>(`/${Endpoint.CHILDREN}/${Endpoint.ALL}${query}`)
 }
 
 export const getAllChildrenServer = async (params?: PaginationParams) => {
-  return api.server<{
-    organizationChildren: Child[]
-    privateChildren: Child[]
-  }>(`/${Endpoint.CHILDREN}/${Endpoint.ALL}${buildPaginationQuery(params)}`)
+  return api.server<PaginatedChildrenResponse>(
+    `/${Endpoint.CHILDREN}/${Endpoint.ALL}${buildPaginationQuery(params)}`,
+  )
 }
 
 export const getAllChildrenByOrg = async (orgId: string) => {
@@ -63,12 +64,26 @@ export const deleteChild = async (childId: string) => {
   })
 }
 
-export const getPrivateChildren = async () => {
-  return api.server<{ children: Child[] }>(`/${Endpoint.PARENT}/${Endpoint.CHILDREN}`)
+export const getPrivateChildren = async (params?: PaginationParams) => {
+  const query = buildPaginationQuery(params)
+  return api.client<PaginatedChildrenResponse>(`/${Endpoint.PARENT}/${Endpoint.CHILDREN}${query}`)
 }
 
-export const getOrgChildren = async () => {
-  return api.server<{ children: Child[] }>(`/${Endpoint.PARENT}/org-${Endpoint.CHILDREN}`)
+export const getOrgChildren = async (params?: PaginationParams) => {
+  const query = buildPaginationQuery(params)
+  return api.client<PaginatedChildrenResponse>(`/${Endpoint.PARENT}/org-${Endpoint.CHILDREN}${query}`)
+}
+
+export const getPrivateChildrenServer = async (params?: PaginationParams) => {
+  return api.server<PaginatedChildrenResponse>(
+    `/${Endpoint.PARENT}/${Endpoint.CHILDREN}${buildPaginationQuery(params)}`,
+  )
+}
+
+export const getOrgChildrenServer = async (params?: PaginationParams) => {
+  return api.server<PaginatedChildrenResponse>(
+    `/${Endpoint.PARENT}/org-${Endpoint.CHILDREN}${buildPaginationQuery(params)}`,
+  )
 }
 
 export const createPrivateChild = async (data: CreatePrivateChildPayload) => {
@@ -80,7 +95,7 @@ export const createPrivateChild = async (data: CreatePrivateChildPayload) => {
 
 export const searchParentsByPhone = async (phone: string) => {
   return api.client<ParentSearchResult>(
-    `/${Endpoint.PARENT}s/search?phone=${encodeURIComponent(phone)}`,
+    `/${Endpoint.PARENTS}/search?phone=${encodeURIComponent(phone)}`,
   )
 }
 
@@ -100,33 +115,29 @@ export const requestChildTransfer = async (
   childType: ChildType,
   toOrganizationId: string,
 ) => {
-  return api.client<TransferRequestResponse>('/child-transfers', {
+  return api.client<ChildTransferRequest>(`/child-transfers`, {
     method: Methods.POST,
     body: JSON.stringify({ childId, childType, toOrganizationId }),
   })
 }
 
 export const getChildTransferRequests = async (fromOrganizationId: string) => {
-  const response = await api.server<{
-    requests?: ChildTransferRequest[]
-    transferRequests?: ChildTransferRequest[]
-    childTransfers?: ChildTransferRequest[]
-  }>(`/child-transfers?fromOrganizationId=${encodeURIComponent(fromOrganizationId)}&status=pending`)
+  const response = await api.client<{ requests: ChildTransferRequest[] }>(
+    `/child-transfers?fromOrganizationId=${encodeURIComponent(fromOrganizationId)}&status=pending`,
+  )
 
-  return {
-    requests: response.requests ?? response.transferRequests ?? response.childTransfers ?? [],
-  }
+  return { requests: response.requests ?? [] }
 }
 
 export const approveChildTransfer = async (requestId: string, classId: string) => {
-  return api.client<TransferRequestResponse>(`/child-transfers/${requestId}/approve`, {
+  return api.client<ChildTransferRequest>(`/child-transfers/${requestId}/approve`, {
     method: Methods.PATCH,
     body: JSON.stringify({ classId }),
   })
 }
 
 export const rejectChildTransfer = async (requestId: string) => {
-  return api.client<TransferRequestResponse>(`/child-transfers/${requestId}/reject`, {
+  return api.client<ChildTransferRequest>(`/child-transfers/${requestId}/reject`, {
     method: Methods.PATCH,
   })
 }

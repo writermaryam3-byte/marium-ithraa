@@ -4,7 +4,7 @@ import { Bell } from 'lucide-react'
 import { useLocale, useTranslations } from 'next-intl'
 import { showErrorToast, showSuccessToast } from '@/lib/toast/app-toast'
 
-import { NotificationListItem } from '@/components/notifications/NotificationListItem'
+import { NotificationListItem } from '@/features/notifications/components/NotificationListItem'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import {
@@ -39,7 +39,7 @@ export function NotificationBell() {
   const markAll = useMarkAllRead()
 
   const count = unreadQuery.data?.count ?? 0
-  const items = listQuery.data?.data ?? []
+  const items = listQuery.data?.items ?? []
 
   const handleOpen = async (item: NotificationItem) => {
     const href = getNotificationHref(item.metadata)

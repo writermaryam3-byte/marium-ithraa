@@ -39,7 +39,7 @@ export function AdminAttemptsScreen({ locale }: Props) {
   )
 
   const { data, isLoading, isError, refetch } = useAttempts(filters)
-  const attempts: EvaluationAttempt[] = data?.attempts ?? []
+  const attempts: EvaluationAttempt[] = Array.isArray(data) ? data : []
 
   return (
     <div className="space-y-4 px-4 lg:px-6" dir={isAr ? 'rtl' : 'ltr'}>

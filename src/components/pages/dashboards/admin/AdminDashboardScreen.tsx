@@ -25,6 +25,7 @@ export function AdminDashboardScreen() {
   const { data: session } = useSession()
 
   const { data: childrenData, isLoading: loadingChildren } = useAdminChildren()
+  const childrenCount = childrenData?.data?.length ?? 0
   const { data: evaluationsData, isLoading: loadingEvaluations } = useEvaluations()
   const evaluations = Array.isArray(evaluationsData) ? evaluationsData : []
   const { data: notificationsData } = useNotificationsList({ page: 1, limit: 5 })
@@ -35,12 +36,7 @@ export function AdminDashboardScreen() {
     () => [
       {
         label: tNav('children'),
-        value: loadingChildren
-          ? '-'
-          : String(
-              (childrenData?.organizationChildren?.length ?? 0) +
-                (childrenData?.privateChildren?.length ?? 0),
-            ),
+        value: loadingChildren ? '-' : String(childrenCount),
         icon: <Baby />,
         variant: 'purple' as const,
       },
@@ -52,7 +48,7 @@ export function AdminDashboardScreen() {
       },
       {
         label: tNotif('title'),
-        value: String(notificationsData?.meta?.total ?? notificationsData?.data?.length ?? 0),
+        value: String(notificationsData?.meta?.total ?? notificationsData?.items?.length ?? 0),
         icon: <FileText />,
         variant: 'indigo' as const,
       },
@@ -69,7 +65,7 @@ export function AdminDashboardScreen() {
   )
 
   const activities: ActivityItem[] = useMemo(() => {
-    const items = notificationsData?.data ?? []
+    const items = notificationsData?.items ?? []
     if (items.length === 0) {
       return [
         {

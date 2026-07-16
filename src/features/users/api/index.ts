@@ -1,9 +1,9 @@
 import { api } from '@/lib/api/api'
 import { Endpoint } from '@/lib/types/enums'
-import { IUserResponseDto, User } from '../types'
+import { IUserResponseDto } from '../types'
 
 export const getUsersInRoles = () => {
-  return api.client<{ teachers: User[]; organizationOwners: User[]; parents: User[] }>(
+  return api.client<{ teachers: IUserResponseDto[]; organizationOwners: IUserResponseDto[]; enrichers: IUserResponseDto[] }>(
     `/${Endpoint.USERS}/${Endpoint.ROLES}`,
   )
 }

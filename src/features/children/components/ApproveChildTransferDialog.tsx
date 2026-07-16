@@ -47,12 +47,8 @@ export function ApproveChildTransferDialog({
 
   const targetOrganizationId = request?.toOrganizationId ?? request?.toOrganization?.id ?? ''
   const targetOrganizationName = useMemo(() => {
-    return (
-      request?.toOrganization?.organizationName ||
-      request?.toOrganization?.name ||
-      t('targetOrganization')
-    )
-  }, [t, request?.toOrganization?.name, request?.toOrganization?.organizationName])
+    return request?.toOrganization?.organizationName || t('targetOrganization')
+  }, [t, request?.toOrganization?.organizationName])
 
   useEffect(() => {
     if (!open || !request) return
@@ -98,7 +94,7 @@ export function ApproveChildTransferDialog({
       const response = await approveChildTransfer(request.id, selectedClassId)
       onApproved(request.id)
       onOpenChange(false)
-      showSuccessToast({ raw: response.message || t('approvedToast') })
+      showSuccessToast({ raw: t('approvedToast') })
     } catch (error) {
       showErrorToast({ error })
     } finally {

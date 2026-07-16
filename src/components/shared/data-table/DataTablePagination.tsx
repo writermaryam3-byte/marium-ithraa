@@ -1,10 +1,10 @@
 'use client'
 
 import { Button } from '@/components/ui/button'
-import type { PaginatedMeta } from '@/lib/api/pagination'
+import type { PaginationMeta } from '@/lib/types/interfaces'
 
 type Props = {
-  meta: PaginatedMeta
+  meta: PaginationMeta
   onPageChange: (page: number) => void
   labels?: {
     previous?: string

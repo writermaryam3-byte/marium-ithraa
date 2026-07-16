@@ -2,7 +2,6 @@ import { z } from 'zod'
 
 export type {
   AttemptAnswerPayload,
-  AttemptsResponse,
   AvailableEvaluationsResponse,
   ChildReference,
   ChildType,

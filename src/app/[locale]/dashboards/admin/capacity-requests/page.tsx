@@ -2,7 +2,6 @@
 
 import { useState } from 'react'
 import { useTranslations } from 'next-intl'
-import { useTranslateBackend } from '@/lib/i18n/backend-messages'
 import { showErrorToast, showSuccessToast } from '@/lib/toast/app-toast'
 
 import { Badge } from '@/components/ui/badge'
@@ -38,18 +37,29 @@ import {
   useRejectCapacityRequest,
 } from '@/features/capacity-requests'
 import type { CapacityRequest } from '@/features/capacity-requests'
+
 const statusBadgeVariant: Record<string, 'default' | 'secondary' | 'destructive' | 'outline'> = {
   pending: 'secondary',
   approved: 'default',
   rejected: 'destructive',
+  paid: 'outline',
+  completed: 'default',
+}
+
+function parentDisplayName(request: CapacityRequest): string {
+  return request.parent?.user?.name ?? request.parentId
+}
+
+function parentPhone(request: CapacityRequest): string {
+  return request.parent?.user?.phone ?? '—'
 }
 
 export default function AdminCapacityRequestsPage() {
   const t = useTranslations('evaluations.capacityRequests')
   const [statusFilter, setStatusFilter] = useState<string>('pending')
-  const { data, isLoading } = useCapacityRequests(statusFilter || undefined)
-
-  const capacityRequests = data?.capacityRequests ?? []
+  const { data: capacityRequests = [], isLoading, isError } = useCapacityRequests(
+    statusFilter || undefined,
+  )
 
   return (
     <>
@@ -75,16 +85,18 @@ export default function AdminCapacityRequestsPage() {
               <Skeleton key={i} className="h-12 w-full" />
             ))}
           </div>
+        ) : isError ? (
+          <p className="text-sm text-destructive">{t('loadError')}</p>
         ) : capacityRequests.length === 0 ? (
           <p className="text-muted-foreground">{t('noResults')}</p>
         ) : (
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead>{t('columnChildName')}</TableHead>
                 <TableHead>{t('columnParent')}</TableHead>
                 <TableHead>{t('columnPhone')}</TableHead>
-                <TableHead>{t('columnGrade')}</TableHead>
+                <TableHead>{t('columnRequestedCapacity')}</TableHead>
+                <TableHead>{t('columnNotes')}</TableHead>
                 <TableHead>{t('columnStatus')}</TableHead>
                 <TableHead>{t('columnDate')}</TableHead>
                 <TableHead />
@@ -93,12 +105,12 @@ export default function AdminCapacityRequestsPage() {
             <TableBody>
               {capacityRequests.map((req) => (
                 <TableRow key={req.id}>
-                  <TableCell className="font-medium">{req.childName}</TableCell>
-                  <TableCell>{req.parentName}</TableCell>
-                  <TableCell>{req.parentPhone}</TableCell>
-                  <TableCell>{req.childGrade ?? '—'}</TableCell>
+                  <TableCell className="font-medium">{parentDisplayName(req)}</TableCell>
+                  <TableCell>{parentPhone(req)}</TableCell>
+                  <TableCell>{req.requestedCapacity}</TableCell>
+                  <TableCell className="max-w-xs truncate">{req.notes ?? '—'}</TableCell>
                   <TableCell>
-                    <Badge variant={statusBadgeVariant[req.status]}>{req.status}</Badge>
+                    <Badge variant={statusBadgeVariant[req.status] ?? 'outline'}>{req.status}</Badge>
                   </TableCell>
                   <TableCell className="text-sm text-muted-foreground">
                     {new Date(req.createdAt).toLocaleDateString()}
@@ -118,7 +130,6 @@ export default function AdminCapacityRequestsPage() {
 
 function CapacityRequestActions({ request }: { request: CapacityRequest }) {
   const t = useTranslations('evaluations.capacityRequests')
-  const tb = useTranslateBackend()
   const approveMutation = useApproveCapacityRequest()
   const rejectMutation = useRejectCapacityRequest()
   const [rejectOpen, setRejectOpen] = useState(false)
@@ -126,8 +137,11 @@ function CapacityRequestActions({ request }: { request: CapacityRequest }) {
 
   const handleApprove = async () => {
     try {
-      await approveMutation.mutateAsync({ id: request.id })
+      const result = await approveMutation.mutateAsync(request.id)
       showSuccessToast({ raw: t('approvedToast') })
+      if (result.payment?.checkoutUrl) {
+        window.open(result.payment.checkoutUrl, '_blank', 'noopener,noreferrer')
+      }
     } catch {
       showErrorToast({ raw: t('failedApproveToast') })
     }
@@ -135,7 +149,7 @@ function CapacityRequestActions({ request }: { request: CapacityRequest }) {
 
   const handleReject = async () => {
     try {
-      await rejectMutation.mutateAsync({ id: request.id, reason: rejectReason || undefined })
+      await rejectMutation.mutateAsync(request.id)
       setRejectOpen(false)
       setRejectReason('')
       showSuccessToast({ raw: t('rejectedToast') })

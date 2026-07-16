@@ -47,9 +47,9 @@ export function ChildTransferRequestsScreen({ locale, requests }: Props) {
 
     startTransition(async () => {
       try {
-        const response = await rejectChildTransfer(rejectRequest.id)
+        await rejectChildTransfer(rejectRequest.id)
         removeRequest(rejectRequest.id)
-        showSuccessToast({ raw: response.message || t('transferRequestRejected') })
+        showSuccessToast({ raw: t('transferRequestRejected') })
         setRejectRequest(null)
       } catch (error) {
         showErrorToast({ error })
@@ -75,10 +75,7 @@ export function ChildTransferRequestsScreen({ locale, requests }: Props) {
           {pendingItems.map((request) => {
             const child = request.child
             const fromName =
-              request.fromOrganization?.organizationName ||
-              request.fromOrganization?.name ||
-              t('anotherOrganization')
-            const requestedBy = request.requestedBy?.name || request.requestedBy?.phone
+              request.fromOrganization?.organizationName || t('anotherOrganization')
 
             return (
               <Card key={request.id} className="rounded-xl">
@@ -112,9 +109,6 @@ export function ChildTransferRequestsScreen({ locale, requests }: Props) {
                       label={t('currentClass')}
                       value={child ? getChildClassName(child) : '-'}
                     />
-                    {requestedBy ? (
-                      <TransferField label={t('requestedBy')} value={requestedBy} />
-                    ) : null}
                   </div>
 
                   <div className="grid gap-3 sm:grid-cols-2">

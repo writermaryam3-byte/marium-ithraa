@@ -7,7 +7,6 @@ import {
   AvailableEvaluationsResponse,
   StartEvaluationPayload,
   EvaluationAttempt,
-  AttemptsResponse,
   SaveAttemptProgressPayload,
   SubmitAttemptPayload,
 } from '@/lib/types/interfaces'
@@ -101,8 +100,9 @@ export type OwnerEvaluationReportCard = {
 export type GetAttemptsFilters = {
   status?: string
   evaluationId?: string
-  organizationChildId?: string
-  privateChildId?: string
+  childId?: string
+  page?: number
+  limit?: number
 }
 
 const buildQueryString = (params: Record<string, string | undefined>) => {
@@ -211,22 +211,24 @@ export const getAttempts = async (filters?: GetAttemptsFilters) => {
   const query = buildQueryString({
     status: filters?.status,
     evaluationId: filters?.evaluationId,
-    organizationChildId: filters?.organizationChildId,
-    privateChildId: filters?.privateChildId,
+    childId: filters?.childId,
+    page: filters?.page != null ? String(filters.page) : undefined,
+    limit: filters?.limit != null ? String(filters.limit) : undefined,
   })
 
-  return api.server<AttemptsResponse>(`/${Endpoint.ATTEMPTS}${query}`)
+  return api.server<EvaluationAttempt[]>(`/${Endpoint.ATTEMPTS}${query}`)
 }
 
 export const getAttemptsClient = async (filters?: GetAttemptsFilters) => {
   const query = buildQueryString({
     status: filters?.status,
     evaluationId: filters?.evaluationId,
-    organizationChildId: filters?.organizationChildId,
-    privateChildId: filters?.privateChildId,
+    childId: filters?.childId,
+    page: filters?.page != null ? String(filters.page) : undefined,
+    limit: filters?.limit != null ? String(filters.limit) : undefined,
   })
 
-  return api.client<AttemptsResponse>(`/${Endpoint.ATTEMPTS}${query}`)
+  return api.client<EvaluationAttempt[]>(`/${Endpoint.ATTEMPTS}${query}`)
 }
 
 export const getAttemptById = async (attemptId: string) => {
@@ -238,11 +240,11 @@ export const getAttemptByIdClient = async (attemptId: string) => {
 }
 
 export const getAttemptsForChild = async (childId: string) => {
-  return api.server<AttemptsResponse>(`/${Endpoint.ATTEMPTS}/${Endpoint.CHILD}/${childId}`)
+  return api.server<EvaluationAttempt[]>(`/${Endpoint.ATTEMPTS}/${Endpoint.CHILD}/${childId}`)
 }
 
 export const getAttemptsForChildClient = async (childId: string) => {
-  return api.client<AttemptsResponse>(`/${Endpoint.ATTEMPTS}/${Endpoint.CHILD}/${childId}`)
+  return api.client<EvaluationAttempt[]>(`/${Endpoint.ATTEMPTS}/${Endpoint.CHILD}/${childId}`)
 }
 
 export const saveAttemptProgress = async (attemptId: string, data: SaveAttemptProgressPayload) => {

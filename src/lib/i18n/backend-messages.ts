@@ -21,6 +21,6 @@ export function translateBackendMessage(msg: string, t: TranslateFn): string {
  * so prefer using `t(error.message)` directly in components.
  */
 export function useTranslateBackend() {
-  const t = useTranslations('apiErrors')
+  const t = useTranslations('errors')
   return (msg: string) => translateBackendMessage(msg, t)
 }

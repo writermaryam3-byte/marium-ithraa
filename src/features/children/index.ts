@@ -22,6 +22,8 @@ export {
   deleteChild,
   getPrivateChildren,
   getOrgChildren,
+  getPrivateChildrenServer,
+  getOrgChildrenServer,
   createPrivateChild,
   searchParentsByPhone,
   getChildByIdClient,

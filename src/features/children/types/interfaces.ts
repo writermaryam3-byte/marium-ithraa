@@ -6,6 +6,7 @@ export interface ParentInfo {
   name?: string
   email?: string
   phone?: string
+  parentProfileId?: string
   children?: Child[]
 }
 
@@ -31,7 +32,6 @@ export interface Child {
   retakeUsed?: boolean
   createdAt?: string
   updatedAt?: string
-  /** Legacy / display fields from API or mappers */
   grade?: string | { id: string; name: string }
   class?: ChildClassRef
   className?: string
@@ -83,6 +83,7 @@ export type CreateChildResponse =
   | {
       status: 'TRANSFER_REQUIRED'
       message: string
+      childId: string
       transferRequestId: string
     }
 
@@ -95,36 +96,31 @@ export type ParentSearchResult =
   | { status: 'not_found' }
   | { status: 'not_parent'; user: { id: string; name?: string; phone: string; email?: string } }
 
-export interface TransferRequestResponse {
-  message: string
-  transferRequestId?: string
-}
-
-export type ChildTransferStatus = 'pending' | 'approved' | 'rejected'
-
-export interface ChildTransferRequest {
+export type ChildTransferRequest = {
   id: string
+  childId: string
+  childType: 'organization' | 'private'
   organizationChildId?: string | null
   privateChildId?: string | null
-  fromOrganizationId?: string
-  toOrganizationId?: string
-  status: ChildTransferStatus | string
-  message?: string
-  createdAt?: string
-  updatedAt?: string
-  child?: Child
+  fromOrganizationId: string
+  toOrganizationId: string
+  status: 'pending' | 'approved' | 'rejected'
+  createdAt: string
+  updatedAt: string
+  child?: Child & { type?: string; class?: ChildClassRef }
   fromOrganization?: {
     id: string
-    organizationName?: string
-    name?: string
+    organizationName: string
   }
   toOrganization?: {
     id: string
-    organizationName?: string
-    name?: string
+    organizationName: string
   }
-  requestedBy?: ParentInfo
 }
+
+export type TransferRequestResponse = ChildTransferRequest
+
+export type ChildTransferStatus = 'pending' | 'approved' | 'rejected'
 
 export interface UpdateChildPayload {
   name?: string

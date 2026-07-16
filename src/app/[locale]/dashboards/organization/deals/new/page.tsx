@@ -42,27 +42,24 @@ export default function NewDealPage() {
     const count = parseInt(studentsCount, 10)
 
     // 1. التحقق من الحقول الأساسية
-    if (!activityId || isNaN(count) || count <= 0) {
+    if (!activityId || !deadline || isNaN(count) || count <= 0) {
       showErrorToast(t, 'validationError')
       return
     }
 
-    // 2. التحقق من أن تاريخ الموعد النهائي في المستقبل وليس في الماضي
-    if (deadline) {
-      const selectedDate = new Date(deadline)
-      const now = new Date()
+    const selectedDate = new Date(deadline)
+    const now = new Date()
 
-      if (selectedDate <= now) {
-        showErrorToast(t, 'pastDeadlineError') // تأكد من إضافة هذا المفتاح في ملف الـ JSON للترجمة
-        return
-      }
+    if (selectedDate <= now) {
+      showErrorToast(t, 'pastDeadlineError')
+      return
     }
 
     try {
       await create.mutateAsync({
         activityId,
         studentsCount: count,
-        deadline: deadline ? new Date(deadline).toISOString() : undefined,
+        deadline: selectedDate.toISOString(),
       })
     } catch {
       showErrorToast(t, 'createError')

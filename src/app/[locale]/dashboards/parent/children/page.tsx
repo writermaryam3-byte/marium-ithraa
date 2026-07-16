@@ -1,6 +1,6 @@
 import { ParentOrgChildrenScreen } from '@/features/parent/components/ParentOrgChildrenScreen'
 import { ParentPrivateChildrenScreen } from '@/features/parent/components/ParentPrivateChildrenScreen'
-import { getOrgChildren, getPrivateChildren } from '@/features/children'
+import { getOrgChildrenServer, getPrivateChildrenServer } from '@/features/children/api'
 
 type Props = {
   params: Promise<{ locale: string }>
@@ -8,8 +8,8 @@ type Props = {
 
 export default async function ParentChildrenPage({ params }: Props) {
   await params
-  const { children: privateChildren } = await getPrivateChildren()
-  const { children: orgChildren } = await getOrgChildren()
+  const { data: privateChildren } = await getPrivateChildrenServer()
+  const { data: orgChildren } = await getOrgChildrenServer()
   return (
     <>
       <ParentPrivateChildrenScreen privateChildren={privateChildren} />

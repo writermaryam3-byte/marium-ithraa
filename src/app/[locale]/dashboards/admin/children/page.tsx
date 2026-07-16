@@ -9,8 +9,7 @@ import { getTranslations } from 'next-intl/server'
 export default async function AdminChildrenPage() {
   const t = await getTranslations()
 
-  const data = await getAllChildrenServer()
-  const children = [...data.organizationChildren, ...data.privateChildren]
+  const { data: children } = await getAllChildrenServer()
   const cards = [
     {
       title: children.length,

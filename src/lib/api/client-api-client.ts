@@ -3,7 +3,7 @@ import { getSession, signOut } from 'next-auth/react'
 import { ApiError } from '../errors/ApiError'
 import { ApiErrorCodes, Pages, Routes, StatusCode } from '../types/enums'
 import { logger, metrics } from '../logger'
-import { buildHeaders, parseResponse } from './utils'
+import { buildHeaders, fetchData } from './utils'
 
 let cachedToken: string | null = null
 let tokenRefreshAttempts = 0
@@ -41,9 +41,8 @@ async function resolveAccessToken(): Promise<string | null> {
 }
 
 function shouldRetry(statusCode: number, attempt: number): boolean {
-  if (attempt >= 2) return false // Max 2 retries
-  // Retry only on network errors or 5xx
-  return statusCode >= 500 || statusCode === 0 // 0 for network errors
+  if (attempt >= 2) return false
+  return statusCode >= 500 || statusCode === 0
 }
 
 export async function clientApiFetch<T>(
@@ -64,9 +63,14 @@ export async function clientApiFetch<T>(
   const timeoutId = setTimeout(() => controller.abort(), timeoutMs)
 
   try {
+    const headers: Record<string, string> = {
+      'Content-Type': 'application/json',
+      ...buildHeaders(token, options.headers),
+    }
+
     const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api${endpoint}`, {
       ...options,
-      headers: buildHeaders(token, options.headers),
+      headers,
       signal: controller.signal,
     })
 
@@ -98,8 +102,8 @@ export async function clientApiFetch<T>(
         redirect: true,
       })
       throw new ApiError(endpoint, StatusCode.UNAUTHORIZED, {
-        code: ApiErrorCodes.UNAUTHORIZED,
-        message: 'errors.common.unauthorized',
+        code: ApiErrorCodes.AUTH_UNAUTHORIZED,
+        message: 'errors.auth.unauthorized',
       })
     }
 
@@ -114,19 +118,23 @@ export async function clientApiFetch<T>(
       return clientApiFetch<T>(endpoint, options, retryOnUnauthorized, timeoutMs, attempt + 1)
     }
 
-    const data = await parseResponse<T>(res)
-    tokenRefreshAttempts = 0 // Reset on success
+    const data = await fetchData<T>(res)
+    tokenRefreshAttempts = 0
     return data
   } catch (err) {
     const duration = Date.now() - start
 
+    if (err instanceof ApiError) throw err
+
     if (err instanceof Error && err.name === 'AbortError') {
       logger.error('Client API request timed out', { endpoint, method, duration, attempt })
       metrics.incrementFailed()
-      throw new Error('Request timed out')
+      throw new ApiError(endpoint, StatusCode.INTERNALSERVERERROR, {
+        code: ApiErrorCodes.INTERNAL_UNEXPECTED,
+        message: 'errors.common.internalServerError',
+      })
     }
 
-    // If it's a network error and we can retry
     if (err instanceof Error && shouldRetry(0, attempt)) {
       metrics.incrementRetry()
       logger.info('Retrying due to network error', { endpoint, method, attempt: attempt + 1 })

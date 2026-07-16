@@ -17,8 +17,13 @@
       "title": "My children",
       "subtitle": "You can add up to {limit} children for private evaluation",
       "limitReached": "Child limit reached (2 children)",
+      "requestCapacity": "Request more capacity",
       "addChild": "Add child",
-      "empty": "No children yet"
+      "empty": "No children yet",
+      "approvedCapacityTitle": "Payment required",
+      "approvedCapacityDescription": "Your capacity request for {count} slot(s) was approved. Complete payment to unlock additional children.",
+      "payNow": "Pay now",
+      "paymentLinkFailed": "Could not open payment link. Please try again."
     },
     "orgChildren": {
       "title": "Organization children",

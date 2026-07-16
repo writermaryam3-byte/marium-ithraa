@@ -26,5 +26,38 @@
       "label": "كلمة المرور",
       "placeholder": "أدخل كلمة المرور"
     }
+  },
+  "Employee": {
+    "name": { "label": "الاسم", "placeholder": "أدخل اسم الموظف" },
+    "phone": { "label": "الهاتف", "placeholder": "أدخل رقم هاتف الموظف" },
+    "email": { "label": "البريد الإلكتروني", "placeholder": "أدخل بريد الموظف الإلكتروني" },
+    "password": { "label": "كلمة المرور", "placeholder": "أدخل كلمة مرور الموظف" },
+    "jobTitle": { "label": "المسمى الوظيفي", "placeholder": "أدخل المسمى الوظيفي" }
+  },
+  "Teacher": {
+    "name": { "label": "الاسم", "placeholder": "أدخل اسم المعلم" },
+    "email": { "label": "البريد الإلكتروني", "placeholder": "أدخل بريد المعلم الإلكتروني" },
+    "phone": { "label": "الهاتف", "placeholder": "أدخل رقم هاتف المعلم" },
+    "password": { "label": "كلمة المرور", "placeholder": "أدخل كلمة مرور المعلم" },
+    "jobTitle": { "label": "المسمى الوظيفي", "placeholder": "أدخل المسمى الوظيفي" }
+  },
+  "Child": {
+    "name": { "label": "الاسم", "placeholder": "أدخل اسم الطفل" },
+    "birthDate": { "label": "تاريخ الميلاد" },
+    "parentName": { "label": "اسم ولي الأمر" },
+    "parentEmail": { "label": "البريد الإلكتروني لولي الأمر" },
+    "parentPhone": { "label": "هاتف ولي الأمر" },
+    "parentPassword": { "label": "كلمة مرور ولي الأمر" },
+    "grade": { "label": "الصف الدراسي", "placeholder": "اختر الصف الدراسي" }
+  },
+  "Class": {
+    "name": { "label": "اسم الفصل", "placeholder": "أدخل اسم الفصل" }
+  },
+  "Grade": {
+    "name": { "label": "اسم الصف", "placeholder": "أدخل اسم الصف" }
+  },
+  "Test": {
+    "title": { "label": "العنوان", "placeholder": "أدخل عنوان الاختبار" },
+    "description": { "label": "الوصف", "placeholder": "أدخل وصف الاختبار" }
   }
 }

@@ -63,6 +63,8 @@ async function importNamespace(locale: AppLocale, file: NamespaceFile) {
       return (await import(`./${locale}/pagination.json`)).default
     case 'emails':
       return (await import(`./${locale}/emails.json`)).default
+    case 'payments':
+      return (await import(`./${locale}/payments.json`)).default
     default: {
       const _exhaustive: never = file
       throw new Error(`Unknown namespace file: ${_exhaustive}`)

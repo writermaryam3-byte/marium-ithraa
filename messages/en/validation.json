@@ -1,5 +1,27 @@
 {
   "required": "This field is required",
+  "isEmail": "Please enter a valid email address.",
+  "isString": "This field must be text.",
+  "isNumber": "This field must be a number.",
+  "isBoolean": "This field must be a boolean value.",
+  "isDate": "This field must be a valid date.",
+  "invalidEnum": "Invalid value. Allowed values are: {values}.",
+  "invalidUuid": "Invalid ID format.",
+  "invalidPhone": "Please enter a valid phone number.",
+  "invalidBirthDate": "Please enter a valid birth date.",
+  "minLength": "Must be at least {min} characters.",
+  "maxLength": "Must be at most {max} characters.",
+  "min": "Value must be at least {min}.",
+  "max": "Value must be at most {max}.",
+  "pattern": "Invalid format.",
+  "arrayMinSize": "Must have at least {min} items.",
+  "arrayMaxSize": "Must have at most {max} items.",
+  "arrayNotEmpty": "This field cannot be empty.",
+  "isArray": "This field must be an array.",
+  "isObject": "This field must be an object.",
+  "isPositive": "Value must be positive.",
+  "isInteger": "Value must be a whole number.",
+  "invalid": "Invalid value.",
   "email": {
     "invalid": "Please enter a valid email address."
   },
@@ -20,6 +42,13 @@
     "max": "Organization name must be at most 120 characters."
   },
   "organizationType": {
+    "required": "Please select an organization type."
+  },
+  "organization_name": {
+    "min": "Organization name must be at least 2 characters.",
+    "max": "Organization name must be at most 120 characters."
+  },
+  "organization_type": {
     "required": "Please select an organization type."
   },
   "birthDate": {

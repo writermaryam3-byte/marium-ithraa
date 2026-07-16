@@ -17,8 +17,13 @@
       "title": "أطفالي",
       "subtitle": "يمكنك إضافة حتى {limit} أطفال للتقييم الخاص",
       "limitReached": "تم الوصول إلى الحد الأقصى (طفلان)",
+      "requestCapacity": "طلب سعة إضافية",
       "addChild": "إضافة طفل",
-      "empty": "لا يوجد أطفال بعد"
+      "empty": "لا يوجد أطفال بعد",
+      "approvedCapacityTitle": "الدفع مطلوب",
+      "approvedCapacityDescription": "تمت الموافقة على طلبك لـ {count} مقعد/مقاعد. أكمل الدفع لتفعيل السعة الإضافية.",
+      "payNow": "ادفع الآن",
+      "paymentLinkFailed": "تعذر فتح رابط الدفع. يرجى المحاولة مرة أخرى."
     },
     "orgChildren": {
       "title": "أطفال المؤسسة",

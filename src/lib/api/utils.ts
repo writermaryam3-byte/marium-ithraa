@@ -1,12 +1,12 @@
 import { ApiError } from '../errors/ApiError'
 import { ApiErrorCodes, StatusCode } from '../types/enums'
 import { logger } from '../logger'
-import { ApiErrorResponse, ApiSuccessResponse } from '../types/interfaces'
+import type { ApiSuccessResponse, ApiErrorResponse } from '../types/interfaces'
 
-export async function parseResponse<T>(res: Response): Promise<T> {
-  let data: ApiSuccessResponse<T> | ApiErrorResponse
+export async function parseResponse<T>(res: Response): Promise<ApiSuccessResponse<T>> {
+  let raw: Record<string, unknown>
   try {
-    data = await res.json()
+    raw = await res.json()
   } catch (err) {
     logger.error('Failed to parse JSON response', { error: err })
     throw new ApiError('', StatusCode.INTERNALSERVERERROR, {
@@ -15,32 +15,50 @@ export async function parseResponse<T>(res: Response): Promise<T> {
     })
   }
 
-  if (!res.ok || !data.success) {
-    data = data as ApiErrorResponse
+  if (!res.ok || !raw.success) {
+    const errorResp = raw as unknown as ApiErrorResponse
     logger.error('API request failed', {
       statusCode: res.status,
-      path: data.path,
-    } as any)
-    throw new ApiError(data.path, res.status, {
-      code: data.error.code as ApiErrorCodes,
-      message: data.error.message,
-      details: data.error.details,
-      fieldErrors: data.error.fieldErrors,
-      requestId: data.requestId,
-      timestamp: data.timestamp,
+      path: errorResp.path,
+    })
+    throw new ApiError(errorResp.path ?? '', res.status, {
+      code: errorResp.error?.code ?? 'UNKNOWN',
+      message: errorResp.error?.message ?? 'errors.common.internalServerError',
+      details: errorResp.error?.details,
+      fieldErrors: errorResp.error?.fieldErrors,
+      requestId: errorResp.requestId,
+      timestamp: errorResp.timestamp,
     })
   }
 
-  return (data as ApiSuccessResponse<T>).data
+  return raw as unknown as ApiSuccessResponse<T>
+}
+
+export async function fetchData<T>(res: Response): Promise<T> {
+  const envelope = await parseResponse<T>(res)
+  return envelope.data
+}
+
+export async function fetchPaginatedData<T>(res: Response): Promise<{ data: T; meta: NonNullable<ApiSuccessResponse<T>['meta']> }> {
+  const envelope = await parseResponse<T>(res)
+  return {
+    data: envelope.data,
+    meta: envelope.meta ?? {
+      page: 1,
+      limit: 20,
+      total: 0,
+      totalPages: 0,
+      hasNextPage: false,
+      hasPreviousPage: false,
+    },
+  }
 }
 
 export function buildHeaders(
   token?: string | null,
   additionalHeaders?: HeadersInit,
 ): Record<string, string> {
-  const headers: Record<string, string> = {
-    'Content-Type': 'application/json',
-  }
+  const headers: Record<string, string> = {}
   if (token) {
     headers.Authorization = `Bearer ${token}`
   }

@@ -1,0 +1,8 @@
+{
+  "completeTitle": "Payment received",
+  "completeDescription": "Thank you. We are confirming your payment with Paymob. Your capacity will unlock shortly after verification.",
+  "cancelTitle": "Payment cancelled",
+  "cancelDescription": "You cancelled the payment. You can retry from your notifications or contact support if you need help.",
+  "reference": "Reference",
+  "backToDashboard": "Back to dashboard"
+}

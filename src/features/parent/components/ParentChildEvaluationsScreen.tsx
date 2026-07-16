@@ -45,7 +45,7 @@ export function ParentChildEvaluationsScreen({ childId }: Props) {
 
   const age = available.data?.age
   const evaluations = available.data?.evaluations ?? []
-  const childAttempts = attempts.data?.attempts ?? []
+  const childAttempts: EvaluationAttempt[] = Array.isArray(attempts.data) ? attempts.data : []
 
   const openSlot = async (mutation: { mutateAsync: () => Promise<unknown> }) => {
     try {

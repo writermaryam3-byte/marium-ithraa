@@ -28,6 +28,7 @@ export const namespaceFiles = [
   'tables',
   'pagination',
   'emails',
+  'payments',
 ] as const
 
 export type NamespaceFile = (typeof namespaceFiles)[number]
@@ -62,6 +63,7 @@ export const namespaceKeys: Record<NamespaceFile, string> = {
   tables: 'tables',
   pagination: 'pagination',
   emails: 'emails',
+  payments: 'payments',
 }
 
 export type AppLocale = 'en' | 'ar'

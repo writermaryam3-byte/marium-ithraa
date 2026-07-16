@@ -3,6 +3,8 @@ export type {
   CapacityRequestStatus,
   CreateCapacityRequestPayload,
   UpdateCapacityRequestPayload,
+  ApproveCapacityRequestResult,
+  PaymentSessionResult,
 } from './types'
 
 export {
@@ -12,11 +14,14 @@ export {
   updateCapacityRequest,
   approveCapacityRequest,
   rejectCapacityRequest,
+  resolveCapacityCheckout,
 } from './api'
 
 export {
   useCapacityRequests,
   useCreateCapacityRequest,
+  useParentCapacityRequests,
+  useResolveCapacityCheckout,
   useUpdateCapacityRequest,
   useApproveCapacityRequest,
   useRejectCapacityRequest,

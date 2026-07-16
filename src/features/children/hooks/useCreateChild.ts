@@ -24,7 +24,7 @@ export function useCreateChild(options?: {
   onConflict?: (message: string) => void
 }) {
   const t = useTranslations('children.create')
-  const tApiErrors = useTranslations('apiErrors')
+  const tApiErrors = useTranslations('errors')
   const tb = useTranslateBackend()
   const [requestState, setRequestState] = useState<RequestState>('idle')
   const [isPending, startTransition] = useTransition()

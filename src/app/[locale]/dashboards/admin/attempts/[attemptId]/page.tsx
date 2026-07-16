@@ -5,8 +5,8 @@ import { useParams } from 'next/navigation'
 import { useLocale, useTranslations } from 'next-intl'
 import { showErrorToast, showSuccessToast } from '@/lib/toast/app-toast'
 
-import AttemptSummary from '@/components/evaluation/AttemptSummary'
-import { AttemptResultView } from '@/components/evaluation/results/AttemptResultView'
+import AttemptSummary from '@/features/evaluations/components/AttemptSummary'
+import { AttemptResultView } from '@/features/evaluations/components/results/AttemptResultView'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import {

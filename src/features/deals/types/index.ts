@@ -13,6 +13,7 @@ export interface ActivityWithDeals extends Activity {
 
 export interface Deal {
   id: string
+  activityId?: string
   activity?: Activity
   organization?: {
     id: string
@@ -24,7 +25,7 @@ export interface Deal {
   }
   studentsCount: number
   status: DealStatus | string
-  deadline?: string
+  deadline: string
   createdAt?: string
   updatedAt?: string
 }
@@ -38,8 +39,8 @@ export interface Proposal {
     id: string
     name: string
   }
-  price?: number
-  status?: ProposalStatus | string
+  price: number
+  status: ProposalStatus | string
   createdAt?: string
   updatedAt?: string
 }
@@ -47,7 +48,7 @@ export interface Proposal {
 export interface CreateDealPayload {
   activityId: string
   studentsCount: number
-  deadline?: string
+  deadline: string
 }
 
 export interface SubmitProposalPayload {

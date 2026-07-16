@@ -1,35 +1,55 @@
+export type CapacityRequestStatus =
+  | 'pending'
+  | 'approved'
+  | 'rejected'
+  | 'paid'
+  | 'completed'
+
+export interface CapacityRequestParent {
+  id: string
+  userId: string
+  user?: {
+    id: string
+    name: string
+    phone: string
+    email?: string
+  }
+}
+
 export interface CapacityRequest {
   id: string
-  childName: string
-  childBirthDate?: string
-  childGender?: string
-  childGrade?: string
-  notes?: string
-  parentPhone: string
-  parentName: string
-  parentEmail?: string
-  status: 'pending' | 'approved' | 'rejected'
-  adminNotes?: string
-  rejectionReason?: string
-  organizationId?: string
+  requestedCapacity: number
+  notes?: string | null
+  status: CapacityRequestStatus
+  parentId: string
+  parent?: CapacityRequestParent
+  paymentId?: string | null
   createdAt: string
   updatedAt: string
 }
 
-export type CapacityRequestStatus = CapacityRequest['status']
-
 export interface CreateCapacityRequestPayload {
-  childName: string
-  childBirthDate?: string
-  childGender?: string
-  childGrade?: string
+  requestedCapacity: number
   notes?: string
-  parentPhone: string
-  parentName: string
-  parentEmail?: string
 }
 
 export interface UpdateCapacityRequestPayload {
   status?: CapacityRequestStatus
-  adminNotes?: string
+  notes?: string
+}
+
+export interface ApproveCapacityRequestResult {
+  capacityRequest: CapacityRequest
+  payment: {
+    id: string
+    checkoutUrl: string
+    expiresAt: string
+  }
+}
+
+export interface PaymentSessionResult {
+  id: string
+  checkoutUrl: string
+  expiresAt: string
+  status: string
 }

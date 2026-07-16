@@ -26,5 +26,38 @@
       "label": "Password",
       "placeholder": "Enter password"
     }
+  },
+  "Employee": {
+    "name": { "label": "Name", "placeholder": "Enter employee name" },
+    "phone": { "label": "Phone", "placeholder": "Enter employee phone" },
+    "email": { "label": "Email", "placeholder": "Enter employee email" },
+    "password": { "label": "Password", "placeholder": "Enter employee password" },
+    "jobTitle": { "label": "Job Title", "placeholder": "Enter job title" }
+  },
+  "Teacher": {
+    "name": { "label": "Name", "placeholder": "Enter teacher name" },
+    "email": { "label": "Email", "placeholder": "Enter teacher email" },
+    "phone": { "label": "Phone", "placeholder": "Enter teacher phone" },
+    "password": { "label": "Password", "placeholder": "Enter teacher password" },
+    "jobTitle": { "label": "Job Title", "placeholder": "Enter job title" }
+  },
+  "Child": {
+    "name": { "label": "Name", "placeholder": "Enter child name" },
+    "birthDate": { "label": "Birth Date" },
+    "parentName": { "label": "Parent Name" },
+    "parentEmail": { "label": "Parent Email" },
+    "parentPhone": { "label": "Parent Phone" },
+    "parentPassword": { "label": "Parent Password" },
+    "grade": { "label": "Grade", "placeholder": "Select grade" }
+  },
+  "Class": {
+    "name": { "label": "Class Name", "placeholder": "Enter class name" }
+  },
+  "Grade": {
+    "name": { "label": "Grade Name", "placeholder": "Enter grade name" }
+  },
+  "Test": {
+    "title": { "label": "Title", "placeholder": "Enter test title" },
+    "description": { "label": "Description", "placeholder": "Enter test description" }
   }
 }

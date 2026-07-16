@@ -6,20 +6,49 @@ import {
   createCapacityRequest,
   getCapacityRequests,
   rejectCapacityRequest,
+  resolveCapacityCheckout,
   updateCapacityRequest,
 } from '../api'
-import type { CreateCapacityRequestPayload, UpdateCapacityRequestPayload } from '../types'
+import type {
+  CapacityRequest,
+  CreateCapacityRequestPayload,
+  UpdateCapacityRequestPayload,
+} from '../types'
+
+function filterByStatus(requests: CapacityRequest[], status?: string): CapacityRequest[] {
+  if (!status || status === 'all') return requests
+  return requests.filter((req) => req.status === status)
+}
 
 export function useCapacityRequests(status?: string) {
   return useQuery({
-    queryKey: ['admin', 'capacity-requests', status],
-    queryFn: () => getCapacityRequests(status),
+    queryKey: ['admin', 'capacity-requests', status ?? 'all'],
+    queryFn: async () => {
+      const requests = await getCapacityRequests()
+      return filterByStatus(Array.isArray(requests) ? requests : [], status)
+    },
   })
 }
 
 export function useCreateCapacityRequest() {
   return useMutation({
     mutationFn: (payload: CreateCapacityRequestPayload) => createCapacityRequest(payload),
+  })
+}
+
+export function useParentCapacityRequests() {
+  return useQuery({
+    queryKey: ['parent', 'capacity-requests'],
+    queryFn: async () => {
+      const requests = await getCapacityRequests()
+      return Array.isArray(requests) ? requests : []
+    },
+  })
+}
+
+export function useResolveCapacityCheckout() {
+  return useMutation({
+    mutationFn: (id: string) => resolveCapacityCheckout(id),
   })
 }
 
@@ -36,8 +65,7 @@ export function useUpdateCapacityRequest(id: string) {
 export function useApproveCapacityRequest() {
   const queryClient = useQueryClient()
   return useMutation({
-    mutationFn: ({ id, organizationId }: { id: string; organizationId?: string }) =>
-      approveCapacityRequest(id, organizationId),
+    mutationFn: (id: string) => approveCapacityRequest(id),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['admin', 'capacity-requests'] })
     },
@@ -47,8 +75,7 @@ export function useApproveCapacityRequest() {
 export function useRejectCapacityRequest() {
   const queryClient = useQueryClient()
   return useMutation({
-    mutationFn: ({ id, reason }: { id: string; reason?: string }) =>
-      rejectCapacityRequest(id, reason),
+    mutationFn: (id: string) => rejectCapacityRequest(id),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['admin', 'capacity-requests'] })
     },

@@ -16,7 +16,7 @@ import { mapSessionToAuthUser } from '../utils/session-user'
 
 export function useAuth() {
   const locale = useLocale()
-  const t = useTranslations('apiErrors')
+  const t = useTranslations('errors')
   const { data: session, status, update } = useSession()
 
   const isLoading = status === 'loading'
@@ -61,11 +61,11 @@ export function useAuth() {
   )
 
   const logout = useCallback(
-    async (options?: { callbackUrl?: string; silent?: boolean }) => {
+    async (options?: { callbackUrl?: string; silent?: boolean; sessionId?: string }) => {
       clearAuthTokenCache()
 
       try {
-        await logoutClient()
+        await logoutClient(options?.sessionId)
       } catch {
         // still clear local session if backend logout fails
       }

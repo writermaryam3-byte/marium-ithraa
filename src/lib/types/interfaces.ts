@@ -189,11 +189,13 @@ export interface PaymentResponse {
 }
 
 export interface CreatePaymentPayload {
-  attemptId: string
-  privateChildId: string
   amount: number
-  currency: string
-  returnUrl?: string
+  currency?: string
+  privateChildId: string
+  attemptRequestId?: string
+  privateAttemptId?: string
+  description?: string
+  provider?: string
 }
 
 export interface EvaluationSlot {
@@ -208,44 +210,6 @@ export interface EvaluationSlot {
   updatedAt?: string
   attemptId?: string | null
   payment?: PaymentResponse | null
-}
-
-export interface TransferRequestPayload {
-  childId: string
-  childType: ChildType
-  toOrganizationId: string
-}
-
-export interface Organization {
-  id: string
-  name?: string
-  organizationName?: string
-  type?: string
-  createdAt?: string
-  updatedAt?: string
-}
-
-export interface Class {
-  id: string
-  name?: string
-  gradeId?: string
-  organizationId?: string
-}
-
-export interface TransferRequest {
-  id: string
-  organizationChildId?: string | null
-  privateChildId?: string | null
-  fromOrganizationId?: string
-  toOrganizationId?: string
-  status: string
-  message?: string
-  createdAt?: string
-  updatedAt?: string
-  child?: Child
-  fromOrganization?: Organization
-  toOrganization?: Organization
-  requestedBy?: ParentProfile
 }
 
 export interface CreateEvaluationDimensionPayload {
@@ -272,7 +236,7 @@ export interface CreateEvaluationQuestionPayload {
 export interface CreateEvaluationPayload {
   title: string
   type: EvaluationType
-  institutionId: string
+  institutionId: string | null
   ageFrom?: number | null
   ageTo?: number | null
   evaluatorTypes?: string[]
@@ -302,44 +266,50 @@ export interface SubmitAttemptPayload {
 
 export interface AvailableEvaluationsResponse {
   childId: string
-  childType?: ChildType
   age: number
   evaluations: Evaluation[]
 }
 
-export interface AttemptsResponse {
-  attempts: EvaluationAttempt[]
-  count: number
+export interface PaginationMeta {
+  page: number
+  limit: number
+  total: number
+  totalPages: number
+  hasNextPage: boolean
+  hasPreviousPage: boolean
 }
 
-export interface BaseApiResponse {
-  success: boolean
-  timestamp?: string
-  statusCode: number
-}
-
-export interface ApiSuccessResponse<T> extends BaseApiResponse {
-  success: true
-  data: T
-  meta?: Record<string, unknown>
-}
-
-export interface ApiFieldError {
+export interface FieldError {
   field: string
-  message: string
   code: string
+  message: string
   context?: Record<string, unknown>
 }
 
-export interface ApiErrorResponse extends BaseApiResponse {
+export interface ApiSuccessResponse<T> {
+  success: true
+  data: T
+  meta?: PaginationMeta
+  requestId: string
+  timestamp: string
+}
+
+export interface ApiErrorResponse {
   success: false
   error: {
     code: string
     message: string
     details?: Record<string, unknown>
-    fieldErrors?: ApiFieldError[]
+    fieldErrors?: FieldError[]
   }
-  requestId?: string
-  timestamp?: string
+  requestId: string
+  timestamp: string
   path: string
 }
+
+export interface ResponseMeta {
+  requestId: string
+  timestamp: string
+}
+
+export type ApiResponse<T> = ApiSuccessResponse<T> | ApiErrorResponse

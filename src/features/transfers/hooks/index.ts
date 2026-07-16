@@ -6,7 +6,7 @@ import { useTranslateBackend } from '@/lib/i18n/backend-messages'
 
 import { showErrorToast, showSuccessToast } from '@/lib/toast/app-toast'
 import { getFriendlyApiErrorMessage } from '@/lib/helpers/apiErrorMessages'
-import type { TransferRequest, TransferRequestPayload } from '@/lib/types/interfaces'
+import type { ChildTransferRequest } from '@/features/children/types/interfaces'
 import {
   approveTransferRequest,
   createTransferRequest,
@@ -20,7 +20,7 @@ export function useTransferRequests(
     enabled?: boolean
   },
 ) {
-  return useQuery<TransferRequest[], Error>({
+  return useQuery<ChildTransferRequest[], Error>({
     queryKey: ['transferRequests', fromOrganizationId],
     queryFn: () => getTransferRequests(fromOrganizationId),
     enabled: options?.enabled ?? Boolean(fromOrganizationId),

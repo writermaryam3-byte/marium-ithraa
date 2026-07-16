@@ -11,7 +11,7 @@ import { useAuth } from './useAuth'
 
 export function useInitAuth() {
   const locale = useLocale()
-  const t = useTranslations('apiErrors')
+  const t = useTranslations('errors')
   const { status } = useSession()
   const { logout, sessionExpired, session } = useAuth()
   const handledExpiry = useRef(false)

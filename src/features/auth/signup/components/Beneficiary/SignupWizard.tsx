@@ -87,18 +87,16 @@ export function SignupWizard() {
         phone: values.phone.trim(),
       }
 
-      let response: { message?: string }
-
       if (values.accountType === 'parent') {
-        response = await parentSignupClient(basePayload)
+        await parentSignupClient(basePayload)
       } else if (values.accountType === 'enricher') {
-        response = await enrichersSignupClient({
+        await enrichersSignupClient({
           ...basePayload,
           accountType: values.accountType,
           organizationName: values.organizationName?.trim() || '',
         })
       } else {
-        response = await beneficiariesSignupClient({
+        await beneficiariesSignupClient({
           ...basePayload,
           accountType: values.accountType,
           organizationName: values.organizationName?.trim() || '',
@@ -110,7 +108,7 @@ export function SignupWizard() {
         values.accountType === 'organization' || values.accountType === 'enricher'
 
       showSuccessToast({
-        raw: isPendingApproval ? t('organizationPendingSuccess') : response.message || t('success'),
+        raw: isPendingApproval ? t('organizationPendingSuccess') : t('success'),
       })
 
       const loginResult = await signInWithPhoneAndRedirect({
