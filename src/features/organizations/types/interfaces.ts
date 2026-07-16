@@ -3,9 +3,9 @@ import { ApprovalStatus, OrganizationType } from '@/lib/types/enums'
 export type { ApprovalStatus, OrganizationType }
 
 export type OrganizationOwner = {
-  id?: string
-  name?: string
-  email?: string
+  id: string
+  name: string
+  email: string
   phone?: string
 }
 
@@ -34,4 +34,9 @@ export type BeneficiarySignupOrganization = {
 
 export type RejectOrganizationPayload = {
   rejectionReason: string
+}
+
+export type UpdateOrganizationPayload = {
+  organizationName?: string
+  organizationType?: OrganizationType
 }

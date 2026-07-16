@@ -94,7 +94,9 @@
       "subtitle": "Manage your organization from one place"
     },
     "platformStats": "Platform stats",
-    "recentActivity": "Recent activity"
+    "recentActivity": "Recent activity",
+    "emptyStats": "No statistics available yet. Data will appear as you add children, classes, and teachers.",
+    "emptyActivity": "No recent activity yet."
   },
   "results": {
     "breadcrumb": {

@@ -52,6 +52,7 @@ function formatDate(value?: string | null) {
 
 export function AdminOrganizationsScreen({ locale }: { locale: string }) {
   const t = useTranslations('organizations.admin')
+  const tTypes = useTranslations('organizations.types')
   const tValidation = useTranslations('organizations.validation.rejectReason')
   const isAr = locale === 'ar'
 
@@ -85,7 +86,7 @@ export function AdminOrganizationsScreen({ locale }: { locale: string }) {
       {
         accessorKey: 'organizationType',
         header: t('columns.type'),
-        cell: ({ row }) => t(`types.${row.original.organizationType}`),
+        cell: ({ row }) => tTypes(row.original.organizationType),
       },
       {
         id: 'ownerName',
@@ -154,7 +155,7 @@ export function AdminOrganizationsScreen({ locale }: { locale: string }) {
         },
       },
     ],
-    [rejectionForm, t],
+    [rejectionForm, t, tTypes],
   )
 
   async function handleApprove() {

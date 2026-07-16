@@ -5,6 +5,7 @@ import type {
   ApprovalStatus,
   Organization,
   RejectOrganizationPayload,
+  UpdateOrganizationPayload,
 } from '../types/interfaces'
 
 export const createEmployee = async (employee: CreateEmployee) => {
@@ -44,6 +45,13 @@ export async function approveOrganization(id: string) {
 
 export async function rejectOrganization(id: string, body: RejectOrganizationPayload) {
   return api.client<Organization>(`/${Endpoint.ORGANIZATIONS}/${id}/${Endpoint.REJECT}`, {
+    method: Methods.PATCH,
+    body: JSON.stringify(body),
+  })
+}
+
+export async function updateOrganization(id: string, body: UpdateOrganizationPayload) {
+  return api.client<Organization>(`/${Endpoint.ORGANIZATIONS}/${id}`, {
     method: Methods.PATCH,
     body: JSON.stringify(body),
   })
