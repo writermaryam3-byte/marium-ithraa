@@ -1,13 +1,18 @@
 'use client'
 
-import { useMemo } from 'react'
+import { useMemo, useState } from 'react'
 import { useLocale, useTranslations } from 'next-intl'
 
 import { Badge } from '@/components/ui/badge'
+import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Input } from '@/components/ui/input'
+import { Checkbox } from '@/components/ui/checkbox'
 import type { Evaluation } from '@/features/evaluations/types'
+import { useUpdateEvaluation } from '@/features/evaluations/hooks'
 import { formatAgeRange, getEvaluationTypeLabel } from '@/features/evaluations/utils/labels'
 import { getTextDirection } from '@/lib/i18n/locale-utils'
+import { showErrorToast, showSuccessToast } from '@/lib/toast/app-toast'
 
 type Props = {
   evaluation: Evaluation
@@ -16,6 +21,9 @@ type Props = {
 export function AdminEvaluationDetailsScreen({ evaluation }: Props) {
   const locale = useLocale()
   const t = useTranslations('evaluations')
+  const update = useUpdateEvaluation(evaluation.id)
+  const [title, setTitle] = useState(evaluation.title)
+  const [isArchived, setIsArchived] = useState(Boolean(evaluation.isArchived))
 
   const groupedQuestions = useMemo(() => {
     const map = new Map<string, typeof evaluation.questions>()
@@ -38,11 +46,11 @@ export function AdminEvaluationDetailsScreen({ evaluation }: Props) {
         <CardHeader>
           <CardTitle>{t('detailsTitle')}</CardTitle>
         </CardHeader>
-        <CardContent className="grid gap-3 text-sm md:grid-cols-2">
-          <p>
-            <span className="text-muted-foreground">{t('title')}: </span>
-            {evaluation.title}
-          </p>
+        <CardContent className="grid gap-4 text-sm md:grid-cols-2">
+          <div className="space-y-2 md:col-span-2">
+            <label className="text-sm font-medium">{t('title')}</label>
+            <Input value={title} onChange={(e) => setTitle(e.target.value)} />
+          </div>
           <p>
             <span className="text-muted-foreground">{t('type')}: </span>
             <Badge variant="secondary">{getEvaluationTypeLabel(evaluation.type, t)}</Badge>
@@ -55,6 +63,34 @@ export function AdminEvaluationDetailsScreen({ evaluation }: Props) {
             <span className="text-muted-foreground">{t('evaluatorTypes')}: </span>
             {evaluation.evaluatorTypes?.join(', ') || '—'}
           </p>
+          <div className="flex items-center justify-between rounded-lg border p-3 md:col-span-2">
+            <div>
+              <p className="font-medium">{t('archivedLabel')}</p>
+              <p className="text-xs text-muted-foreground">{t('archivedHelp')}</p>
+            </div>
+            <Checkbox
+              checked={isArchived}
+              onCheckedChange={(checked) => setIsArchived(checked === true)}
+            />
+          </div>
+          <div className="md:col-span-2">
+            <Button
+              onClick={async () => {
+                try {
+                  await update.mutateAsync({
+                    title: title.trim() || evaluation.title,
+                    isArchived,
+                  })
+                  showSuccessToast({ raw: t('updatedToast') })
+                } catch {
+                  showErrorToast({ raw: t('updateFailedToast') })
+                }
+              }}
+              disabled={update.isPending}
+            >
+              {update.isPending ? t('saving') : t('saveChanges')}
+            </Button>
+          </div>
         </CardContent>
       </Card>
 

@@ -135,6 +135,7 @@ export interface Evaluation {
   ageFrom?: number | null
   ageTo?: number | null
   evaluatorTypes?: string[]
+  isArchived?: boolean
   dimensions?: EvaluationDimension[]
   questions?: EvaluationQuestion[]
 }

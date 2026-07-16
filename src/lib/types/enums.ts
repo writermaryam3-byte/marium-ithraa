@@ -233,6 +233,9 @@ export enum Endpoint {
   UPLOADS = 'uploads',
   SEARCH = 'search',
   CAPACITY_REQUESTS = 'capacity-requests',
+  AUDIT_LOGS = 'audit-logs',
+  ATTENDANCE = 'attendance',
+  CLOSE = 'close',
 }
 
 export enum ApiErrorCodes {

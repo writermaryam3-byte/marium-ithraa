@@ -17,7 +17,7 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog'
 import { useState } from 'react'
-import { useDealDetail, useDealProposals, useSelectProposal } from '@/features/deals'
+import { useDealDetail, useDealProposals, useSelectProposal, DealExecutionPanel } from '@/features/deals'
 import { getTextDirection } from '@/lib/i18n/locale-utils'
 import { Link } from '@/i18n/navigation'
 import { Pages, Routes } from '@/lib/types/enums'
@@ -94,6 +94,8 @@ export default function OrganizationDealDetailPage() {
           )}
         </CardContent>
       </Card>
+
+      <DealExecutionPanel dealId={params.dealId} deal={deal} />
 
       {selectedProposal && (
         <Card className="border-green-300 bg-green-50 dark:bg-green-950/20">

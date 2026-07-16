@@ -52,7 +52,13 @@
     "proposalSelected": "Proposal selected",
     "failedSelectProposal": "Failed to select proposal",
     "proposalApproved": "Proposal approved",
-    "failedApproveProposal": "Failed to approve proposal"
+    "failedApproveProposal": "Failed to approve proposal",
+    "proposalRejected": "Proposal rejected",
+    "failedRejectProposal": "Failed to reject proposal",
+    "attendanceRecorded": "Attendance recorded",
+    "failedRecordAttendance": "Failed to record attendance",
+    "dealClosed": "Deal closed",
+    "failedCloseDeal": "Failed to close deal"
   },
   "activities": {
     "created": "Activity created",

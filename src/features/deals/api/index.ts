@@ -1,6 +1,6 @@
 import { api } from '@/lib/api/api'
 import { Endpoint, Methods } from '@/lib/types/enums'
-import type { Deal, Proposal, CreateDealPayload, SubmitProposalPayload } from '../types'
+import type { Deal, Proposal, CreateDealPayload, SubmitProposalPayload, RecordDealAttendancePayload, RejectProposalPayload } from '../types'
 
 export const getDeals = async (status?: string) => {
   const query = status ? `?status=${status}` : ''
@@ -37,6 +37,33 @@ export const approveProposal = async (dealId: string, proposalId: string) => {
     `/${Endpoint.DEALS}/${dealId}/${Endpoint.PROPOSALS}/${proposalId}/${Endpoint.APPROVE}`,
     { method: Methods.POST },
   )
+}
+
+export const rejectProposal = async (
+  dealId: string,
+  proposalId: string,
+  data?: RejectProposalPayload,
+) => {
+  return api.client<Proposal>(
+    `/${Endpoint.DEALS}/${dealId}/${Endpoint.PROPOSALS}/${proposalId}/${Endpoint.REJECT}`,
+    {
+      method: Methods.POST,
+      body: JSON.stringify(data ?? {}),
+    },
+  )
+}
+
+export const recordDealAttendance = async (dealId: string, data: RecordDealAttendancePayload) => {
+  return api.client<Deal>(`/${Endpoint.DEALS}/${dealId}/${Endpoint.ATTENDANCE}`, {
+    method: Methods.PATCH,
+    body: JSON.stringify(data),
+  })
+}
+
+export const closeDeal = async (dealId: string) => {
+  return api.client<Deal>(`/${Endpoint.DEALS}/${dealId}/${Endpoint.CLOSE}`, {
+    method: Methods.POST,
+  })
 }
 
 export const getDealProposals = async (dealId: string) => {

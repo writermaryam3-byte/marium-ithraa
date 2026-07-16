@@ -10,6 +10,8 @@ import {
   Users,
   Briefcase,
   Activity,
+  ScrollText,
+  CreditCard,
 } from 'lucide-react'
 
 import { NavMain } from '@/components/nav-main'
@@ -32,6 +34,7 @@ const ADMIN_URL = `/${Routes.DASHBOARDS}/${Pages.ADMIN}`
 export function AdminSidebar(props: React.ComponentProps<typeof Sidebar>) {
   const { data: session } = useSession()
   const t = useTranslations()
+  const tNav = useTranslations('navigation')
 
   const data = {
     user: {
@@ -94,6 +97,16 @@ export function AdminSidebar(props: React.ComponentProps<typeof Sidebar>) {
         title: t('Dashboard.Nav.deals'),
         url: `${ADMIN_URL}/deals`,
         icon: Briefcase,
+      },
+      {
+        title: tNav('dashboard.auditLogs'),
+        url: `${ADMIN_URL}/audit-logs`,
+        icon: ScrollText,
+      },
+      {
+        title: tNav('dashboard.paymentsAdmin'),
+        url: `${ADMIN_URL}/payments`,
+        icon: CreditCard,
       },
     ],
     // navSecondary: [

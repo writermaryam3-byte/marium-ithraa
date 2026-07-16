@@ -40,18 +40,31 @@ function ViewDetailsLink({ id }: { id: string }) {
   )
 }
 
+function ArchivedBadge({ archived }: { archived?: boolean }) {
+  const t = useTranslations('evaluations')
+  if (!archived) return null
+  return (
+    <Badge variant="outline" className="ms-2">
+      {t('archivedBadge')}
+    </Badge>
+  )
+}
+
 export const evaluationColumns: ColumnDef<Evaluation>[] = [
   {
     id: 'title',
     accessorKey: 'title',
     header: () => <TH messageKey="title" />,
     cell: ({ row }) => (
-      <Link
-        href={`${ADMIN_EVALUATIONS}/${row.original.id}`}
-        className="font-medium text-primary hover:underline"
-      >
-        {row.original.title}
-      </Link>
+      <span className="inline-flex items-center">
+        <Link
+          href={`${ADMIN_EVALUATIONS}/${row.original.id}`}
+          className="font-medium text-primary hover:underline"
+        >
+          {row.original.title}
+        </Link>
+        <ArchivedBadge archived={row.original.isArchived} />
+      </span>
     ),
   },
   {

@@ -18,6 +18,8 @@ import {
   saveAttemptProgressClient,
   startEvaluationClient,
   submitAttemptClient,
+  updateEvaluationClient,
+  type UpdateEvaluationPayload,
 } from '../api'
 import type { SaveAttemptDto, StartAttemptDto, SubmitAttemptDto } from '../types'
 
@@ -92,6 +94,17 @@ export function useCreateEvaluation() {
     mutationFn: (data: CreateEvaluationDto) => createEvaluationClient(data),
     onSuccess: () => {
       void queryClient.invalidateQueries({ queryKey: evaluationKeys.all })
+    },
+  })
+}
+
+export function useUpdateEvaluation(evaluationId: string) {
+  const queryClient = useQueryClient()
+  return useMutation({
+    mutationFn: (data: UpdateEvaluationPayload) => updateEvaluationClient(evaluationId, data),
+    onSuccess: () => {
+      void queryClient.invalidateQueries({ queryKey: evaluationKeys.all })
+      void queryClient.invalidateQueries({ queryKey: evaluationKeys.detail(evaluationId) })
     },
   })
 }

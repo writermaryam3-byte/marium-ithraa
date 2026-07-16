@@ -4,5 +4,26 @@
   "cancelTitle": "Payment cancelled",
   "cancelDescription": "You cancelled the payment. You can retry from your notifications or contact support if you need help.",
   "reference": "Reference",
-  "backToDashboard": "Back to dashboard"
+  "backToDashboard": "Back to dashboard",
+  "admin": {
+    "title": "Payments",
+    "loadError": "Failed to load payments.",
+    "empty": "No payments found.",
+    "filterAll": "All statuses",
+    "filterPending": "Pending",
+    "filterPaid": "Paid",
+    "filterFailed": "Failed",
+    "filterExpired": "Expired",
+    "columnUser": "User",
+    "columnAmount": "Amount",
+    "columnStatus": "Status",
+    "columnPurpose": "Purpose",
+    "columnProvider": "Provider",
+    "columnCreated": "Created",
+    "columnActions": "Actions",
+    "openCheckout": "Open checkout",
+    "pageInfo": "Page {page} of {totalPages}",
+    "previous": "Previous",
+    "next": "Next"
+  }
 }

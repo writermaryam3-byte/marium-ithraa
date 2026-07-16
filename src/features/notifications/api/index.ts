@@ -11,8 +11,7 @@ import type {
 } from '../types'
 
 export type ListNotificationsPaginatedResponse = {
-  items: NotificationItem[]
-  meta: PaginationMeta
+  items: { data: NotificationItem[]; meta: PaginationMeta }
 }
 
 const getNotificationsQuery = (params?: ListNotificationsParams) => {
@@ -118,10 +117,11 @@ export const listNotificationsServer = async (
   const headers: Record<string, string> = {}
   if (token) headers.Authorization = `Bearer ${token}`
 
-  const res = await fetch(
-    `${process.env.BACKEND_URL}/api/${Endpoint.NOTIFICATIONS}${query}`,
-    { method: Methods.GET, headers, cache: 'no-store' },
-  )
+  const res = await fetch(`${process.env.BACKEND_URL}/api/${Endpoint.NOTIFICATIONS}${query}`, {
+    method: Methods.GET,
+    headers,
+    cache: 'no-store',
+  })
 
   const envelope = await parseResponse<NotificationItem[]>(res)
   return {

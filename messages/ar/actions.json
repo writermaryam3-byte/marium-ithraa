@@ -52,7 +52,13 @@
     "proposalSelected": "تم اختيار العرض",
     "failedSelectProposal": "فشل اختيار العرض",
     "proposalApproved": "تمت الموافقة على العرض",
-    "failedApproveProposal": "فشل الموافقة على العرض"
+    "failedApproveProposal": "فشل الموافقة على العرض",
+    "proposalRejected": "تم رفض العرض",
+    "failedRejectProposal": "فشل رفض العرض",
+    "attendanceRecorded": "تم تسجيل الحضور",
+    "failedRecordAttendance": "فشل تسجيل الحضور",
+    "dealClosed": "تم إغلاق الصفقة",
+    "failedCloseDeal": "فشل إغلاق الصفقة"
   },
   "activities": {
     "created": "تم إنشاء النشاط",

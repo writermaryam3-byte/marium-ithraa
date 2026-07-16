@@ -1,0 +1,15 @@
+{
+  "title": "سجل التدقيق",
+  "loadError": "تعذر تحميل سجل التدقيق.",
+  "empty": "لا توجد سجلات تدقيق.",
+  "filterEntityType": "تصفية حسب نوع الكيان…",
+  "filterAllActions": "جميع الإجراءات",
+  "columnTime": "الوقت",
+  "columnAction": "الإجراء",
+  "columnEntity": "الكيان",
+  "columnUser": "المستخدم",
+  "columnDescription": "الوصف",
+  "pageInfo": "الصفحة {page} من {totalPages}",
+  "previous": "السابق",
+  "next": "التالي"
+}

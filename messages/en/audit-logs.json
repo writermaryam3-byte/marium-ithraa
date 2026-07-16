@@ -1,0 +1,15 @@
+{
+  "title": "Audit logs",
+  "loadError": "Failed to load audit logs.",
+  "empty": "No audit log entries found.",
+  "filterEntityType": "Filter by entity type…",
+  "filterAllActions": "All actions",
+  "columnTime": "Time",
+  "columnAction": "Action",
+  "columnEntity": "Entity",
+  "columnUser": "User",
+  "columnDescription": "Description",
+  "pageInfo": "Page {page} of {totalPages}",
+  "previous": "Previous",
+  "next": "Next"
+}

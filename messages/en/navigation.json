@@ -40,7 +40,9 @@
     "evaluations": "Evaluations",
     "attempts": "Attempts",
     "deals": "Deals",
-    "activities": "Activities"
+    "activities": "Activities",
+    "auditLogs": "Audit logs",
+    "paymentsAdmin": "Payments"
   },
   "organization": {
     "home": "Home",

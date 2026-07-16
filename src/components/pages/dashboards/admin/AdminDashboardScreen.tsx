@@ -76,7 +76,7 @@ export function AdminDashboardScreen() {
         },
       ]
     }
-    return items.slice(0, 4).map((n) => ({
+    return items.data.slice(0, 4).map((n) => ({
       id: n.id,
       title: n.title,
       timeAgo: new Date(n.createdAt).toLocaleString(isAr ? 'ar-SA' : undefined, {

@@ -1,4 +1,4 @@
-export type DealStatus = 'OPEN' | 'AWARDED' | 'CLOSED'
+export type DealStatus = 'OPEN' | 'AWARDED' | 'EXECUTING' | 'CLOSED'
 
 export type ProposalStatus = 'PENDING' | 'SELECTED' | 'APPROVED' | 'REJECTED'
 
@@ -26,6 +26,10 @@ export interface Deal {
   studentsCount: number
   status: DealStatus | string
   deadline: string
+  studentsAttended?: number | null
+  attendanceNotes?: string | null
+  attendanceRecordedAt?: string | null
+  closedAt?: string | null
   createdAt?: string
   updatedAt?: string
 }
@@ -53,4 +57,13 @@ export interface CreateDealPayload {
 
 export interface SubmitProposalPayload {
   price: number
+}
+
+export interface RecordDealAttendancePayload {
+  studentsAttended: number
+  notes?: string
+}
+
+export interface RejectProposalPayload {
+  reason?: string
 }

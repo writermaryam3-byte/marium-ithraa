@@ -155,6 +155,23 @@ export const getEvaluationDetailsClient = async (evaluationId: string) => {
   return api.client<Evaluation>(`/${Endpoint.EVALUATIONS}/${evaluationId}/${Endpoint.DETAILS}`)
 }
 
+export type UpdateEvaluationPayload = {
+  title?: string
+  ageFrom?: number | null
+  ageTo?: number | null
+  isArchived?: boolean
+}
+
+export const updateEvaluationClient = async (
+  evaluationId: string,
+  data: UpdateEvaluationPayload,
+) => {
+  return api.client<Evaluation>(`/${Endpoint.EVALUATIONS}/${evaluationId}`, {
+    method: Methods.PATCH,
+    body: JSON.stringify(data),
+  })
+}
+
 /**
  * =========================
  * Evaluations - Parent/Form

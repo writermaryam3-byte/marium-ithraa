@@ -1,7 +1,42 @@
 import { ApiError } from '../errors/ApiError'
 import { ApiErrorCodes, StatusCode } from '../types/enums'
 import { logger } from '../logger'
-import type { ApiSuccessResponse, ApiErrorResponse } from '../types/interfaces'
+import type { ApiErrorResponse, ApiSuccessResponse, PaginationMeta } from '../types/interfaces'
+
+export type PaginatedListPayload<T> = {
+  data: T[]
+  meta: PaginationMeta
+}
+
+const defaultPaginationMeta = (): PaginationMeta => ({
+  page: 1,
+  limit: 20,
+  total: 0,
+  totalPages: 0,
+  hasNextPage: false,
+  hasPreviousPage: false,
+})
+
+export function unwrapPaginatedList<T>(
+  envelope: ApiSuccessResponse<PaginatedListPayload<T> | T[]>,
+): { items: T[]; meta: PaginationMeta } {
+  const payload = envelope.data
+  if (
+    payload &&
+    typeof payload === 'object' &&
+    !Array.isArray(payload) &&
+    'data' in payload &&
+    'meta' in payload
+  ) {
+    const paginated = payload as PaginatedListPayload<T>
+    return { items: paginated.data, meta: paginated.meta }
+  }
+
+  return {
+    items: Array.isArray(payload) ? payload : [],
+    meta: envelope.meta ?? defaultPaginationMeta(),
+  }
+}
 
 export async function parseResponse<T>(res: Response): Promise<ApiSuccessResponse<T>> {
   let raw: Record<string, unknown>

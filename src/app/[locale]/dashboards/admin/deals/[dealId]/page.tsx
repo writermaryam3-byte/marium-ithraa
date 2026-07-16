@@ -16,8 +16,9 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog'
+import { Textarea } from '@/components/ui/textarea'
 import { useState } from 'react'
-import { useDealDetail, useDealProposals, useApproveProposal } from '@/features/deals'
+import { useDealDetail, useDealProposals, useApproveProposal, useRejectProposal, DealExecutionPanel } from '@/features/deals'
 import { getTextDirection } from '@/lib/i18n/locale-utils'
 import { Link } from '@/i18n/navigation'
 import { Pages, Routes } from '@/lib/types/enums'
@@ -31,7 +32,10 @@ export default function AdminDealDetailPage() {
   const { data: deal, isLoading: dealLoading } = useDealDetail(params.dealId)
   const { data: proposalsData, isLoading: proposalsLoading } = useDealProposals(params.dealId)
   const approve = useApproveProposal(params.dealId)
+  const reject = useRejectProposal(params.dealId)
   const [approveTarget, setApproveTarget] = useState<string | null>(null)
+  const [rejectTarget, setRejectTarget] = useState<string | null>(null)
+  const [rejectReason, setRejectReason] = useState('')
 
   const proposals = Array.isArray(proposalsData) ? proposalsData : []
   const selectedProposal = proposals.find((p) => p.status === 'SELECTED')
@@ -82,6 +86,8 @@ export default function AdminDealDetailPage() {
           </p>
         </CardContent>
       </Card>
+
+      <DealExecutionPanel dealId={params.dealId} deal={deal} />
 
       {approvedProposal && (
         <Card className="border-green-300 bg-green-50 dark:bg-green-950/20">
@@ -136,7 +142,11 @@ export default function AdminDealDetailPage() {
                 <CheckCircle className="size-4 me-1" />
                 {t('approve')}
               </Button>
-              <Button variant="outline" disabled>
+              <Button
+                variant="outline"
+                onClick={() => setRejectTarget(selectedProposal.id)}
+                disabled={reject.isPending}
+              >
                 <XCircle className="size-4 me-1" />
                 {t('reject')}
               </Button>
@@ -175,6 +185,50 @@ export default function AdminDealDetailPage() {
               disabled={approve.isPending}
             >
               {approve.isPending ? t('approving') : t('confirmApprove')}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      <Dialog
+        open={!!rejectTarget}
+        onOpenChange={(o) => {
+          if (!o) {
+            setRejectTarget(null)
+            setRejectReason('')
+          }
+        }}
+      >
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>{t('confirmReject')}</DialogTitle>
+            <DialogDescription>{t('confirmRejectDesc')}</DialogDescription>
+          </DialogHeader>
+          <Textarea
+            placeholder={t('rejectReason')}
+            value={rejectReason}
+            onChange={(e) => setRejectReason(e.target.value)}
+          />
+          <DialogFooter className="gap-2">
+            <Button variant="outline" onClick={() => setRejectTarget(null)}>
+              {t('cancel')}
+            </Button>
+            <Button
+              variant="destructive"
+              onClick={async () => {
+                if (!rejectTarget) return
+                try {
+                  await reject.mutateAsync({
+                    proposalId: rejectTarget,
+                    reason: rejectReason.trim() || undefined,
+                  })
+                  setRejectTarget(null)
+                  setRejectReason('')
+                } catch {}
+              }}
+              disabled={reject.isPending}
+            >
+              {reject.isPending ? t('rejecting') : t('confirmRejectAction')}
             </Button>
           </DialogFooter>
         </DialogContent>

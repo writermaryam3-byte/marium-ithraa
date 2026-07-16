@@ -12,6 +12,9 @@ import {
   submitProposal,
   selectProposal,
   approveProposal,
+  rejectProposal,
+  recordDealAttendance,
+  closeDeal,
   getDealProposals,
   updateProposal,
   getActivities,
@@ -20,7 +23,7 @@ import {
   updateActivity,
   deleteActivity,
 } from '../api'
-import type { CreateDealPayload, SubmitProposalPayload } from '../types'
+import type { CreateDealPayload, SubmitProposalPayload, RecordDealAttendancePayload, RejectProposalPayload } from '../types'
 
 export const dealKeys = {
   all: ['deals'] as const,
@@ -148,6 +151,75 @@ export function useApproveProposal(dealId: string, onSuccess?: () => void) {
     onError: (error: unknown) => {
       showErrorToast({
         raw: error instanceof Error ? tb(error.message) : t('failedApproveProposal'),
+      })
+    },
+  })
+}
+
+export function useRejectProposal(dealId: string, onSuccess?: () => void) {
+  const t = useTranslations('actions.deals')
+  const tb = useTranslateBackend()
+  const queryClient = useQueryClient()
+  return useMutation({
+    mutationFn: ({
+      proposalId,
+      reason,
+    }: {
+      proposalId: string
+      reason?: string
+    }) => rejectProposal(dealId, proposalId, reason ? { reason } : undefined),
+    meta: { skipGlobalError: true },
+    onSuccess: () => {
+      showSuccessToast({ raw: t('proposalRejected') })
+      void queryClient.invalidateQueries({ queryKey: dealKeys.all })
+      void queryClient.invalidateQueries({ queryKey: dealKeys.detail(dealId) })
+      void queryClient.invalidateQueries({ queryKey: ['deals', dealId, 'proposals'] })
+      onSuccess?.()
+    },
+    onError: (error: unknown) => {
+      showErrorToast({
+        raw: error instanceof Error ? tb(error.message) : t('failedRejectProposal'),
+      })
+    },
+  })
+}
+
+export function useRecordDealAttendance(dealId: string, onSuccess?: () => void) {
+  const t = useTranslations('actions.deals')
+  const tb = useTranslateBackend()
+  const queryClient = useQueryClient()
+  return useMutation({
+    mutationFn: (data: RecordDealAttendancePayload) => recordDealAttendance(dealId, data),
+    meta: { skipGlobalError: true },
+    onSuccess: () => {
+      showSuccessToast({ raw: t('attendanceRecorded') })
+      void queryClient.invalidateQueries({ queryKey: dealKeys.detail(dealId) })
+      onSuccess?.()
+    },
+    onError: (error: unknown) => {
+      showErrorToast({
+        raw: error instanceof Error ? tb(error.message) : t('failedRecordAttendance'),
+      })
+    },
+  })
+}
+
+export function useCloseDeal(dealId: string, onSuccess?: () => void) {
+  const t = useTranslations('actions.deals')
+  const tb = useTranslateBackend()
+  const queryClient = useQueryClient()
+  return useMutation({
+    mutationFn: () => closeDeal(dealId),
+    meta: { skipGlobalError: true },
+    onSuccess: () => {
+      showSuccessToast({ raw: t('dealClosed') })
+      void queryClient.invalidateQueries({ queryKey: dealKeys.all })
+      void queryClient.invalidateQueries({ queryKey: dealKeys.detail(dealId) })
+      onSuccess?.()
+    },
+    onError: (error: unknown) => {
+      showErrorToast({
+        raw: error instanceof Error ? tb(error.message) : t('failedCloseDeal'),
       })
     },
   })
