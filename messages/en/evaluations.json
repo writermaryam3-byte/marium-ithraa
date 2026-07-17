@@ -233,6 +233,15 @@
     "currency": "SAR"
   },
   "capacityRequests": {
+    "title": "Capacity requests",
+    "subtitle": "Review parent requests for additional child capacity and issue payment links.",
+    "status": {
+      "pending": "Pending",
+      "approved": "Approved",
+      "rejected": "Rejected",
+      "paid": "Paid",
+      "completed": "Completed"
+    },
     "filterAll": "All",
     "filterPending": "Pending",
     "filterApproved": "Approved",

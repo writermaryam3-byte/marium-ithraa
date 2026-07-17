@@ -1,9 +1,4 @@
-export type CapacityRequestStatus =
-  | 'pending'
-  | 'approved'
-  | 'rejected'
-  | 'paid'
-  | 'completed'
+export type CapacityRequestStatus = 'pending' | 'approved' | 'rejected' | 'paid' | 'completed'
 
 export interface CapacityRequestParent {
   id: string

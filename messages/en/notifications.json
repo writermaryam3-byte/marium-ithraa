@@ -64,6 +64,22 @@
     "evaluationLimitReached": {
       "title": "Attempt limit reached",
       "message": "The maximum number of evaluation attempts has been reached."
+    },
+    "capacityApproved": {
+      "title": "Capacity request approved — payment required",
+      "message": "Your request for {count} additional child slot(s) was approved. Complete payment to unlock the capacity."
+    },
+    "capacityRejected": {
+      "title": "Capacity request rejected",
+      "message": "Your request for additional child capacity was rejected by an administrator."
+    },
+    "capacityRejectedWithReason": {
+      "title": "Capacity request rejected",
+      "message": "Your request for additional child capacity was rejected. Reason: {reason}"
+    },
+    "capacityCompleted": {
+      "title": "Capacity increase confirmed",
+      "message": "Your payment was successful. You can now add {count} more child profile(s)."
     }
   },
   "templates": {

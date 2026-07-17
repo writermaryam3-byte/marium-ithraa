@@ -80,7 +80,8 @@ export function useApproveCapacityRequest() {
 export function useRejectCapacityRequest() {
   const queryClient = useQueryClient()
   return useMutation({
-    mutationFn: (id: string) => rejectCapacityRequest(id),
+    mutationFn: ({ id, reason }: { id: string; reason?: string }) =>
+      rejectCapacityRequest(id, reason),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['admin', 'capacity-requests'] })
     },

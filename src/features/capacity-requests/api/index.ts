@@ -36,11 +36,12 @@ export const approveCapacityRequest = async (id: string) => {
   )
 }
 
-export const rejectCapacityRequest = async (id: string) => {
-  return api.client<CapacityRequest>(
-    `/${Endpoint.CAPACITY_REQUESTS}/${id}/${Endpoint.REJECT}`,
-    { method: Methods.POST },
-  )
+export const rejectCapacityRequest = async (id: string, reason?: string) => {
+  const trimmed = reason?.trim()
+  return api.client<CapacityRequest>(`/${Endpoint.CAPACITY_REQUESTS}/${id}/${Endpoint.REJECT}`, {
+    method: Methods.POST,
+    body: JSON.stringify({ reason: trimmed || undefined }),
+  })
 }
 
 export const resolveCapacityCheckout = async (id: string) => {

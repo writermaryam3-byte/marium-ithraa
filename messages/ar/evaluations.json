@@ -233,6 +233,15 @@
     "currency": "ر.س"
   },
   "capacityRequests": {
+    "title": "طلبات السعة",
+    "subtitle": "راجع طلبات أولياء الأمور للحصول على سعة أطفال إضافية وأصدر روابط الدفع.",
+    "status": {
+      "pending": "قيد الانتظار",
+      "approved": "تمت الموافقة",
+      "rejected": "مرفوض",
+      "paid": "مدفوع",
+      "completed": "مكتمل"
+    },
     "filterAll": "الكل",
     "filterPending": "قيد الانتظار",
     "filterApproved": "تمت الموافقة",

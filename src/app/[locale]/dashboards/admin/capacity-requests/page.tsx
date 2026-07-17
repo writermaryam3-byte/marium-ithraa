@@ -1,8 +1,9 @@
 'use client'
 
 import { useState } from 'react'
-import { useTranslations } from 'next-intl'
+import { useLocale, useTranslations } from 'next-intl'
 import { showErrorToast, showSuccessToast } from '@/lib/toast/app-toast'
+import { getDateLocale, getTextDirection } from '@/lib/i18n/locale-utils'
 
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
@@ -56,15 +57,19 @@ function parentPhone(request: CapacityRequest): string {
 
 export default function AdminCapacityRequestsPage() {
   const t = useTranslations('evaluations.capacityRequests')
+  const locale = useLocale()
   const [statusFilter, setStatusFilter] = useState<string>('pending')
-  const { data: capacityRequests = [], isLoading, isError } = useCapacityRequests(
-    statusFilter || undefined,
-  )
+  const {
+    data: capacityRequests = [],
+    isLoading,
+    isError,
+  } = useCapacityRequests(statusFilter || undefined)
 
   return (
     <>
-      <SiteHeader titleKey="Features.CapacityRequests.title" />
-      <div className="flex flex-1 flex-col p-6">
+      <SiteHeader title={t('title')} />
+      <div className="flex flex-1 flex-col p-6" dir={getTextDirection(locale)}>
+        <p className="mb-4 text-sm text-muted-foreground">{t('subtitle')}</p>
         <div className="mb-4 flex items-center gap-4">
           <Select value={statusFilter} onValueChange={setStatusFilter}>
             <SelectTrigger className="w-40">
@@ -110,10 +115,12 @@ export default function AdminCapacityRequestsPage() {
                   <TableCell>{req.requestedCapacity}</TableCell>
                   <TableCell className="max-w-xs truncate">{req.notes ?? '—'}</TableCell>
                   <TableCell>
-                    <Badge variant={statusBadgeVariant[req.status] ?? 'outline'}>{req.status}</Badge>
+                    <Badge variant={statusBadgeVariant[req.status] ?? 'outline'}>
+                      {t(`status.${req.status}`)}
+                    </Badge>
                   </TableCell>
                   <TableCell className="text-sm text-muted-foreground">
-                    {new Date(req.createdAt).toLocaleDateString()}
+                    {new Date(req.createdAt).toLocaleDateString(getDateLocale(locale))}
                   </TableCell>
                   <TableCell>
                     {req.status === 'pending' && <CapacityRequestActions request={req} />}
@@ -149,7 +156,7 @@ function CapacityRequestActions({ request }: { request: CapacityRequest }) {
 
   const handleReject = async () => {
     try {
-      await rejectMutation.mutateAsync(request.id)
+      await rejectMutation.mutateAsync({ id: request.id, reason: rejectReason })
       setRejectOpen(false)
       setRejectReason('')
       showSuccessToast({ raw: t('rejectedToast') })
