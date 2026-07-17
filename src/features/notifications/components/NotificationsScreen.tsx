@@ -110,7 +110,7 @@ export function NotificationsScreen({ locale }: Props) {
           breadcrumbs={[
             {
               href: '/dashboards',
-              label: isAr ? 'الرئيسية' : 'Home',
+              label: t('home'),
             },
             { label: t('title') },
           ]}

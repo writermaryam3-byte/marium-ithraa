@@ -47,6 +47,25 @@
   "metadataInvalidJson": "صيغة JSON غير صالحة في البيانات الإضافية",
   "metadataInvalidObject": "يجب أن تكون البيانات الإضافية كائن JSON",
   "attemptResult": "نتيجة",
+  "home": "الرئيسية",
+  "adminArea": "الإدارة",
+  "noRecentActivity": "لا يوجد نشاط حديث",
+  "events": {
+    "evaluationSubmitted": {
+      "title": "تم إرسال التقييم",
+      "messageAuto": "تم إرسال التقييم تلقائيًا بعد انتهاء الوقت.",
+      "messageManual": "تم إرسال التقييم بنجاح وفي انتظار الاعتماد."
+    },
+    "evaluationApproved": {
+      "title": "النتائج جاهزة!",
+      "messageAuto": "أصبحت نتيجة تقييم طفلك جاهزة، يمكنك الاطلاع عليها الآن.",
+      "messageManual": "تم اعتماد نتيجة تقييم طفلك ويمكنك الآن الاطلاع على النتيجة."
+    },
+    "evaluationLimitReached": {
+      "title": "تم الوصول لحد المحاولات",
+      "message": "تم الوصول إلى الحد الأقصى من محاولات التقييم."
+    }
+  },
   "templates": {
     "parentWelcome": {
       "title": "مرحباً بك!",

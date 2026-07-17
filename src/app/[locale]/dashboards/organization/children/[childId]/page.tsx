@@ -31,7 +31,6 @@ export default async function EditChildPage({ params }: Props) {
   return (
     <ChildFormScreen
       locale={locale}
-      organizationId={orgId}
       grades={gradesRes.grades}
       classes={classesRes.classes}
       child={child}

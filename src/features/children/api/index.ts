@@ -6,7 +6,6 @@ import {
   type ChildTransferRequest,
   type CreateChildFlowPayload,
   type CreateChildResponse,
-  type CreateChildWithParentPayload,
   type CreatePrivateChildPayload,
   type ParentSearchResult,
   type UpdateChildPayload,
@@ -42,13 +41,6 @@ export const getAllChildrenByOrg = async (orgId: string) => {
 
 export const getChildById = async (childId: string) => {
   return api.server<{ child: Child }>(`/${Endpoint.CHILDREN}/${childId}`)
-}
-
-export const createChild = async (data: Partial<Child> | CreateChildWithParentPayload) => {
-  return api.server(`/${Endpoint.CHILDREN}`, {
-    method: Methods.POST,
-    body: JSON.stringify(data),
-  })
 }
 
 export const updateChild = async (childId: string, data: UpdateChildPayload) => {

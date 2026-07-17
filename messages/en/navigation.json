@@ -42,7 +42,8 @@
     "deals": "Deals",
     "activities": "Activities",
     "auditLogs": "Audit logs",
-    "paymentsAdmin": "Payments"
+    "paymentsAdmin": "Payments",
+    "extraAttempts": "Extra attempts"
   },
   "organization": {
     "home": "Home",

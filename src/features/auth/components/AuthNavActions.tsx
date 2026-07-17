@@ -18,7 +18,7 @@ import { Skeleton } from '@/components/ui/skeleton'
 
 import { useAuth } from '../hooks/useAuth'
 import { Routes, Pages } from '@/lib/types/enums'
-import NotificationBell from '@/features/notifications/components/NotificationsBell'
+import { NotificationBell } from '@/features/notifications/components/NotificationBell'
 
 type Props = {
   locale: string

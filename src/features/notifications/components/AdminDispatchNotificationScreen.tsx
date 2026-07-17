@@ -111,7 +111,7 @@ export function AdminDispatchNotificationScreen({ locale }: Props) {
       <div className="app-container space-y-8">
         <ManagementPageHeader
           breadcrumbs={[
-            { href: '/dashboards/admin', label: isAr ? 'الإدارة' : 'Admin' },
+            { href: '/dashboards/admin', label: t('adminArea') },
             { label: t('dispatchTitle') },
           ]}
           title={t('dispatchTitle')}

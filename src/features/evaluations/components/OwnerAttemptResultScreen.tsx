@@ -23,7 +23,7 @@ export function OwnerAttemptResultScreen() {
   const locale = useLocale()
   const params = useParams<{ attemptId: string }>()
   const attemptId = params.attemptId ?? ''
-  const t = useTranslations('evaluations.organization')
+  const t = useTranslations('organizations.organizationEvaluations')
   const tEval = useTranslations('evaluations')
   const tCommon = useTranslations('common')
 

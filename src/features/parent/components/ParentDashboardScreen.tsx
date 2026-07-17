@@ -42,7 +42,7 @@ export function ParentDashboardScreen() {
       },
       {
         label: tNotif('title'),
-        value: String(notificationsData?.items.meta?.total ?? 0),
+        value: String(notificationsData?.meta?.total ?? 0),
         icon: <FileText />,
         variant: 'violet' as const,
       },
@@ -63,7 +63,7 @@ export function ParentDashboardScreen() {
   )
 
   const activities: ActivityItem[] = useMemo(() => {
-    const items = notificationsData?.items.data ?? []
+    const items = notificationsData?.items ?? []
     if (items.length === 0) {
       return [
         {

@@ -31,7 +31,6 @@ export function NotificationBell() {
   const t = useTranslations('notifications')
   const locale = useLocale()
   const router = useRouter()
-  // const isAr = locale === "ar"
 
   const unreadQuery = useUnreadCount(30_000)
   const listQuery = useNotificationsList({ page: 1, limit: 5 })
@@ -93,7 +92,6 @@ export function NotificationBell() {
           'w-[min(100vw-2rem,24rem)] overflow-hidden rounded-3xl border border-amber-50/70 p-0 shadow-lg',
           'bg-white/95 backdrop-blur-md',
         )}
-        // dir={isAr ? "rtl" : "ltr"}
       >
         <DropdownMenuLabel className="flex items-center justify-between gap-2 bg-surface/60 px-4 py-3">
           <span className="font-bold text-foreground">{t('title')}</span>

@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from 'react'
 import { useTranslations } from 'next-intl'
+import { Loader2 } from 'lucide-react'
 import { showErrorToast } from '@/lib/toast/app-toast'
 
 import { Button } from '@/components/ui/button'
@@ -46,6 +47,13 @@ export default function EvaluationRunner({ attemptId }: { attemptId: string }) {
         <CardContent className="text-sm text-muted-foreground">{t('error')}</CardContent>
       </Card>
     )
+  }
+
+  // Zero-waiting state: as soon as the attempt is submitted we show a calculating
+  // screen and let React Query swap in the results dashboard once the (now
+  // auto-approved) attempt refetches — no page refresh required.
+  if (session.submitMutation.isPending || session.submitMutation.isSuccess) {
+    return <CalculatingResults t={t} />
   }
 
   const formDisabled = session.locked || session.isExpired
@@ -151,5 +159,25 @@ export default function EvaluationRunner({ attemptId }: { attemptId: string }) {
         }}
       />
     </div>
+  )
+}
+
+function CalculatingResults({ t }: { t: ReturnType<typeof useTranslations> }) {
+  return (
+    <Card className="border-primary/20">
+      <CardContent className="flex flex-col items-center justify-center gap-4 py-16 text-center animate-in fade-in duration-500">
+        <span className="relative flex h-16 w-16 items-center justify-center">
+          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary/25" />
+          <span className="absolute inline-flex h-12 w-12 rounded-full bg-primary/10" />
+          <span className="relative inline-flex h-14 w-14 items-center justify-center rounded-full bg-primary/15">
+            <Loader2 className="h-7 w-7 animate-spin text-primary" />
+          </span>
+        </span>
+        <div className="space-y-1">
+          <p className="text-lg font-semibold">{t('calculating.title')}</p>
+          <p className="text-sm text-muted-foreground">{t('calculating.hint')}</p>
+        </div>
+      </CardContent>
+    </Card>
   )
 }

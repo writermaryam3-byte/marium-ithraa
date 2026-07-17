@@ -1,11 +1,6 @@
 import { FormTypes } from '@/lib/types/enums'
 
-import {
-  childAdminFormConfig,
-  childOrgFormConfig,
-  childPrivateFormConfig,
-  childUpdateFormConfig,
-} from './child.config'
+import { childPrivateFormConfig, childUpdateFormConfig } from './child.config'
 import { classFormConfig } from './class.config'
 import { classUpdateFormConfig } from './class-update.config'
 import { employeeFormConfig } from './employee.config'
@@ -28,10 +23,8 @@ export const formRegistry: Partial<Record<FormTypes, FormRegistryEntry>> = {
   [FormTypes.GRADE_UPDATE]: gradeUpdateFormConfig,
   [FormTypes.CLASS]: classFormConfig,
   [FormTypes.CLASS_UPDATE]: classUpdateFormConfig,
-  [FormTypes.CHILD_ORG]: childOrgFormConfig,
   [FormTypes.CHILD_UPDATE]: childUpdateFormConfig,
   [FormTypes.CHILD_PRIVATE]: childPrivateFormConfig,
-  [FormTypes.CHILD_ADMIN]: childAdminFormConfig,
   [FormTypes.TEST]: testFormConfig,
 }
 
@@ -45,7 +38,6 @@ export {
   gradeUpdateFormConfig,
   classFormConfig,
   classUpdateFormConfig,
-  childOrgFormConfig,
   childUpdateFormConfig,
   childPrivateFormConfig,
   testFormConfig,

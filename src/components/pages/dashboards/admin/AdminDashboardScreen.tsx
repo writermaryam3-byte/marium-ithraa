@@ -12,6 +12,7 @@ import { WelcomeHero } from '@/components/shared/dashboard/WelcomeHero'
 import { useAdminChildren } from '@/features/children'
 import { useEvaluations } from '@/features/evaluations/hooks'
 import { useNotificationsList } from '@/features/notifications/hooks'
+import { resolveNotificationText } from '@/features/notifications/utils/resolveNotificationText'
 import { Pages, Routes } from '@/lib/types/enums'
 import { useSession } from 'next-auth/react'
 
@@ -27,7 +28,10 @@ export function AdminDashboardScreen() {
   const { data: childrenData, isLoading: loadingChildren } = useAdminChildren()
   const childrenCount = childrenData?.data?.length ?? 0
   const { data: evaluationsData, isLoading: loadingEvaluations } = useEvaluations()
-  const evaluations = Array.isArray(evaluationsData) ? evaluationsData : []
+  const evaluations = useMemo(
+    () => (Array.isArray(evaluationsData) ? evaluationsData : []),
+    [evaluationsData],
+  )
   const { data: notificationsData } = useNotificationsList({ page: 1, limit: 5 })
 
   const displayName = session?.user?.name ?? (isAr ? 'Admin' : 'Admin')
@@ -54,7 +58,7 @@ export function AdminDashboardScreen() {
       },
     ],
     [
-      childrenData,
+      childrenCount,
       evaluations,
       notificationsData,
       loadingChildren,
@@ -70,22 +74,22 @@ export function AdminDashboardScreen() {
       return [
         {
           id: 'placeholder',
-          title: isAr ? 'No recent activity' : 'No recent activity',
+          title: tNotif('noRecentActivity'),
           timeAgo: '-',
           icon: <ClipboardList />,
         },
       ]
     }
-    return items.data.slice(0, 4).map((n) => ({
+    return items.slice(0, 4).map((n) => ({
       id: n.id,
-      title: n.title,
+      title: resolveNotificationText(n.title, tNotif, n.metadata),
       timeAgo: new Date(n.createdAt).toLocaleString(isAr ? 'ar-SA' : undefined, {
         dateStyle: 'short',
         timeStyle: 'short',
       }),
       icon: <FileText />,
     }))
-  }, [notificationsData, isAr])
+  }, [notificationsData, isAr, tNotif])
 
   return (
     <DashboardHomeLayout locale={locale}>

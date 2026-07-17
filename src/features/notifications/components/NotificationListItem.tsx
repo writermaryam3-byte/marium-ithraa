@@ -1,5 +1,6 @@
 'use client'
 
+import { createElement } from 'react'
 import { useTranslations } from 'next-intl'
 
 import { Badge } from '@/components/ui/badge'
@@ -40,7 +41,6 @@ export function NotificationListItem({
 }: Props) {
   const t = useTranslations('notifications')
   const isAr = locale === 'ar'
-  const Icon = getNotificationTypeIcon(item.type)
   const title = resolveNotificationText(item.title, t, item.metadata)
   const message = resolveNotificationText(item.message, t, item.metadata)
 
@@ -66,7 +66,7 @@ export function NotificationListItem({
               compact ? 'size-9 [&_svg]:size-4' : 'size-11 [&_svg]:size-5',
             )}
           >
-            <Icon />
+            {createElement(getNotificationTypeIcon(item.type))}
           </div>
           <div className="min-w-0 space-y-1">
             <p

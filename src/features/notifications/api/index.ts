@@ -1,5 +1,5 @@
 import { api } from '@/lib/api/api'
-import { parseResponse } from '@/lib/api/utils'
+import { parseResponse, unwrapPaginatedList, type PaginatedListPayload } from '@/lib/api/utils'
 import { Endpoint, Methods } from '@/lib/types/enums'
 import type { PaginationMeta } from '@/lib/types/interfaces'
 import type {
@@ -11,7 +11,8 @@ import type {
 } from '../types'
 
 export type ListNotificationsPaginatedResponse = {
-  items: { data: NotificationItem[]; meta: PaginationMeta }
+  items: NotificationItem[]
+  meta: PaginationMeta
 }
 
 const getNotificationsQuery = (params?: ListNotificationsParams) => {
@@ -58,18 +59,9 @@ export const listNotifications = async (
     { method: Methods.GET, headers },
   )
 
-  const envelope = await parseResponse<NotificationItem[]>(res)
-  return {
-    items: envelope.data,
-    meta: envelope.meta ?? {
-      page: 1,
-      limit: 20,
-      total: 0,
-      totalPages: 0,
-      hasNextPage: false,
-      hasPreviousPage: false,
-    },
-  }
+  const envelope =
+    await parseResponse<PaginatedListPayload<NotificationItem> | NotificationItem[]>(res)
+  return unwrapPaginatedList<NotificationItem>(envelope)
 }
 
 export const unreadCount = async () => {
@@ -123,18 +115,9 @@ export const listNotificationsServer = async (
     cache: 'no-store',
   })
 
-  const envelope = await parseResponse<NotificationItem[]>(res)
-  return {
-    items: envelope.data,
-    meta: envelope.meta ?? {
-      page: 1,
-      limit: 20,
-      total: 0,
-      totalPages: 0,
-      hasNextPage: false,
-      hasPreviousPage: false,
-    },
-  }
+  const envelope =
+    await parseResponse<PaginatedListPayload<NotificationItem> | NotificationItem[]>(res)
+  return unwrapPaginatedList<NotificationItem>(envelope)
 }
 
 export const unreadCountServer = async () => {

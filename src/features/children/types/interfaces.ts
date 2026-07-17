@@ -42,22 +42,6 @@ export interface Child {
   evaluationStatusClassName?: string
 }
 
-export interface CreateChildWithParentPayload {
-  parent: {
-    name: string
-    email: string
-    phone: string
-    password: string
-  }
-  child: {
-    name: string
-    birthDate: string
-    gender: string
-    classId: string
-    organizationId: string
-  }
-}
-
 export interface CreatePrivateChildPayload {
   name: string
   birthDate: string

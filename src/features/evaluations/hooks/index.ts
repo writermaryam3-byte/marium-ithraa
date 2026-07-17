@@ -9,6 +9,10 @@ import {
   getAttemptsClient,
   getAttemptsForChildClient,
   getAvailableEvaluationsForChildClient,
+  approveExtraAttemptClient,
+  getChildEvaluationStateClient,
+  listExtraAttemptRequestsClient,
+  rejectExtraAttemptClient,
   getEvaluationDetailsClient,
   getEvaluationFormClient,
   getEvaluationsClient,
@@ -22,6 +26,7 @@ import {
   type UpdateEvaluationPayload,
 } from '../api'
 import type { SaveAttemptDto, StartAttemptDto, SubmitAttemptDto } from '../types'
+import { initiatePayment } from '@/features/payments/api'
 
 export const evaluationKeys = {
   all: ['evaluations'] as const,
@@ -31,6 +36,8 @@ export const evaluationKeys = {
   attempts: (filters?: GetAttemptsFilters) => ['attempts', filters ?? {}] as const,
   attempt: (id: string) => ['attempt', id] as const,
   childAttempts: (childId: string) => ['child-attempts', childId] as const,
+  childState: (childId: string) => ['child-evaluation-state', childId] as const,
+  extraRequests: () => ['admin-extra-attempt-requests'] as const,
 }
 
 export function useEvaluations() {
@@ -79,6 +86,18 @@ export function useChildAttempts(childId: string) {
   })
 }
 
+export function useChildEvaluationState(childId: string) {
+  return useQuery({
+    queryKey: evaluationKeys.childState(childId),
+    queryFn: () => getChildEvaluationStateClient(childId),
+    enabled: Boolean(childId),
+    // While a paid extra attempt is awaiting payment, poll so the UI flips to
+    // "unlocked" automatically once the payment webhook lands.
+    refetchInterval: (query) =>
+      query.state.data?.extra?.status === 'AWAITING_PAYMENT' ? 5000 : false,
+  })
+}
+
 export function useAttempt(attemptId: string) {
   return useQuery({
     queryKey: evaluationKeys.attempt(attemptId),
@@ -116,6 +135,7 @@ export function useStartEvaluation(evaluationId: string) {
     onSuccess: () => {
       void queryClient.invalidateQueries({ queryKey: ['attempts'] })
       void queryClient.invalidateQueries({ queryKey: ['child-attempts'] })
+      void queryClient.invalidateQueries({ queryKey: ['child-evaluation-state'] })
     },
   })
 }
@@ -161,6 +181,9 @@ export function useOpenPrivateMainSlot(childId: string) {
       void queryClient.invalidateQueries({
         queryKey: evaluationKeys.childAttempts(childId),
       })
+      void queryClient.invalidateQueries({
+        queryKey: evaluationKeys.childState(childId),
+      })
     },
   })
 }
@@ -172,6 +195,9 @@ export function useRequestPrivateRetake(childId: string) {
     onSuccess: () => {
       void queryClient.invalidateQueries({
         queryKey: evaluationKeys.childAttempts(childId),
+      })
+      void queryClient.invalidateQueries({
+        queryKey: evaluationKeys.childState(childId),
       })
     },
   })
@@ -189,10 +215,52 @@ export {
 export function useRequestPrivateExtraAttempt(childId: string) {
   const queryClient = useQueryClient()
   return useMutation({
-    mutationFn: () => requestPrivateExtraAttemptClient(childId),
+    mutationFn: (quantity: number = 1) => requestPrivateExtraAttemptClient(childId, quantity),
     onSuccess: () => {
       void queryClient.invalidateQueries({
         queryKey: evaluationKeys.childAttempts(childId),
+      })
+      void queryClient.invalidateQueries({
+        queryKey: evaluationKeys.childState(childId),
+      })
+    },
+  })
+}
+
+export function useExtraAttemptRequests() {
+  return useQuery({
+    queryKey: evaluationKeys.extraRequests(),
+    queryFn: listExtraAttemptRequestsClient,
+  })
+}
+
+export function useApproveExtraAttempt() {
+  const queryClient = useQueryClient()
+  return useMutation({
+    mutationFn: (slotId: string) => approveExtraAttemptClient(slotId),
+    onSuccess: () => {
+      void queryClient.invalidateQueries({ queryKey: evaluationKeys.extraRequests() })
+    },
+  })
+}
+
+export function useRejectExtraAttempt() {
+  const queryClient = useQueryClient()
+  return useMutation({
+    mutationFn: (slotId: string) => rejectExtraAttemptClient(slotId),
+    onSuccess: () => {
+      void queryClient.invalidateQueries({ queryKey: evaluationKeys.extraRequests() })
+    },
+  })
+}
+
+export function useInitiateExtraPayment(childId: string) {
+  const queryClient = useQueryClient()
+  return useMutation({
+    mutationFn: (slotId: string) => initiatePayment(slotId),
+    onSuccess: () => {
+      void queryClient.invalidateQueries({
+        queryKey: evaluationKeys.childState(childId),
       })
     },
   })

@@ -6,7 +6,7 @@ import LanguageSwitcher from '@/components/layouts/header/langSwitch'
 import { Separator } from '@/components/ui/separator'
 import { SidebarTrigger } from '@/components/ui/sidebar'
 import { cn } from '@/lib/utils'
-import NotificationBell from '@/features/notifications/components/NotificationsBell'
+import { NotificationBell } from '@/features/notifications/components/NotificationBell'
 
 type Props = {
   withSidebar?: boolean

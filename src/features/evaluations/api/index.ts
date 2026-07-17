@@ -343,10 +343,81 @@ export const requestPrivateExtraAttempt = async (childId: string) => {
   })
 }
 
-export const requestPrivateExtraAttemptClient = async (childId: string) => {
+export const requestPrivateExtraAttemptClient = async (childId: string, quantity = 1) => {
   return api.client(`/${Endpoint.ATTEMPTS}/${childId}/${Endpoint.REQUEST_EXTRA}`, {
     method: Methods.POST,
+    body: JSON.stringify({ quantity }),
   })
+}
+
+export type ExtraSlotStatus =
+  | 'REQUESTED'
+  | 'AWAITING_PAYMENT'
+  | 'READY'
+  | 'CONSUMED'
+  | 'COMPLETED'
+
+export type ChildEvaluationState = {
+  childId: string
+  totalAttempts: number
+  freeAttemptsLimit: number
+  freeAttemptsUsed: number
+  freeAttemptsRemaining: number
+  hasRetake: boolean
+  hasReadySlot: boolean
+  readySlotKind: 'MAIN' | 'RETAKE' | 'EXTRA' | null
+  inProgressAttemptId: string | null
+  canOpenMain: boolean
+  canRequestRetake: boolean
+  canRequestExtra: boolean
+  extra: {
+    slotId: string
+    status: ExtraSlotStatus
+    paymentId: string | null
+    isPaid: boolean
+    quantity: number
+    remaining: number
+  } | null
+}
+
+export const getChildEvaluationStateClient = async (childId: string) => {
+  return api.client<ChildEvaluationState>(
+    `/${Endpoint.ATTEMPTS}/${childId}/${Endpoint.STATE}`,
+  )
+}
+
+export type ExtraAttemptRequest = {
+  id: string
+  status: 'REQUESTED' | 'AWAITING_PAYMENT'
+  quantity: number
+  unitPriceSar: number
+  amountSar: number
+  childId: string | null
+  childName: string | null
+  parentId: string
+  parentName: string | null
+  parentEmail: string | null
+  parentPhone: string | null
+  paymentId: string | null
+  createdAt: string
+}
+
+export const listExtraAttemptRequestsClient = async () => {
+  return api.client<ExtraAttemptRequest[]>(`/admin/${Endpoint.ATTEMPTS}/extra-requests`)
+}
+
+export const approveExtraAttemptClient = async (slotId: string) => {
+  return api.client<{ payment: { id: string; checkoutUrl: string; expiresAt: string } }>(
+    `/admin/${Endpoint.ATTEMPTS}/${slotId}/${Endpoint.APPROVE}`,
+    { method: Methods.POST },
+  )
+}
+
+export const rejectExtraAttemptClient = async (slotId: string) => {
+  return api.client<{ id: string; status: string }>(
+    `/admin/${Endpoint.ATTEMPTS}/${slotId}/reject`,
+    { method: Methods.POST },
+  )
 }
 
 export const getOwnerEvaluationFilters = async () => {

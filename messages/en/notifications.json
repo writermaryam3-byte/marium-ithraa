@@ -47,6 +47,25 @@
   "metadataInvalidJson": "Invalid JSON in metadata",
   "metadataInvalidObject": "Metadata must be a JSON object",
   "attemptResult": "Result",
+  "home": "Home",
+  "adminArea": "Admin",
+  "noRecentActivity": "No recent activity",
+  "events": {
+    "evaluationSubmitted": {
+      "title": "Evaluation submitted",
+      "messageAuto": "The evaluation was submitted automatically after the time expired.",
+      "messageManual": "The evaluation was submitted successfully and is awaiting approval."
+    },
+    "evaluationApproved": {
+      "title": "Results are ready!",
+      "messageAuto": "Your child's evaluation result is ready — you can view it now.",
+      "messageManual": "Your child's evaluation result has been approved and is now available."
+    },
+    "evaluationLimitReached": {
+      "title": "Attempt limit reached",
+      "message": "The maximum number of evaluation attempts has been reached."
+    }
+  },
   "templates": {
     "parentWelcome": {
       "title": "Welcome!",

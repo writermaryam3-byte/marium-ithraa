@@ -18,68 +18,48 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
-import { createChildAction, updateChildAction, type Child } from '@/features/children'
+import { updateChildAction, type Child } from '@/features/children'
 import { type ClassItem } from '@/features/classes'
 import { type Grade } from '@/features/grades'
-import { z } from 'zod'
 import { useFormConfig } from '@/features/forms/hooks/useFormConfig'
 import { useServerActionForm } from '@/features/forms/hooks/useServerActionForm'
 import { RhfFormFields } from '@/features/forms/components/RhfFormFields'
-import { createOrgChildSchema, updateChildSchema } from '@/features/forms/schemas/child.schema'
+import { updateChildSchema } from '@/features/forms/schemas/child.schema'
 import { FormTypes, Gender, StatusCode } from '@/lib/types/enums'
 
 type Props = {
   locale: string
-  organizationId: string
   grades: Grade[]
   classes: ClassItem[]
-  child?: Child
+  child: Child
 }
 
-export function ChildFormScreen({ locale, organizationId, grades, classes, child }: Props) {
+export function ChildFormScreen({ locale, grades, classes, child }: Props) {
   const isAr = locale === 'ar'
   const router = useRouter()
   const t = useTranslations('children.forms')
   const tCommon = useTranslations('common')
-  const isEdit = Boolean(child)
-  const action = isEdit ? updateChildAction : createChildAction
-  const { fields: createFields } = useFormConfig(FormTypes.CHILD_ORG)
   const { fields: updateFields } = useFormConfig(FormTypes.CHILD_UPDATE)
-  const [gradeFilter, setGradeFilter] = useState(child?.gradeId ?? child?.class?.gradeId ?? '')
+  const [gradeFilter, setGradeFilter] = useState(child.gradeId ?? child.class?.gradeId ?? '')
 
   const defaultBirth =
-    child?.birthDate && !Number.isNaN(new Date(child.birthDate).getTime())
+    child.birthDate && !Number.isNaN(new Date(child.birthDate).getTime())
       ? new Date(child.birthDate).toISOString().slice(0, 10)
       : ''
 
-  const schema = isEdit ? updateChildSchema : createOrgChildSchema
-  const defaultValues = isEdit
-    ? {
-        id: child!.id,
-        name: child!.name,
-        birthDate: defaultBirth,
-        gender: (child!.gender as Gender) ?? Gender.MALE,
-        classId: child!.classId ?? child!.class?.id ?? '',
-      }
-    : {
-        organizationId,
-        name: '',
-        birthDate: '',
-        gender: Gender.MALE,
-        classId: '',
-        parentName: '',
-        parentEmail: '',
-        parentPhone: '',
-        parentPassword: '',
-      }
-
   const { form, submit, isPending } = useServerActionForm({
-    schema: schema as z.ZodType<any, any, any>,
-    defaultValues: defaultValues as Record<string, unknown>,
-    action,
+    schema: updateChildSchema,
+    defaultValues: {
+      id: child.id,
+      name: child.name,
+      birthDate: defaultBirth,
+      gender: (child.gender as Gender) ?? Gender.MALE,
+      classId: child.classId ?? child.class?.id ?? '',
+    },
+    action: updateChildAction,
     onStatusChange: (state) => {
       if (!state?.status) return
-      if (state.status === StatusCode.CREATED || state.status === StatusCode.OK) {
+      if (state.status === StatusCode.OK) {
         showSuccessToast(t, state.message ?? 'toast.saved')
         router.push('/dashboards/organization/children')
       } else if (state.message) showErrorToast(t, state.message)
@@ -87,17 +67,11 @@ export function ChildFormScreen({ locale, organizationId, grades, classes, child
   })
 
   const classesForGrade = useMemo(() => {
-    if (isEdit) return classes
-    return classes.filter((c) => !gradeFilter || c.gradeId === gradeFilter)
-  }, [classes, gradeFilter, isEdit])
+    if (!gradeFilter) return classes
+    return classes.filter((c) => c.gradeId === gradeFilter)
+  }, [classes, gradeFilter])
 
-  const pageTitle = isEdit ? t('editTitle') : t('addTitle')
-  const parentFields = createFields.filter((f) =>
-    ['parentName', 'parentEmail', 'parentPhone', 'parentPassword'].includes(f.name),
-  )
-  const baseFields = (isEdit ? updateFields : createFields).filter(
-    (f) => !parentFields.some((p) => p.name === f.name),
-  )
+  const pageTitle = t('editTitle')
 
   return (
     <main className="app-container py-8 space-y-10" dir={isAr ? 'rtl' : 'ltr'}>
@@ -117,46 +91,8 @@ export function ChildFormScreen({ locale, organizationId, grades, classes, child
         </CardHeader>
         <CardContent>
           <Form {...form}>
-            <form
-              onSubmit={form.handleSubmit((values) =>
-                submit(values, isEdit ? {} : { organizationId }),
-              )}
-              className="space-y-5"
-            >
-              <RhfFormFields fields={baseFields} />
-
-              {!isEdit && (
-                <>
-                  <p className="text-sm font-semibold text-muted-foreground pt-2">
-                    {t('parentSection')}
-                  </p>
-                  <RhfFormFields fields={parentFields} />
-                </>
-              )}
-
-              {!isEdit && (
-                <div className="space-y-2">
-                  <FormLabel>{t('grade.label')}</FormLabel>
-                  <Select
-                    value={gradeFilter}
-                    onValueChange={(v) => {
-                      setGradeFilter(v)
-                      form.setValue('classId', '')
-                    }}
-                  >
-                    <SelectTrigger className="w-full rounded-xl">
-                      <SelectValue placeholder={t('grade.placeholder')} />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {grades.map((g) => (
-                        <SelectItem key={g.id} value={g.id}>
-                          {g.name}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
-              )}
+            <form onSubmit={form.handleSubmit((values) => submit(values))} className="space-y-5">
+              <RhfFormFields fields={updateFields} />
 
               <FormField
                 control={form.control}
@@ -180,17 +116,35 @@ export function ChildFormScreen({ locale, organizationId, grades, classes, child
                 )}
               />
 
+              <div className="space-y-2">
+                <FormLabel>{t('grade.label')}</FormLabel>
+                <Select
+                  value={gradeFilter}
+                  onValueChange={(v) => {
+                    setGradeFilter(v)
+                    form.setValue('classId', '')
+                  }}
+                >
+                  <SelectTrigger className="w-full rounded-xl">
+                    <SelectValue placeholder={t('grade.placeholder')} />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {grades.map((g) => (
+                      <SelectItem key={g.id} value={g.id}>
+                        {g.name}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+
               <FormField
                 control={form.control}
                 name="classId"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>{t('class.label')}</FormLabel>
-                    <Select
-                      value={field.value}
-                      onValueChange={field.onChange}
-                      disabled={!isEdit && !gradeFilter}
-                    >
+                    <Select value={field.value} onValueChange={field.onChange}>
                       <FormControl>
                         <SelectTrigger className="w-full rounded-xl">
                           <SelectValue placeholder={t('class.placeholder')} />

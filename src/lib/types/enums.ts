@@ -144,10 +144,8 @@ export enum FormTypes {
   GRADE_UPDATE = 'gradeUpdate',
   CLASS = 'class',
   CLASS_UPDATE = 'classUpdate',
-  CHILD_ORG = 'childOrg',
   CHILD_UPDATE = 'childUpdate',
   CHILD_PRIVATE = 'childPrivate',
-  CHILD_ADMIN = 'childAdmin',
   TEST = 'TESTS',
 }
 
@@ -181,6 +179,7 @@ export enum Endpoint {
   START = 'start',
   RETAKE = 'retake',
   REQUEST_EXTRA = 'request-extra',
+  STATE = 'state',
   TRANSFERS = 'child-transfers',
   PAYMENTS = 'payments',
   INITIATE = 'initiate',

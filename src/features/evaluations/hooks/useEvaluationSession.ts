@@ -2,8 +2,8 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useTranslations } from 'next-intl'
-import { useTranslateBackend } from '@/lib/i18n/backend-messages'
 import { showErrorToast, showInfoToast, showSuccessToast } from '@/lib/toast/app-toast'
+import { ApiError } from '@/lib/errors/ApiError'
 
 import type { EvaluationAttempt, SubmitAttemptDto } from '../types'
 import {
@@ -31,7 +31,6 @@ function msUntil(iso: string | null | undefined): number | null {
 
 export function useEvaluationSession(attemptId: string, options?: { autosaveMs?: number }) {
   const t = useTranslations('evaluations.session')
-  const tb = useTranslateBackend()
   const autosaveMs = options?.autosaveMs ?? 1200
   const { data: attempt, isLoading, isError, error, refetch } = useAttempt(attemptId)
   const saveMutation = useSaveAttemptProgress(attemptId)
@@ -55,6 +54,9 @@ export function useEvaluationSession(attemptId: string, options?: { autosaveMs?:
   const [now, setNow] = useState(Date.now())
   const lastSavedRef = useRef<string>('')
   const autosaveTimer = useRef<number | null>(null)
+  const savingRef = useRef(false)
+  const pendingSaveRef = useRef(false)
+  const rateLimitedUntilRef = useRef(0)
 
   const questionList: ParentFormQuestion[] = useMemo(() => {
     if (!attempt) return []
@@ -104,6 +106,8 @@ export function useEvaluationSession(attemptId: string, options?: { autosaveMs?:
   refetchRef.current = refetch
   const submitMutationRef = useRef(submitMutation)
   submitMutationRef.current = submitMutation
+  const saveMutationRef = useRef(saveMutation)
+  saveMutationRef.current = saveMutation
 
   useEffect(() => {
     if (!attempt) return
@@ -145,42 +149,86 @@ export function useEvaluationSession(attemptId: string, options?: { autosaveMs?:
     [locked],
   )
 
-  const buildSavePayload = useCallback(() => {
-    const payload = buildAttemptAnswersPayload(answers)
-    assertParentAttemptPayload(payload)
-    return payload
-  }, [answers])
+  // Stable ref to the latest `save` so the trailing-flush timer can call it
+  // without adding `save` to its own dependency list.
+  const saveRef = useRef<((opts?: { silent?: boolean }) => Promise<void>) | null>(null)
 
-  const save = useCallback(async () => {
-    if (locked) return
-    const snapshot = JSON.stringify(answers)
-    if (snapshot === lastSavedRef.current) {
-      setDirty(false)
-      return
-    }
+  const save = useCallback(
+    async (opts?: { silent?: boolean }) => {
+      const silent = opts?.silent ?? false
+      if (lockedRef.current) return
 
-    try {
-      const payload = buildSavePayload()
-      await saveMutation.mutateAsync(payload)
-      lastSavedRef.current = snapshot
-      setDirty(false)
-      showSuccessToast({ raw: t('progressSaved') })
-    } catch (e: unknown) {
-      showErrorToast({ error: e })
-    }
-  }, [answers, buildSavePayload, locked, saveMutation])
+      const snapshot = JSON.stringify(answersRef.current)
+      if (snapshot === lastSavedRef.current) {
+        setDirty(false)
+        return
+      }
+
+      // Respect the rate-limit backoff window; queue a trailing flush.
+      if (Date.now() < rateLimitedUntilRef.current) {
+        pendingSaveRef.current = true
+        return
+      }
+
+      // Single-flight: never run two saves at once. Concurrent triggers are
+      // coalesced into one trailing flush after the in-flight save resolves.
+      if (savingRef.current) {
+        pendingSaveRef.current = true
+        return
+      }
+
+      savingRef.current = true
+      try {
+        const payload = buildAttemptAnswersPayload(answersRef.current)
+        assertParentAttemptPayload(payload)
+        await saveMutationRef.current.mutateAsync(payload)
+        lastSavedRef.current = snapshot
+        // Only clear the dirty flag if no newer edits landed mid-request.
+        if (JSON.stringify(answersRef.current) === snapshot) {
+          setDirty(false)
+        }
+        if (!silent) showSuccessToast({ raw: t('progressSaved') })
+      } catch (e: unknown) {
+        const status = e instanceof ApiError ? e.status : undefined
+        if (status === 429) {
+          // Transient: back off and let the trailing flush retry once clear.
+          const retryAfter = Number(e instanceof ApiError ? e.details?.retryAfter : undefined)
+          const backoffMs = Number.isFinite(retryAfter) && retryAfter > 0 ? retryAfter * 1000 : 5000
+          rateLimitedUntilRef.current = Date.now() + backoffMs
+          pendingSaveRef.current = true
+          if (!silent) showInfoToast({ raw: t('autosavePaused') })
+        } else if (!silent) {
+          // For hard errors surface only on explicit (manual) save. Autosave
+          // stays silent to avoid a retry/toast storm; edits remain dirty and
+          // flush on the next user action.
+          showErrorToast({ error: e })
+        }
+      } finally {
+        savingRef.current = false
+        if (pendingSaveRef.current) {
+          pendingSaveRef.current = false
+          const wait = Math.max(400, rateLimitedUntilRef.current - Date.now())
+          if (autosaveTimer.current) window.clearTimeout(autosaveTimer.current)
+          autosaveTimer.current = window.setTimeout(() => {
+            void saveRef.current?.({ silent: true })
+          }, wait)
+        }
+      }
+    },
+    [t],
+  )
+  saveRef.current = save
 
   useEffect(() => {
-    if (!dirty) return
-    if (locked) return
+    if (!dirty || locked) return
     if (autosaveTimer.current) window.clearTimeout(autosaveTimer.current)
     autosaveTimer.current = window.setTimeout(() => {
-      void save()
+      void save({ silent: true })
     }, autosaveMs)
     return () => {
       if (autosaveTimer.current) window.clearTimeout(autosaveTimer.current)
     }
-  }, [autosaveMs, dirty, locked, save])
+  }, [autosaveMs, dirty, locked, answers, save])
 
   const submit = useCallback(async () => {
     if (locked) return
