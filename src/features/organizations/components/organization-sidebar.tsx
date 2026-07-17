@@ -2,10 +2,8 @@
 
 import * as React from 'react'
 import {
-  BarChart3,
   LayoutDashboard,
   Database,
-  FileText,
   FileType,
   HelpCircle,
   PanelTop,
@@ -40,7 +38,7 @@ export function OrganizationSidebar({
   organization,
   ...props
 }: React.ComponentProps<typeof Sidebar> & { organization: { user: User } }) {
-  const t = useTranslations()
+  const tNav = useTranslations('navigation')
 
   const data = {
     user: {
@@ -50,66 +48,66 @@ export function OrganizationSidebar({
     },
     navMain: [
       {
-        title: t('Dashboard.Nav.dashboard'),
+        title: tNav('organization.home'),
         url: ORGANIZATIONURL,
         icon: LayoutDashboard,
       },
       {
-        title: t('Dashboard.Nav.employees'),
+        title: tNav('dashboard.employees'),
         url: `${ORGANIZATIONURL}/${Pages.EMPLOYEES}`,
         icon: Users,
       },
       {
-        title: t('Features.OrganizationEvaluations.results'),
+        title: tNav('organization.results'),
         url: `${ORGANIZATIONURL}/results`,
         icon: FileBarChart,
       },
       {
-        title: t('Dashboard.Nav.childTransfers'),
+        title: tNav('dashboard.childTransfers'),
         url: `${ORGANIZATIONURL}/child-transfers`,
         icon: ArrowLeftRight,
       },
       {
-        title: t('Features.Notifications.title'),
+        title: tNav('dashboard.notifications'),
         url: `/${Routes.DASHBOARDS}/notifications`,
         icon: FileBarChart,
       },
       {
-        title: t('Dashboard.Nav.deals'),
+        title: tNav('organization.deals'),
         url: `${ORGANIZATIONURL}/${Pages.DEALS}`,
         icon: Briefcase,
       },
     ],
     navSecondary: [
       {
-        title: t('Dashboard.Nav.settings'),
+        title: tNav('dashboard.settings'),
         url: '#',
         icon: Settings,
       },
       {
-        title: t('Dashboard.Nav.getHelp'),
+        title: tNav('dashboard.getHelp'),
         url: '#',
         icon: HelpCircle,
       },
       {
-        title: t('Dashboard.Nav.search'),
+        title: tNav('dashboard.search'),
         url: '#',
         icon: Search,
       },
     ],
     documents: [
       {
-        name: t('Dashboard.Nav.dataLibrary'),
+        name: tNav('dashboard.dataLibrary'),
         url: '#',
         icon: Database,
       },
       {
-        name: t('Dashboard.Nav.reports'),
+        name: tNav('dashboard.reports'),
         url: '#',
         icon: FileBarChart,
       },
       {
-        name: t('Dashboard.Nav.wordAssistant'),
+        name: tNav('dashboard.wordAssistant'),
         url: '#',
         icon: FileType,
       },

@@ -1,6 +1,7 @@
 {
   "title": "Users",
   "fields": {
+    "name": "Name",
     "email": "Email",
     "isEmailVerified": "Email Verified",
     "phone": "Phone",

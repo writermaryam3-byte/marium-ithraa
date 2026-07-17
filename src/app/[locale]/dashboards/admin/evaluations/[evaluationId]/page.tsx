@@ -22,7 +22,7 @@ export default async function AdminEvaluationDetailsPage({ params }: Props) {
 
   return (
     <>
-      <SiteHeader titleKey="Features.Evaluations.detailsTitle" />
+      <SiteHeader titleKey="evaluations.detailsTitle" />
       <div className="flex flex-1 flex-col py-4 md:py-6">
         <AdminEvaluationDetailsScreen evaluation={evaluation} />
       </div>

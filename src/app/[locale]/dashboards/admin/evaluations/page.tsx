@@ -20,7 +20,7 @@ export default async function AdminEvaluationsPage({ params }: Props) {
 
   return (
     <>
-      <SiteHeader titleKey="Features.Evaluations.listTitle" />
+      <SiteHeader titleKey="evaluations.listTitle" />
       <div className="flex flex-1 flex-col py-4 md:py-6">
         <AdminEvaluationsScreen evaluations={evaluations} locale={locale} />
       </div>

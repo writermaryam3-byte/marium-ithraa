@@ -4,7 +4,7 @@ import { useTranslations } from 'next-intl'
 import { Employee } from '../types/interfaces'
 
 const EmployeesInfo = ({ employee, initials }: { employee: Employee; initials: any }) => {
-  const t = useTranslations()
+  const t = useTranslations('employees')
 
   return (
     <Card className="bg-linear-to-tr from-primary/5 to-card shadow-sm">
@@ -21,27 +21,19 @@ const EmployeesInfo = ({ employee, initials }: { employee: Employee; initials: a
       </CardHeader>
       <CardContent className="grid gap-4 md:grid-cols-2">
         <div className="space-y-1">
-          <p className="text-xs uppercase text-muted-foreground">
-            {t('Dashboard.Employees.fields.email')}
-          </p>
+          <p className="text-xs uppercase text-muted-foreground">{t('fields.email')}</p>
           <p className="text-sm font-medium">{employee.user.email}</p>
         </div>
         <div className="space-y-1">
-          <p className="text-xs uppercase text-muted-foreground">
-            {t('Dashboard.Employees.fields.phone')}
-          </p>
+          <p className="text-xs uppercase text-muted-foreground">{t('fields.phone')}</p>
           <p className="text-sm font-medium">{employee.user.phone}</p>
         </div>
         <div className="space-y-1">
-          <p className="text-xs uppercase text-muted-foreground">
-            {t('Dashboard.Employees.fields.role')}
-          </p>
+          <p className="text-xs uppercase text-muted-foreground">{t('fields.role')}</p>
           <p className="text-sm font-medium">{employee.user.role}</p>
         </div>
         <div className="space-y-1">
-          <p className="text-xs uppercase text-muted-foreground">
-            {t('Dashboard.Employees.fields.job')}
-          </p>
+          <p className="text-xs uppercase text-muted-foreground">{t('fields.job')}</p>
           <p className="text-sm font-medium">{employee.job_title}</p>
         </div>
       </CardContent>

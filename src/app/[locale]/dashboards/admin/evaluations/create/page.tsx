@@ -10,7 +10,7 @@ export default async function AdminCreateEvaluationPage({ params }: Props) {
 
   return (
     <>
-      <SiteHeader titleKey="Features.Evaluations.create" />
+      <SiteHeader titleKey="evaluations.create" />
       <div className="flex flex-1 flex-col py-4 md:py-6">
         <AdminCreateEvaluationScreen locale={locale} />
       </div>

@@ -199,7 +199,7 @@ export function AdminOrganizationsScreen({ locale }: { locale: string }) {
 
   return (
     <>
-      <SiteHeader titleKey="Features.Organizations.admin.title" />
+      <SiteHeader titleKey="organizations.admin.title" />
       <div className="flex flex-1 flex-col" dir={isAr ? 'rtl' : 'ltr'}>
         <div className="@container/main flex flex-1 flex-col gap-4 px-4 py-4 md:gap-6 md:py-6 lg:px-6">
           <div className="space-y-1">

@@ -114,25 +114,6 @@ export function AdminSidebar(props: React.ComponentProps<typeof Sidebar>) {
         icon: Sparkles,
       },
     ],
-    // navSecondary: [
-    //   {
-    //     title: t("Dashboard.Nav.settings"),
-    //     url: "#",
-    //     icon: Settings,
-    //   },
-    //   {
-    //     title: t("Dashboard.Nav.getHelp"),
-    //     url: "#",
-    //     icon: HelpCircle,
-    //   },
-    // ],
-    // documents: [
-    //   {
-    //     name: t("Dashboard.Nav.dataLibrary"),
-    //     url: "#",
-    //     icon: FileBarChart,
-    //   },
-    // ],
   }
 
   return (

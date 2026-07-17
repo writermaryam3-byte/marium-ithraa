@@ -15,7 +15,7 @@ export const columns: ColumnDef<Test>[] = [
   {
     id: 'title',
     accessorKey: 'title',
-    header: () => <TH k="Features.Tests.title" />,
+    header: () => <TH k="evaluations.tests.title" />,
     cell: ({ row }) => (
       <Link
         href={`/${Routes.DASHBOARDS}/${Pages.ADMIN}/${Pages.TESTS}/${row.original.id}`}
@@ -28,12 +28,12 @@ export const columns: ColumnDef<Test>[] = [
   {
     id: 'questionNo',
     accessorKey: 'questionNo',
-    header: () => <TH k="Features.Tests.questionCount" />,
+    header: () => <TH k="evaluations.tests.questionCount" />,
   },
   // {
   //   id: "assignments",
   //   accessorFn: ({ assignments }) => assignments.length,
-  //   header: () => <TH k="Features.Tests.assignmentCount" />,
+  //   header: () => <TH k="evaluations.tests.assignmentCount" />,
   // },
   // {
   //   id: "actions",
