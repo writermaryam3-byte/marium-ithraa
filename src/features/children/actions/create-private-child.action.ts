@@ -10,6 +10,7 @@ import { StatusCode } from '@/lib/types/enums'
 import { type InitialState } from '@/lib/types/types'
 
 import { createPrivateChild } from '../api'
+import { getParentProfileServer } from '@/features/parent/api'
 
 const PRIVATE_CHILD_LIMIT = 2
 
@@ -21,7 +22,16 @@ export async function createPrivateChildAction(
   if (!parsed.success) return parsed.state
 
   const currentCount = parsed.data.currentCount ?? 0
-  if (currentCount >= PRIVATE_CHILD_LIMIT) {
+  let maxChildren = PRIVATE_CHILD_LIMIT
+
+  try {
+    const profile = await getParentProfileServer()
+    maxChildren = profile.maxChildren
+  } catch {
+    // Fall back to default when profile is unavailable; backend still enforces the limit.
+  }
+
+  if (currentCount >= maxChildren) {
     return actionFailure('Actions.children.limitReached', StatusCode.BADREQUEST, formData)
   }
 

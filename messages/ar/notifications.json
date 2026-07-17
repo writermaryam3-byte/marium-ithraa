@@ -46,5 +46,19 @@
   "requiredFields": "يرجى تعبئة الحقول المطلوبة",
   "metadataInvalidJson": "صيغة JSON غير صالحة في البيانات الإضافية",
   "metadataInvalidObject": "يجب أن تكون البيانات الإضافية كائن JSON",
-  "attemptResult": "نتيجة"
+  "attemptResult": "نتيجة",
+  "templates": {
+    "parentWelcome": {
+      "title": "مرحباً بك!",
+      "message": "مرحباً {name}، يسعدنا انضمامك إلينا."
+    },
+    "childLimitReached": {
+      "title": "تم الوصول إلى حد الأطفال",
+      "message": "لقد وصلت إلى الحد الأقصى البالغ {max} أطفال في حسابك."
+    },
+    "parentChildLimitReached": {
+      "title": "تم الوصول إلى حد الأطفال",
+      "message": "وصل ولي الأمر إلى الحد الأقصى البالغ {max} أطفال في حسابه."
+    }
+  }
 }

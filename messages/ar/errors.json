@@ -44,6 +44,9 @@
     "emailInUse": "البريد الإلكتروني مستخدم بالفعل.",
     "phoneInUse": "رقم الهاتف مستخدم بالفعل."
   },
+  "parent": {
+    "profileNotFound": "ملف ولي الأمر غير موجود."
+  },
   "organization": {
     "notFound": "المؤسسة غير موجودة.",
     "alreadyExists": "المؤسسة موجودة بالفعل.",

@@ -63,7 +63,7 @@ export default function ParentSidebar(props: React.ComponentProps<typeof Sidebar
           <SidebarMenuItem>
             <SidebarMenuButton asChild className="data-[slot=sidebar-menu-button]:p-1.5!">
               <a href={PARENT_URL}>
-                <span className="text-base font-semibold">Parent</span>
+                <span className="text-base font-semibold">{tParent('title')}</span>
               </a>
             </SidebarMenuButton>
           </SidebarMenuItem>

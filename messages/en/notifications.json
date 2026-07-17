@@ -46,5 +46,19 @@
   "requiredFields": "Please fill in required fields",
   "metadataInvalidJson": "Invalid JSON in metadata",
   "metadataInvalidObject": "Metadata must be a JSON object",
-  "attemptResult": "Result"
+  "attemptResult": "Result",
+  "templates": {
+    "parentWelcome": {
+      "title": "Welcome!",
+      "message": "Welcome {name}, we're glad to have you with us."
+    },
+    "childLimitReached": {
+      "title": "Child limit reached",
+      "message": "You have reached the maximum of {max} children on your account."
+    },
+    "parentChildLimitReached": {
+      "title": "Child limit reached",
+      "message": "This parent has reached the maximum of {max} children on their account."
+    }
+  }
 }

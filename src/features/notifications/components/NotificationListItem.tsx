@@ -9,6 +9,7 @@ import type { NotificationItem } from '@/features/notifications/types'
 import { cn } from '@/lib/utils'
 
 import { formatNotificationDate, getNotificationTypeIcon } from './notification-utils'
+import { resolveNotificationText } from '../utils/resolveNotificationText'
 
 function getTypeBadgeLabel(type: string | undefined, t: ReturnType<typeof useTranslations>) {
   if (!type) return t('typeGeneral')
@@ -40,6 +41,8 @@ export function NotificationListItem({
   const t = useTranslations('notifications')
   const isAr = locale === 'ar'
   const Icon = getNotificationTypeIcon(item.type)
+  const title = resolveNotificationText(item.title, t, item.metadata)
+  const message = resolveNotificationText(item.message, t, item.metadata)
 
   return (
     <Card
@@ -72,12 +75,12 @@ export function NotificationListItem({
                 compact ? 'text-sm' : 'text-base',
               )}
             >
-              {item.title}
+              {title}
             </p>
             <p
               className={cn('text-muted-foreground line-clamp-2', compact ? 'text-xs' : 'text-sm')}
             >
-              {item.message}
+              {message}
             </p>
             {!compact && (
               <div className="flex flex-wrap items-center gap-2 pt-1">

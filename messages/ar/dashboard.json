@@ -13,17 +13,19 @@
     "childrenTitle": "جدول الأطفال"
   },
   "parent": {
+    "title": "ولي الأمر",
     "privateChildren": {
       "title": "أطفالي",
       "subtitle": "يمكنك إضافة حتى {limit} أطفال للتقييم الخاص",
-      "limitReached": "تم الوصول إلى الحد الأقصى (طفلان)",
+      "limitReached": "تم الوصول إلى الحد الأقصى ({limit} أطفال)",
       "requestCapacity": "طلب سعة إضافية",
       "addChild": "إضافة طفل",
       "empty": "لا يوجد أطفال بعد",
       "approvedCapacityTitle": "الدفع مطلوب",
       "approvedCapacityDescription": "تمت الموافقة على طلبك لـ {count} مقعد/مقاعد. أكمل الدفع لتفعيل السعة الإضافية.",
       "payNow": "ادفع الآن",
-      "paymentLinkFailed": "تعذر فتح رابط الدفع. يرجى المحاولة مرة أخرى."
+      "paymentLinkFailed": "تعذر فتح رابط الدفع. يرجى المحاولة مرة أخرى.",
+      "loadFailed": "تعذر تحميل بيانات الأطفال. يرجى المحاولة مرة أخرى."
     },
     "orgChildren": {
       "title": "أطفال المؤسسة",
@@ -43,6 +45,7 @@
     "recentNotifications": "آخر التنبيهات",
     "children": "الأطفال",
     "childrenDesc": "عرض وإدارة أطفالك المسجّلين",
+    "privateSlots": "الحصص الخاصة",
     "evaluations": "التقييمات",
     "evaluationsDesc": "بدء ومتابعة تقييمات الأطفال",
     "notificationsDesc": "متابعة التنبيهات والتحديثات"

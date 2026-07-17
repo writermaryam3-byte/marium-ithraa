@@ -2,6 +2,8 @@
 
 import { useState } from 'react'
 import { useLocale, useTranslations } from 'next-intl'
+import { useRouter } from '@/i18n/navigation'
+import { useQueryClient } from '@tanstack/react-query'
 import { Baby, Calendar, Plus } from 'lucide-react'
 
 import { ParentPrivateChildDialog } from './ParentPrivateChildDialog'
@@ -16,15 +18,18 @@ import { type Child } from '@/features/children'
 import { formatChildBirthDate, getChildEvaluationLabel } from '@/features/children/utils/display'
 import { getTextDirection } from '@/lib/i18n/locale-utils'
 import { Link } from '@/i18n/navigation'
-
-const PRIVATE_CHILD_LIMIT = 2
+import type { ParentProfileSummary } from '@/features/parent'
+import { parentProfileKeys } from '@/features/parent'
 
 type Props = {
   privateChildren: Child[]
+  profile: ParentProfileSummary
 }
 
-export function ParentPrivateChildrenScreen({ privateChildren }: Props) {
+export function ParentPrivateChildrenScreen({ privateChildren, profile }: Props) {
   const locale = useLocale()
+  const router = useRouter()
+  const queryClient = useQueryClient()
   const t = useTranslations('dashboard.parent.privateChildren')
   const tParent = useTranslations('dashboard.parent')
   const tChildren = useTranslations('children')
@@ -32,7 +37,13 @@ export function ParentPrivateChildrenScreen({ privateChildren }: Props) {
   const tDashboard = useTranslations('common')
   const [open, setOpen] = useState(false)
   const [capacityOpen, setCapacityOpen] = useState(false)
-  const atLimit = privateChildren.length >= PRIVATE_CHILD_LIMIT
+  const maxChildren = profile.maxChildren
+  const atLimit = privateChildren.length >= maxChildren
+
+  const handleChildAdded = () => {
+    void queryClient.invalidateQueries({ queryKey: parentProfileKeys.me })
+    router.refresh()
+  }
 
   return (
     <main className="app-container py-8 space-y-8" dir={getTextDirection(locale)}>
@@ -42,41 +53,21 @@ export function ParentPrivateChildrenScreen({ privateChildren }: Props) {
           { label: t('title') },
         ]}
         title={t('title')}
-        subtitle={t('subtitle', { limit: PRIVATE_CHILD_LIMIT })}
+        subtitle={t('subtitle', { limit: maxChildren })}
       />
 
       <ParentApprovedCapacityBanner />
 
       {atLimit && (
         <div className="flex flex-col gap-3 rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900 sm:flex-row sm:items-center sm:justify-between">
-          <p>{t('limitReached')}</p>
+          <p>{t('limitReached', { limit: maxChildren })}</p>
           <Button type="button" variant="outline" size="sm" onClick={() => setCapacityOpen(true)}>
             {t('requestCapacity')}
           </Button>
         </div>
       )}
 
-      {/* <div className="flex justify-end">
-        <Dialog open={open} onOpenChange={setOpen}>
-          <DialogTrigger asChild>
-            <Button variant="gradient"
-              type="button"
-              className="rounded-xl gap-2"
-              disabled={atLimit}
-            >
-              <Plus className="size-4" />
-              {t("addChild")}
-            </Button>
-          </DialogTrigger>
-          <ParentPrivateChildDialog
-            open={open}
-            onOpenChange={setOpen}
-            currentCount={privateChildren.length}
-            onSuccess={() => {}}
-          />
-        </Dialog>
-      </div> */}
-      {/* تم إزالة <Dialog> الخارجي و <DialogTrigger> */}
+      {/* Add-child dialog */}
       <div className="flex justify-end">
         <Button
           variant="gradient"
@@ -91,7 +82,11 @@ export function ParentPrivateChildrenScreen({ privateChildren }: Props) {
       </div>
 
       {privateChildren.length === 0 ? (
-        <EmptyState title={t('empty')} actionLabel={!atLimit ? t('addChild') : undefined} />
+        <EmptyState
+          title={t('empty')}
+          actionLabel={!atLimit ? t('addChild') : undefined}
+          onActionClick={!atLimit ? () => setOpen(true) : undefined}
+        />
       ) : (
         <section className="grid gap-4 md:grid-cols-2">
           {privateChildren.map((child) => {
@@ -130,7 +125,8 @@ export function ParentPrivateChildrenScreen({ privateChildren }: Props) {
         open={open}
         onOpenChange={setOpen}
         currentCount={privateChildren.length}
-        onSuccess={() => {}}
+        maxChildren={maxChildren}
+        onSuccess={handleChildAdded}
       />
       <ParentCapacityRequestDialog open={capacityOpen} onOpenChange={setCapacityOpen} />
     </main>

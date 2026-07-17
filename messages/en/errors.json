@@ -44,6 +44,9 @@
     "emailInUse": "Email address is already in use.",
     "phoneInUse": "Phone number is already in use."
   },
+  "parent": {
+    "profileNotFound": "Parent profile not found."
+  },
   "organization": {
     "notFound": "Organization not found.",
     "alreadyExists": "Organization already exists.",

@@ -13,17 +13,19 @@
     "childrenTitle": "Children Table"
   },
   "parent": {
+    "title": "Parent",
     "privateChildren": {
       "title": "My children",
       "subtitle": "You can add up to {limit} children for private evaluation",
-      "limitReached": "Child limit reached (2 children)",
+      "limitReached": "Child limit reached ({limit} children)",
       "requestCapacity": "Request more capacity",
       "addChild": "Add child",
       "empty": "No children yet",
       "approvedCapacityTitle": "Payment required",
       "approvedCapacityDescription": "Your capacity request for {count} slot(s) was approved. Complete payment to unlock additional children.",
       "payNow": "Pay now",
-      "paymentLinkFailed": "Could not open payment link. Please try again."
+      "paymentLinkFailed": "Could not open payment link. Please try again.",
+      "loadFailed": "Unable to load your children. Please try again."
     },
     "orgChildren": {
       "title": "Organization children",
@@ -43,6 +45,7 @@
     "recentNotifications": "Recent notifications",
     "children": "Children",
     "childrenDesc": "View and manage your registered children",
+    "privateSlots": "Private slots",
     "evaluations": "Evaluations",
     "evaluationsDesc": "Start and track child evaluations",
     "notificationsDesc": "Stay updated with alerts"

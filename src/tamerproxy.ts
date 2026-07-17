@@ -5,7 +5,6 @@ import { NextRequest, NextResponse } from 'next/server'
 import { routing } from './i18n/routing'
 import { Pages, Routes, UserRole } from '@/lib/types/enums'
 import type { Role } from '@/features/users'
-const intlMiddleware = createMiddleware(routing)
 
 function getLocale(pathname: string): string {
   const seg = pathname.split('/').filter(Boolean)[0] as (typeof routing.locales)[number] | undefined
@@ -66,6 +65,7 @@ const ACCESS_MAP: Record<string, UserRole[]> = {
 
 export default async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl
+  const intlMiddleware = createMiddleware(routing)
 
   // 1. احسب الـ locale والـ cleanPath الأول من الـ request مباشرة
   const locale = getLocale(pathname)

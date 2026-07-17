@@ -5,6 +5,8 @@ import { useLocale, useTranslations } from 'next-intl'
 import { useRouter } from '@/i18n/navigation'
 import { showErrorToast, showSuccessToast } from '@/lib/toast/app-toast'
 
+import { ManagementPageHeader } from '@/components/shared/management/ManagementPageHeader'
+import { ErrorCard } from '@/components/shared/cards/ErrorCard'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
@@ -34,6 +36,7 @@ export function ParentChildEvaluationsScreen({ childId }: Props) {
   const locale = useLocale()
   const t = useTranslations('evaluations')
   const tParent = useTranslations('dashboard.parent')
+  const tCommon = useTranslations('common')
 
   const available = useAvailableEvaluations(childId)
   const attempts = useChildAttempts(childId)
@@ -69,17 +72,33 @@ export function ParentChildEvaluationsScreen({ childId }: Props) {
   }
 
   if (available.isError || attempts.isError) {
-    return <p className="px-4 text-sm text-destructive">{t('error')}</p>
+    return (
+      <div className="px-4 lg:px-6">
+        <ErrorCard
+          message={t('error')}
+          retry={{
+            label: t('retry'),
+            onClick: () => {
+              void available.refetch()
+              void attempts.refetch()
+            },
+          }}
+        />
+      </div>
+    )
   }
 
   return (
     <div className="space-y-6 px-4 lg:px-6" dir={getTextDirection(locale)}>
-      <div>
-        <h2 className="text-xl font-semibold">{t('childEvaluations')}</h2>
-        {age != null && (
-          <p className="text-sm text-muted-foreground">{tParent('childAge', { age })}</p>
-        )}
-      </div>
+      <ManagementPageHeader
+        breadcrumbs={[
+          { href: '/dashboards/parent', label: tCommon('home') },
+          { href: '/dashboards/parent/children', label: tParent('children') },
+          { label: t('childEvaluations') },
+        ]}
+        title={t('childEvaluations')}
+        subtitle={age != null ? tParent('childAge', { age }) : undefined}
+      />
 
       <Card>
         <CardHeader>

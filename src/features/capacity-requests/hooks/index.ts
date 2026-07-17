@@ -31,8 +31,13 @@ export function useCapacityRequests(status?: string) {
 }
 
 export function useCreateCapacityRequest() {
+  const queryClient = useQueryClient()
   return useMutation({
     mutationFn: (payload: CreateCapacityRequestPayload) => createCapacityRequest(payload),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['parent', 'capacity-requests'] })
+      queryClient.invalidateQueries({ queryKey: ['admin', 'capacity-requests'] })
+    },
   })
 }
 

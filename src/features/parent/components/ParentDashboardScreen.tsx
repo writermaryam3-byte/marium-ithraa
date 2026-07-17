@@ -10,6 +10,8 @@ import { QuickActionCard } from '@/components/shared/dashboard/QuickActionCard'
 import { StatsGrid } from '@/components/shared/dashboard/StatsGrid'
 import { WelcomeHero } from '@/components/shared/dashboard/WelcomeHero'
 import { useNotificationsList, useUnreadCount } from '@/features/notifications/hooks'
+import { useParentProfile } from '@/features/parent'
+import { resolveNotificationText } from '@/features/notifications/utils/resolveNotificationText'
 import { getDateLocale } from '@/lib/i18n/locale-utils'
 import { Pages, Routes } from '@/lib/types/enums'
 import { useSession } from 'next-auth/react'
@@ -24,9 +26,11 @@ export function ParentDashboardScreen() {
 
   const unread = useUnreadCount(30_000)
   const { data: notificationsData } = useNotificationsList({ page: 1, limit: 5 })
+  const { data: profile } = useParentProfile()
 
   const displayName = session?.user?.name ?? tParent('defaultName')
   const unreadCount = unread.data?.count ?? 0
+  const childrenCount = profile?.totalChildrenCount ?? 0
 
   const stats = useMemo(
     () => [
@@ -44,18 +48,18 @@ export function ParentDashboardScreen() {
       },
       {
         label: tParent('children'),
-        value: '—',
+        value: String(childrenCount),
         icon: <Baby />,
         variant: 'pink' as const,
       },
       {
-        label: tParent('evaluations'),
-        value: '—',
+        label: tParent('privateSlots'),
+        value: profile ? `${profile.privateChildrenCount}/${profile.maxChildren}` : '—',
         icon: <Brain />,
         variant: 'indigo' as const,
       },
     ],
-    [unreadCount, notificationsData, tNotif, tParent],
+    [childrenCount, notificationsData, profile, unreadCount, tNotif, tParent],
   )
 
   const activities: ActivityItem[] = useMemo(() => {
@@ -70,10 +74,10 @@ export function ParentDashboardScreen() {
         },
       ]
     }
-    console.log('items', items)
+
     return items.slice(0, 4).map((n) => ({
       id: n.id,
-      title: n.title,
+      title: resolveNotificationText(n.title, tNotif, n.metadata),
       timeAgo: new Date(n.createdAt).toLocaleString(getDateLocale(locale), {
         dateStyle: 'short',
         timeStyle: 'short',

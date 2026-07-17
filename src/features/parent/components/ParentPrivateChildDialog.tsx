@@ -34,10 +34,17 @@ type Props = {
   open: boolean
   onOpenChange: (open: boolean) => void
   currentCount: number
+  maxChildren: number
   onSuccess: () => void
 }
 
-export function ParentPrivateChildDialog({ open, onOpenChange, currentCount, onSuccess }: Props) {
+export function ParentPrivateChildDialog({
+  open,
+  onOpenChange,
+  currentCount,
+  maxChildren,
+  onSuccess,
+}: Props) {
   const t = useTranslations('children.forms')
   const tCommon = useTranslations('common')
   const { fields } = useFormConfig(FormTypes.CHILD_PRIVATE)
