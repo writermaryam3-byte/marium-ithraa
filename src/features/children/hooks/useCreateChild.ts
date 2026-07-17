@@ -3,7 +3,6 @@
 import { useState, useTransition } from 'react'
 import { useTranslations } from 'next-intl'
 import { showErrorToast, showSuccessToast } from '@/lib/toast/app-toast'
-import { useTranslateBackend } from '@/lib/i18n/backend-messages'
 
 import { getFriendlyApiErrorMessage } from '@/lib/helpers/apiErrorMessages'
 import { StatusCode } from '@/lib/types/enums'
@@ -25,7 +24,6 @@ export function useCreateChild(options?: {
 }) {
   const t = useTranslations('children.create')
   const tApiErrors = useTranslations('errors')
-  const tb = useTranslateBackend()
   const [requestState, setRequestState] = useState<RequestState>('idle')
   const [isPending, startTransition] = useTransition()
 
@@ -38,7 +36,7 @@ export function useCreateChild(options?: {
 
         if (response.status === 'CREATED') {
           setRequestState('success')
-          showSuccessToast({ raw: tb(response.message) })
+          showSuccessToast({ raw: t('childCreatedSuccess') })
           options?.onCreated?.(response)
           return
         }

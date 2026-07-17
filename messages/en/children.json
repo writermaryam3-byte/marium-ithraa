@@ -109,6 +109,7 @@
       "grade": "Grade",
       "class": "Class"
     },
+    "childCreatedSuccess": "Child created successfully",
     "childAlreadyExists": "Child already exists in your school",
     "unableToLoadChild": "Unable to load child",
     "transferRequestSent": "Transfer request sent",

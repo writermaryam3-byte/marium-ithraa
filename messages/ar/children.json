@@ -109,6 +109,7 @@
       "grade": "المرحلة",
       "class": "الفصل"
     },
+    "childCreatedSuccess": "تم إنشاء الطفل بنجاح",
     "childAlreadyExists": "الطفل موجود بالفعل في مدرستك",
     "unableToLoadChild": "تعذر تحميل بيانات الطفل",
     "transferRequestSent": "تم إرسال طلب النقل",

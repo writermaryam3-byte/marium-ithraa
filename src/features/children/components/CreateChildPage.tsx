@@ -635,15 +635,12 @@ function TransferModal({
   onOpenChange: (open: boolean) => void
 }) {
   const t = useTranslations('children.create')
-  const tb = useTranslateBackend()
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>{t('childExistsDialog')}</DialogTitle>
-          <DialogDescription>
-            {response?.message ? tb(response.message) : t('transferCreated')}
-          </DialogDescription>
+          <DialogDescription>{t('transferCreated')}</DialogDescription>
         </DialogHeader>
         {response?.transferRequestId && (
           <p className="rounded-md bg-muted px-3 py-2 text-sm text-muted-foreground">
