@@ -1,10 +1,11 @@
 'use client'
 
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 import { Send } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { showErrorToast, showSuccessToast } from '@/lib/toast/app-toast'
 
+import { EntityCombobox } from '@/components/shared/forms/EntityCombobox'
 import { ManagementPageHeader } from '@/components/shared/management/ManagementPageHeader'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
@@ -20,6 +21,8 @@ import {
 import { Textarea } from '@/components/ui/textarea'
 import { useDispatchNotification } from '@/features/notifications/hooks'
 import type { NotificationDelivery, NotificationType } from '@/features/notifications/types'
+import { lookupUsers } from '@/features/admin-lookup/api'
+import type { LookupOption } from '@/features/admin-lookup/types'
 import { Link } from '@/i18n/navigation'
 
 type Props = { locale: string }
@@ -57,17 +60,24 @@ export function AdminDispatchNotificationScreen({ locale }: Props) {
   const dispatch = useDispatchNotification()
 
   const [delivery, setDelivery] = useState<NotificationDelivery>('inapp')
-  const [userId, setUserId] = useState('')
+  const [userId, setUserId] = useState<string>()
+  const [selectedUser, setSelectedUser] = useState<LookupOption | null>(null)
   const [email, setEmail] = useState('')
   const [title, setTitle] = useState('')
   const [message, setMessage] = useState('')
   const [type, setType] = useState<string>('')
   const [metadataRaw, setMetadataRaw] = useState('')
 
+  const fetchUsers = useCallback(
+    (params: { search: string; page: number }) =>
+      lookupUsers({ search: params.search, page: params.page, limit: 20 }),
+    [],
+  )
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
 
-    if (!userId.trim() || !title.trim() || !message.trim()) {
+    if (!userId || !title.trim() || !message.trim()) {
       showErrorToast(t, 'requiredFields')
       return
     }
@@ -87,7 +97,7 @@ export function AdminDispatchNotificationScreen({ locale }: Props) {
     try {
       await dispatch.mutateAsync({
         delivery,
-        userId: userId.trim(),
+        userId,
         email: email.trim() || undefined,
         title: title.trim(),
         message: message.trim(),
@@ -145,12 +155,20 @@ export function AdminDispatchNotificationScreen({ locale }: Props) {
               <div className="grid gap-4 sm:grid-cols-2">
                 <div className="space-y-2">
                   <Label htmlFor="userId">{t('userId')}</Label>
-                  <Input
-                    id="userId"
-                    className="rounded-xl"
+                  <EntityCombobox
                     value={userId}
-                    onChange={(e) => setUserId(e.target.value)}
-                    required
+                    selectedOption={selectedUser}
+                    onValueChange={(value, option) => {
+                      setUserId(value)
+                      setSelectedUser(option ?? null)
+                      if (option?.description && !email) {
+                        setEmail(option.description)
+                      }
+                    }}
+                    placeholder={t('selectUser')}
+                    searchPlaceholder={t('userSearchPlaceholder')}
+                    ariaLabel={t('selectUser')}
+                    fetchOptions={fetchUsers}
                   />
                 </div>
                 <div className="space-y-2">

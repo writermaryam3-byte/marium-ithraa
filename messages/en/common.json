@@ -43,5 +43,16 @@
     "confirmDelete": "Are you sure?",
     "done": "Done",
     "toggleSidebar": "Toggle sidebar"
+  },
+  "entityCombobox": {
+    "placeholder": "Select an option",
+    "searchPlaceholder": "Search…",
+    "loading": "Loading…",
+    "empty": "No results found",
+    "error": "Unable to load options",
+    "clear": "Clear selection",
+    "previous": "Previous",
+    "next": "Next",
+    "ariaLabel": "Select option"
   }
 }

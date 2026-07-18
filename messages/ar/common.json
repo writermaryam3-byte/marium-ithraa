@@ -43,5 +43,16 @@
     "confirmDelete": "هل أنت متأكد؟",
     "done": "تم",
     "toggleSidebar": "تبديل الشريط الجانبي"
+  },
+  "entityCombobox": {
+    "placeholder": "اختر خياراً",
+    "searchPlaceholder": "بحث…",
+    "loading": "جاري التحميل…",
+    "empty": "لم يتم العثور على نتائج",
+    "error": "تعذر تحميل الخيارات",
+    "clear": "مسح الاختيار",
+    "previous": "السابق",
+    "next": "التالي",
+    "ariaLabel": "اختر خياراً"
   }
 }

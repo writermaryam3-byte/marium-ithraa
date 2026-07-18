@@ -52,6 +52,18 @@
   "approved": "معتمد",
   "evaluationIdFilter": "معرف التقييم",
   "childIdFilter": "معرف الطفل",
+  "filters": {
+    "status": "الحالة",
+    "evaluation": "التقييم",
+    "organizationChild": "طفل المؤسسة",
+    "privateChild": "طفل خاص",
+    "selectEvaluation": "اختر التقييم",
+    "searchEvaluation": "بحث في التقييمات…",
+    "selectOrganizationChild": "اختر طفل المؤسسة",
+    "searchOrganizationChild": "بحث في أطفال المؤسسة…",
+    "selectPrivateChild": "اختر طفلاً خاصاً",
+    "searchPrivateChild": "بحث في الأطفال الخاصين…"
+  },
   "approveAttempt": "اعتماد النتيجة",
   "approveConfirm": "اعتماد نتيجة هذه المحاولة؟",
   "approveSuccess": "تم اعتماد المحاولة",

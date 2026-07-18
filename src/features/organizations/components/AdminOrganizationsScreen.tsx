@@ -1,15 +1,15 @@
 'use client'
 
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Check, X } from 'lucide-react'
+import { Check, Search, X } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { useForm } from 'react-hook-form'
 import { showErrorToast, showSuccessToast } from '@/lib/toast/app-toast'
 
 import { ErrorCard } from '@/components/shared/cards/ErrorCard'
-
 import { DataTable } from '@/components/shared/data-table/DataTable'
+import { DataTablePagination } from '@/components/shared/data-table/DataTablePagination'
 import { SiteHeader } from '@/components/site-header'
 import { Button } from '@/components/ui/button'
 import {
@@ -28,15 +28,17 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form'
+import { Input } from '@/components/ui/input'
 import { Skeleton } from '@/components/ui/skeleton'
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Textarea } from '@/components/ui/textarea'
 import { getFriendlyApiErrorMessage, getFieldError } from '@/lib/helpers/apiErrorMessages'
 import { ApprovalStatus, StatusCode } from '@/lib/types/enums'
 import { ApiError } from '@/lib/errors/ApiError'
+import { useDebouncedValue } from '@/hooks/useDebouncedValue'
 import type { ColumnDef } from '@tanstack/react-table'
 
-import { useApproveOrganization, useOrganizationsByStatus, useRejectOrganization } from '../hooks'
+import { useApproveOrganization, useOrganizationsList, useRejectOrganization } from '../hooks'
 import { createRejectionReasonSchema } from '../schemas/rejection.schema'
 import type { Organization } from '../types/interfaces'
 import { OrganizationApprovalBadge } from './OrganizationApprovalBadge'
@@ -57,10 +59,22 @@ export function AdminOrganizationsScreen({ locale }: { locale: string }) {
   const isAr = locale === 'ar'
 
   const [statusFilter, setStatusFilter] = useState<StatusFilter>(ApprovalStatus.PENDING)
+  const [search, setSearch] = useState('')
+  const [page, setPage] = useState(1)
+  const debouncedSearch = useDebouncedValue(search, 300)
   const [approveTarget, setApproveTarget] = useState<Organization | null>(null)
   const [rejectTarget, setRejectTarget] = useState<Organization | null>(null)
 
-  const { data, isLoading, isError, error, refetch } = useOrganizationsByStatus(statusFilter)
+  useEffect(() => {
+    setPage(1)
+  }, [statusFilter, debouncedSearch])
+
+  const { data, isLoading, isFetching, isError, error, refetch } = useOrganizationsList({
+    status: statusFilter,
+    search: debouncedSearch,
+    page,
+    limit: 20,
+  })
 
   const approveMutation = useApproveOrganization()
   const rejectMutation = useRejectOrganization()
@@ -75,7 +89,8 @@ export function AdminOrganizationsScreen({ locale }: { locale: string }) {
     defaultValues: { rejectionReason: '' },
   })
 
-  const organizations = data ?? []
+  const organizations = data?.items ?? []
+  const meta = data?.meta
 
   const columns = useMemo<ColumnDef<Organization>[]>(
     () => [
@@ -191,11 +206,13 @@ export function AdminOrganizationsScreen({ locale }: { locale: string }) {
   }
 
   const emptyMessage =
-    statusFilter === ApprovalStatus.PENDING
-      ? t('empty.pending')
-      : statusFilter === ApprovalStatus.APPROVED
-        ? t('empty.approved')
-        : t('empty.rejected')
+    debouncedSearch.trim().length > 0
+      ? t('filters.noSearchResults')
+      : statusFilter === ApprovalStatus.PENDING
+        ? t('empty.pending')
+        : statusFilter === ApprovalStatus.APPROVED
+          ? t('empty.approved')
+          : t('empty.rejected')
 
   return (
     <>
@@ -218,6 +235,17 @@ export function AdminOrganizationsScreen({ locale }: { locale: string }) {
             </TabsList>
           </Tabs>
 
+          <div className="relative max-w-md">
+            <Search className="absolute inset-y-0 inset-s-3 my-auto size-4 text-muted-foreground" />
+            <Input
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              placeholder={t('filters.searchPlaceholder')}
+              aria-label={t('filters.searchPlaceholder')}
+              className="rounded-xl ps-9"
+            />
+          </div>
+
           {isError ? (
             <ErrorCard
               message={
@@ -238,7 +266,15 @@ export function AdminOrganizationsScreen({ locale }: { locale: string }) {
               {emptyMessage}
             </div>
           ) : (
-            <DataTable data={organizations} columns={columns} />
+            <div className="space-y-4">
+              {isFetching ? (
+                <p className="text-xs text-muted-foreground">{t('filters.searching')}</p>
+              ) : null}
+              <DataTable data={organizations} columns={columns} />
+              {meta ? (
+                <DataTablePagination meta={meta} onPageChange={setPage} />
+              ) : null}
+            </div>
           )}
         </div>
       </div>

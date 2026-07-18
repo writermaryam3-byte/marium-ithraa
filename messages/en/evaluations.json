@@ -52,6 +52,18 @@
   "approved": "Approved",
   "evaluationIdFilter": "Evaluation ID",
   "childIdFilter": "Child ID",
+  "filters": {
+    "status": "Status",
+    "evaluation": "Evaluation",
+    "organizationChild": "Organization child",
+    "privateChild": "Private child",
+    "selectEvaluation": "Select evaluation",
+    "searchEvaluation": "Search evaluations…",
+    "selectOrganizationChild": "Select organization child",
+    "searchOrganizationChild": "Search organization children…",
+    "selectPrivateChild": "Select private child",
+    "searchPrivateChild": "Search private children…"
+  },
   "approveAttempt": "Approve result",
   "approveConfirm": "Approve this attempt result?",
   "approveSuccess": "Attempt approved",

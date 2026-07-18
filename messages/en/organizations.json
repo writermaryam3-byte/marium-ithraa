@@ -86,6 +86,11 @@
     "errors": {
       "forbidden": "You do not have permission to manage organizations.",
       "loadFailed": "Unable to load organizations."
+    },
+    "filters": {
+      "searchPlaceholder": "Search by organization name, owner, email, or ID…",
+      "noSearchResults": "No organizations match your search.",
+      "searching": "Updating results…"
     }
   },
   "dashboard": {

@@ -17,6 +17,26 @@ const defaultPaginationMeta = (): PaginationMeta => ({
   hasPreviousPage: false,
 })
 
+export function unwrapPaginatedPayload<T>(
+  payload: PaginatedListPayload<T> | T[] | undefined | null,
+): { items: T[]; meta: PaginationMeta } {
+  if (
+    payload &&
+    typeof payload === 'object' &&
+    !Array.isArray(payload) &&
+    'data' in payload &&
+    'meta' in payload
+  ) {
+    const paginated = payload as PaginatedListPayload<T>
+    return { items: paginated.data, meta: paginated.meta }
+  }
+
+  return {
+    items: Array.isArray(payload) ? payload : [],
+    meta: defaultPaginationMeta(),
+  }
+}
+
 export function unwrapPaginatedList<T>(
   envelope: ApiSuccessResponse<PaginatedListPayload<T> | T[]>,
 ): { items: T[]; meta: PaginationMeta } {

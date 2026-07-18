@@ -8,8 +8,10 @@ import {
   getMyOrganization,
   getOrganizationsByStatus,
   getPendingOrganizations,
+  listOrganizations,
   rejectOrganization,
   updateOrganization,
+  type ListOrganizationsParams,
 } from '../api'
 import type { RejectOrganizationPayload, UpdateOrganizationPayload } from '../types/interfaces'
 
@@ -17,6 +19,7 @@ export const organizationKeys = {
   all: ['organizations'] as const,
   pending: ['organizations', 'pending'] as const,
   byStatus: (status: ApprovalStatus) => ['organizations', { status }] as const,
+  list: (params: ListOrganizationsParams) => ['organizations', 'list', params] as const,
   me: ['organizations', 'me'] as const,
   detail: (id: string) => ['organizations', id] as const,
 }
@@ -53,10 +56,17 @@ export function usePendingOrganizations() {
   })
 }
 
-export function useOrganizationsByStatus(status: ApprovalStatus) {
+export function useOrganizationsByStatus(status: ApprovalStatus, params?: Omit<ListOrganizationsParams, 'status'>) {
   return useQuery({
-    queryKey: organizationKeys.byStatus(status),
-    queryFn: () => getOrganizationsByStatus(status),
+    queryKey: organizationKeys.list({ ...params, status }),
+    queryFn: () => getOrganizationsByStatus(status, params),
+  })
+}
+
+export function useOrganizationsList(params: ListOrganizationsParams) {
+  return useQuery({
+    queryKey: organizationKeys.list(params),
+    queryFn: () => listOrganizations(params),
   })
 }
 
@@ -64,6 +74,7 @@ function invalidateOrganizationQueries(queryClient: ReturnType<typeof useQueryCl
   void queryClient.invalidateQueries({ queryKey: organizationKeys.all })
   void queryClient.invalidateQueries({ queryKey: organizationKeys.pending })
   void queryClient.invalidateQueries({ queryKey: organizationKeys.me })
+  void queryClient.invalidateQueries({ queryKey: ['organizations', 'list'] })
   void queryClient.invalidateQueries({
     predicate: (query) =>
       Array.isArray(query.queryKey) &&

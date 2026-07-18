@@ -1,4 +1,5 @@
 import { api } from '@/lib/api/api'
+import { unwrapPaginatedPayload, type PaginatedListPayload } from '@/lib/api/utils'
 import { Endpoint, Methods } from '@/lib/types/enums'
 import {
   ChildType,
@@ -100,9 +101,16 @@ export type OwnerEvaluationReportCard = {
 export type GetAttemptsFilters = {
   status?: string
   evaluationId?: string
+  organizationChildId?: string
+  privateChildId?: string
   childId?: string
   page?: number
   limit?: number
+}
+
+export type PaginatedAttemptsResponse = {
+  items: EvaluationAttempt[]
+  meta: import('@/lib/types/interfaces').PaginationMeta
 }
 
 const buildQueryString = (params: Record<string, string | undefined>) => {
@@ -236,16 +244,21 @@ export const getAttempts = async (filters?: GetAttemptsFilters) => {
   return api.server<EvaluationAttempt[]>(`/${Endpoint.ATTEMPTS}${query}`)
 }
 
-export const getAttemptsClient = async (filters?: GetAttemptsFilters) => {
+export const getAttemptsClient = async (filters?: GetAttemptsFilters): Promise<PaginatedAttemptsResponse> => {
   const query = buildQueryString({
     status: filters?.status,
     evaluationId: filters?.evaluationId,
+    organizationChildId: filters?.organizationChildId,
+    privateChildId: filters?.privateChildId,
     childId: filters?.childId,
     page: filters?.page != null ? String(filters.page) : undefined,
     limit: filters?.limit != null ? String(filters.limit) : undefined,
   })
 
-  return api.client<EvaluationAttempt[]>(`/${Endpoint.ATTEMPTS}${query}`)
+  const payload = await api.client<PaginatedListPayload<EvaluationAttempt> | EvaluationAttempt[]>(
+    `/${Endpoint.ATTEMPTS}${query}`,
+  )
+  return unwrapPaginatedPayload(payload)
 }
 
 export const getAttemptById = async (attemptId: string) => {
