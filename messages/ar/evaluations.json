@@ -73,6 +73,7 @@
   "previousAttempts": "المحاولات السابقة",
   "startEvaluation": "بدء التقييم",
   "continueAttempt": "متابعة التقييم",
+  "startNewAttempt": "بدء محاولة جديدة",
   "waitingApproval": "في انتظار الاعتماد",
   "viewResult": "عرض النتيجة",
   "privateSlots": "فتحات التقييم الخاص",
@@ -127,7 +128,24 @@
     "unlockedDesc": "محاولتك الإضافية أصبحت نشطة الآن. اختر تقييماً من الأسفل للبدء.",
     "unlockedDescCount": "{count, plural, other {أصبحت # محاولات إضافية نشطة الآن}}. اختر تقييماً من الأسفل للبدء.",
     "startNeedsSlot": "افتح محاولة من الأعلى قبل بدء هذا التقييم.",
-    "maxAttemptsReached": "لقد استخدمت جميع المحاولات المسموح بها لهذا التقييم."
+    "maxAttemptsReached": "لقد استخدمت جميع المحاولات المسموح بها لهذا التقييم.",
+    "inProgressBanner": "لديك تقييم قيد التقدم — تابع من حيث توقفت."
+  },
+  "attemptActions": {
+    "maxAttemptsReached": "لقد استخدمت جميع المحاولات المسموح بها لهذا التقييم.",
+    "finishInProgressFirst": "أكمل أو تابع تقييمك قيد التقدم قبل بدء تقييم آخر."
+  },
+  "attemptHistory": {
+    "empty": "لا توجد محاولات سابقة بعد.",
+    "loadError": "تعذّر تحميل المحاولات السابقة.",
+    "startedAt": "تاريخ البدء",
+    "submittedAt": "تاريخ التقديم",
+    "duration": "المدة",
+    "durationMinutes": "{count, plural, =1 {دقيقة واحدة} =2 {دقيقتان} other {# دقائق}}",
+    "durationHoursMinutes": "{hours} س {minutes} د",
+    "resultSummary": "ملخص النتيجة",
+    "viewDetails": "عرض التفاصيل",
+    "attemptNumber": "المحاولة #{number}"
   },
   "timer": {
     "noTimeLimit": "بدون حد زمني",

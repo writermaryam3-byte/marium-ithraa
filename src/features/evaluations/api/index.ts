@@ -269,12 +269,33 @@ export const getAttemptByIdClient = async (attemptId: string) => {
   return api.client<EvaluationAttempt>(`/${Endpoint.ATTEMPTS}/${attemptId}`)
 }
 
-export const getAttemptsForChild = async (childId: string) => {
-  return api.server<EvaluationAttempt[]>(`/${Endpoint.ATTEMPTS}/${Endpoint.CHILD}/${childId}`)
+export const getAttemptsForChild = async (
+  childId: string,
+  query?: { page?: number; limit?: number },
+) => {
+  const search = buildQueryString({
+    page: query?.page != null ? String(query.page) : undefined,
+    limit: query?.limit != null ? String(query.limit) : undefined,
+  })
+
+  return api.server<PaginatedListPayload<EvaluationAttempt> | EvaluationAttempt[]>(
+    `/${Endpoint.ATTEMPTS}/${Endpoint.CHILD}/${childId}${search}`,
+  )
 }
 
-export const getAttemptsForChildClient = async (childId: string) => {
-  return api.client<EvaluationAttempt[]>(`/${Endpoint.ATTEMPTS}/${Endpoint.CHILD}/${childId}`)
+export const getAttemptsForChildClient = async (
+  childId: string,
+  query?: { page?: number; limit?: number },
+) => {
+  const search = buildQueryString({
+    page: query?.page != null ? String(query.page) : undefined,
+    limit: query?.limit != null ? String(query.limit) : undefined,
+  })
+
+  const payload = await api.client<PaginatedListPayload<EvaluationAttempt> | EvaluationAttempt[]>(
+    `/${Endpoint.ATTEMPTS}/${Endpoint.CHILD}/${childId}${search}`,
+  )
+  return unwrapPaginatedPayload(payload)
 }
 
 export const saveAttemptProgress = async (attemptId: string, data: SaveAttemptProgressPayload) => {
@@ -381,6 +402,11 @@ export type ChildEvaluationState = {
   hasReadySlot: boolean
   readySlotKind: 'MAIN' | 'RETAKE' | 'EXTRA' | null
   inProgressAttemptId: string | null
+  inProgressAttempts: Array<{
+    id: string
+    evaluationId: string
+    evaluationTitle: string | null
+  }>
   canOpenMain: boolean
   canRequestRetake: boolean
   canRequestExtra: boolean

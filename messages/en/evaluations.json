@@ -73,6 +73,7 @@
   "previousAttempts": "Previous attempts",
   "startEvaluation": "Start evaluation",
   "continueAttempt": "Continue evaluation",
+  "startNewAttempt": "Start new attempt",
   "waitingApproval": "Waiting for approval",
   "viewResult": "View result",
   "privateSlots": "Private evaluation slots",
@@ -127,7 +128,24 @@
     "unlockedDesc": "Your extra attempt is now active. Pick an evaluation below to begin.",
     "unlockedDescCount": "{count, plural, other {# extra attempts are now active}}. Pick an evaluation below to begin.",
     "startNeedsSlot": "Open an attempt above before starting this evaluation.",
-    "maxAttemptsReached": "You have used all allowed attempts for this evaluation."
+    "maxAttemptsReached": "You have used all allowed attempts for this evaluation.",
+    "inProgressBanner": "You have an evaluation in progress — continue where you left off."
+  },
+  "attemptActions": {
+    "maxAttemptsReached": "You have used all allowed attempts for this evaluation.",
+    "finishInProgressFirst": "Finish or continue your in-progress evaluation before starting another."
+  },
+  "attemptHistory": {
+    "empty": "No previous attempts yet.",
+    "loadError": "Could not load previous attempts.",
+    "startedAt": "Started at",
+    "submittedAt": "Submitted at",
+    "duration": "Duration",
+    "durationMinutes": "{count, plural, =1 {1 minute} other {# minutes}}",
+    "durationHoursMinutes": "{hours}h {minutes}m",
+    "resultSummary": "Result summary",
+    "viewDetails": "View details",
+    "attemptNumber": "Attempt #{number}"
   },
   "timer": {
     "noTimeLimit": "No time limit",

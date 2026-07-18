@@ -12,6 +12,8 @@ import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Skeleton } from '@/components/ui/skeleton'
+import { EvaluationActionButton } from '@/features/evaluations/components/EvaluationActionButton'
+import { PreviousAttemptsSection } from '@/features/evaluations/components/PreviousAttemptsSection'
 import {
   useAvailableEvaluations,
   useChildAttempts,
@@ -24,11 +26,11 @@ import {
 } from '@/features/evaluations/hooks'
 import type { ChildEvaluationState, ExtraSlotStatus } from '@/features/evaluations/api'
 import type { Evaluation, EvaluationAttempt } from '@/features/evaluations/types'
+import { formatAgeRange, getEvaluationTypeLabel } from '@/features/evaluations/utils/labels'
 import {
-  formatAgeRange,
-  getAttemptStatusLabel,
-  getEvaluationTypeLabel,
-} from '@/features/evaluations/utils/labels'
+  resolveEvaluationAction,
+  type InProgressAttemptRef,
+} from '@/features/evaluations/utils/evaluation-action'
 import { cn } from '@/lib/utils'
 import { getTextDirection } from '@/lib/i18n/locale-utils'
 import { Link } from '@/i18n/navigation'
@@ -44,12 +46,13 @@ export function ParentChildEvaluationsScreen({ childId }: Props) {
   const tCommon = useTranslations('common')
 
   const available = useAvailableEvaluations(childId)
-  const attempts = useChildAttempts(childId)
+  const attempts = useChildAttempts(childId, { limit: 100 })
   const state = useChildEvaluationState(childId)
 
   const age = available.data?.age
   const evaluations = available.data?.evaluations ?? []
-  const childAttempts: EvaluationAttempt[] = Array.isArray(attempts.data) ? attempts.data : []
+  const childAttempts = attempts.data?.items ?? []
+  const inProgressRefs: InProgressAttemptRef[] = state.data?.inProgressAttempts ?? []
 
   const refetchAll = () => {
     void available.refetch()
@@ -66,7 +69,7 @@ export function ParentChildEvaluationsScreen({ childId }: Props) {
     )
   }
 
-  if (available.isError || attempts.isError || state.isError) {
+  if (available.isError || state.isError) {
     return (
       <div className="px-4 lg:px-6">
         <ErrorCard message={t('error')} retry={{ label: t('retry'), onClick: refetchAll }} />
@@ -74,8 +77,9 @@ export function ParentChildEvaluationsScreen({ childId }: Props) {
     )
   }
 
-  const canStartPrivate = state.data?.hasReadySlot ?? false
+  const hasReadySlot = state.data?.hasReadySlot ?? false
   const isPrivateChild = state.data?.childType !== 'organization'
+  const childType = state.data?.childType ?? 'private'
 
   return (
     <div className="space-y-6 px-4 lg:px-6" dir={getTextDirection(locale)}>
@@ -103,23 +107,22 @@ export function ParentChildEvaluationsScreen({ childId }: Props) {
               key={ev.id}
               evaluation={ev}
               childId={childId}
-              childType={state.data?.childType ?? 'private'}
+              childType={childType}
               childAttempts={childAttempts}
-              canStartPrivate={canStartPrivate}
+              hasReadySlot={hasReadySlot}
+              inProgressRefs={inProgressRefs}
               t={t}
             />
           ))
         )}
       </section>
 
-      <section className="space-y-3">
-        <h3 className="font-medium">{t('previousAttempts')}</h3>
-        {childAttempts.length === 0 ? (
-          <p className="text-sm text-muted-foreground">{t('empty')}</p>
-        ) : (
-          childAttempts.map((att) => <AttemptRow key={att.id} attempt={att} t={t} />)
-        )}
-      </section>
+      <PreviousAttemptsSection
+        attempts={childAttempts}
+        isLoading={attempts.isLoading}
+        isError={attempts.isError}
+        onRetry={() => void attempts.refetch()}
+      />
     </div>
   )
 }
@@ -179,6 +182,31 @@ function AttemptStatePanel({
             limit: state.freeAttemptsLimit,
           })}
         </p>
+
+        {state.inProgressAttempts.length > 0 && (
+          <div className="space-y-2 rounded-md border border-amber-500/30 bg-amber-500/5 px-3 py-3">
+            <p className="text-sm font-medium text-amber-900 dark:text-amber-200">
+              {t('attemptState.inProgressBanner')}
+            </p>
+            <div className="flex flex-col gap-2">
+              {state.inProgressAttempts.map((attempt) => (
+                <div
+                  key={attempt.id}
+                  className="flex flex-wrap items-center justify-between gap-2 text-sm"
+                >
+                  <span className="text-muted-foreground">
+                    {attempt.evaluationTitle ?? t('evaluation')}
+                  </span>
+                  <Button asChild size="sm" variant="outline">
+                    <Link href={`/dashboards/parent/attempts/${attempt.id}`}>
+                      {t('continueAttempt')}
+                    </Link>
+                  </Button>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
 
         {state.hasReadySlot && (
           <div className="flex items-center gap-2 rounded-md border border-emerald-500/30 bg-emerald-500/5 px-3 py-2 text-sm text-emerald-700 dark:text-emerald-400">
@@ -373,122 +401,72 @@ function SuccessBurst() {
   )
 }
 
-function countCompletedAttemptsForEvaluation(
-  childAttempts: EvaluationAttempt[],
-  evaluationId: string,
-) {
-  return childAttempts.filter(
-    (attempt) =>
-      attempt.evaluationId === evaluationId &&
-      ['submitted', 'approved'].includes(attempt.status?.toLowerCase() ?? ''),
-  ).length
-}
-
 function AvailableEvaluationCard({
   evaluation,
   childId,
   childType,
   childAttempts,
-  canStartPrivate,
+  hasReadySlot,
+  inProgressRefs,
   t,
 }: {
   evaluation: Evaluation
   childId: string
   childType: 'organization' | 'private'
   childAttempts: EvaluationAttempt[]
-  canStartPrivate: boolean
+  hasReadySlot: boolean
+  inProgressRefs: InProgressAttemptRef[]
   t: ReturnType<typeof useTranslations>
 }) {
   const router = useRouter()
   const start = useStartEvaluation(evaluation.id)
 
-  const inProgress = childAttempts.find(
-    (a) => a.evaluationId === evaluation.id && a.status === 'in_progress',
-  )
-  const isPrivateChild = childType === 'private'
-  const completedAttempts = countCompletedAttemptsForEvaluation(childAttempts, evaluation.id)
-  const canStart = isPrivateChild ? canStartPrivate : completedAttempts < 2
-  const startBlockedReason = isPrivateChild
-    ? t('attemptState.startNeedsSlot')
-    : t('attemptState.maxAttemptsReached')
+  const action = resolveEvaluationAction({
+    evaluationId: evaluation.id,
+    childType,
+    childAttempts,
+    hasReadySlot,
+    inProgressRefs,
+  })
+
+  const handleStart = async () => {
+    if (!action.enabled || action.kind === 'continue' || action.kind === 'blocked') return
+
+    try {
+      const attempt = await start.mutateAsync({ childId, childType })
+      if (!attempt?.id) {
+        showErrorToast(t, 'error')
+        return
+      }
+      router.push(`/dashboards/parent/attempts/${attempt.id}`)
+    } catch (e: unknown) {
+      showErrorToast({ error: e })
+    }
+  }
 
   return (
     <Card>
       <CardContent className="flex flex-wrap items-center justify-between gap-3 p-4">
         <div>
           <p className="font-medium">{evaluation.title}</p>
-          <div className="flex flex-wrap gap-2 mt-1">
+          <div className="mt-1 flex flex-wrap gap-2">
             <Badge variant="secondary">{getEvaluationTypeLabel(evaluation.type, t)}</Badge>
             <span className="text-xs text-muted-foreground">
               {formatAgeRange(evaluation.ageFrom, evaluation.ageTo, t)}
             </span>
           </div>
         </div>
-        {inProgress ? (
-          <Button asChild>
-            <Link href={`/dashboards/parent/attempts/${inProgress.id}`}>
-              {t('continueAttempt')}
-            </Link>
-          </Button>
-        ) : (
-          <div className="flex flex-col items-end gap-1">
-            <Button
-              disabled={start.isPending || !canStart}
-              title={!canStart ? startBlockedReason : undefined}
-              onClick={async () => {
-                try {
-                  const attempt = await start.mutateAsync({ childId, childType })
-                  if (!attempt?.id) {
-                    showErrorToast(t, 'error')
-                    return
-                  }
-                  router.push(`/dashboards/parent/attempts/${attempt.id}`)
-                } catch (e: unknown) {
-                  showErrorToast({ error: e })
-                }
-              }}
-            >
-              {t('startEvaluation')}
-            </Button>
-            {!canStart && (
-              <span className="text-[11px] text-muted-foreground">{startBlockedReason}</span>
-            )}
-          </div>
-        )}
-      </CardContent>
-    </Card>
-  )
-}
 
-function AttemptRow({
-  attempt,
-  t,
-}: {
-  attempt: EvaluationAttempt
-  t: ReturnType<typeof useTranslations>
-}) {
-  const status = attempt.status
-
-  return (
-    <Card>
-      <CardContent className="flex flex-wrap items-center justify-between gap-3 p-4">
-        <div>
-          <p className="font-medium">{attempt.evaluation?.title ?? attempt.evaluationId}</p>
-          <p className="text-sm text-muted-foreground">
-            #{attempt.attemptNumber} — {getAttemptStatusLabel(status, t)}
-          </p>
-        </div>
-        {status === 'in_progress' && (
-          <Button asChild>
-            <Link href={`/dashboards/parent/attempts/${attempt.id}`}>{t('continueAttempt')}</Link>
-          </Button>
-        )}
-        {status === 'submitted' && <Badge variant="secondary">{t('waitingApproval')}</Badge>}
-        {status === 'approved' && (
-          <Button asChild variant="outline">
-            <Link href={`/dashboards/parent/attempts/${attempt.id}`}>{t('viewResult')}</Link>
-          </Button>
-        )}
+        <EvaluationActionButton
+          action={action}
+          attemptHref={
+            action.kind === 'continue' && action.attemptId
+              ? `/dashboards/parent/attempts/${action.attemptId}`
+              : undefined
+          }
+          isPending={start.isPending}
+          onStart={() => void handleStart()}
+        />
       </CardContent>
     </Card>
   )

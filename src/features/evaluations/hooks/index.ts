@@ -35,7 +35,8 @@ export const evaluationKeys = {
   available: (childId: string) => ['evaluations-available', childId] as const,
   attempts: (filters?: GetAttemptsFilters) => ['attempts', filters ?? {}] as const,
   attempt: (id: string) => ['attempt', id] as const,
-  childAttempts: (childId: string) => ['child-attempts', childId] as const,
+  childAttempts: (childId: string, query?: { page?: number; limit?: number }) =>
+    ['child-attempts', childId, query ?? {}] as const,
   childState: (childId: string) => ['child-evaluation-state', childId] as const,
   extraRequests: () => ['admin-extra-attempt-requests'] as const,
 }
@@ -78,11 +79,17 @@ export function useAttempts(filters?: GetAttemptsFilters) {
   })
 }
 
-export function useChildAttempts(childId: string) {
+export function useChildAttempts(
+  childId: string,
+  options?: { page?: number; limit?: number; enabled?: boolean },
+) {
+  const page = options?.page ?? 1
+  const limit = options?.limit ?? 100
+
   return useQuery({
-    queryKey: evaluationKeys.childAttempts(childId),
-    queryFn: () => getAttemptsForChildClient(childId),
-    enabled: Boolean(childId),
+    queryKey: evaluationKeys.childAttempts(childId, { page, limit }),
+    queryFn: () => getAttemptsForChildClient(childId, { page, limit }),
+    enabled: options?.enabled ?? Boolean(childId),
   })
 }
 
