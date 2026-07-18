@@ -165,8 +165,16 @@ export interface EvaluationAttempt {
   expiresAt?: string | null
   submittedAt?: string | null
   evaluation?: Evaluation
+  organizationChild?: { id: string; name: string } | null
+  privateChild?: { id: string; name: string } | null
   child?: Child
-  parent?: unknown
+  parent?:
+    | {
+        id?: string
+        userId?: string
+        user?: { id?: string; name?: string; email?: string; phone?: string } | null
+      }
+    | null
   approval?: unknown | null
   answers?: EvaluationAnswer[]
   parentUserId?: string
