@@ -1,5 +1,6 @@
 'use client'
 
+import { useTranslations } from 'next-intl'
 import { Label } from '@/components/ui/label'
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
 import { cn } from '@/lib/utils'
@@ -22,6 +23,7 @@ export default function AnswerGroup({
   onChange: (selectedAnswerId: string) => void
   disabled?: boolean
 }) {
+  const t = useTranslations('evaluations.answerGroup')
   const validOptions = options.filter((opt): opt is { id: string; text: string } => Boolean(opt.id))
   const invalidOptions = options.filter((opt) => !opt.id)
 
@@ -29,34 +31,31 @@ export default function AnswerGroup({
     <div className="space-y-2">
       {invalidOptions.length > 0 && (
         <p className="text-sm text-destructive rounded-md border border-destructive/30 bg-destructive/5 p-2">
-          {invalidOptions.length} answer option(s) are missing an ID and cannot be selected. Contact
-          support or reload the evaluation form.
+          {t('missingIds', { count: invalidOptions.length })}
         </p>
       )}
       <RadioGroup
         value={value ?? ''}
         onValueChange={onChange}
-        aria-label="Answer options"
+        aria-label={t('ariaLabel')}
         className="gap-2"
       >
         {validOptions.map((opt) => {
           const inputId = `${questionId}-${opt.id}`
+          const selected = value === opt.id
           return (
-            <div
+            <Label
               key={opt.id}
+              htmlFor={inputId}
               className={cn(
                 'flex flex-row-reverse items-start gap-3 rounded-md border p-3 transition-colors',
-                disabled ? 'opacity-70' : 'hover:bg-accent/40',
+                disabled ? 'cursor-not-allowed opacity-70' : 'cursor-pointer hover:bg-accent/40',
+                selected && !disabled && 'border-primary bg-primary/5',
               )}
             >
               <RadioGroupItem id={inputId} value={opt.id} disabled={disabled} />
-              <Label
-                htmlFor={inputId}
-                className={cn('leading-5', disabled && 'cursor-not-allowed')}
-              >
-                {opt.text}
-              </Label>
-            </div>
+              <span className={cn('leading-5', disabled && 'cursor-not-allowed')}>{opt.text}</span>
+            </Label>
           )
         })}
         {invalidOptions.map((opt, idx) => {
@@ -68,7 +67,8 @@ export default function AnswerGroup({
             >
               <RadioGroupItem id={inputId} value="" disabled />
               <Label htmlFor={inputId} className="leading-5 cursor-not-allowed">
-                {opt.text} <span className="text-destructive text-xs">(unavailable)</span>
+                {opt.text}{' '}
+                <span className="text-destructive text-xs">({t('unavailable')})</span>
               </Label>
             </div>
           )

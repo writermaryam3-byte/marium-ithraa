@@ -372,6 +372,7 @@ export type ExtraSlotStatus =
 
 export type ChildEvaluationState = {
   childId: string
+  childType: 'organization' | 'private'
   totalAttempts: number
   freeAttemptsLimit: number
   freeAttemptsUsed: number

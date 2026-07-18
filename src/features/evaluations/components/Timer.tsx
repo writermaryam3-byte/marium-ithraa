@@ -1,6 +1,7 @@
 'use client'
 
 import { useMemo } from 'react'
+import { useTranslations } from 'next-intl'
 import { cn } from '@/lib/utils'
 import { Badge } from '@/components/ui/badge'
 
@@ -15,15 +16,17 @@ function formatMs(ms: number) {
 }
 
 export default function Timer({ remainingMs }: { remainingMs: number | null }) {
+  const t = useTranslations('evaluations.timer')
+
   const { label, variant } = useMemo(() => {
-    if (remainingMs === null) return { label: 'No time limit', variant: 'secondary' as const }
-    if (remainingMs <= 0) return { label: 'Expired', variant: 'destructive' as const }
+    if (remainingMs === null) return { label: t('noTimeLimit'), variant: 'secondary' as const }
+    if (remainingMs <= 0) return { label: t('expired'), variant: 'destructive' as const }
     if (remainingMs <= 60_000)
       return { label: formatMs(remainingMs), variant: 'destructive' as const }
     if (remainingMs <= 5 * 60_000)
       return { label: formatMs(remainingMs), variant: 'secondary' as const }
     return { label: formatMs(remainingMs), variant: 'outline' as const }
-  }, [remainingMs])
+  }, [remainingMs, t])
 
   return (
     <Badge
@@ -32,7 +35,7 @@ export default function Timer({ remainingMs }: { remainingMs: number | null }) {
         'font-mono tabular-nums',
         remainingMs !== null && remainingMs <= 60_000 && 'animate-pulse',
       )}
-      aria-label="Remaining time"
+      aria-label={t('remainingAria')}
     >
       {label}
     </Badge>

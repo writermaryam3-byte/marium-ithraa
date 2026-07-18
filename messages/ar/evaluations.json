@@ -126,7 +126,23 @@
     "unlockedTitle": "تم فتح محاولة جديدة!",
     "unlockedDesc": "محاولتك الإضافية أصبحت نشطة الآن. اختر تقييماً من الأسفل للبدء.",
     "unlockedDescCount": "{count, plural, other {أصبحت # محاولات إضافية نشطة الآن}}. اختر تقييماً من الأسفل للبدء.",
-    "startNeedsSlot": "افتح محاولة من الأعلى قبل بدء هذا التقييم."
+    "startNeedsSlot": "افتح محاولة من الأعلى قبل بدء هذا التقييم.",
+    "maxAttemptsReached": "لقد استخدمت جميع المحاولات المسموح بها لهذا التقييم."
+  },
+  "timer": {
+    "noTimeLimit": "بدون حد زمني",
+    "expired": "منتهٍ",
+    "remainingAria": "الوقت المتبقي"
+  },
+  "pagination": {
+    "previous": "السابق",
+    "next": "التالي",
+    "pageIndicator": "صفحة {current} من {total}"
+  },
+  "answerGroup": {
+    "ariaLabel": "خيارات الإجابة",
+    "missingIds": "{count} خيار/خيارات إجابة بدون معرّف ولا يمكن اختيارها. تواصل مع الدعم أو أعد تحميل نموذج التقييم.",
+    "unavailable": "غير متاح"
   },
   "types": {
     "multipleIntelligences": "مؤشر الذكاءات الثمانية",

@@ -112,10 +112,10 @@ export function ParentPrivateChildDialog({
                 {isPending ? (
                   <>
                     <Loader2 className="h-4 w-4 animate-spin" />
-                    {tCommon('saving')}
+                    {tCommon('states.saving')}
                   </>
                 ) : (
-                  tCommon('saveChanges')
+                  tCommon('buttons.save')
                 )}
               </Button>
             </DialogFooter>

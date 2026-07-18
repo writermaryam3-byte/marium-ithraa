@@ -74,7 +74,8 @@ export function ParentChildEvaluationsScreen({ childId }: Props) {
     )
   }
 
-  const canStart = state.data?.hasReadySlot ?? false
+  const canStartPrivate = state.data?.hasReadySlot ?? false
+  const isPrivateChild = state.data?.childType !== 'organization'
 
   return (
     <div className="space-y-6 px-4 lg:px-6" dir={getTextDirection(locale)}>
@@ -88,7 +89,9 @@ export function ParentChildEvaluationsScreen({ childId }: Props) {
         subtitle={age != null ? tParent('childAge', { age }) : undefined}
       />
 
-      {state.data && <AttemptStatePanel childId={childId} state={state.data} t={t} />}
+      {state.data && isPrivateChild && (
+        <AttemptStatePanel childId={childId} state={state.data} t={t} />
+      )}
 
       <section className="space-y-3">
         <h3 className="font-medium">{t('availableEvaluations')}</h3>
@@ -100,8 +103,9 @@ export function ParentChildEvaluationsScreen({ childId }: Props) {
               key={ev.id}
               evaluation={ev}
               childId={childId}
+              childType={state.data?.childType ?? 'private'}
               childAttempts={childAttempts}
-              canStart={canStart}
+              canStartPrivate={canStartPrivate}
               t={t}
             />
           ))
@@ -369,17 +373,30 @@ function SuccessBurst() {
   )
 }
 
+function countCompletedAttemptsForEvaluation(
+  childAttempts: EvaluationAttempt[],
+  evaluationId: string,
+) {
+  return childAttempts.filter(
+    (attempt) =>
+      attempt.evaluationId === evaluationId &&
+      ['submitted', 'approved'].includes(attempt.status?.toLowerCase() ?? ''),
+  ).length
+}
+
 function AvailableEvaluationCard({
   evaluation,
   childId,
+  childType,
   childAttempts,
-  canStart,
+  canStartPrivate,
   t,
 }: {
   evaluation: Evaluation
   childId: string
+  childType: 'organization' | 'private'
   childAttempts: EvaluationAttempt[]
-  canStart: boolean
+  canStartPrivate: boolean
   t: ReturnType<typeof useTranslations>
 }) {
   const router = useRouter()
@@ -388,6 +405,12 @@ function AvailableEvaluationCard({
   const inProgress = childAttempts.find(
     (a) => a.evaluationId === evaluation.id && a.status === 'in_progress',
   )
+  const isPrivateChild = childType === 'private'
+  const completedAttempts = countCompletedAttemptsForEvaluation(childAttempts, evaluation.id)
+  const canStart = isPrivateChild ? canStartPrivate : completedAttempts < 2
+  const startBlockedReason = isPrivateChild
+    ? t('attemptState.startNeedsSlot')
+    : t('attemptState.maxAttemptsReached')
 
   return (
     <Card>
@@ -411,10 +434,10 @@ function AvailableEvaluationCard({
           <div className="flex flex-col items-end gap-1">
             <Button
               disabled={start.isPending || !canStart}
-              title={!canStart ? t('attemptState.startNeedsSlot') : undefined}
+              title={!canStart ? startBlockedReason : undefined}
               onClick={async () => {
                 try {
-                  const attempt = await start.mutateAsync({ childId, childType: 'private' })
+                  const attempt = await start.mutateAsync({ childId, childType })
                   if (!attempt?.id) {
                     showErrorToast(t, 'error')
                     return
@@ -428,9 +451,7 @@ function AvailableEvaluationCard({
               {t('startEvaluation')}
             </Button>
             {!canStart && (
-              <span className="text-[11px] text-muted-foreground">
-                {t('attemptState.startNeedsSlot')}
-              </span>
+              <span className="text-[11px] text-muted-foreground">{startBlockedReason}</span>
             )}
           </div>
         )}

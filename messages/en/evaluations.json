@@ -126,7 +126,23 @@
     "unlockedTitle": "New attempt unlocked!",
     "unlockedDesc": "Your extra attempt is now active. Pick an evaluation below to begin.",
     "unlockedDescCount": "{count, plural, other {# extra attempts are now active}}. Pick an evaluation below to begin.",
-    "startNeedsSlot": "Open an attempt above before starting this evaluation."
+    "startNeedsSlot": "Open an attempt above before starting this evaluation.",
+    "maxAttemptsReached": "You have used all allowed attempts for this evaluation."
+  },
+  "timer": {
+    "noTimeLimit": "No time limit",
+    "expired": "Expired",
+    "remainingAria": "Remaining time"
+  },
+  "pagination": {
+    "previous": "Previous",
+    "next": "Next",
+    "pageIndicator": "Page {current} of {total}"
+  },
+  "answerGroup": {
+    "ariaLabel": "Answer options",
+    "missingIds": "{count} answer option(s) are missing an ID and cannot be selected. Contact support or reload the evaluation form.",
+    "unavailable": "unavailable"
   },
   "types": {
     "multipleIntelligences": "Multiple Intelligences",

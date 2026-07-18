@@ -34,7 +34,6 @@ export function ParentPrivateChildrenScreen({ privateChildren, profile }: Props)
   const tParent = useTranslations('dashboard.parent')
   const tChildren = useTranslations('children')
   const tCommon = useTranslations('common')
-  const tDashboard = useTranslations('common')
   const [open, setOpen] = useState(false)
   const [capacityOpen, setCapacityOpen] = useState(false)
   const maxChildren = profile.maxChildren
@@ -49,7 +48,7 @@ export function ParentPrivateChildrenScreen({ privateChildren, profile }: Props)
     <main className="app-container py-8 space-y-8" dir={getTextDirection(locale)}>
       <ManagementPageHeader
         breadcrumbs={[
-          { href: '/dashboards/parent', label: tDashboard('home') },
+          { href: '/dashboards/parent', label: tCommon('general.home') },
           { label: t('title') },
         ]}
         title={t('title')}

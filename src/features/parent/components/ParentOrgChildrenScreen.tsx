@@ -22,13 +22,12 @@ export function ParentOrgChildrenScreen({ orgChildren }: Props) {
   const tParent = useTranslations('dashboard.parent')
   const tChildren = useTranslations('children')
   const tCommon = useTranslations('common')
-  const tDashboard = useTranslations('common')
 
   return (
     <main className="app-container py-8 space-y-8" dir={getTextDirection(locale)}>
       <ManagementPageHeader
         breadcrumbs={[
-          { href: '/dashboards/parent', label: tDashboard('home') },
+          { href: '/dashboards/parent', label: tCommon('general.home') },
           { label: t('title') },
         ]}
         title={t('title')}

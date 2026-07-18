@@ -1,6 +1,6 @@
 'use client'
 
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useTranslations } from 'next-intl'
 import { Loader2 } from 'lucide-react'
 import { showErrorToast } from '@/lib/toast/app-toast'
@@ -13,6 +13,11 @@ import Timer from './Timer'
 import SubmitModal from './SubmitModal'
 import QuestionCard from './QuestionCard'
 import { useEvaluationSession } from '@/features/evaluations/hooks/useEvaluationSession'
+import {
+  getQuestionPageSize,
+  readStoredQuestionPage,
+  storeQuestionPage,
+} from '@/features/evaluations/utils/question-pagination'
 
 export default function EvaluationRunner({ attemptId }: { attemptId: string }) {
   const t = useTranslations('evaluations')
@@ -24,6 +29,31 @@ export default function EvaluationRunner({ attemptId }: { attemptId: string }) {
   const sortedQuestions = useMemo(() => {
     return [...session.questionList].sort((a, b) => a.order - b.order)
   }, [session.questionList])
+
+  const pageSize = getQuestionPageSize()
+  const totalPages = Math.max(1, Math.ceil(sortedQuestions.length / pageSize))
+  const [currentPage, setCurrentPage] = useState(1)
+
+  useEffect(() => {
+    if (sortedQuestions.length === 0) {
+      setCurrentPage(1)
+      return
+    }
+    setCurrentPage(readStoredQuestionPage(attemptId, totalPages))
+  }, [attemptId, sortedQuestions.length, totalPages])
+
+  useEffect(() => {
+    storeQuestionPage(attemptId, currentPage)
+  }, [attemptId, currentPage])
+
+  useEffect(() => {
+    if (currentPage > totalPages) {
+      setCurrentPage(totalPages)
+    }
+  }, [currentPage, totalPages])
+
+  const pageStart = (currentPage - 1) * pageSize
+  const visibleQuestions = sortedQuestions.slice(pageStart, pageStart + pageSize)
 
   const progressPct =
     sortedQuestions.length > 0 ? (session.answeredCount / sortedQuestions.length) * 100 : 0
@@ -128,16 +158,46 @@ export default function EvaluationRunner({ attemptId }: { attemptId: string }) {
             </CardContent>
           </Card>
         ) : (
-          sortedQuestions.map((q, idx) => (
-            <QuestionCard
-              key={q.id}
-              index={idx}
-              question={q}
-              value={session.answers[q.id]}
-              onChange={(selectedAnswerId) => session.setAnswer(q.id, selectedAnswerId)}
-              disabled={formDisabled}
-            />
-          ))
+          <>
+            {visibleQuestions.map((q, idx) => (
+              <QuestionCard
+                key={q.id}
+                index={pageStart + idx}
+                question={q}
+                value={session.answers[q.id]}
+                onChange={(selectedAnswerId) => session.setAnswer(q.id, selectedAnswerId)}
+                disabled={formDisabled}
+              />
+            ))}
+
+            {sortedQuestions.length > pageSize && (
+              <div className="flex flex-wrap items-center justify-between gap-3 rounded-lg border bg-muted/20 px-4 py-3">
+                <p className="text-sm text-muted-foreground">
+                  {t('pagination.pageIndicator', { current: currentPage, total: totalPages })}
+                </p>
+                <div className="flex items-center gap-2">
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    disabled={currentPage <= 1}
+                    onClick={() => setCurrentPage((page) => Math.max(1, page - 1))}
+                  >
+                    {t('pagination.previous')}
+                  </Button>
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    disabled={currentPage >= totalPages}
+                    onClick={() => setCurrentPage((page) => Math.min(totalPages, page + 1))}
+                  >
+                    {t('pagination.next')}
+                  </Button>
+                </div>
+              </div>
+            )}
+          </>
         )}
       </div>
 
