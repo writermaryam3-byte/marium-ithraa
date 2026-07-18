@@ -3,7 +3,8 @@
 import { Link } from '@/i18n/navigation'
 import { useRouter } from '@/i18n/navigation'
 import { useTranslations } from 'next-intl'
-import { showErrorToast, showSuccessToast } from '@/lib/toast/app-toast'
+import { useActionFeedback } from '@/hooks/useActionFeedback'
+import { isActionSuccess } from '@/features/forms/action-results'
 
 import { ManagementPageHeader } from '@/components/shared/management/ManagementPageHeader'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
@@ -15,7 +16,7 @@ import { useFormConfig } from '@/features/forms/hooks/useFormConfig'
 import { useServerActionForm } from '@/features/forms/hooks/useServerActionForm'
 import { RhfFormFields } from '@/features/forms/components/RhfFormFields'
 import { createGradeSchema, updateGradeSchema } from '@/features/forms/schemas/grade.schema'
-import { FormTypes, StatusCode } from '@/lib/types/enums'
+import { FormTypes } from '@/lib/types/enums'
 
 type Props = {
   locale: string
@@ -30,6 +31,7 @@ export function GradeFormScreen({ locale, organizationId, grade }: Props) {
   const tCommon = useTranslations('common')
   const isEdit = Boolean(grade)
   const action = isEdit ? updateGradeAction : createGradeAction
+  const { notifyAction } = useActionFeedback()
   const { fields } = useFormConfig(FormTypes.GRADE)
 
   const schema = isEdit ? updateGradeSchema : createGradeSchema
@@ -41,10 +43,12 @@ export function GradeFormScreen({ locale, organizationId, grade }: Props) {
     action,
     onStatusChange: (state) => {
       if (!state?.status) return
-      if (state.status === StatusCode.CREATED || state.status === StatusCode.OK) {
-        showSuccessToast(t, state.message ?? 'toast.saved')
+      if (isActionSuccess(state)) {
+        notifyAction(state)
         router.push('/dashboards/organization/grades')
-      } else if (state.message) showErrorToast(t, state.message)
+      } else if (state.message) {
+        notifyAction(state)
+      }
     },
   })
 
@@ -81,10 +85,10 @@ export function GradeFormScreen({ locale, organizationId, grade }: Props) {
                   className="h-11 flex-1 rounded-xl"
                   disabled={isPending}
                 >
-                  {isPending ? tCommon('saving') : tCommon('saveChanges')}
+                  {isPending ? tCommon('states.saving') : tCommon('buttons.save')}
                 </Button>
                 <Button variant="outline" className="h-11 rounded-xl" asChild>
-                  <Link href="/dashboards/organization/grades">{tCommon('cancel')}</Link>
+                  <Link href="/dashboards/organization/grades">{tCommon('buttons.cancel')}</Link>
                 </Button>
               </div>
             </form>

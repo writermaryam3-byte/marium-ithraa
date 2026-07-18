@@ -20,7 +20,7 @@ export async function deleteClassAction(
 ): Promise<DeleteClassState> {
   const parsed = parseFormData(formData, idSchema)
   if (!parsed.success) {
-    return deleteFailure('Actions.common.invalidId')
+    return deleteFailure('common.invalidId')
   }
 
   try {
@@ -28,6 +28,6 @@ export async function deleteClassAction(
     revalidatePath('/dashboards/organization/classes')
     return deleteSuccess()
   } catch {
-    return deleteFailure('Actions.classes.deleteFailed')
+    return deleteFailure('classes.deleteFailed')
   }
 }

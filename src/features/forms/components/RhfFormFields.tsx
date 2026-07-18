@@ -3,7 +3,8 @@
 import { useState } from 'react'
 import { EyeIcon, EyeOffIcon } from 'lucide-react'
 import { useFormContext } from 'react-hook-form'
-import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
+import { FormControl, FormField, FormItem, FormLabel } from '@/components/ui/form'
+import { TranslatedFormMessage } from './TranslatedFormMessage'
 import { Input } from '@/components/ui/input'
 import { PhoneInputField } from '@/components/shared/forms/PhoneInputField'
 import { Checkbox } from '@/components/ui/checkbox'
@@ -52,7 +53,7 @@ export function RhfFormFields({ fields }: Props) {
               <FormItem>
                 <FormLabel>{field.label}</FormLabel>
                 <FormControl>{renderControl(field, rhfField)}</FormControl>
-                <FormMessage />
+                <TranslatedFormMessage />
               </FormItem>
             )}
           />

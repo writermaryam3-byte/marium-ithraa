@@ -56,6 +56,20 @@
   "Grade": {
     "name": { "label": "Grade Name", "placeholder": "Enter grade name" }
   },
+  "validation": {
+    "nameRequired": "Name is required",
+    "organizationRequired": "Organization is required",
+    "gradeRequired": "Grade is required",
+    "classNameRequired": "Class name is required",
+    "jobTitleRequired": "Job title is required"
+  },
+  "errors": {
+    "invalid_id": "Invalid identifier",
+    "phone_required": "Phone number is required",
+    "password_min": "Password must be at least 8 characters",
+    "invalid_email": "Enter a valid email address",
+    "name_required": "Name must be at least 2 characters"
+  },
   "Test": {
     "title": { "label": "Title", "placeholder": "Enter test title" },
     "description": { "label": "Description", "placeholder": "Enter test description" }

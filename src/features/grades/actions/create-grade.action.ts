@@ -21,10 +21,10 @@ export async function createGradeAction(
   try {
     await createGrade(parsed.data)
     revalidatePath('/dashboards/organization/grades')
-    return actionSuccess('Actions.grades.created', StatusCode.CREATED)
+    return actionSuccess('grades.created', StatusCode.CREATED)
   } catch (error) {
     return actionErrorState(error, formData, {
-      conflict: 'Actions.common.conflict',
+      conflict: 'common.conflict',
     })
   }
 }

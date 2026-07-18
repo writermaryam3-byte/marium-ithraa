@@ -22,7 +22,7 @@ export async function updateChildAction(
     const { id, ...payload } = parsed.data
     await updateChild(id, payload)
     revalidatePath('/dashboards/organization/children')
-    return actionSuccess('Actions.children.updated', StatusCode.OK)
+    return actionSuccess('children.updated', StatusCode.OK)
   } catch (error) {
     return actionErrorState(error, formData)
   }

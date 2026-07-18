@@ -2,7 +2,6 @@
 
 import { Loader2 } from 'lucide-react'
 import { useTranslations } from 'next-intl'
-import { showErrorToast, showSuccessToast } from '@/lib/toast/app-toast'
 
 import { Button } from '@/components/ui/button'
 import {
@@ -15,6 +14,7 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog'
 import { ServerActionForm } from '@/features/forms'
+import { useActionFeedback } from '@/hooks/useActionFeedback'
 import { FormTypes, StatusCode } from '@/lib/types/enums'
 import type { InitialState } from '@/lib/types/types'
 
@@ -35,15 +35,16 @@ export function UpdateGradeDialog({
 }: UpdateGradeDialogProps) {
   const t = useTranslations('organizations.grades.forms')
   const tCommon = useTranslations('common')
+  const { notifyAction } = useActionFeedback()
 
   const handleStatus = (state: InitialState) => {
     if (state.status === StatusCode.OK) {
-      showSuccessToast(t, state.message ?? 'toast.saved')
+      notifyAction(state)
       onOpenChange(false)
       return
     }
     if (state.status && state.message) {
-      showErrorToast(t, state.message)
+      notifyAction(state)
     }
   }
 
@@ -57,14 +58,14 @@ export function UpdateGradeDialog({
         <ServerActionForm
           formType={FormTypes.GRADE_UPDATE}
           action={updateGradeAction}
-          hiddenFields={{ id: gradeId, name: gradeName }}
+          hiddenFields={{ id: gradeId }}
           onStatusChange={handleStatus}
           defaultValues={{ id: gradeId, name: gradeName }}
         >
           <DialogFooter>
             <DialogClose asChild>
               <Button variant="outline" type="button">
-                {tCommon('cancel')}
+                {tCommon('buttons.cancel')}
               </Button>
             </DialogClose>
             <Button
@@ -72,7 +73,7 @@ export function UpdateGradeDialog({
               className="rounded-xl bg-linear-to-r from-fuchsia-600 to-violet-600 text-white hover:opacity-95"
             >
               <Loader2 className="me-2 h-4 w-4 animate-spin hidden in-[[disabled]]:inline" />
-              {tCommon('saveChanges')}
+              {tCommon('buttons.save')}
             </Button>
           </DialogFooter>
         </ServerActionForm>

@@ -43,7 +43,7 @@ export function ClassDetailScreen({ classItem, classChildren }: Props) {
 
   useEffect(() => {
     if (deleteState.success) {
-      notifyDelete(deleteState, 'Actions.children.deleted')
+      notifyDelete(deleteState, 'children.deleted')
       queueMicrotask(() => setDeleteTarget(null))
     } else if (deleteState.message) {
       notifyDelete(deleteState)
@@ -91,7 +91,7 @@ export function ClassDetailScreen({ classItem, classChildren }: Props) {
                   <div className="flex gap-2 pt-2">
                     <Button variant="outline" size="sm" className="rounded-xl flex-1" asChild>
                       <Link href={`/dashboards/organization/children/${child.id}`}>
-                        {tCommon('edit')}
+                        {tCommon('buttons.edit')}
                       </Link>
                     </Button>
                     <Button
@@ -101,7 +101,7 @@ export function ClassDetailScreen({ classItem, classChildren }: Props) {
                       type="button"
                       onClick={() => setDeleteTarget(child)}
                     >
-                      {tCommon('delete')}
+                      {tCommon('buttons.delete')}
                     </Button>
                   </div>
                 </CardContent>
@@ -115,7 +115,7 @@ export function ClassDetailScreen({ classItem, classChildren }: Props) {
         <DialogContent>
           <DialogHeader>
             <DialogTitle>{t('deleteTitle')}</DialogTitle>
-            <DialogDescription>{tCommon('confirmDelete')}</DialogDescription>
+            <DialogDescription>{tCommon('general.confirmDelete')}</DialogDescription>
           </DialogHeader>
           {deleteTarget && (
             <form action={deleteAction}>
@@ -126,7 +126,7 @@ export function ClassDetailScreen({ classItem, classChildren }: Props) {
                 disabled={isDeleting}
                 className="w-full rounded-xl"
               >
-                {isDeleting ? <Loader2 className="h-4 w-4 animate-spin" /> : tCommon('delete')}
+                {isDeleting ? <Loader2 className="h-4 w-4 animate-spin" /> : tCommon('buttons.delete')}
               </Button>
             </form>
           )}

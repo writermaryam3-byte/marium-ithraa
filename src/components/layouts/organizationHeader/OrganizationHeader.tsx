@@ -25,6 +25,7 @@ const navLinks = [
   { labelKey: 'teachers', href: '/dashboards/organization/teachers' },
   { labelKey: 'deals', href: '/dashboards/organization/deals' },
   { labelKey: 'results', href: '/dashboards/organization/results' },
+  { labelKey: 'subscription', href: '/dashboards/organization/subscription' },
 ] as const
 
 const operationalLinkHrefs = new Set([

@@ -1,7 +1,8 @@
 'use client'
 
 import { useState } from 'react'
-import { showErrorToast, showSuccessToast } from '@/lib/toast/app-toast'
+import { useActionFeedback } from '@/hooks/useActionFeedback'
+import { isActionSuccess } from '@/features/forms/action-results'
 import { Loader2 } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 
@@ -28,7 +29,7 @@ import { useFormConfig } from '@/features/forms/hooks/useFormConfig'
 import { useServerActionForm } from '@/features/forms/hooks/useServerActionForm'
 import { RhfFormFields } from '@/features/forms/components/RhfFormFields'
 import { updateChildSchema } from '@/features/forms/schemas/child.schema'
-import { FormTypes, Gender, StatusCode } from '@/lib/types/enums'
+import { FormTypes, Gender } from '@/lib/types/enums'
 
 import { updateChildAction } from '../actions/update-child.action'
 
@@ -51,6 +52,7 @@ export function UpdateChildDialog({
 }: UpdateChildDialogProps) {
   const t = useTranslations('children')
   const tCommon = useTranslations('common')
+  const { notifyAction } = useActionFeedback()
   const { fields } = useFormConfig(FormTypes.CHILD_UPDATE)
 
   const { form, submit, isPending } = useServerActionForm({
@@ -63,12 +65,12 @@ export function UpdateChildDialog({
     },
     action: updateChildAction,
     onStatusChange: (state) => {
-      if (state.status === StatusCode.OK) {
-        showSuccessToast(t, state.message ?? 'toast.saved')
+      if (isActionSuccess(state)) {
+        notifyAction(state)
         onOpenChange(false)
         return
       }
-      if (state.status && state.message) showErrorToast(t, state.message)
+      if (state.message) notifyAction(state)
     },
   })
 
@@ -76,8 +78,8 @@ export function UpdateChildDialog({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-sm max-h-150 overflow-y-auto">
         <DialogHeader>
-          <DialogTitle>{t('dialog.editTitle')}</DialogTitle>
-          <DialogDescription>{t('dialog.editDescription')}</DialogDescription>
+          <DialogTitle>{t('dialogs.editTitle')}</DialogTitle>
+          <DialogDescription>{t('dialogs.editDescription')}</DialogDescription>
         </DialogHeader>
         <Form {...form}>
           <form
@@ -109,7 +111,7 @@ export function UpdateChildDialog({
             <DialogFooter>
               <DialogClose asChild>
                 <Button variant="outline" type="button">
-                  {tCommon('cancel')}
+                  {tCommon('buttons.cancel')}
                 </Button>
               </DialogClose>
               <Button
@@ -120,10 +122,10 @@ export function UpdateChildDialog({
                 {isPending ? (
                   <>
                     <Loader2 className="h-4 w-4 animate-spin" />
-                    {tCommon('saving')}
+                    {tCommon('states.saving')}
                   </>
                 ) : (
-                  tCommon('saveChanges')
+                  tCommon('buttons.save')
                 )}
               </Button>
             </DialogFooter>

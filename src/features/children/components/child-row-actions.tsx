@@ -80,7 +80,7 @@ export function ChildRowActions({ child }: Props) {
   useEffect(() => {
     if (!deleteOpen) return
     if (deleteState.success) {
-      notifyDelete(deleteState, 'Actions.children.deleted')
+      notifyDelete(deleteState, 'children.deleted')
       setDeleteOpen(false)
     } else if (deleteState.message) {
       notifyDelete(deleteState)
@@ -97,8 +97,8 @@ export function ChildRowActions({ child }: Props) {
         </DialogTrigger>
         <DialogContent className="sm:max-w-sm max-h-150 overflow-y-auto">
           <DialogHeader>
-            <DialogTitle>{t('dialog.editTitle')}</DialogTitle>
-            <DialogDescription>{t('dialog.editDescription')}</DialogDescription>
+            <DialogTitle>{t('dialogs.editTitle')}</DialogTitle>
+            <DialogDescription>{t('dialogs.editDescription')}</DialogDescription>
           </DialogHeader>
           <Form {...form}>
             <form
@@ -132,10 +132,10 @@ export function ChildRowActions({ child }: Props) {
                   {isPending ? (
                     <>
                       <Loader2 className="h-4 w-4 animate-spin" />
-                      {tCommon('saving')}
+                      {tCommon('states.saving')}
                     </>
                   ) : (
-                    tCommon('saveChanges')
+                    tCommon('buttons.save')
                   )}
                 </Button>
               </DialogFooter>
@@ -158,18 +158,18 @@ export function ChildRowActions({ child }: Props) {
           <form action={deleteAction}>
             <input type="hidden" name="id" value={child.id} />
             <DialogHeader>
-              <DialogTitle>{t('dialog.deleteTitle')}</DialogTitle>
-              <DialogDescription>{t('dialog.deleteDescription')}</DialogDescription>
+              <DialogTitle>{t('dialogs.deleteTitle')}</DialogTitle>
+              <DialogDescription>{t('dialogs.deleteDescription')}</DialogDescription>
             </DialogHeader>
             <DialogFooter className="mt-4">
               <Button type="submit" variant="destructive" disabled={isDeleting}>
                 {isDeleting ? (
                   <>
                     <Loader2 className="h-4 w-4 animate-spin" />
-                    {tCommon('deleting')}
+                    {tCommon('states.deleting')}
                   </>
                 ) : (
-                  tCommon('delete')
+                  tCommon('buttons.delete')
                 )}
               </Button>
             </DialogFooter>

@@ -23,7 +23,7 @@ export async function updateClassAction(
     await updateClass(id, payload)
     revalidatePath('/dashboards/organization/classes')
     revalidatePath(`/dashboards/organization/classes/${id}`)
-    return actionSuccess('Actions.classes.updated', StatusCode.OK)
+    return actionSuccess('classes.updated', StatusCode.OK)
   } catch (error) {
     return actionErrorState(error, formData)
   }

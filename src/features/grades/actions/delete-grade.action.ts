@@ -20,7 +20,7 @@ export async function deleteGradeAction(
 ): Promise<DeleteGradeState> {
   const parsed = parseFormData(formData, idSchema)
   if (!parsed.success) {
-    return deleteFailure('Actions.common.invalidId')
+    return deleteFailure('common.invalidId')
   }
 
   try {
@@ -28,6 +28,6 @@ export async function deleteGradeAction(
     revalidatePath('/dashboards/organization/grades')
     return deleteSuccess()
   } catch {
-    return deleteFailure('Actions.grades.deleteFailed')
+    return deleteFailure('grades.deleteFailed')
   }
 }

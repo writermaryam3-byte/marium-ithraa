@@ -3,7 +3,8 @@
 import { Link } from '@/i18n/navigation'
 import { useRouter } from '@/i18n/navigation'
 import { useTranslations } from 'next-intl'
-import { showErrorToast, showSuccessToast } from '@/lib/toast/app-toast'
+import { useActionFeedback } from '@/hooks/useActionFeedback'
+import { isActionSuccess } from '@/features/forms/action-results'
 
 import { ManagementPageHeader } from '@/components/shared/management/ManagementPageHeader'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
@@ -25,7 +26,7 @@ import { useFormConfig } from '@/features/forms/hooks/useFormConfig'
 import { useServerActionForm } from '@/features/forms/hooks/useServerActionForm'
 import { RhfFormFields } from '@/features/forms/components/RhfFormFields'
 import { createClassSchema, updateClassSchema } from '@/features/forms/schemas/class.schema'
-import { FormTypes, StatusCode } from '@/lib/types/enums'
+import { FormTypes } from '@/lib/types/enums'
 
 type Props = {
   locale: string
@@ -41,6 +42,7 @@ export function ClassFormScreen({ locale, grades, teachers, defaultGradeId, clas
   const router = useRouter()
   const t = useTranslations('organizations.classes.forms')
   const tCommon = useTranslations('common')
+  const { notifyAction } = useActionFeedback()
   const { fields } = useFormConfig(FormTypes.CLASS)
   const isEdit = Boolean(classItem)
   const action = isEdit ? updateClassAction : createClassAction
@@ -61,10 +63,12 @@ export function ClassFormScreen({ locale, grades, teachers, defaultGradeId, clas
     action,
     onStatusChange: (state) => {
       if (!state?.status) return
-      if (state.status === StatusCode.CREATED || state.status === StatusCode.OK) {
-        showSuccessToast(t, state.message ?? 'toast.saved')
+      if (isActionSuccess(state)) {
+        notifyAction(state)
         router.push('/dashboards/organization/classes')
-      } else if (state.message) showErrorToast(t, state.message)
+      } else if (state.message) {
+        notifyAction(state)
+      }
     },
   })
 
@@ -148,10 +152,10 @@ export function ClassFormScreen({ locale, grades, teachers, defaultGradeId, clas
                   className="h-11 flex-1 rounded-xl"
                   disabled={isPending}
                 >
-                  {isPending ? tCommon('saving') : tCommon('saveChanges')}
+                  {isPending ? tCommon('states.saving') : tCommon('buttons.save')}
                 </Button>
                 <Button variant="outline" className="h-11 rounded-xl" asChild>
-                  <Link href="/dashboards/organization/classes">{tCommon('cancel')}</Link>
+                  <Link href="/dashboards/organization/classes">{tCommon('buttons.cancel')}</Link>
                 </Button>
               </div>
             </form>

@@ -56,6 +56,20 @@
   "Grade": {
     "name": { "label": "اسم الصف", "placeholder": "أدخل اسم الصف" }
   },
+  "validation": {
+    "nameRequired": "الاسم مطلوب",
+    "organizationRequired": "المؤسسة مطلوبة",
+    "gradeRequired": "الصف الدراسي مطلوب",
+    "classNameRequired": "اسم الفصل مطلوب",
+    "jobTitleRequired": "المسمى الوظيفي مطلوب"
+  },
+  "errors": {
+    "invalid_id": "معرّف غير صالح",
+    "phone_required": "رقم الهاتف مطلوب",
+    "password_min": "يجب أن تكون كلمة المرور 8 أحرف على الأقل",
+    "invalid_email": "أدخل بريداً إلكترونياً صالحاً",
+    "name_required": "يجب أن يكون الاسم حرفين على الأقل"
+  },
   "Test": {
     "title": { "label": "العنوان", "placeholder": "أدخل عنوان الاختبار" },
     "description": { "label": "الوصف", "placeholder": "أدخل وصف الاختبار" }

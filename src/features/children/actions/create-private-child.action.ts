@@ -32,7 +32,7 @@ export async function createPrivateChildAction(
   }
 
   if (currentCount >= maxChildren) {
-    return actionFailure('Actions.children.limitReached', StatusCode.BADREQUEST, formData)
+    return actionFailure('children.limitReached', StatusCode.BADREQUEST, formData)
   }
 
   try {

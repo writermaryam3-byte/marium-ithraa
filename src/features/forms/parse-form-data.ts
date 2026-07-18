@@ -42,7 +42,7 @@ export function parseFormData<TSchema extends z.ZodType>(
     state: actionValidationFailure(
       validationErrors,
       formData,
-      options?.message ?? 'Actions.common.validationFailed',
+      options?.message ?? 'common.validationFailed',
     ),
   }
 }

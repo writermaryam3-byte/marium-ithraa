@@ -23,7 +23,7 @@ export async function updateGradeAction(
     await updateGrade(id, { name })
     revalidatePath('/dashboards/organization/grades')
     revalidatePath(`/dashboards/organization/grades/${id}`)
-    return actionSuccess('Actions.grades.updated', StatusCode.OK)
+    return actionSuccess('grades.updated', StatusCode.OK)
   } catch (error) {
     return actionErrorState(error, formData)
   }

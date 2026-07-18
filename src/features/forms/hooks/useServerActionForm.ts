@@ -73,7 +73,8 @@ export function useServerActionForm<T extends FieldValues>({
 
   const submit = (values: T, extra?: Record<string, string>) => {
     const fd = new FormData()
-    const merged = { ...values, ...extra } as Record<string, unknown>
+    // Form values must win over hidden metadata (e.g. id-only extras).
+    const merged = { ...extra, ...values } as Record<string, unknown>
 
     for (const [key, value] of Object.entries(merged)) {
       if (value !== undefined && value !== null) {

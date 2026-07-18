@@ -42,7 +42,7 @@ export function TeachersScreen({ teachers }: { teachers: Teacher[] }) {
 
   useEffect(() => {
     if (deleteState.success) {
-      notifyDelete(deleteState, 'Actions.teachers.deleted')
+      notifyDelete(deleteState, 'teachers.deleted')
     } else if (deleteState.message) {
       notifyDelete(deleteState)
     }
@@ -58,9 +58,9 @@ export function TeachersScreen({ teachers }: { teachers: Teacher[] }) {
           { label: t('title') },
         ]}
         title={t('title')}
-        subtitle={t('subtitle')}
+        subtitle={t('description')}
         action={{
-          label: t('add'),
+          label: t('actions.add'),
           href: '/dashboards/organization/teachers/new',
           icon: <UserPlus />,
         }}
@@ -68,8 +68,8 @@ export function TeachersScreen({ teachers }: { teachers: Teacher[] }) {
 
       {teachers.length === 0 ? (
         <EmptyState
-          title={t('empty')}
-          actionLabel={t('add')}
+          title={t('messages.empty')}
+          actionLabel={t('actions.add')}
           actionHref="/dashboards/organization/teachers/new"
           illustration={
             <svg
@@ -1067,8 +1067,8 @@ export function TeachersScreen({ teachers }: { teachers: Teacher[] }) {
               return (
                 <EntityCard
                   key={teacher.userId}
-                  editLabel={tCommon('edit')}
-                  deleteLabel={tCommon('delete')}
+                  editLabel={tCommon('buttons.edit')}
+                  deleteLabel={tCommon('buttons.delete')}
                   fields={[
                     { label: t('fields.name'), value: teacher.name, icon: <UserRound /> },
                     { label: t('fields.jobTitle'), value: teacher.jobTitle, icon: <UserRound /> },
@@ -1120,8 +1120,8 @@ export function TeachersScreen({ teachers }: { teachers: Teacher[] }) {
                     <Dialog open={open} onOpenChange={(v) => !v && onClose()}>
                       <DialogContent className="sm:max-w-sm">
                         <DialogHeader>
-                          <DialogTitle>{tCommon('delete')}</DialogTitle>
-                          <DialogDescription>{tCommon('confirmDelete')}</DialogDescription>
+                          <DialogTitle>{t('dialogs.deleteTitle')}</DialogTitle>
+                          <DialogDescription>{tCommon('general.confirmDelete')}</DialogDescription>
                         </DialogHeader>
                         <form action={deleteAction}>
                           <input type="hidden" name="id" value={teacher.userId} />
@@ -1129,10 +1129,10 @@ export function TeachersScreen({ teachers }: { teachers: Teacher[] }) {
                             {isDeleting ? (
                               <>
                                 <Loader2 className="h-4 w-4 animate-spin" />
-                                {tCommon('deleting')}
+                                {tCommon('states.deleting')}
                               </>
                             ) : (
-                              tCommon('delete')
+                              tCommon('buttons.delete')
                             )}
                           </Button>
                         </form>

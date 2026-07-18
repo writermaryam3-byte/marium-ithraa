@@ -23,7 +23,7 @@ export function useActionFeedback() {
         showErrorToast(t, state.message)
       }
     },
-    notifyDelete(state: DeleteActionResult, successKey = 'actions.common.deleted') {
+    notifyDelete(state: DeleteActionResult, successKey = 'common.deleted') {
       if (state.success) {
         showSuccessToast(t, successKey)
         return

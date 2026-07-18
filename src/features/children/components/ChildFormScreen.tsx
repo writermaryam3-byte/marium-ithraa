@@ -4,7 +4,8 @@ import { Link } from '@/i18n/navigation'
 import { useRouter } from '@/i18n/navigation'
 import { useMemo, useState } from 'react'
 import { useTranslations } from 'next-intl'
-import { showErrorToast, showSuccessToast } from '@/lib/toast/app-toast'
+import { useActionFeedback } from '@/hooks/useActionFeedback'
+import { isActionSuccess } from '@/features/forms/action-results'
 
 import { ManagementPageHeader } from '@/components/shared/management/ManagementPageHeader'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
@@ -25,7 +26,7 @@ import { useFormConfig } from '@/features/forms/hooks/useFormConfig'
 import { useServerActionForm } from '@/features/forms/hooks/useServerActionForm'
 import { RhfFormFields } from '@/features/forms/components/RhfFormFields'
 import { updateChildSchema } from '@/features/forms/schemas/child.schema'
-import { FormTypes, Gender, StatusCode } from '@/lib/types/enums'
+import { FormTypes, Gender } from '@/lib/types/enums'
 
 type Props = {
   locale: string
@@ -39,6 +40,7 @@ export function ChildFormScreen({ locale, grades, classes, child }: Props) {
   const router = useRouter()
   const t = useTranslations('children.forms')
   const tCommon = useTranslations('common')
+  const { notifyAction } = useActionFeedback()
   const { fields: updateFields } = useFormConfig(FormTypes.CHILD_UPDATE)
   const [gradeFilter, setGradeFilter] = useState(child.gradeId ?? child.class?.gradeId ?? '')
 
@@ -59,10 +61,12 @@ export function ChildFormScreen({ locale, grades, classes, child }: Props) {
     action: updateChildAction,
     onStatusChange: (state) => {
       if (!state?.status) return
-      if (state.status === StatusCode.OK) {
-        showSuccessToast(t, state.message ?? 'toast.saved')
+      if (isActionSuccess(state)) {
+        notifyAction(state)
         router.push('/dashboards/organization/children')
-      } else if (state.message) showErrorToast(t, state.message)
+      } else if (state.message) {
+        notifyAction(state)
+      }
     },
   })
 
@@ -170,10 +174,10 @@ export function ChildFormScreen({ locale, grades, classes, child }: Props) {
                   className="h-11 flex-1 rounded-xl"
                   disabled={isPending}
                 >
-                  {isPending ? tCommon('saving') : tCommon('saveChanges')}
+                  {isPending ? tCommon('states.saving') : tCommon('buttons.save')}
                 </Button>
                 <Button variant="outline" className="h-11 rounded-xl" asChild>
-                  <Link href="/dashboards/organization/children">{tCommon('cancel')}</Link>
+                  <Link href="/dashboards/organization/children">{tCommon('buttons.cancel')}</Link>
                 </Button>
               </div>
             </form>

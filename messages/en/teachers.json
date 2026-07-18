@@ -18,6 +18,9 @@
   "messages": {
     "empty": "No teachers yet"
   },
+  "dialogs": {
+    "deleteTitle": "Delete teacher"
+  },
   "emptyStates": {
     "list": "No teachers yet"
   },

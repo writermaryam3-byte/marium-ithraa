@@ -8,7 +8,7 @@ export const createTeacherSchema = z.object({
   email: emailSchema,
   phone: phoneSchema,
   password: passwordSchema,
-  jobTitle: z.string().min(1, 'Job title is required'),
+  jobTitle: z.string().min(1, 'validation.jobTitleRequired'),
 })
 
 export const updateTeacherSchema = z.object({
@@ -16,7 +16,7 @@ export const updateTeacherSchema = z.object({
   name: nameSchema.optional(),
   email: emailSchema.optional(),
   phone: phoneSchema.optional(),
-  jobTitle: z.string().min(1, 'Job title is required').optional(),
+  jobTitle: z.string().min(1, 'validation.jobTitleRequired').optional(),
 })
 
 export const deleteTeacherSchema = idSchema

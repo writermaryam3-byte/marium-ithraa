@@ -21,10 +21,10 @@ export async function createTeacherAction(
   try {
     await createTeacher(parsed.data)
     revalidatePath('/dashboards/organization/teachers')
-    return actionSuccess('Actions.teachers.created', StatusCode.CREATED)
+    return actionSuccess('teachers.created', StatusCode.CREATED)
   } catch (error) {
     return actionErrorState(error, formData, {
-      conflict: 'Actions.common.conflict',
+      conflict: 'common.conflict',
     })
   }
 }

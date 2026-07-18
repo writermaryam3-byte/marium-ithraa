@@ -71,7 +71,7 @@ export function ChildrenScreen({ childrens, grades, classes }: Props) {
 
   useEffect(() => {
     if (deleteState.success) {
-      notifyDelete(deleteState, 'Actions.children.deleted')
+      notifyDelete(deleteState, 'children.deleted')
     } else if (deleteState.message) {
       notifyDelete(deleteState)
     }
@@ -112,7 +112,7 @@ export function ChildrenScreen({ childrens, grades, classes }: Props) {
           { label: t('title') },
         ]}
         title={t('title')}
-        subtitle={t('subtitle')}
+        subtitle={t('description')}
         action={{
           label: t('actions.add'),
           href: '/dashboards/organization/children/new',
@@ -127,7 +127,7 @@ export function ChildrenScreen({ childrens, grades, classes }: Props) {
           setSearch(value)
           resetPage()
         }}
-        searchPlaceholder={t('searchPlaceholder')}
+        searchPlaceholder={t('filters.searchPlaceholder')}
         gradeFilter={{
           value: gradeFilter,
           onChange: (v) => {
@@ -136,8 +136,8 @@ export function ChildrenScreen({ childrens, grades, classes }: Props) {
             resetPage()
           },
           options: grades.map((g) => ({ value: g.id, label: g.name })),
-          label: t('gradeFilter'),
-          allLabel: t('allGrades'),
+          label: t('filters.grade'),
+          allLabel: t('filters.allGrades'),
         }}
         classFilter={{
           value: classFilter,
@@ -149,14 +149,14 @@ export function ChildrenScreen({ childrens, grades, classes }: Props) {
             value: c.id,
             label: c.name,
           })),
-          label: t('classFilter'),
-          allLabel: t('allClasses'),
+          label: t('filters.class'),
+          allLabel: t('filters.allClasses'),
         }}
       />
 
       {filtered.length === 0 ? (
         <EmptyState
-          title={tCommon('noData')}
+          title={tCommon('empty.noData')}
           actionLabel={childrens.length === 0 ? t('actions.add') : undefined}
           actionHref={childrens.length === 0 ? '/dashboards/organization/children/new' : undefined}
         />
@@ -167,16 +167,16 @@ export function ChildrenScreen({ childrens, grades, classes }: Props) {
               const evalInfo = getChildEvaluationLabel(child, t)
               const genderLabel =
                 child.gender === Gender.MALE
-                  ? t('gender.male')
+                  ? t('fields.genderOptions.male')
                   : child.gender === Gender.FEMALE
-                    ? t('gender.female')
+                    ? t('fields.genderOptions.female')
                     : (child.gender ?? '—')
 
               return (
                 <EntityCard
                   key={child.id}
-                  editLabel={tCommon('edit')}
-                  deleteLabel={tCommon('delete')}
+                  editLabel={tCommon('buttons.edit')}
+                  deleteLabel={tCommon('buttons.delete')}
                   fields={[
                     {
                       label: t('fields.name'),
@@ -256,8 +256,8 @@ export function ChildrenScreen({ childrens, grades, classes }: Props) {
                     <Dialog open={open} onOpenChange={(v) => !v && onClose()}>
                       <DialogContent className="sm:max-w-sm">
                         <DialogHeader>
-                          <DialogTitle>{t('dialog.deleteTitle')}</DialogTitle>
-                          <DialogDescription>{t('dialog.deleteConfirmShort')}</DialogDescription>
+                          <DialogTitle>{t('dialogs.deleteTitle')}</DialogTitle>
+                          <DialogDescription>{t('dialogs.deleteConfirmShort')}</DialogDescription>
                         </DialogHeader>
                         <form action={deleteAction}>
                           <input type="hidden" name="id" value={child.id} />
@@ -270,10 +270,10 @@ export function ChildrenScreen({ childrens, grades, classes }: Props) {
                             {isDeleting ? (
                               <>
                                 <Loader2 className="h-4 w-4 animate-spin" />
-                                {tCommon('deleting')}
+                                {tCommon('states.deleting')}
                               </>
                             ) : (
-                              tCommon('delete')
+                              tCommon('buttons.delete')
                             )}
                           </Button>
                         </form>

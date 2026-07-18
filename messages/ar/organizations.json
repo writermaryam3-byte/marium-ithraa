@@ -98,10 +98,132 @@
       "title": "مرحباً بك في {organizationName}",
       "subtitle": "أدر مؤسستك بكل سهولة من مكان واحد"
     },
+    "loadError": "تعذّر تحميل بيانات لوحة التحكم.",
+    "retry": "إعادة المحاولة",
+    "overview": {
+      "title": "نظرة عامة على المؤسسة"
+    },
     "platformStats": "إحصائيات المنصة",
     "recentActivity": "آخر النشاطات",
     "emptyStats": "لا توجد إحصائيات بعد. ستظهر البيانات عند إضافة الأطفال والفصول والمعلمين.",
-    "emptyActivity": "لا يوجد نشاط حديث بعد."
+    "emptyActivity": "لا يوجد نشاط حديث بعد.",
+    "quickActions": {
+      "title": "إجراءات سريعة",
+      "addChild": "إضافة طفل",
+      "addTeacher": "إضافة معلم",
+      "createClass": "إنشاء فصل",
+      "createGrade": "إنشاء مرحلة",
+      "assignEvaluation": "عرض التقييمات"
+    },
+    "stats": {
+      "totalChildren": "إجمالي الأطفال",
+      "totalTeachers": "إجمالي المعلمين",
+      "totalClasses": "إجمالي الفصول",
+      "totalGrades": "إجمالي المراحل",
+      "activeEvaluations": "تقييمات نشطة",
+      "completedEvaluations": "تقييمات مكتملة",
+      "pendingEvaluations": "بانتظار الموافقة",
+      "subscriptionPlan": "الباقة الحالية",
+      "subscriptionStatus": "حالة الاشتراك",
+      "remainingDays": "الأيام المتبقية"
+    },
+    "charts": {
+      "childrenPerGrade": "الأطفال حسب المرحلة",
+      "evaluationCompletion": "معدل إكمال التقييم",
+      "monthlyActivity": "النشاط الشهري",
+      "noData": "لا توجد بيانات توزيع للمراحل بعد.",
+      "noEvaluations": "لا توجد محاولات تقييم بعد.",
+      "completionHint": "نسبة التقييمات المكتملة أو المعتمدة من إجمالي المحاولات"
+    },
+    "activity": {
+      "justNow": "الآن",
+      "minutesAgo": "{count, plural, =1 {منذ دقيقة} other {منذ # دقائق}}",
+      "hoursAgo": "{count, plural, =1 {منذ ساعة} other {منذ # ساعات}}",
+      "daysAgo": "{count, plural, =1 {منذ يوم} other {منذ # أيام}}",
+      "childAdded": "تمت إضافة طفل",
+      "teacherCreated": "تم إنشاء معلم",
+      "classCreated": "تم إنشاء فصل",
+      "gradeCreated": "تم إنشاء مرحلة",
+      "gradeUpdated": "تم تحديث مرحلة",
+      "classUpdated": "تم تحديث فصل",
+      "teacherUpdated": "تم تحديث معلم",
+      "childUpdated": "تم تحديث طفل",
+      "evaluationAssigned": "بدء تقييم",
+      "evaluationCompleted": "تم تسليم تقييم",
+      "evaluationApproved": "تم اعتماد تقييم",
+      "generic": "تم تسجيل نشاط"
+    },
+    "subscription": {
+      "plans": {
+        "free": {
+          "shortName": "مجانية",
+          "name": "الباقة المجانية"
+        },
+        "basic": {
+          "shortName": "أساسية",
+          "name": "الباقة الأساسية"
+        },
+        "premium": {
+          "shortName": "شاملة",
+          "name": "الباقة الشاملة"
+        }
+      },
+      "status": {
+        "active": "نشط",
+        "expired": "منتهٍ",
+        "trial": "تجريبي"
+      }
+    }
+  },
+  "subscriptionPage": {
+    "title": "باقات الاشتراك",
+    "description": "اختر الباقة المناسبة لمؤسستك",
+    "billingMonthly": "شهرياً",
+    "billingYearly": "سنوياً",
+    "currentPlan": "باقتك الحالية",
+    "upgrade": "ترقية",
+    "downgrade": "تخفيض",
+    "contactSales": "تواصل معنا",
+    "perMonth": "ريال / شهر",
+    "perYear": "ريال / سنة",
+    "popularBadge": "الأكثر شيوعاً",
+    "featuresTitle": "ما يتضمنه",
+    "empty": "لا توجد باقات متاحة حالياً.",
+    "plans": {
+      "free": {
+        "name": "الباقة المجانية",
+        "description": "ابدأ باكتشاف ذكاءات طلابك بدون أي تكلفة.",
+        "features": {
+          "f1": "مقياس الذكاءات المتعددة لـ 100 طالب",
+          "f2": "تقارير مؤشرات الذكاء لأولياء الأمور",
+          "f3": "محاضرات توعوية دورية للأهالي",
+          "f4": "خصومات الأنشطة الحصرية",
+          "f5": "أنشطة الطلاب أونلاين"
+        }
+      },
+      "basic": {
+        "name": "الباقة الأساسية",
+        "description": "مثالية للمدارس لبدء اكتشاف المواهب.",
+        "features": {
+          "f1": "كل ما في المجانية وأكثر",
+          "f2": "مكتبة المقاييس العلمية مع تحديث مستمر",
+          "f3": "تقارير شاملة لكل فصل دراسي",
+          "f4": "أدوات الجدولة وإدارة الفصول",
+          "f5": "أنشطة اليوم الواحد بعدد محدود"
+        }
+      },
+      "premium": {
+        "name": "الباقة الشاملة",
+        "description": "نظام متكامل لاكتشاف المواهب وإدارة الأنشطة.",
+        "features": {
+          "f1": "كل ما في الأساسية وأكثر",
+          "f2": "أنشطة ما بعد المدرسة والمعسكرات الصيفية",
+          "f3": "مشاركة العوائد مع المدرسة",
+          "f4": "أنشطة اليوم الواحد بعدد غير محدود",
+          "f5": "تخصيص متقدم لكل طالب"
+        }
+      }
+    }
   },
   "results": {
     "breadcrumb": {

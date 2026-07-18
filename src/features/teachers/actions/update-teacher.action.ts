@@ -22,7 +22,7 @@ export async function updateTeacherAction(
     const { id, ...payload } = parsed.data
     await updateTeacher(id, payload)
     revalidatePath('/dashboards/organization/teachers')
-    return actionSuccess('Actions.teachers.updated', StatusCode.OK)
+    return actionSuccess('teachers.updated', StatusCode.OK)
   } catch (error) {
     return actionErrorState(error, formData)
   }

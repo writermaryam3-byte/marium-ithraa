@@ -18,6 +18,9 @@
   "messages": {
     "empty": "لا يوجد معلمين بعد"
   },
+  "dialogs": {
+    "deleteTitle": "حذف معلم"
+  },
   "emptyStates": {
     "list": "لا يوجد معلمين بعد"
   },

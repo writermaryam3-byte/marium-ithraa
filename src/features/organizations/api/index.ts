@@ -42,6 +42,50 @@ export async function getMyOrganizationServer() {
   return api.server<Organization>(`/${Endpoint.ORGANIZATIONS}/${Endpoint.ME}`)
 }
 
+export type OrganizationDashboard = {
+  organizationId: string
+  organizationName: string
+  totals: {
+    children: number
+    teachers: number
+    classes: number
+    grades: number
+  }
+  evaluations: {
+    active: number
+    completed: number
+    pending: number
+  }
+  subscription: {
+    planId: string
+    planNameKey: string
+    statusKey: string
+    remainingDays: number | null
+  }
+  charts: {
+    childrenPerGrade: Array<{ gradeId: string; gradeName: string; count: number }>
+    evaluationCompletionRate: number | null
+    monthlyActivity: Array<{ month: string; count: number }>
+  }
+  recentActivity: Array<{
+    id: string
+    action: string
+    entityType: string
+    entityId: string
+    titleKey: string
+    titleValues?: Record<string, string>
+    createdAt: string
+  }>
+}
+
+export async function getOrganizationDashboardClient() {
+  return api.client<OrganizationDashboard>(`/${Endpoint.ORGANIZATIONS}/${Endpoint.ME}/dashboard`)
+}
+
+export async function getOrganizationDashboardServer() {
+  return api.server<OrganizationDashboard>(`/${Endpoint.ORGANIZATIONS}/${Endpoint.ME}/dashboard`)
+}
+
 export async function listOrganizations(params?: ListOrganizationsParams) {
   const payload = await api.client<PaginatedListPayload<Organization> | Organization[]>(
     `/${Endpoint.ORGANIZATIONS}${buildOrganizationsQuery(params)}`,

@@ -98,10 +98,132 @@
       "title": "Welcome to {organizationName}",
       "subtitle": "Manage your organization from one place"
     },
+    "loadError": "Unable to load dashboard data.",
+    "retry": "Retry",
+    "overview": {
+      "title": "Organization overview"
+    },
     "platformStats": "Platform stats",
     "recentActivity": "Recent activity",
     "emptyStats": "No statistics available yet. Data will appear as you add children, classes, and teachers.",
-    "emptyActivity": "No recent activity yet."
+    "emptyActivity": "No recent activity yet.",
+    "quickActions": {
+      "title": "Quick actions",
+      "addChild": "Add child",
+      "addTeacher": "Add teacher",
+      "createClass": "Create class",
+      "createGrade": "Create grade",
+      "assignEvaluation": "View evaluations"
+    },
+    "stats": {
+      "totalChildren": "Total children",
+      "totalTeachers": "Total teachers",
+      "totalClasses": "Total classes",
+      "totalGrades": "Total grades",
+      "activeEvaluations": "Active evaluations",
+      "completedEvaluations": "Completed evaluations",
+      "pendingEvaluations": "Pending approval",
+      "subscriptionPlan": "Current plan",
+      "subscriptionStatus": "Subscription status",
+      "remainingDays": "Remaining days"
+    },
+    "charts": {
+      "childrenPerGrade": "Children per grade",
+      "evaluationCompletion": "Evaluation completion rate",
+      "monthlyActivity": "Monthly activity",
+      "noData": "No grade distribution data yet.",
+      "noEvaluations": "No evaluation attempts yet.",
+      "completionHint": "Share of started evaluations that are completed or approved"
+    },
+    "activity": {
+      "justNow": "Just now",
+      "minutesAgo": "{count, plural, =1 {1 minute ago} other {# minutes ago}}",
+      "hoursAgo": "{count, plural, =1 {1 hour ago} other {# hours ago}}",
+      "daysAgo": "{count, plural, =1 {1 day ago} other {# days ago}}",
+      "childAdded": "Child added",
+      "teacherCreated": "Teacher created",
+      "classCreated": "Class created",
+      "gradeCreated": "Grade created",
+      "gradeUpdated": "Grade updated",
+      "classUpdated": "Class updated",
+      "teacherUpdated": "Teacher updated",
+      "childUpdated": "Child updated",
+      "evaluationAssigned": "Evaluation started",
+      "evaluationCompleted": "Evaluation submitted",
+      "evaluationApproved": "Evaluation approved",
+      "generic": "Activity recorded"
+    },
+    "subscription": {
+      "plans": {
+        "free": {
+          "shortName": "Free",
+          "name": "Free plan"
+        },
+        "basic": {
+          "shortName": "Basic",
+          "name": "Basic plan"
+        },
+        "premium": {
+          "shortName": "Premium",
+          "name": "Premium plan"
+        }
+      },
+      "status": {
+        "active": "Active",
+        "expired": "Expired",
+        "trial": "Trial"
+      }
+    }
+  },
+  "subscriptionPage": {
+    "title": "Subscription plans",
+    "description": "Choose the plan that fits your organization",
+    "billingMonthly": "Monthly",
+    "billingYearly": "Yearly",
+    "currentPlan": "Current plan",
+    "upgrade": "Upgrade",
+    "downgrade": "Downgrade",
+    "contactSales": "Contact sales",
+    "perMonth": "SAR / month",
+    "perYear": "SAR / year",
+    "popularBadge": "Most popular",
+    "featuresTitle": "What's included",
+    "empty": "No plans available at the moment.",
+    "plans": {
+      "free": {
+        "name": "Free plan",
+        "description": "Start discovering your students' intelligences at no cost.",
+        "features": {
+          "f1": "Multiple intelligences scale for up to 100 students",
+          "f2": "Parent intelligence reports",
+          "f3": "Periodic parent awareness sessions",
+          "f4": "Exclusive enrichment activity discounts",
+          "f5": "Online student activities"
+        }
+      },
+      "basic": {
+        "name": "Basic plan",
+        "description": "Ideal for schools beginning talent discovery.",
+        "features": {
+          "f1": "Everything in Free, plus more",
+          "f2": "Full scientific scale library with updates",
+          "f3": "Comprehensive intelligence reports per class",
+          "f4": "Scheduling and class management tools",
+          "f5": "Limited single-day activities"
+        }
+      },
+      "premium": {
+        "name": "Premium plan",
+        "description": "A complete system for talent discovery and activity management.",
+        "features": {
+          "f1": "Everything in Basic, plus more",
+          "f2": "After-school and summer camp activities",
+          "f3": "Revenue sharing on school activities",
+          "f4": "Unlimited single-day activities",
+          "f5": "Advanced per-student customization"
+        }
+      }
+    }
   },
   "results": {
     "breadcrumb": {

@@ -25,10 +25,10 @@ export async function createClassAction(
       ...(teacherId ? { teacherId } : {}),
     })
     revalidatePath('/dashboards/organization/classes')
-    return actionSuccess('Actions.classes.created', StatusCode.CREATED)
+    return actionSuccess('classes.created', StatusCode.CREATED)
   } catch (error) {
     return actionErrorState(error, formData, {
-      conflict: 'Actions.common.conflict',
+      conflict: 'common.conflict',
     })
   }
 }

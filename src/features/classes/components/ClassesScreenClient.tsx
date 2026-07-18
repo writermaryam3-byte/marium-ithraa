@@ -71,9 +71,9 @@ export function ClassesScreenClient({ classes, grades }: Props) {
           { label: t('title') },
         ]}
         title={t('title')}
-        subtitle={t('subtitle')}
+        subtitle={t('description')}
         action={{
-          label: t('add'),
+          label: t('actions.add'),
           href: '/dashboards/organization/classes/new',
           icon: <Plus />,
         }}
@@ -86,7 +86,7 @@ export function ClassesScreenClient({ classes, grades }: Props) {
           setSearch(value)
           resetPage()
         }}
-        searchPlaceholder={t('searchPlaceholder')}
+        searchPlaceholder={t('filters.searchPlaceholder')}
         gradeFilter={{
           value: gradeFilter,
           onChange: (value) => {
@@ -94,15 +94,15 @@ export function ClassesScreenClient({ classes, grades }: Props) {
             resetPage()
           },
           options: grades.map((g) => ({ value: g.id, label: g.name })),
-          label: t('gradeFilter'),
-          allLabel: t('allGrades'),
+          label: t('filters.grade'),
+          allLabel: t('filters.allGrades'),
         }}
       />
 
       {filtered.length === 0 ? (
         <EmptyState
-          title={tCommon('noData')}
-          actionLabel={classes.length === 0 ? t('add') : undefined}
+          title={tCommon('empty.noData')}
+          actionLabel={classes.length === 0 ? t('actions.add') : undefined}
           actionHref={classes.length === 0 ? '/dashboards/organization/classes/new' : undefined}
         />
       ) : (
@@ -111,8 +111,8 @@ export function ClassesScreenClient({ classes, grades }: Props) {
             {pageItems.map((c) => (
               <EntityCard
                 key={c.id}
-                editLabel={tCommon('edit')}
-                deleteLabel={tCommon('delete')}
+                editLabel={tCommon('buttons.edit')}
+                deleteLabel={tCommon('buttons.delete')}
                 fields={[
                   {
                     label: t('fields.name'),
@@ -155,8 +155,8 @@ export function ClassesScreenClient({ classes, grades }: Props) {
                   <Dialog open={open} onOpenChange={(v) => !v && onClose()}>
                     <DialogContent className="sm:max-w-sm">
                       <DialogHeader>
-                        <DialogTitle>{t('deleteTitle')}</DialogTitle>
-                        <DialogDescription>{tCommon('confirmDelete')}</DialogDescription>
+                        <DialogTitle>{t('dialogs.deleteTitle')}</DialogTitle>
+                        <DialogDescription>{tCommon('general.confirmDelete')}</DialogDescription>
                       </DialogHeader>
                       <form action={deleteAction}>
                         <input type="hidden" name="id" value={c.id} />
@@ -169,7 +169,7 @@ export function ClassesScreenClient({ classes, grades }: Props) {
                           {isDeleting ? (
                             <Loader2 className="h-4 w-4 animate-spin" />
                           ) : (
-                            tCommon('delete')
+                            tCommon('buttons.delete')
                           )}
                         </Button>
                       </form>
