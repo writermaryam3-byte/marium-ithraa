@@ -2,7 +2,7 @@
 
 import { LogIn, LogOut, UserCircle } from 'lucide-react'
 import { useTranslations } from 'next-intl'
-
+import LanguageSwitcher from '@/components/layouts/header/langSwitch'
 import { Link } from '@/i18n/navigation'
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
@@ -58,7 +58,7 @@ export function AuthNavActions({
     return (
       <div className="flex items-center gap-2">
         {showNotifications ? <NotificationBell /> : null}
-        {/* {showLanguage ? <LanguageSwitcher locale={locale} /> : null} */}
+        {showLanguage ? <LanguageSwitcher locale={locale} /> : null}
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button

@@ -9,13 +9,14 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { usePathname, useRouter } from '@/i18n/navigation'
+import { useTranslations } from 'next-intl'
 
 export default function LanguageSwitcher({ locale }: { locale: string }) {
   const pathname = usePathname()
   const router = useRouter()
+  const t = useTranslations('navigation.header')
 
   const switchLocale = (newLocale: string) => {
-    // استبدال كود اللغة في المسار الحالي
     const newPath = pathname.replace(`/${locale}`, `/${newLocale}`)
     router.push(newPath)
   }
@@ -27,7 +28,7 @@ export default function LanguageSwitcher({ locale }: { locale: string }) {
           variant="outline"
           size="icon-sm"
           className="rounded-full overflow-hidden"
-          aria-label="Language"
+          aria-label={t('language')}
         >
           <div className="relative size-6">
             {locale === 'ar' ? (
@@ -42,13 +43,13 @@ export default function LanguageSwitcher({ locale }: { locale: string }) {
         <DropdownMenuItem onClick={() => switchLocale('en')}>
           <div className="flex items-center gap-2">
             <span className="fi fi-us w-[18px] h-[18px]"></span>
-            English
+            {t('languageEnglish')}
           </div>
         </DropdownMenuItem>
         <DropdownMenuItem onClick={() => switchLocale('ar')}>
           <div className="flex items-center gap-2">
             <span className="fi fi-sa w-[18px] h-[18px]"></span>
-            العربية
+            {t('languageArabic')}
           </div>
         </DropdownMenuItem>
       </DropdownMenuContent>

@@ -677,7 +677,7 @@ export function OwnerEvaluationResultsScreen({ locale }: Props) {
           breadcrumbs={[
             {
               href: '/dashboards/organization',
-              label: tCommon('home'),
+              label: tCommon('general.home'),
             },
             { label: t('results') },
           ]}

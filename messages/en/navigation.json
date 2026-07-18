@@ -8,7 +8,15 @@
       "contact": "Contact Us"
     },
     "search": "Search",
-    "login": "Login"
+    "login": "Login",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "closeMenuOverlay": "Close menu overlay",
+    "mobileMenuTitle": "Menu",
+    "closeSearch": "Close search",
+    "language": "Language",
+    "languageEnglish": "English",
+    "languageArabic": "Arabic"
   },
   "footer": {
     "menu": {

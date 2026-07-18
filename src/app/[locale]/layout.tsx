@@ -6,7 +6,7 @@ import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { Cairo } from 'next/font/google'
 import { Toaster } from '@/components/ui/sonner'
 import { Providers } from '@/components/providers/QueryClientProvider'
-export const dynamic = 'force-dynamic'
+// export const dynamic = 'force-dynamic'
 
 export const cairo = Cairo({
   subsets: ['arabic', 'latin'],

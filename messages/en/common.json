@@ -41,6 +41,7 @@
     "search": "Search…",
     "unauthorized": "Unauthorized",
     "confirmDelete": "Are you sure?",
-    "done": "Done"
+    "done": "Done",
+    "toggleSidebar": "Toggle sidebar"
   }
 }

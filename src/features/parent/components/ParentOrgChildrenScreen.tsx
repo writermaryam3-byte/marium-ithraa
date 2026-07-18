@@ -56,7 +56,7 @@ export function ParentOrgChildrenScreen({ orgChildren }: Props) {
                     {tParent('attempts')}: {child.attemptsUsed ?? 0}
                   </p>
                   <p className="text-sm">
-                    {tParent('retake')}: {child.retakeUsed ? tCommon('yes') : tCommon('no')}
+                    {tParent('retake')}: {child.retakeUsed ? tCommon('yesNo.yes') : tCommon('yesNo.no')}
                   </p>
                   <p className={`text-sm font-medium ${evalInfo.className}`}>{evalInfo.label}</p>
                   <Button variant="outline" size="sm" className="mt-2 rounded-xl" asChild>

@@ -32,7 +32,7 @@ export function OwnerAttemptResultScreen() {
   const breadcrumbs = [
     {
       href: '/dashboards/organization',
-      label: tCommon('home'),
+      label: tCommon('general.home'),
     },
     {
       href: '/dashboards/organization/results',

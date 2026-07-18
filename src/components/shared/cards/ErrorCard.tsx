@@ -61,7 +61,7 @@ const ErrorCard = ({
             {techDetails ? (
               <Tooltip>
                 <TooltipTrigger asChild>
-                  <span className="inline-flex items-center" aria-label="Error details">
+                  <span className="inline-flex items-center" aria-label={t('errorDetails')}>
                     {IconComponent}
                   </span>
                 </TooltipTrigger>

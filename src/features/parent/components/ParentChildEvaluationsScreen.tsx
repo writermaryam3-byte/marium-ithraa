@@ -80,7 +80,7 @@ export function ParentChildEvaluationsScreen({ childId }: Props) {
     <div className="space-y-6 px-4 lg:px-6" dir={getTextDirection(locale)}>
       <ManagementPageHeader
         breadcrumbs={[
-          { href: '/dashboards/parent', label: tCommon('home') },
+          { href: '/dashboards/parent', label: tCommon('general.home') },
           { href: '/dashboards/parent/children', label: tParent('children') },
           { label: t('childEvaluations') },
         ]}

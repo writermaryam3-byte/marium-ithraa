@@ -150,7 +150,8 @@
   },
   "errorCard": {
     "defaultTitle": "Something went wrong",
-    "retry": "Retry"
+    "retry": "Retry",
+    "errorDetails": "Error details"
   },
   "page": {
     "title": "Something went wrong",

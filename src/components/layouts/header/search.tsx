@@ -27,7 +27,7 @@ const Searchbar = () => {
           <button
             className="fixed inset-0 z-40"
             onClick={() => setOpen(false)}
-            aria-label="Close search"
+            aria-label={t('closeSearch')}
           />
           <div className="absolute top-[calc(100%+12px)] inset-x-0 z-50">
             <div className="mx-auto max-w-2xl rounded-3xl border bg-white shadow-lg backdrop-blur-md p-3">
@@ -45,7 +45,7 @@ const Searchbar = () => {
                   size="icon-sm"
                   className="absolute inset-y-0 inset-e-2 my-auto rounded-full"
                   onClick={() => setOpen(false)}
-                  aria-label="Close"
+                  aria-label={t('closeSearch')}
                 >
                   <X />
                 </Button>

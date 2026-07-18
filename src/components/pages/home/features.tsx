@@ -37,7 +37,7 @@ const tones = [
 ]
 
 export default function HomeFeatures() {
-  const t = useTranslations('HomePage.Features')
+  const t = useTranslations('landing.features')
 
   return (
     <section className="app-container py-14 lg:py-20">

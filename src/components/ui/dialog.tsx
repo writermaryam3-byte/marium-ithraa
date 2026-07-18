@@ -68,7 +68,7 @@ function DialogContent({
             className="absolute top-4 inset-e-4 rounded-xs opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:ring-2 focus:ring-ring focus:ring-offset-2 focus:outline-hidden disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4"
           >
             <XIcon />
-            <span className="sr-only">{t('close')}</span>
+            <span className="sr-only">{t('buttons.close')}</span>
           </DialogPrimitive.Close>
         )}
       </DialogPrimitive.Content>
@@ -105,7 +105,7 @@ function DialogFooter({
       {children}
       {showCloseButton && (
         <DialogPrimitive.Close asChild>
-          <Button variant="outline">{t('close')}</Button>
+          <Button variant="outline">{t('buttons.close')}</Button>
         </DialogPrimitive.Close>
       )}
     </div>

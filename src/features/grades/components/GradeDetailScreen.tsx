@@ -26,7 +26,7 @@ export function GradeDetailScreen({ grade, childrenByClass }: Props) {
     <main className="app-container py-8 space-y-10" dir={getTextDirection(locale)}>
       <ManagementPageHeader
         breadcrumbs={[
-          { href: '/dashboards/organization', label: tCommon('home') },
+          { href: '/dashboards/organization', label: tCommon('general.home') },
           { href: '/dashboards/organization/grades', label: tNav('grades') },
           { label: grade.name },
         ]}

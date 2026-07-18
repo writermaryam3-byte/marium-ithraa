@@ -8,7 +8,15 @@
       "contact": "تواصل معنا"
     },
     "search": "بحث",
-    "login": "تسجيل الدخول"
+    "login": "تسجيل الدخول",
+    "openMenu": "فتح القائمة",
+    "closeMenu": "إغلاق القائمة",
+    "closeMenuOverlay": "إغلاق خلفية القائمة",
+    "mobileMenuTitle": "القائمة",
+    "closeSearch": "إغلاق البحث",
+    "language": "اللغة",
+    "languageEnglish": "English",
+    "languageArabic": "العربية"
   },
   "footer": {
     "menu": {

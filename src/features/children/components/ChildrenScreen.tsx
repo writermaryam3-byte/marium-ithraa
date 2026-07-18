@@ -108,7 +108,7 @@ export function ChildrenScreen({ childrens, grades, classes }: Props) {
     <main className="app-container py-8 space-y-8" dir={getTextDirection(locale)}>
       <ManagementPageHeader
         breadcrumbs={[
-          { href: '/dashboards/organization', label: tCommon('home') },
+          { href: '/dashboards/organization', label: tCommon('general.home') },
           { label: t('title') },
         ]}
         title={t('title')}

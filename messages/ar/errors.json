@@ -150,7 +150,8 @@
   },
   "errorCard": {
     "defaultTitle": "حدث خطأ ما",
-    "retry": "إعادة المحاولة"
+    "retry": "إعادة المحاولة",
+    "errorDetails": "تفاصيل الخطأ"
   },
   "page": {
     "title": "حدث خطأ ما",
