@@ -6,14 +6,17 @@ import { getAllChildrenServer } from '@/features/children/api'
 import { adminColumns } from '@/features/children/components/columns'
 import { getTranslations } from 'next-intl/server'
 
-export default async function AdminChildrenPage() {
-  const t = await getTranslations()
+export default async function AdminChildrenPage(props: {
+  params: Promise<{ locale: string }>
+}) {
+  const { locale } = await props.params
+  const tDash = await getTranslations({ locale, namespace: 'dashboard' })
 
   const { data: children } = await getAllChildrenServer()
   const cards = [
     {
       title: children.length,
-      description: 'dashboard.cards.childrenCount',
+      description: tDash('cards.childrenCount'),
       footer: {
         exist: false,
       },

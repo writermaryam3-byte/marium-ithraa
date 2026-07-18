@@ -7,7 +7,7 @@ import { useTranslations } from 'next-intl'
 
 import { AuthInit } from '@/features/auth/components/AuthInit'
 import { ApiError } from '@/lib/errors/ApiError'
-import { setApiErrorsTranslator } from '@/lib/i18n/client-translator'
+import { setApiErrorsTranslator, normalizeErrorKey } from '@/lib/i18n/client-translator'
 import { notifyError, notifySuccess } from '@/lib/toast/app-toast'
 import { TooltipProvider } from '../ui/tooltip'
 
@@ -18,12 +18,20 @@ export function Providers({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     setApiErrorsTranslator((key: string) => {
       try {
-        return t(key as any)
+        return t(normalizeErrorKey(key) as any)
       } catch {
         return key
       }
     })
   }, [t])
+
+  const translateErrorKey = (key: string) => {
+    try {
+      return t(normalizeErrorKey(key) as any)
+    } catch {
+      return key
+    }
+  }
 
   const queryClient = useMemo(
     () =>
@@ -32,7 +40,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
           onError: (error, query) => {
             const meta = query.meta as Record<string, unknown> | undefined
             if (meta?.showErrorToast) {
-              const msg = error instanceof ApiError ? t(error.message as any) : undefined
+              const msg = error instanceof ApiError ? translateErrorKey(error.message) : undefined
               if (msg) {
                 notifyError(msg)
               } else {
@@ -45,7 +53,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
           onError: (error, _variables, _context, mutation) => {
             const meta = mutation.meta as Record<string, unknown> | undefined
             if (meta?.skipGlobalError) return
-            const msg = error instanceof ApiError ? t(error.message as any) : undefined
+            const msg = error instanceof ApiError ? translateErrorKey(error.message) : undefined
             if (msg) {
               notifyError(msg)
             } else {
@@ -72,7 +80,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
           },
         },
       }),
-    [t, tActions],
+    [t, tActions, translateErrorKey],
   )
 
   return (

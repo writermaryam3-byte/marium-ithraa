@@ -18,7 +18,8 @@
     "actions": "Actions"
   },
   "messages": {
-    "empty": "No activities yet"
+    "empty": "No activities yet",
+    "subtitle": "Manage enrichment activities linked to deals"
   },
   "emptyStates": {
     "list": "No activities yet"

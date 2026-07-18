@@ -1,25 +1,25 @@
 import { useTranslations } from 'next-intl'
 
+import { normalizeErrorKey } from '@/lib/i18n/client-translator'
+
 type TranslateFn = (key: string, values?: Record<string, string | number>) => string
 
 /**
- * Translates a backend message to an i18n key.
- * With the new contract, error.message is already an i18n key.
- * This function detects i18n keys (contain '.' but no spaces) and translates them directly.
+ * Translates a backend message key to localized text.
+ * Backend sends fully-qualified keys like `errors.common.internalServerError`.
  */
 export function translateBackendMessage(msg: string, t: TranslateFn): string {
   if (msg.includes('.') && !msg.includes(' ')) {
-    return t(msg)
+    try {
+      return t(normalizeErrorKey(msg))
+    } catch {
+      return msg
+    }
   }
 
-  return t(msg)
+  return msg
 }
 
-/**
- * Hook for translating backend messages.
- * With the new contract, error.message is already an i18n key,
- * so prefer using `t(error.message)` directly in components.
- */
 export function useTranslateBackend() {
   const t = useTranslations('errors')
   return (msg: string) => translateBackendMessage(msg, t)

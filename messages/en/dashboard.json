@@ -59,5 +59,18 @@
   "adminUsers": {
     "usersCount": "Users count",
     "usersTable": "Users table"
+  },
+  "admin": {
+    "defaultName": "Admin",
+    "welcome": "Welcome, {name}",
+    "subtitle": "Manage the platform, evaluations, and users from one place",
+    "platformStats": "Platform stats",
+    "quickActions": "Quick actions",
+    "evaluationsDesc": "Create and manage evaluations",
+    "attemptsDesc": "Review and approve attempts",
+    "dispatchDesc": "Send a notification to a user",
+    "open": "Open",
+    "send": "Send",
+    "recentNotifications": "Recent notifications"
   }
 }

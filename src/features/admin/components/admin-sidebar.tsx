@@ -35,6 +35,7 @@ const ADMIN_URL = `/${Routes.DASHBOARDS}/${Pages.ADMIN}`
 export function AdminSidebar(props: React.ComponentProps<typeof Sidebar>) {
   const { data: session } = useSession()
   const tNav = useTranslations('navigation')
+  const tAdmin = useTranslations('dashboard.admin')
 
   const data = {
     user: {
@@ -124,7 +125,7 @@ export function AdminSidebar(props: React.ComponentProps<typeof Sidebar>) {
             <SidebarMenuButton asChild className="data-[slot=sidebar-menu-button]:p-1.5!">
               <a href="#">
                 <PanelTop className="size-5!" />
-                <span className="text-base font-semibold">{'Admin'}</span>
+                <span className="text-base font-semibold">{tAdmin('defaultName')}</span>
               </a>
             </SidebarMenuButton>
           </SidebarMenuItem>

@@ -2,7 +2,9 @@
 
 import { useParams } from 'next/navigation'
 import { useLocale, useTranslations } from 'next-intl'
-import { Handshake, CheckCircle, XCircle } from 'lucide-react'
+import { ArrowLeft, CheckCircle, Handshake, XCircle } from 'lucide-react'
+
+import { SiteHeader } from '@/components/site-header'
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
@@ -25,6 +27,17 @@ import { Pages, Routes } from '@/lib/types/enums'
 
 const ADMIN_URL = `/${Routes.DASHBOARDS}/${Pages.ADMIN}`
 
+const STATUS_KEYS = {
+  OPEN: 'open',
+  AWARDED: 'awarded',
+  CLOSED: 'closed',
+} as const
+
+function getStatusLabel(status: string, t: ReturnType<typeof useTranslations<'deals'>>) {
+  const key = STATUS_KEYS[status as keyof typeof STATUS_KEYS]
+  return key ? t(key) : status
+}
+
 export default function AdminDealDetailPage() {
   const params = useParams<{ dealId: string }>()
   const locale = useLocale()
@@ -43,28 +56,43 @@ export default function AdminDealDetailPage() {
 
   if (dealLoading || proposalsLoading) {
     return (
-      <div className="space-y-4 p-4 lg:p-6">
-        <Skeleton className="h-10 w-48" />
-        <Skeleton className="h-40 w-full" />
-      </div>
+      <>
+        <SiteHeader titleKey="navigation.dashboard.deals" />
+        <div className="space-y-4 p-4 lg:p-6" dir={getTextDirection(locale)}>
+          <Skeleton className="h-10 w-48" />
+          <Skeleton className="h-40 w-full rounded-2xl" />
+        </div>
+      </>
     )
   }
 
   if (!deal) {
     return (
-      <Card className="m-4">
-        <CardHeader>
-          <CardTitle>{t('notFound')}</CardTitle>
-        </CardHeader>
-      </Card>
+      <>
+        <SiteHeader titleKey="navigation.dashboard.deals" />
+        <Card className="m-4 rounded-2xl">
+          <CardHeader>
+            <CardTitle>{t('notFound')}</CardTitle>
+          </CardHeader>
+        </Card>
+      </>
     )
   }
 
   return (
-    <div className="space-y-6 p-4 lg:p-6" dir={getTextDirection(locale)}>
-      <Link href={`${ADMIN_URL}/${Pages.DEALS}`}>← {t('backToDeals')}</Link>
+    <>
+      <SiteHeader titleKey="navigation.dashboard.deals" />
+      <div className="flex flex-1 flex-col" dir={getTextDirection(locale)}>
+        <div className="@container/main flex flex-1 flex-col gap-2">
+          <div className="flex flex-col gap-4 px-4 py-4 md:gap-6 md:py-6 lg:px-6">
+            <Button variant="ghost" size="sm" className="w-fit rounded-xl" asChild>
+              <Link href={`${ADMIN_URL}/${Pages.DEALS}`}>
+                <ArrowLeft className="size-4 me-2" />
+                {t('backToDeals')}
+              </Link>
+            </Button>
 
-      <Card>
+            <Card className="rounded-2xl border-amber-50/70 bg-white/80 shadow-sm">
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Handshake className="size-5" />
@@ -82,7 +110,7 @@ export default function AdminDealDetailPage() {
           </p>
           <p>
             <span className="text-muted-foreground">{t('status')}: </span>
-            <Badge>{deal.status}</Badge>
+            <Badge variant="outline">{getStatusLabel(deal.status, t)}</Badge>
           </p>
         </CardContent>
       </Card>
@@ -233,6 +261,9 @@ export default function AdminDealDetailPage() {
           </DialogFooter>
         </DialogContent>
       </Dialog>
-    </div>
+          </div>
+        </div>
+      </div>
+    </>
   )
 }

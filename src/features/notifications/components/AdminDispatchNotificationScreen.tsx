@@ -21,7 +21,6 @@ import { Textarea } from '@/components/ui/textarea'
 import { useDispatchNotification } from '@/features/notifications/hooks'
 import type { NotificationDelivery, NotificationType } from '@/features/notifications/types'
 import { Link } from '@/i18n/navigation'
-import { ApiError } from '@/lib/errors/ApiError'
 
 type Props = { locale: string }
 
@@ -100,9 +99,7 @@ export function AdminDispatchNotificationScreen({ locale }: Props) {
       setMessage('')
       setMetadataRaw('')
     } catch (e: unknown) {
-      const msg =
-        e instanceof ApiError ? e.message : e instanceof Error ? e.message : t('loadError')
-      showErrorToast({ raw: msg })
+      showErrorToast({ error: e })
     }
   }
 

@@ -59,5 +59,18 @@
   "adminUsers": {
     "usersCount": "عدد المستخدمين",
     "usersTable": "جدول المستخدمين"
+  },
+  "admin": {
+    "defaultName": "المسؤول",
+    "welcome": "مرحباً {name}",
+    "subtitle": "أدر المنصة والتقييمات والمستخدمين من مكان واحد",
+    "platformStats": "إحصائيات المنصة",
+    "quickActions": "اختصارات سريعة",
+    "evaluationsDesc": "إنشاء وإدارة التقييمات",
+    "attemptsDesc": "مراجعة واعتماد المحاولات",
+    "dispatchDesc": "إرسال إشعار لمستخدم",
+    "open": "فتح",
+    "send": "إرسال",
+    "recentNotifications": "آخر الإشعارات"
   }
 }

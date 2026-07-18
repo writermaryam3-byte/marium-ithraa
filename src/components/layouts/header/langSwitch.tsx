@@ -17,8 +17,8 @@ export default function LanguageSwitcher({ locale }: { locale: string }) {
   const t = useTranslations('navigation.header')
 
   const switchLocale = (newLocale: string) => {
-    const newPath = pathname.replace(`/${locale}`, `/${newLocale}`)
-    router.push(newPath)
+    if (newLocale === locale) return
+    router.replace(pathname, { locale: newLocale })
   }
 
   return (

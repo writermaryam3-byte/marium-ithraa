@@ -21,6 +21,8 @@ const ADMIN_URL = `/${Routes.DASHBOARDS}/${Pages.ADMIN}`
 export function AdminDashboardScreen() {
   const locale = useLocale()
   const tNav = useTranslations('navigation.dashboard')
+  const tAdmin = useTranslations('dashboard.admin')
+  const tCommon = useTranslations('common')
   const tNotif = useTranslations('notifications')
   const isAr = locale === 'ar'
   const { data: session } = useSession()
@@ -34,7 +36,7 @@ export function AdminDashboardScreen() {
   )
   const { data: notificationsData } = useNotificationsList({ page: 1, limit: 5 })
 
-  const displayName = session?.user?.name ?? (isAr ? 'Admin' : 'Admin')
+  const displayName = session?.user?.name ?? tAdmin('defaultName')
 
   const stats = useMemo(
     () => [
@@ -94,54 +96,43 @@ export function AdminDashboardScreen() {
   return (
     <DashboardHomeLayout locale={locale}>
       <WelcomeHero
-        title={isAr ? `Welcome, ${displayName}` : `Welcome, ${displayName}`}
-        subtitle={
-          isAr
-            ? 'Manage the platform, evaluations, and users from one place'
-            : 'Manage the platform, evaluations, and users from one place'
-        }
+        title={tAdmin('welcome', { name: displayName })}
+        subtitle={tAdmin('subtitle')}
       />
 
       <section className="space-y-4">
-        <h2 className="text-start text-xl font-bold text-foreground">
-          {isAr ? 'Platform stats' : 'Platform stats'}
-        </h2>
+        <h2 className="text-start text-xl font-bold text-foreground">{tAdmin('platformStats')}</h2>
         <StatsGrid items={stats} />
       </section>
 
       <section className="space-y-4">
-        <h2 className="text-start text-xl font-bold text-foreground">
-          {isAr ? 'Quick actions' : 'Quick actions'}
-        </h2>
+        <h2 className="text-start text-xl font-bold text-foreground">{tAdmin('quickActions')}</h2>
         <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
           <QuickActionCard
             title={tNav('evaluations')}
-            description={isAr ? 'Create and manage evaluations' : 'Create and manage evaluations'}
+            description={tAdmin('evaluationsDesc')}
             href={`${ADMIN_URL}/evaluations`}
             icon={<Brain />}
-            actionLabel={isAr ? 'Open' : 'Open'}
+            actionLabel={tAdmin('open')}
           />
           <QuickActionCard
             title={tNav('attempts')}
-            description={isAr ? 'Review and approve attempts' : 'Review and approve attempts'}
+            description={tAdmin('attemptsDesc')}
             href={`${ADMIN_URL}/attempts`}
             icon={<ClipboardList />}
-            actionLabel={isAr ? 'Open' : 'Open'}
+            actionLabel={tCommon('buttons.open')}
           />
           <QuickActionCard
             title={tNotif('dispatchTitle')}
-            description={isAr ? 'Send a notification to a user' : 'Send a notification to a user'}
+            description={tAdmin('dispatchDesc')}
             href={`${ADMIN_URL}/notifications/dispatch`}
             icon={<Send />}
-            actionLabel={isAr ? 'Send' : 'Send'}
+            actionLabel={tAdmin('send')}
           />
         </div>
       </section>
 
-      <ActivityFeed
-        title={isAr ? 'Recent notifications' : 'Recent notifications'}
-        items={activities}
-      />
+      <ActivityFeed title={tAdmin('recentNotifications')} items={activities} />
     </DashboardHomeLayout>
   )
 }
