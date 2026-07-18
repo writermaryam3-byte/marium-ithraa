@@ -178,6 +178,8 @@
   "subscriptionPage": {
     "title": "Subscription plans",
     "description": "Choose the plan that fits your organization",
+    "plansHeading": "Compare plans",
+    "plansSubtitle": "Select the plan that matches your organization's needs",
     "billingMonthly": "Monthly",
     "billingYearly": "Yearly",
     "currentPlan": "Current plan",

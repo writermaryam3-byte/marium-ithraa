@@ -47,6 +47,7 @@ export function TeacherFormScreen({ locale }: { locale: string }) {
       <Card className="mx-auto max-w-3xl rounded-2xl">
         <CardHeader>
           <CardTitle className="text-base">{t('pageTitle')}</CardTitle>
+          <p className="text-sm text-muted-foreground">{t('autoPasswordInfo')}</p>
         </CardHeader>
         <CardContent>
           <ServerActionForm

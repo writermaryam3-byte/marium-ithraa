@@ -11,6 +11,9 @@ export function actionErrorState(
     conflict?: string
     server?: string
     badRequest?: string
+    notFound?: string
+    forbidden?: string
+    unauthorized?: string
   },
 ): InitialState {
   if (error instanceof ApiError) {
@@ -30,6 +33,27 @@ export function actionErrorState(
       return actionFailure(
         messages?.conflict ?? error.message,
         StatusCode.CONFLICT,
+        formData,
+      )
+    }
+    if (error.status === StatusCode.NOTFOUND) {
+      return actionFailure(
+        messages?.notFound ?? error.message,
+        StatusCode.NOTFOUND,
+        formData,
+      )
+    }
+    if (error.status === StatusCode.FORBIDDEN) {
+      return actionFailure(
+        messages?.forbidden ?? error.message,
+        StatusCode.FORBIDDEN,
+        formData,
+      )
+    }
+    if (error.status === StatusCode.UNAUTHORIZED) {
+      return actionFailure(
+        messages?.unauthorized ?? error.message,
+        StatusCode.UNAUTHORIZED,
         formData,
       )
     }

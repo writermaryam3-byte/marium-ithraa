@@ -118,6 +118,7 @@
     "createChild": "Create Child",
     "cancel": "Cancel",
     "parentNotFound": "Parent not found",
+    "parentAccountInfo": "A parent account will be created automatically. Login credentials will be sent to the parent's email when provided.",
     "noChildrenFound": "No children found for this parent.",
     "children": "Children",
     "unnamedParent": "Unnamed parent",

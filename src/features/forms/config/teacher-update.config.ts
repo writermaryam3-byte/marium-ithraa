@@ -5,7 +5,7 @@ import type { FormRegistryEntry } from '../types'
 
 export const teacherUpdateFormConfig: FormRegistryEntry<typeof updateTeacherSchema> = {
   schema: updateTeacherSchema,
-  defaultValues: { id: '', name: '', email: '', phone: '', jobTitle: '' },
+  defaultValues: { id: '', name: '', jobTitle: '' },
   fields: [
     {
       name: 'name',
@@ -13,18 +13,6 @@ export const teacherUpdateFormConfig: FormRegistryEntry<typeof updateTeacherSche
       labelKey: 'Teacher.name.label',
       placeholderKey: 'Teacher.name.placeholder',
       autoFocus: true,
-    },
-    {
-      name: 'email',
-      type: InputTypes.EMAIL,
-      labelKey: 'Teacher.email.label',
-      placeholderKey: 'Teacher.email.placeholder',
-    },
-    {
-      name: 'phone',
-      type: InputTypes.TEL,
-      labelKey: 'Teacher.phone.label',
-      placeholderKey: 'Teacher.phone.placeholder',
     },
     {
       name: 'jobTitle',

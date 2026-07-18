@@ -178,6 +178,8 @@
   "subscriptionPage": {
     "title": "باقات الاشتراك",
     "description": "اختر الباقة المناسبة لمؤسستك",
+    "plansHeading": "قارن الباقات",
+    "plansSubtitle": "اختر الباقة التي تناسب احتياجات مؤسستك",
     "billingMonthly": "شهرياً",
     "billingYearly": "سنوياً",
     "currentPlan": "باقتك الحالية",

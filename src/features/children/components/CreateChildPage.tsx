@@ -8,8 +8,8 @@ import { showErrorToast, showSuccessToast } from '@/lib/toast/app-toast'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { AlertTriangle, CheckCircle2, Loader2, Plus, UserRound } from 'lucide-react'
 import { useForm, useWatch, type UseFormReturn } from 'react-hook-form'
-import { z } from 'zod'
-
+import { createChildFlowSchema, type CreateChildFlowValues } from '@/features/forms/schemas/create-child-flow.schema'
+import { TranslatedFormMessage } from '@/features/forms/components/TranslatedFormMessage'
 import { ManagementPageHeader } from '@/components/shared/management/ManagementPageHeader'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
@@ -28,7 +28,6 @@ import {
   FormField,
   FormItem,
   FormLabel,
-  FormMessage,
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import {
@@ -50,18 +49,6 @@ import { cn } from '@/lib/utils'
 import PhoneInput from 'react-phone-number-input'
 import 'react-phone-number-input/style.css'
 
-const createChildFlowSchema = z.object({
-  parentPhone: z.string().trim().min(1, 'Parent phone is required'),
-  parentName: z.string().trim().optional(),
-  parentEmail: z.string().trim().email('Enter a valid email').optional().or(z.literal('')),
-  name: z.string().trim().min(1, 'Child name is required'),
-  birthDate: z.string().min(1, 'Birth date is required'),
-  gender: z.enum([Gender.MALE, Gender.FEMALE]),
-  gradeId: z.string().min(1, 'Grade is required'),
-  classId: z.string().min(1, 'Class is required'),
-})
-
-type CreateChildFlowValues = z.infer<typeof createChildFlowSchema>
 type ChildState = 'selecting' | 'creating'
 
 type Props = {
@@ -175,7 +162,7 @@ export function CreateChildPage({
     if (parentState === 'creating') {
       let hasParentError = false
       if (!values.parentName?.trim()) {
-        form.setError('parentName', { message: t('validation.parentNameRequired') })
+        form.setError('parentName', { message: 'validation.createChild.parentNameRequired' })
         hasParentError = true
       }
 
@@ -184,7 +171,7 @@ export function CreateChildPage({
 
     if (parentState === 'not_parent') {
       if (!values.parentName?.trim()) {
-        form.setError('parentName', { message: t('validation.parentNameRequired') })
+        form.setError('parentName', { message: 'validation.createChild.parentNameRequired' })
         return
       }
     }
@@ -369,7 +356,7 @@ function ParentPhoneInput({
               )}
             </div>
           </FormControl>
-          <FormMessage />
+          <TranslatedFormMessage />
         </FormItem>
       )}
     />
@@ -448,7 +435,10 @@ function CreateParentFields({ form }: { form: UseFormReturn<CreateChildFlowValue
   const t = useTranslations('children.create')
   return (
     <div className="space-y-4 rounded-xl border border-amber-200 bg-amber-50/50 p-4">
-      <p className="text-sm font-medium text-amber-800">{t('parentNotFound')}</p>
+      <div className="space-y-1">
+        <p className="text-sm font-medium text-amber-800">{t('parentNotFound')}</p>
+        <p className="text-xs text-amber-700/90">{t('parentAccountInfo')}</p>
+      </div>
       <FormField
         control={form.control}
         name="parentName"
@@ -458,7 +448,7 @@ function CreateParentFields({ form }: { form: UseFormReturn<CreateChildFlowValue
             <FormControl>
               <Input {...field} className="h-11 rounded-lg bg-background" />
             </FormControl>
-            <FormMessage />
+            <TranslatedFormMessage />
           </FormItem>
         )}
       />
@@ -471,7 +461,7 @@ function CreateParentFields({ form }: { form: UseFormReturn<CreateChildFlowValue
             <FormControl>
               <Input {...field} type="email" className="h-11 rounded-lg bg-background" />
             </FormControl>
-            <FormMessage />
+            <TranslatedFormMessage />
           </FormItem>
         )}
       />
@@ -508,7 +498,7 @@ function ChildForm({
               <FormControl>
                 <Input {...field} className="h-11 rounded-lg" />
               </FormControl>
-              <FormMessage />
+              <TranslatedFormMessage />
             </FormItem>
           )}
         />
@@ -521,7 +511,7 @@ function ChildForm({
               <FormControl>
                 <Input {...field} type="date" className="h-11 rounded-lg" />
               </FormControl>
-              <FormMessage />
+              <TranslatedFormMessage />
             </FormItem>
           )}
         />
@@ -542,7 +532,7 @@ function ChildForm({
                   <SelectItem value={Gender.FEMALE}>{t('female')}</SelectItem>
                 </SelectContent>
               </Select>
-              <FormMessage />
+              <TranslatedFormMessage />
             </FormItem>
           )}
         />
@@ -566,7 +556,7 @@ function ChildForm({
                   ))}
                 </SelectContent>
               </Select>
-              <FormMessage />
+              <TranslatedFormMessage />
             </FormItem>
           )}
         />
@@ -590,7 +580,7 @@ function ChildForm({
                   ))}
                 </SelectContent>
               </Select>
-              <FormMessage />
+              <TranslatedFormMessage />
             </FormItem>
           )}
         />
@@ -684,7 +674,7 @@ function NotParentFields({
                 className="h-11 rounded-lg bg-background"
               />
             </FormControl>
-            <FormMessage />
+            <TranslatedFormMessage />
           </FormItem>
         )}
       />
@@ -702,7 +692,7 @@ function NotParentFields({
                 className="h-11 rounded-lg bg-background"
               />
             </FormControl>
-            <FormMessage />
+            <TranslatedFormMessage />
           </FormItem>
         )}
       />

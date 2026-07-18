@@ -64,7 +64,9 @@
   },
   "teacher": {
     "notFound": "Teacher not found.",
-    "alreadyExists": "Teacher already exists."
+    "alreadyExists": "Teacher already exists.",
+    "emailImmutable": "Teacher email cannot be changed after creation.",
+    "phoneImmutable": "Teacher phone number cannot be changed after creation."
   },
   "grade": {
     "notFound": "Grade not found.",
@@ -141,7 +143,8 @@
     "unauthorized": "You are not authenticated. Please sign in."
   },
   "validation": {
-    "failed": "Validation failed. Please check your input."
+    "failed": "Please check the highlighted fields and try again.",
+    "parentNameRequired": "Parent name is required."
   },
   "dashboard": {
     "title": "Dashboard Error",

@@ -27,12 +27,6 @@ export const teacherFormConfig: FormRegistryEntry<typeof createTeacherSchema> = 
       placeholderKey: 'Teacher.phone.placeholder',
     },
     {
-      name: 'password',
-      type: InputTypes.PASSWORD,
-      labelKey: 'Teacher.password.label',
-      placeholderKey: 'Teacher.password.placeholder',
-    },
-    {
       name: 'jobTitle',
       type: InputTypes.TEXT,
       labelKey: 'Teacher.jobTitle.label',

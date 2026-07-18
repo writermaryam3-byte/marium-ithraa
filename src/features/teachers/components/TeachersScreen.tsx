@@ -1108,7 +1108,7 @@ export function TeachersScreen({ teachers }: { teachers: Teacher[] }) {
                     <UpdateTeacherDialog
                       open={open}
                       onOpenChange={(v) => !v && onClose()}
-                      userId={teacher.userId}
+                      teacherId={teacher.teacherId}
                       name={teacher.name}
                       email={teacher.email}
                       phone={teacher.phone}
@@ -1124,7 +1124,7 @@ export function TeachersScreen({ teachers }: { teachers: Teacher[] }) {
                           <DialogDescription>{tCommon('general.confirmDelete')}</DialogDescription>
                         </DialogHeader>
                         <form action={deleteAction}>
-                          <input type="hidden" name="id" value={teacher.userId} />
+                          <input type="hidden" name="id" value={teacher.teacherId} />
                           <Button type="submit" variant="destructive" disabled={isDeleting}>
                             {isDeleting ? (
                               <>

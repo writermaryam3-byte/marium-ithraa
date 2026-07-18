@@ -119,8 +119,8 @@ export function ChildRowActions({ child }: Props) {
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
-                        <SelectItem value={Gender.MALE}>{t('gender.male')}</SelectItem>
-                        <SelectItem value={Gender.FEMALE}>{t('gender.female')}</SelectItem>
+                        <SelectItem value={Gender.MALE}>{t('fields.genderOptions.male')}</SelectItem>
+                        <SelectItem value={Gender.FEMALE}>{t('fields.genderOptions.female')}</SelectItem>
                       </SelectContent>
                     </Select>
                     <FormMessage />

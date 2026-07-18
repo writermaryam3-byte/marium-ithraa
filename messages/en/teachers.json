@@ -46,7 +46,9 @@
   },
   "forms": {
     "pageTitle": "Add teacher",
-    "pageSubtitle": "Enter teacher details to add them to the organization.",
+    "pageSubtitle": "Enter teacher details. A secure password will be generated and sent to the teacher by email.",
+    "readOnlyContact": "Contact details (read-only)",
+    "autoPasswordInfo": "A secure password will be generated automatically and emailed to the teacher.",
     "editTitle": "Edit teacher",
     "editDescription": "Update teacher information and save.",
     "name": {

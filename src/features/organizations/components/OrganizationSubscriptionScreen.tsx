@@ -6,6 +6,8 @@ import { useLocale, useTranslations } from 'next-intl'
 import { useMemo, useState } from 'react'
 
 import { ErrorCard } from '@/components/shared/cards/ErrorCard'
+import { StatCard } from '@/components/shared/dashboard/StatCard'
+import { WelcomeHero } from '@/components/shared/dashboard/WelcomeHero'
 import { ManagementPageHeader } from '@/components/shared/management/ManagementPageHeader'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
@@ -83,16 +85,24 @@ export function OrganizationSubscriptionScreen() {
 
   return (
     <main className="app-container space-y-10 py-8" dir={locale === 'ar' ? 'rtl' : 'ltr'}>
-      <ManagementPageHeader
-        breadcrumbs={[
-          { href: '/dashboards/organization', label: tCommon('general.home') },
-          { label: tNav('subscription') },
-        ]}
+      <WelcomeHero
         title={t('title')}
         subtitle={t('description')}
       />
 
-      <div className="flex items-center justify-center gap-3">
+      <StatCard
+        label={t('currentPlan')}
+        value={t(`plans.${currentPlanId}.name`)}
+        icon={<Sparkles />}
+        variant="purple"
+        className="max-w-md"
+      />
+
+      <div
+        className="mx-auto flex w-fit items-center gap-3 rounded-full border bg-card px-4 py-2 shadow-sm"
+        role="group"
+        aria-label={t('billingYearly')}
+      >
         <span
           className={cn(
             'text-sm font-semibold transition-colors',
@@ -125,6 +135,15 @@ export function OrganizationSubscriptionScreen() {
           {t('billingYearly')}
         </span>
       </div>
+
+      <ManagementPageHeader
+        breadcrumbs={[
+          { href: '/dashboards/organization', label: tCommon('general.home') },
+          { label: tNav('subscription') },
+        ]}
+        title={t('plansHeading')}
+        subtitle={t('plansSubtitle')}
+      />
 
       {plans.length === 0 ? (
         <div className="rounded-2xl border border-dashed p-10 text-center text-sm text-muted-foreground">

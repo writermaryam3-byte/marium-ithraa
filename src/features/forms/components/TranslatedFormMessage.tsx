@@ -3,25 +3,21 @@
 import { useFormField } from '@/components/ui/form'
 import { useTranslations } from 'next-intl'
 
-function translateValidationMessage(
-  message: string,
-  tForms: ReturnType<typeof useTranslations>,
-): string {
-  if (message.startsWith('validation.') || message.startsWith('errors.')) {
-    try {
-      const translated = tForms(message as 'validation.nameRequired')
-      if (translated !== message) return translated
-    } catch {
-      // fall through
-    }
-  }
-  return message
-}
+import { translateValidationKey } from '@/lib/i18n/validation-messages'
 
 export function TranslatedFormMessage() {
   const { error, formMessageId } = useFormField()
+  const tValidation = useTranslations('validation')
+  const tErrors = useTranslations('errors')
   const tForms = useTranslations('forms')
-  const body = error ? translateValidationMessage(String(error.message ?? ''), tForms) : null
+
+  const body = error
+    ? translateValidationKey(String(error.message ?? ''), {
+        validation: tValidation,
+        errors: tErrors,
+        forms: tForms,
+      })
+    : null
 
   if (!body) return null
 

@@ -11,6 +11,8 @@ import { EmptyState } from '@/components/shared/management/EmptyState'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
+import { StatCard, type StatCardVariant } from '@/components/shared/dashboard/StatCard'
+import { StatsGrid } from '@/components/shared/dashboard/StatsGrid'
 import { Card, CardContent } from '@/components/ui/card'
 import { Skeleton } from '@/components/ui/skeleton'
 import {
@@ -41,7 +43,7 @@ import { getChildId } from '@/lib/types/interfaces'
 
 type Props = { locale: string }
 
-type CardVariant = 'brand-purple' | 'brand-navy' | 'stat-pink' | 'stat-indigo'
+type CardVariant = StatCardVariant
 
 function formatScore(value: number | null | undefined): string {
   if (value == null || Number.isNaN(value)) return '—'
@@ -56,38 +58,13 @@ function formatPercent(value: number | null | undefined): string {
 function MetricCard({
   title,
   value,
-  variant = 'brand-purple',
+  variant = 'purple',
 }: {
   title: string
   value: string
   variant?: CardVariant
 }) {
-  const variantStyles = {
-    'brand-purple':
-      'bg-brand-purple/5 dark:bg-brand-purple/10 border border-brand-purple/20 text-brand-purple dark:text-purple-300',
-    'brand-navy':
-      'bg-brand-navy/5 dark:bg-brand-navy/10 border border-brand-navy/20 text-brand-navy dark:text-blue-300',
-    'stat-pink':
-      'bg-stat-pink/5 dark:bg-stat-pink/10 border border-stat-pink/20 text-stat-pink dark:text-pink-300',
-    'stat-indigo':
-      'bg-stat-indigo/5 dark:bg-stat-indigo/10 border border-stat-indigo/20 text-stat-indigo dark:text-indigo-300',
-  }
-
-  return (
-    <Card
-      className={cn(
-        'rounded-2xl border-0 shadow-sm transition-all duration-300',
-        variantStyles[variant],
-      )}
-    >
-      <CardContent className="p-5 text-center space-y-2">
-        <p className="text-sm font-bold text-slate-700 dark:text-slate-300 leading-tight">
-          {title}
-        </p>
-        <p className="text-3xl font-black tracking-tight">{value}</p>
-      </CardContent>
-    </Card>
-  )
+  return <StatCard label={title} value={value} variant={variant} />
 }
 
 function QueryError({
@@ -351,86 +328,45 @@ function ResultsTabContent({ summary }: { summary: OwnerClassEvaluationSummary }
   const topDims = summary.topDimensions ?? []
 
   const statCards: { title: string; value: string; variant: CardVariant }[] = [
-    {
-      title: t('highestScore'),
-      value: formatScore(summary.highestScore),
-      variant: 'brand-purple',
-    },
-    {
-      title: t('averageScore'),
-      value: formatScore(summary.averageScore),
-      variant: 'brand-navy',
-    },
-    {
-      title: t('lowestScore'),
-      value: formatScore(summary.lowestScore),
-      variant: 'stat-pink',
-    },
-    {
-      title: t('childrenCount'),
-      value: String(summary.totalChildren),
-      variant: 'stat-indigo',
-    },
-    {
-      title: t('approved'),
-      value: String(summary.approvedCount),
-      variant: 'brand-navy',
-    },
-    {
-      title: t('waitingApproval'),
-      value: String(summary.submittedCount),
-      variant: 'stat-pink',
-    },
-    {
-      title: t('inProgress'),
-      value: String(summary.inProgressCount),
-      variant: 'brand-purple',
-    },
-    {
-      title: t('notStarted'),
-      value: String(summary.notStartedCount),
-      variant: 'stat-indigo',
-    },
+    { title: t('highestScore'), value: formatScore(summary.highestScore), variant: 'purple' },
+    { title: t('averageScore'), value: formatScore(summary.averageScore), variant: 'violet' },
+    { title: t('lowestScore'), value: formatScore(summary.lowestScore), variant: 'pink' },
+    { title: t('childrenCount'), value: String(summary.totalChildren), variant: 'indigo' },
+    { title: t('approved'), value: String(summary.approvedCount), variant: 'violet' },
+    { title: t('waitingApproval'), value: String(summary.submittedCount), variant: 'pink' },
+    { title: t('inProgress'), value: String(summary.inProgressCount), variant: 'purple' },
+    { title: t('notStarted'), value: String(summary.notStartedCount), variant: 'indigo' },
   ]
 
   return (
     <div className="space-y-10">
-      {/* قسم إحصائيات الفصل */}
       <section className="space-y-4">
-        <h3 className="text-xl font-black text-slate-900 dark:text-slate-100 flex items-center gap-2 justify-start">
-          <span className="size-2.5 rounded-full bg-brand-purple" />
-          {t('classStats')}
-        </h3>
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {statCards.map((card) => (
-            <MetricCard key={card.title} {...card} />
-          ))}
-        </div>
+        <h3 className="text-lg font-bold text-start">{t('classStats')}</h3>
+        <StatsGrid
+          items={statCards.map((card) => ({
+            label: card.title,
+            value: card.value,
+            variant: card.variant,
+          }))}
+        />
       </section>
 
-      {/* قسم الأبعاد الأكثر تميزاً */}
       <section className="space-y-4">
-        <h3 className="text-xl font-black text-slate-900 dark:text-slate-100 flex items-center gap-2 justify-start">
-          <span className="size-2.5 rounded-full bg-brand-navy" />
-          {t('topDimensions')}
-        </h3>
+        <h3 className="text-lg font-bold text-start">{t('topDimensions')}</h3>
         {topDims.length === 0 ? (
-          <p className="text-center text-sm text-muted-foreground py-8 bg-muted/30 rounded-2xl border border-dashed">
+          <p className="rounded-2xl border border-dashed py-8 text-center text-sm text-muted-foreground">
             {t('noTopDimensions')}
           </p>
         ) : (
-          <div className="grid gap-4 md:grid-cols-3">
-            {topDims.slice(0, 3).map((dim, idx) => (
-              <MetricCard
-                key={dim.code ?? idx}
-                title={dim.name ?? dim.code ?? '—'}
-                value={
-                  dim.percentage != null ? formatPercent(dim.percentage) : formatScore(dim.score)
-                }
-                variant={idx === 0 ? 'brand-purple' : idx === 1 ? 'brand-navy' : 'stat-pink'}
-              />
-            ))}
-          </div>
+          <StatsGrid
+            className="md:grid-cols-3"
+            items={topDims.slice(0, 3).map((dim, idx) => ({
+              label: dim.name ?? dim.code ?? '—',
+              value:
+                dim.percentage != null ? formatPercent(dim.percentage) : formatScore(dim.score),
+              variant: (['purple', 'violet', 'pink'] as const)[idx] ?? 'indigo',
+            }))}
+          />
         )}
       </section>
 
