@@ -25,6 +25,8 @@
       }
     },
     "wizard": {
+      "title": "Create account",
+      "stepLabel": "Step {current} of {total}",
       "next": "Next",
       "back": "Back",
       "submit": "Complete signup",
@@ -32,7 +34,13 @@
       "success": "Account created successfully",
       "organizationPendingSuccess": "Your organization registration has been submitted successfully and is awaiting admin approval.",
       "autoLoginFailed": "Account created, but automatic sign in failed",
-      "unableToCreate": "Unable to create account"
+      "unableToCreate": "Unable to create account",
+      "hasAccount": "Already have an account?",
+      "signIn": "Sign in",
+      "side": {
+        "title": "Join Ithraa and start your journey with us today.",
+        "subtitle": "Choose your account type and complete your registration in a few simple steps."
+      }
     },
     "typeStep": {
       "title": "Choose beneficiary account type",

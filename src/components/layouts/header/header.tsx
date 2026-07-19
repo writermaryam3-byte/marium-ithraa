@@ -7,6 +7,7 @@ import { useAuth } from '@/features/auth/hooks/useAuth'
 import { Button } from '@/components/ui/button'
 import { useState } from 'react'
 import Searchbar from './search'
+import LanguageSwitcher from './langSwitch'
 import { Menu, X } from 'lucide-react'
 
 const Header = ({ locale }: { locale: string }) => {
@@ -66,8 +67,9 @@ const Header = ({ locale }: { locale: string }) => {
 
           <div className="flex items-center gap-2">
             <Searchbar />
+            <LanguageSwitcher locale={locale} />
             <div className="hidden lg:block">
-              <AuthNavActions locale={locale} />
+              <AuthNavActions locale={locale} showLanguage={false} />
             </div>
 
             <Button

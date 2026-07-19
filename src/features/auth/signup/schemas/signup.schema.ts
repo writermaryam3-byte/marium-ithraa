@@ -18,7 +18,7 @@ export const createBeneficiaryOrganizationSchema = (t: TranslateFn) =>
       organizationName: z
         .string()
         .trim()
-        .max(120, t('organization_name.max'))
+        .max(120, t('organizationName.max'))
         .optional()
         .default(''),
       organizationType: z
@@ -33,14 +33,14 @@ export const createBeneficiaryOrganizationSchema = (t: TranslateFn) =>
       ) {
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
-          message: t('organization_name.min'),
+          message: t('organizationName.min'),
           path: ['organizationName'],
         })
       }
       if (data.accountType === 'organization' && !data.organizationType) {
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
-          message: t('organization_type.required'),
+          message: t('organizationType.required'),
           path: ['organizationType'],
         })
       }

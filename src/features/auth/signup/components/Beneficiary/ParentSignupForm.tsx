@@ -4,6 +4,7 @@ import { useTranslations } from 'next-intl'
 import { useFormContext } from 'react-hook-form'
 import { FormField, FormItem, FormLabel, FormControl, FormMessage } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
+import { PasswordInput } from '@/components/shared/forms/PasswordInput'
 import { PhoneInputField } from '@/components/shared/forms/PhoneInputField'
 import {
   Field,
@@ -88,9 +89,9 @@ const ParentSignupForm = () => {
                 <FormItem>
                   <FormLabel>{t('fields.password.label')}</FormLabel>
                   <FormControl>
-                    <Input
-                      type="password"
+                    <PasswordInput
                       placeholder={t('fields.password.placeholder')}
+                      autoComplete="new-password"
                       {...field}
                       value={field.value ?? ''}
                     />

@@ -103,7 +103,7 @@ export function AuthNavActions({
 
   return (
     <div className="flex items-center gap-2">
-      {/* {showLanguage ? <LanguageSwitcher locale={locale} /> : null} */}
+      {showLanguage ? <LanguageSwitcher locale={locale} /> : null}
       {signupHref ? (
         <Button asChild variant="outline" className="hidden rounded-full sm:inline-flex">
           <Link href={signupHref}>{tAuth('signup')}</Link>
