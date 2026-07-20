@@ -1,0 +1,70 @@
+{
+  "header": {
+    "menu": {
+      "home": "الرئيسية",
+      "about": "من نحن",
+      "services": "خدماتنا",
+      "blog": "مدونة إثراء",
+      "contact": "تواصل معنا"
+    },
+    "search": "بحث",
+    "login": "تسجيل الدخول",
+    "openMenu": "فتح القائمة",
+    "closeMenu": "إغلاق القائمة",
+    "closeMenuOverlay": "إغلاق خلفية القائمة",
+    "mobileMenuTitle": "القائمة",
+    "closeSearch": "إغلاق البحث",
+    "language": "اللغة",
+    "languageEnglish": "English",
+    "languageArabic": "العربية"
+  },
+  "footer": {
+    "menu": {
+      "title": "عن إثراء",
+      "home": "الرئيسية",
+      "whoWeAre": "من نحن",
+      "services": "خدماتنا",
+      "blog": "مدونة إثراء",
+      "contact": "تواصل معنا"
+    }
+  },
+  "dashboard": {
+    "users": "المستخدمين",
+    "dashboard": "لوحة التحكم",
+    "employees": "الموظفون",
+    "children": "الأطفال",
+    "childTransfers": "طلبات النقل",
+    "capacityRequests": "طلبات السعة",
+    "organizations": "المؤسسات",
+    "notifications": "الإشعارات",
+    "notificationsDispatch": "إرسال إشعار",
+    "analytics": "التحليلات",
+    "projects": "المشاريع",
+    "team": "الفريق",
+    "reports": "التقارير",
+    "tests": "مكتبة الاختبارات",
+    "evaluations": "التقييمات",
+    "attempts": "المحاولات",
+    "deals": "الصفقات",
+    "activities": "الأنشطة",
+    "auditLogs": "سجل التدقيق",
+    "paymentsAdmin": "المدفوعات",
+    "extraAttempts": "المحاولات الإضافية",
+    "settings": "الإعدادات",
+    "getHelp": "مساعدة",
+    "search": "بحث",
+    "dataLibrary": "مكتبة البيانات",
+    "wordAssistant": "مساعد الكلمات"
+  },
+  "organization": {
+    "home": "الرئيسية",
+    "grades": "المراحل",
+    "classes": "الفصول",
+    "children": "الأطفال",
+    "teachers": "المعلمين",
+    "results": "النتائج",
+    "deals": "الصفقات",
+    "subscription": "الاشتراك",
+    "menu": "القائمة"
+  }
+}

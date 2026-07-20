@@ -1,10 +1,19 @@
 import { toast } from 'sonner'
 import { ApiError } from '@/lib/errors/ApiError'
+import { normalizeActionMessageKey } from '@/lib/i18n/action-messages'
+import { getApiErrorsTranslator, normalizeErrorKey } from '@/lib/i18n/client-translator'
 
 type Translator = (key: string) => string
 
 function translate(t: Translator | undefined, key: string): string {
   if (!t) return key
+  const normalized = normalizeActionMessageKey(key)
+  try {
+    const translated = t(normalized)
+    if (translated !== normalized) return translated
+  } catch {
+    // fall through
+  }
   try {
     return t(key)
   } catch {
@@ -12,9 +21,21 @@ function translate(t: Translator | undefined, key: string): string {
   }
 }
 
+function translateApiKey(key: string): string {
+  const normalized = normalizeErrorKey(key)
+  const t = getApiErrorsTranslator()
+  if (!t) return key
+  try {
+    return t(normalized)
+  } catch {
+    return key
+  }
+}
+
 function getMessageFromError(error: unknown): string {
-  if (error instanceof ApiError) return error.message
+  if (error instanceof ApiError) return translateApiKey(error.message)
   if (error instanceof Error) return error.message
+  if (typeof error === 'string') return translateApiKey(error)
   return 'An unexpected error occurred'
 }
 

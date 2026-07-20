@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation'
 
-import { ClassFormScreen } from '@/components/pages/dashboards/organization/ClassFormScreen'
+import { ClassFormScreen } from '@/features/classes/components/ClassFormScreen'
 import { type ClassItem } from '@/features/classes'
 import { getClassById } from '@/features/classes'
 import { getGradesByOrg } from '@/features/grades'

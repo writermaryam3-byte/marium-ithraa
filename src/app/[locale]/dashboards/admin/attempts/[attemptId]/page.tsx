@@ -5,8 +5,8 @@ import { useParams } from 'next/navigation'
 import { useLocale, useTranslations } from 'next-intl'
 import { showErrorToast, showSuccessToast } from '@/lib/toast/app-toast'
 
-import AttemptSummary from '@/components/evaluation/AttemptSummary'
-import { AttemptResultView } from '@/components/evaluation/results/AttemptResultView'
+import AttemptSummary from '@/features/evaluations/components/AttemptSummary'
+import { AttemptResultView } from '@/features/evaluations/components/results/AttemptResultView'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import {
@@ -24,7 +24,7 @@ export default function AdminAttemptDetailPage() {
   const params = useParams<{ attemptId: string }>()
   const attemptId = params.attemptId
   const locale = useLocale()
-  const t = useTranslations('Features.Evaluations')
+  const t = useTranslations('evaluations')
   const [confirmOpen, setConfirmOpen] = useState(false)
 
   const { data: attempt, isLoading } = useAttempt(attemptId)
@@ -108,7 +108,7 @@ export default function AdminAttemptDetailPage() {
                   showSuccessToast(t, 'approveSuccess')
                   setConfirmOpen(false)
                 } catch (e: unknown) {
-                  showErrorToast({ raw: e instanceof Error ? e.message : t('error') })
+                  showErrorToast({ error: e })
                 }
               }}
               disabled={approve.isPending}

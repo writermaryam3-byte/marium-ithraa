@@ -6,7 +6,7 @@ import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { Cairo } from 'next/font/google'
 import { Toaster } from '@/components/ui/sonner'
 import { Providers } from '@/components/providers/QueryClientProvider'
-export const dynamic = 'force-dynamic'
+// export const dynamic = 'force-dynamic'
 
 export const cairo = Cairo({
   subsets: ['arabic', 'latin'],
@@ -17,7 +17,7 @@ export const cairo = Cairo({
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params
-  const t = await getTranslations({ locale, namespace: 'Metadata' })
+  const t = await getTranslations({ locale, namespace: 'metadata' })
 
   return {
     title: t('title'),

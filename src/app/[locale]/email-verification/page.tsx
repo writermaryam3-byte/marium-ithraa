@@ -13,7 +13,7 @@ import { showErrorToast, showSuccessToast } from '@/lib/toast/app-toast'
 import { sendVerificationEmail } from '@/features/mailer'
 
 export default function EmailVerificationPage() {
-  const t = useTranslations('EmailVerification')
+  const t = useTranslations('verifyEmail')
   const { data: session, status } = useSession()
 
   const email = session?.user?.email

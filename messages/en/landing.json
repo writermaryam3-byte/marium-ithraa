@@ -1,0 +1,164 @@
+{
+  "title": "Welcome to Ithraa",
+  "hero": {
+    "brandAlt": "Ithraa",
+    "title": "Discover your child's intelligence and guide it right",
+    "subtitle": "A comprehensive learning platform connecting family, schools, and institutions to assess children's skills, analyze strengths, and provide personalized learning paths in a safe, organized environment.",
+    "cardsTitle": "Choose your account type to get started",
+    "heroImageAlt": "Ithraa hero illustration",
+    "cards": {
+      "enricher": {
+        "label": "Enricher",
+        "description": "Create engaging content and contribute to learning journeys."
+      },
+      "beneficiary": {
+        "label": "Organization",
+        "description": "Manage groups and programs and measure impact with clear reports."
+      }
+    }
+  },
+  "beneficiaries": {
+    "title": "Who benefits from Ithraa Intelligence?",
+    "items": {
+      "family": {
+        "title": "Family",
+        "description": "We empower families to discover their children's intelligence and choose activities that perfectly match their abilities, ensuring a deep and impactful enrichment experience."
+      },
+      "institutions": {
+        "title": "Schools & Institutions",
+        "description": "We provide schools with the opportunity to establish strategic partnerships with qualified specialists to support their enrichment options beyond academic curricula."
+      },
+      "providers": {
+        "title": "Activity Providers",
+        "description": "We support activity providers with opportunities for qualification, keeping up with quality standards and market requirements to achieve a positive and tangible impact on children's lives."
+      }
+    }
+  },
+  "features": {
+    "title": "Why Ithraa?",
+    "items": {
+      "evaluations": {
+        "title": "Reliable scientific assessments",
+        "description": "A set of accurate, easy assessments to help you evaluate each child's abilities."
+      },
+      "activities": {
+        "title": "Individual enrichment activity paths",
+        "description": "A set of accurate, easy assessments to help you evaluate each child's abilities."
+      },
+      "development": {
+        "title": "Track intelligence and skill development",
+        "description": "A set of accurate, easy assessments to help you evaluate each child's abilities."
+      },
+      "impact": {
+        "title": "Impact assessment of activities",
+        "description": "A set of accurate, easy assessments to help you evaluate each child's abilities."
+      },
+      "reports": {
+        "title": "Instant reports",
+        "description": "Rich results and actionable insights that give you a complete picture."
+      },
+      "dashboards": {
+        "title": "Multiple easy dashboards",
+        "description": "Each role has a suitable dashboard that makes management and follow-up simple."
+      }
+    }
+  },
+  "howItWorks": {
+    "title": "How does Ithraa work?",
+    "subtitle": "A simple journey that helps you discover and nurture a child's strengths.",
+    "steps": {
+      "evaluate": {
+        "title": "Run intelligence assessments",
+        "description": "A set of structured tests to identify strengths and core skills."
+      },
+      "map": {
+        "title": "Get a full intelligence map",
+        "description": "Understand the child's abilities clearly and build the right learning plan."
+      },
+      "recommend": {
+        "title": "Smart activities & paths",
+        "description": "Recommendations that match the child's level and support steady growth."
+      },
+      "track": {
+        "title": "Track progress and development",
+        "description": "Follow improvement over time and adjust the path as needed."
+      }
+    }
+  },
+  "testimonials": {
+    "title": "What our customers say",
+    "avatarAlt": "Customer avatar",
+    "items": {
+      "t1": {
+        "name": "Sarah Abdulaziz",
+        "role": "Parent",
+        "quote": "A smooth experience and very clear results. It helped me understand my child better."
+      },
+      "t2": {
+        "name": "Yasser Mostafa",
+        "role": "Teacher",
+        "quote": "The reports are practical and the learning paths are thoughtfully designed."
+      },
+      "t3": {
+        "name": "Noura AlHarbi",
+        "role": "Organization",
+        "quote": "Great dashboards and follow-up tools. Implementation was straightforward."
+      },
+      "t4": {
+        "name": "Ahmed Ali",
+        "role": "Parent",
+        "quote": "The platform is organized and the recommendations are genuinely helpful."
+      },
+      "t5": {
+        "name": "Reem Hassan",
+        "role": "Teacher",
+        "quote": "Beautiful UI and a clear process—from assessment to progress tracking."
+      }
+    }
+  },
+  "footer": {
+    "brand": {
+      "alt": "Ithraa"
+    },
+    "paths": {
+      "title": "Paths",
+      "waliAlAmr": "Wali Al-Amr",
+      "landmarks": "Landmarks",
+      "partners": "Partners",
+      "foundation": "Foundation",
+      "followFoundation": "Follow the Foundation"
+    },
+    "about": {
+      "title": "About Ithraa",
+      "home": "Home",
+      "whoWeAre": "Who we are",
+      "services": "Our services",
+      "blog": "Ithraa blog",
+      "contact": "Contact us"
+    },
+    "social": {
+      "youTube": "YouTube",
+      "x": "X",
+      "instagram": "Instagram",
+      "facebook": "Facebook"
+    },
+    "contact": {
+      "email": "Email: support@ithrathaka.com",
+      "phone": "Phone: 0503977564",
+      "website": "ithrathaka.com",
+      "cR": "CR: 7053545971",
+      "phoneTel": "0503977564",
+      "address": "Riyadh,Al-Sawdi, Sayda Street"
+    },
+    "legal": {
+      "privacy": "Privacy policy",
+      "terms": "Terms & Conditions",
+      "copyright": "All rights reserved to Tatweer and Ithraa Althaka Technology © {year}"
+    }
+  },
+  "flowCta": {
+    "title": "Discover your child's intelligence",
+    "description": "Start the smart journey today—discover their strengths and help them grow with easy steps and instant results.",
+    "ctaLabel": "Discover"
+  }
+}

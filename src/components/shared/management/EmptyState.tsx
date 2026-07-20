@@ -8,6 +8,7 @@ export type EmptyStateProps = {
   title: string
   actionLabel?: string
   actionHref?: string
+  onActionClick?: () => void
   illustration?: React.ReactNode
   className?: string
 }
@@ -16,6 +17,7 @@ export function EmptyState({
   title,
   actionLabel,
   actionHref,
+  onActionClick,
   illustration,
   className,
 }: EmptyStateProps) {
@@ -1019,6 +1021,15 @@ export function EmptyState({
         {actionLabel && actionHref ? (
           <Button variant="gradient" asChild className="h-11 w-full rounded-xl">
             <Link href={actionHref}>{actionLabel}</Link>
+          </Button>
+        ) : actionLabel && onActionClick ? (
+          <Button
+            variant="gradient"
+            type="button"
+            className="h-11 w-full rounded-xl"
+            onClick={onActionClick}
+          >
+            {actionLabel}
           </Button>
         ) : null}
       </div>

@@ -1,0 +1,170 @@
+{
+  "beneficiary": {
+    "validation": {
+      "name": {
+        "min": "Name must be at least 2 characters.",
+        "max": "Name must be at most 50 characters."
+      },
+      "email": {
+        "invalid": "Please enter a valid email address."
+      },
+      "password": {
+        "min": "Password must be at least 8 characters.",
+        "pattern": "Password must contain uppercase, lowercase, number and special character."
+      },
+      "phone": {
+        "min": "Please enter a valid phone number.",
+        "invalid": "Please enter a valid phone number."
+      },
+      "organizationName": {
+        "min": "Organization name must be at least 2 characters.",
+        "max": "Organization name must be at most 120 characters."
+      },
+      "organizationType": {
+        "required": "Please select an organization type."
+      }
+    },
+    "wizard": {
+      "title": "Create account",
+      "stepLabel": "Step {current} of {total}",
+      "next": "Next",
+      "back": "Back",
+      "submit": "Complete signup",
+      "submitting": "Signing up…",
+      "success": "Account created successfully",
+      "organizationPendingSuccess": "Your organization registration has been submitted successfully and is awaiting admin approval.",
+      "autoLoginFailed": "Account created, but automatic sign in failed",
+      "unableToCreate": "Unable to create account",
+      "hasAccount": "Already have an account?",
+      "signIn": "Sign in",
+      "side": {
+        "title": "Join Ithraa and start your journey with us today.",
+        "subtitle": "Choose your account type and complete your registration in a few simple steps."
+      }
+    },
+    "typeStep": {
+      "title": "Choose beneficiary account type",
+      "subtitle": "Select the account type you want to register to benefit from Ithraa.",
+      "options": {
+        "organization": {
+          "title": "Organization",
+          "description": "Register an educational organization to manage beneficiaries and programs."
+        },
+        "parent": {
+          "title": "Parent / Guardian",
+          "description": "Register as a parent to follow your child's progress and results."
+        },
+        "teacher": {
+          "title": "Teacher",
+          "description": "Register as a teacher to manage your students and track outcomes."
+        },
+        "enricher": {
+          "title": "Enricher",
+          "description": "Register as an enricher to provide services and submit proposals."
+        }
+      }
+    },
+    "organization": {
+      "title": "Organization details",
+      "subtitle": "Enter the account and organization details as they will appear in Ithraa.",
+      "fields": {
+        "name": {
+          "label": "Full name",
+          "placeholder": "Enter your full name"
+        },
+        "email": {
+          "label": "Email",
+          "placeholder": "example@domain.com"
+        },
+        "phone": {
+          "label": "Mobile number",
+          "placeholder": "05xxxxxxxx"
+        },
+        "password": {
+          "label": "Password",
+          "placeholder": "Enter a strong password"
+        },
+        "organizationName": {
+          "label": "Organization name",
+          "placeholder": "Enter the educational organization name"
+        },
+        "organizationType": {
+          "label": "Organization type",
+          "placeholder": "Select organization type",
+          "options": {
+            "center": "Educational center",
+            "nursery": "Nursery",
+            "training": "Training center",
+            "school": "School"
+          }
+        }
+      }
+    },
+    "parent": {
+      "title": "Parent details",
+      "subtitle": "Enter your details to create your parent account.",
+      "fields": {
+        "name": {
+          "label": "Full name",
+          "placeholder": "Enter your full name"
+        },
+        "email": {
+          "label": "Email",
+          "placeholder": "example@domain.com"
+        },
+        "phone": {
+          "label": "Mobile number",
+          "placeholder": "05xxxxxxxx"
+        },
+        "password": {
+          "label": "Password",
+          "placeholder": "Enter a strong password"
+        }
+      }
+    },
+    "enricher": {
+      "title": "Enricher details",
+      "subtitle": "Enter your details to create your enricher account.",
+      "fields": {
+        "name": {
+          "label": "Full name",
+          "placeholder": "Enter your full name"
+        },
+        "email": {
+          "label": "Email",
+          "placeholder": "example@domain.com"
+        },
+        "phone": {
+          "label": "Mobile number",
+          "placeholder": "05xxxxxxxx"
+        },
+        "password": {
+          "label": "Password",
+          "placeholder": "Enter a strong password"
+        },
+        "organizationName": {
+          "label": "Organization name",
+          "placeholder": "Enter your organization name"
+        }
+      }
+    },
+    "teacher": {
+      "title": "Teacher details",
+      "subtitle": "Enter your details to create your teacher account.",
+      "fields": {
+        "name": {
+          "label": "Teacher name",
+          "placeholder": "Teacher name"
+        },
+        "phone": {
+          "label": "Phone number",
+          "placeholder": "Phone number"
+        },
+        "subject": {
+          "label": "Subject",
+          "placeholder": "Subject"
+        }
+      }
+    }
+  }
+}

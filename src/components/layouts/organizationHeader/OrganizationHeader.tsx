@@ -25,6 +25,7 @@ const navLinks = [
   { labelKey: 'teachers', href: '/dashboards/organization/teachers' },
   { labelKey: 'deals', href: '/dashboards/organization/deals' },
   { labelKey: 'results', href: '/dashboards/organization/results' },
+  { labelKey: 'subscription', href: '/dashboards/organization/subscription' },
 ] as const
 
 const operationalLinkHrefs = new Set([
@@ -40,7 +41,9 @@ const OrganizationHeader = ({
   approvalStatus = ApprovalStatus.APPROVED,
 }: OrganizationHeaderProps) => {
   const pathname = usePathname()
-  const t = useTranslations('Layout.OrganizationNav')
+  const t = useTranslations('navigation.organization')
+  const tHeader = useTranslations('navigation.header')
+  const tHero = useTranslations('landing.hero')
   const [mobileOpen, setMobileOpen] = useState(false)
   const isApproved = approvalStatus === ApprovalStatus.APPROVED
 
@@ -69,7 +72,7 @@ const OrganizationHeader = ({
           <Link href="/" className="shrink-0">
             <Image
               src="/logo.svg"
-              alt="logo"
+              alt={tHero('brandAlt')}
               width={170}
               height={48}
               className="h-10 w-auto lg:h-12"
@@ -107,7 +110,7 @@ const OrganizationHeader = ({
               size="icon-sm"
               className="lg:hidden rounded-full"
               onClick={() => setMobileOpen(true)}
-              aria-label={t('menu')}
+              aria-label={tHeader('openMenu')}
             >
               <Menu />
             </Button>
@@ -119,7 +122,7 @@ const OrganizationHeader = ({
             <button
               className="fixed inset-0 z-40 bg-black/30 backdrop-blur-sm"
               onClick={() => setMobileOpen(false)}
-              aria-label={t('menu')}
+              aria-label={tHeader('closeMenuOverlay')}
             />
             <div className="fixed top-0 inset-x-0 z-50 p-4">
               <div className="mx-auto max-w-lg rounded-3xl border bg-background shadow-lg">
@@ -131,7 +134,7 @@ const OrganizationHeader = ({
                     size="icon-sm"
                     className="rounded-full"
                     onClick={() => setMobileOpen(false)}
-                    aria-label={t('menu')}
+                    aria-label={tHeader('closeMenu')}
                   >
                     <X />
                   </Button>

@@ -1,0 +1,170 @@
+{
+  "beneficiary": {
+    "validation": {
+      "name": {
+        "min": "يجب ألا يقل الاسم عن حرفين.",
+        "max": "يجب ألا يزيد الاسم عن 50 حرفاً."
+      },
+      "email": {
+        "invalid": "يرجى إدخال بريد إلكتروني صحيح."
+      },
+      "password": {
+        "min": "يجب أن تكون كلمة المرور 8 أحرف على الأقل.",
+        "pattern": "يجب أن تحتوي كلمة المرور على حرف كبير وصغير ورقم ورمز خاص."
+      },
+      "phone": {
+        "min": "يرجى إدخال رقم جوال صحيح.",
+        "invalid": "يرجى إدخال رقم جوال صحيح."
+      },
+      "organizationName": {
+        "min": "يجب ألا يقل اسم المؤسسة عن حرفين.",
+        "max": "يجب ألا يزيد اسم المؤسسة عن 120 حرفاً."
+      },
+      "organizationType": {
+        "required": "يرجى اختيار نوع المؤسسة."
+      }
+    },
+    "wizard": {
+      "title": "إنشاء حساب",
+      "stepLabel": "الخطوة {current} من {total}",
+      "next": "التالي",
+      "back": "رجوع",
+      "submit": "إنهاء التسجيل",
+      "submitting": "جاري التسجيل…",
+      "success": "تم إنشاء الحساب بنجاح",
+      "organizationPendingSuccess": "تم إرسال طلب تسجيل مؤسستك بنجاح وهو بانتظار موافقة الإدارة.",
+      "autoLoginFailed": "تم إنشاء الحساب، لكن تعذر تسجيل الدخول تلقائياً",
+      "unableToCreate": "تعذر إنشاء الحساب",
+      "hasAccount": "لديك حساب بالفعل؟",
+      "signIn": "تسجيل الدخول",
+      "side": {
+        "title": "انضم إلى إثراء وابدأ رحلتك معنا اليوم.",
+        "subtitle": "اختر نوع حسابك وأكمل التسجيل في خطوات بسيطة."
+      }
+    },
+    "typeStep": {
+      "title": "اختر نوع حساب المستفيد",
+      "subtitle": "حدّد نوع الحساب الذي تريد التسجيل به للاستفادة من منصة \"إثراء\".",
+      "options": {
+        "organization": {
+          "title": "مؤسسة",
+          "description": "تسجيل مؤسسة تعليمية لإدارة المستفيدين والبرامج."
+        },
+        "parent": {
+          "title": "ولي أمر",
+          "description": "تسجيل ولي أمر لمتابعة تقدّم طفله ونتائج التقييم."
+        },
+        "teacher": {
+          "title": "معلم",
+          "description": "تسجيل معلم لإدارة طلابه ومتابعة نتائجهم."
+        },
+        "enricher": {
+          "title": "مقدم أنشطة",
+          "description": "تسجيل كمقدم أنشطة لتقديم الخدمات وتقديم العروض."
+        }
+      }
+    },
+    "organization": {
+      "title": "بيانات المؤسسة",
+      "subtitle": "أدخل بيانات الحساب والمؤسسة كما ستظهر في منصة \"إثراء\".",
+      "fields": {
+        "name": {
+          "label": "الاسم الكامل",
+          "placeholder": "اكتب اسمك الكامل"
+        },
+        "email": {
+          "label": "البريد الإلكتروني",
+          "placeholder": "example@domain.com"
+        },
+        "phone": {
+          "label": "رقم الجوال",
+          "placeholder": "05xxxxxxxx"
+        },
+        "password": {
+          "label": "كلمة المرور",
+          "placeholder": "أدخل كلمة مرور قوية"
+        },
+        "organizationName": {
+          "label": "اسم المؤسسة",
+          "placeholder": "اكتب اسم المؤسسة التعليمية"
+        },
+        "organizationType": {
+          "label": "نوع المؤسسة",
+          "placeholder": "اختر نوع المؤسسة",
+          "options": {
+            "center": "مركز تعليمي",
+            "nursery": "حضانة",
+            "training": "مركز تدريب",
+            "school": "مدرسة"
+          }
+        }
+      }
+    },
+    "parent": {
+      "title": "بيانات ولي الأمر",
+      "subtitle": "أدخل بياناتك لإنشاء حساب ولي أمر.",
+      "fields": {
+        "name": {
+          "label": "الاسم الكامل",
+          "placeholder": "اكتب اسمك الكامل"
+        },
+        "email": {
+          "label": "البريد الإلكتروني",
+          "placeholder": "example@domain.com"
+        },
+        "phone": {
+          "label": "رقم الجوال",
+          "placeholder": "05xxxxxxxx"
+        },
+        "password": {
+          "label": "كلمة المرور",
+          "placeholder": "أدخل كلمة مرور قوية"
+        }
+      }
+    },
+    "enricher": {
+      "title": "بيانات مقدم أنشطة",
+      "subtitle": "أدخل بياناتك لإنشاء حساب مقدم أنشطة.",
+      "fields": {
+        "name": {
+          "label": "الاسم الكامل",
+          "placeholder": "اكتب اسمك الكامل"
+        },
+        "email": {
+          "label": "البريد الإلكتروني",
+          "placeholder": "example@domain.com"
+        },
+        "phone": {
+          "label": "رقم الجوال",
+          "placeholder": "05xxxxxxxx"
+        },
+        "password": {
+          "label": "كلمة المرور",
+          "placeholder": "أدخل كلمة مرور قوية"
+        },
+        "organizationName": {
+          "label": "اسم المؤسسة",
+          "placeholder": "اكتب اسم مؤسستك"
+        }
+      }
+    },
+    "teacher": {
+      "title": "بيانات المعلم",
+      "subtitle": "أدخل بياناتك لإنشاء حساب معلم.",
+      "fields": {
+        "name": {
+          "label": "اسم المعلم",
+          "placeholder": "اسم المعلم"
+        },
+        "phone": {
+          "label": "رقم الهاتف",
+          "placeholder": "رقم الهاتف"
+        },
+        "subject": {
+          "label": "التخصص",
+          "placeholder": "التخصص"
+        }
+      }
+    }
+  }
+}

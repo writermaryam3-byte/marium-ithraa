@@ -1,0 +1,97 @@
+{
+  "title": "Teachers",
+  "description": "Manage teachers and assign them to classes",
+  "page": {
+    "title": "Teachers"
+  },
+  "actions": {
+    "add": "Add teacher"
+  },
+  "fields": {
+    "name": "Name",
+    "jobTitle": "Job title",
+    "class": "Class",
+    "noClasses": "No classes assigned to this teacher.",
+    "email": "Email",
+    "phone": "Phone"
+  },
+  "messages": {
+    "empty": "No teachers yet"
+  },
+  "dialogs": {
+    "deleteTitle": "Delete teacher"
+  },
+  "emptyStates": {
+    "list": "No teachers yet"
+  },
+  "dashboard": {
+    "brand": "Teacher",
+    "defaultName": "Teacher",
+    "subtitle": "Manage your classes and stay updated with notifications",
+    "classes": "Classes",
+    "classesDescription": "View classes assigned to you",
+    "classesPlaceholder": "Your assigned classes will appear here.",
+    "notificationsDescription": "View alerts and updates",
+    "statsTitle": "Overview",
+    "quickActionsTitle": "Quick actions",
+    "recentActivityTitle": "Recent activity",
+    "noActivity": "No recent activity",
+    "profileNotFound": "We could not load your teacher profile. Contact your organization admin.",
+    "classesWelcome": "Classes assigned to {name}",
+    "noClasses": "No classes assigned yet",
+    "grade": "Grade",
+    "childrenCount": "Students",
+    "welcome": "Welcome, {name}",
+    "open": "Open"
+  },
+  "classroom": {
+    "class": "Class",
+    "gradeSubtitle": "Grade: {grade}",
+    "evaluatedCount": "Evaluated",
+    "pendingCount": "Pending evaluation",
+    "searchChildren": "Search students…",
+    "emptyClass": "No students in this class yet",
+    "noSearchResults": "No students match your search",
+    "birth": "Birth date",
+    "viewEvaluations": "View evaluations",
+    "childAge": "Age: {age} years"
+  },
+  "forms": {
+    "pageTitle": "Add teacher",
+    "pageSubtitle": "Enter teacher details. A secure password will be generated and sent to the teacher by email.",
+    "readOnlyContact": "Contact details (read-only)",
+    "autoPasswordInfo": "A secure password will be generated automatically and emailed to the teacher.",
+    "editTitle": "Edit teacher",
+    "editDescription": "Update teacher information and save.",
+    "name": {
+      "label": "Full name",
+      "placeholder": "Enter teacher name"
+    },
+    "phone": {
+      "label": "Phone",
+      "placeholder": "Enter phone number"
+    },
+    "email": {
+      "label": "Email",
+      "placeholder": "Enter email address"
+    },
+    "password": {
+      "label": "Password",
+      "placeholder": "Enter password"
+    },
+    "jobTitle": {
+      "label": "Job title",
+      "placeholder": "Enter job title"
+    },
+    "toast": {
+      "created": "Teacher added successfully",
+      "updated": "Teacher updated successfully"
+    },
+    "actions": {
+      "common": {
+        "conflict": "This account already exists",
+        "validationFailed": "Please check the form fields."
+      }
+    }
+  }
+}

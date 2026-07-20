@@ -41,7 +41,7 @@ export function actionFailure(
 export function actionValidationFailure(
   errors: ValidationErrors,
   formData: FormData,
-  messageKey = 'Actions.common.validationFailed',
+  messageKey = 'common.validationFailed',
 ): InitialState {
   const fieldErrors = validationErrorsToFieldErrors(errors)
   return {

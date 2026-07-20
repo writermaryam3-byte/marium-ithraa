@@ -17,7 +17,7 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog'
 import { useState } from 'react'
-import { useDealDetail, useDealProposals, useSelectProposal } from '@/features/deals'
+import { useDealDetail, useDealProposals, useSelectProposal, DealExecutionPanel } from '@/features/deals'
 import { getTextDirection } from '@/lib/i18n/locale-utils'
 import { Link } from '@/i18n/navigation'
 import { Pages, Routes } from '@/lib/types/enums'
@@ -27,7 +27,7 @@ const ORG_URL = `/${Routes.DASHBOARDS}/${Pages.ORGANIZATION}`
 export default function OrganizationDealDetailPage() {
   const params = useParams<{ dealId: string }>()
   const locale = useLocale()
-  const t = useTranslations('Features.Deals')
+  const t = useTranslations('deals')
   const { data: deal, isLoading: dealLoading } = useDealDetail(params.dealId)
   const { data: proposalsData, isLoading: proposalsLoading } = useDealProposals(params.dealId)
   const select = useSelectProposal(params.dealId)
@@ -94,6 +94,8 @@ export default function OrganizationDealDetailPage() {
           )}
         </CardContent>
       </Card>
+
+      <DealExecutionPanel dealId={params.dealId} deal={deal} />
 
       {selectedProposal && (
         <Card className="border-green-300 bg-green-50 dark:bg-green-950/20">

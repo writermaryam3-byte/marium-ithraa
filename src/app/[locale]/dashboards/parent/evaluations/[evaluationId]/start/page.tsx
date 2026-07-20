@@ -13,7 +13,7 @@ import { useStartEvaluation } from '@/features/evaluations/hooks'
 import { startAttemptSchema } from '@/features/evaluations/types'
 
 export default function StartEvaluationPage() {
-  const t = useTranslations('StartEvaluation')
+  const t = useTranslations('evaluations.start')
   const params = useParams<{ evaluationId: string }>()
   const router = useRouter()
   const evaluationId = params.evaluationId
@@ -78,7 +78,7 @@ export default function StartEvaluationPage() {
               const attempt = await start.mutateAsync(payload)
               router.push(`/dashboards/parent/attempts/${attempt.id}`)
             } catch (e: unknown) {
-              showErrorToast({ raw: e instanceof Error ? e.message : t('errorFailed') })
+              showErrorToast({ error: e })
             }
           }}
           disabled={start.isPending}

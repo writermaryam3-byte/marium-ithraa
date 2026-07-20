@@ -5,6 +5,9 @@ const OPERATIONAL_ROUTE_PREFIXES = [
   '/dashboards/organization/teachers',
   '/dashboards/organization/employees',
   '/dashboards/organization/child-transfers',
+  '/dashboards/organization/deals',
+  '/dashboards/organization/results',
+  '/dashboards/organization/attempts',
 ] as const
 
 export function isOperationalOrganizationRoute(pathname: string): boolean {

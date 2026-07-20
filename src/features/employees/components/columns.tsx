@@ -16,7 +16,7 @@ export const columns: ColumnDef<Employee>[] = [
   {
     id: 'name',
     accessorFn: ({ user }) => user.name,
-    header: () => <TH k="Dashboard.Employees.table.name" />,
+    header: () => <TH k="employees.table.name" />,
     cell: ({ row }) => (
       <Link
         href={`/${Routes.DASHBOARDS}/${Pages.ORGANIZATION}/${Pages.EMPLOYEES}/${row.original.id}`}
@@ -29,17 +29,17 @@ export const columns: ColumnDef<Employee>[] = [
   {
     id: 'email',
     accessorFn: ({ user }) => user.email,
-    header: () => <TH k="Dashboard.Employees.table.email" />,
+    header: () => <TH k="employees.table.email" />,
   },
   {
     id: 'phone',
     accessorFn: ({ user }) => user.phone,
-    header: () => <TH k="Dashboard.Employees.table.phone" />,
+    header: () => <TH k="employees.table.phone" />,
   },
   {
     id: 'job title',
     accessorKey: 'job_title',
-    header: () => <TH k="Dashboard.Employees.table.jobTitle" />,
+    header: () => <TH k="employees.table.jobTitle" />,
   },
   {
     id: 'actions',

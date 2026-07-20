@@ -8,7 +8,7 @@ type Props = {
 
 export default async function Flow6Page({ params }: Props) {
   const { locale } = await params
-  const t = await getTranslations('Flow6')
+  const t = await getTranslations('landing.flowCta')
   const dir = getTextDirection(locale)
 
   return (

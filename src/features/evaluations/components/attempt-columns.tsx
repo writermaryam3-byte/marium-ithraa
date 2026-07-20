@@ -8,17 +8,18 @@ import { Button } from '@/components/ui/button'
 import { Link } from '@/i18n/navigation'
 import { Pages, Routes } from '@/lib/types/enums'
 import type { EvaluationAttempt } from '../types'
+import { getAttemptChildName, getAttemptParentLabel } from '../utils/attempt-display'
 import { getAttemptStatusLabel } from '../utils/labels'
 
 const ADMIN_ATTEMPTS = `/${Routes.DASHBOARDS}/${Pages.ADMIN}/attempts`
 
 function TH({ messageKey }: { messageKey: string }) {
-  const t = useTranslations('Features.Evaluations')
+  const t = useTranslations('evaluations')
   return t(messageKey)
 }
 
 function StatusBadge({ status }: { status: string }) {
-  const t = useTranslations('Features.Evaluations')
+  const t = useTranslations('evaluations')
   const label = getAttemptStatusLabel(status, t)
   const variant =
     status === 'approved' ? 'default' : status === 'submitted' ? 'secondary' : 'outline'
@@ -26,7 +27,7 @@ function StatusBadge({ status }: { status: string }) {
 }
 
 function AttemptViewLink({ attemptId }: { attemptId: string }) {
-  const t = useTranslations('Features.Evaluations')
+  const t = useTranslations('evaluations')
   return (
     <Button asChild variant="outline" size="sm">
       <Link href={`${ADMIN_ATTEMPTS}/${attemptId}`}>{t('viewDetails')}</Link>
@@ -38,15 +39,12 @@ export const attemptColumns: ColumnDef<EvaluationAttempt>[] = [
   {
     id: 'child',
     header: () => <TH messageKey="child" />,
-    cell: ({ row }) => row.original.child?.name ?? '—',
+    cell: ({ row }) => getAttemptChildName(row.original) ?? '—',
   },
   {
     id: 'parent',
     header: () => <TH messageKey="parent" />,
-    cell: ({ row }) => {
-      const p = row.original.parent as { name?: string; email?: string } | undefined
-      return p?.name ?? p?.email ?? '—'
-    },
+    cell: ({ row }) => getAttemptParentLabel(row.original) ?? '—',
   },
   {
     id: 'evaluation',

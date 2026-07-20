@@ -22,9 +22,9 @@ const TEACHER_URL = `/${Routes.DASHBOARDS}/${Pages.TEACHER}`
 
 export default function TeacherSidebar(props: React.ComponentProps<typeof Sidebar>) {
   const { data: session } = useSession()
-  const t = useTranslations('Dashboard.Nav')
-  const tTeacher = useTranslations('Features.TeacherDashboard')
-  const tNotif = useTranslations('Features.Notifications')
+  const t = useTranslations('navigation.dashboard')
+  const tTeacher = useTranslations('teachers.dashboard')
+  const tNotif = useTranslations('notifications')
 
   const data = {
     user: {

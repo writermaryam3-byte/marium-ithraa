@@ -2,7 +2,7 @@
 
 import { useCallback, useMemo } from 'react'
 import { signIn, signOut, useSession } from 'next-auth/react'
-import { useLocale } from 'next-intl'
+import { useLocale, useTranslations } from 'next-intl'
 import { showInfoToast } from '@/lib/toast/app-toast'
 
 import { logoutClient } from '@/features/auth/api'
@@ -16,6 +16,7 @@ import { mapSessionToAuthUser } from '../utils/session-user'
 
 export function useAuth() {
   const locale = useLocale()
+  const t = useTranslations('errors')
   const { data: session, status, update } = useSession()
 
   const isLoading = status === 'loading'
@@ -60,11 +61,11 @@ export function useAuth() {
   )
 
   const logout = useCallback(
-    async (options?: { callbackUrl?: string; silent?: boolean }) => {
+    async (options?: { callbackUrl?: string; silent?: boolean; sessionId?: string }) => {
       clearAuthTokenCache()
 
       try {
-        await logoutClient()
+        await logoutClient(options?.sessionId)
       } catch {
         // still clear local session if backend logout fails
       }
@@ -74,7 +75,7 @@ export function useAuth() {
       await signOut({ callbackUrl, redirect: true })
 
       if (!options?.silent) {
-        showInfoToast({ raw: locale === 'ar' ? 'تم تسجيل الخروج' : 'Signed out' })
+        showInfoToast(t, 'loggedOut')
       }
     },
     [locale],

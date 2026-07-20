@@ -10,15 +10,15 @@ export const loginFormConfig: FormRegistryEntry<typeof loginSchema> = {
     {
       name: 'phone',
       type: InputTypes.TEL,
-      labelKey: 'Login.phone.label',
-      placeholderKey: 'Login.phone.placeholder',
+      labelKey: 'login.phone.label',
+      placeholderKey: 'login.phone.placeholder',
       autoFocus: true,
     },
     {
       name: 'password',
       type: InputTypes.PASSWORD,
-      labelKey: 'Login.password.label',
-      placeholderKey: 'Login.password.placeholder',
+      labelKey: 'login.password.label',
+      placeholderKey: 'login.password.placeholder',
     },
   ],
 }

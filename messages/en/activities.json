@@ -1,0 +1,27 @@
+{
+  "title": "Activities",
+  "actions": {
+    "create": "Add activity"
+  },
+  "fields": {
+    "name": "Name",
+    "namePlaceholder": "Enter activity name",
+    "dealsCount": "Deals"
+  },
+  "dialogs": {
+    "createTitle": "Create activity",
+    "editTitle": "Edit activity",
+    "deleteTitle": "Delete activity",
+    "deleteConfirm": "Are you sure you want to delete \"{name}\"?"
+  },
+  "table": {
+    "actions": "Actions"
+  },
+  "messages": {
+    "empty": "No activities yet",
+    "subtitle": "Manage enrichment activities linked to deals"
+  },
+  "emptyStates": {
+    "list": "No activities yet"
+  }
+}

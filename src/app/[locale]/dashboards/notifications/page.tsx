@@ -1,4 +1,4 @@
-import { NotificationsScreen } from '@/components/pages/dashboards/NotificationsScreen'
+import { NotificationsScreen } from '@/features/notifications/components/NotificationsScreen'
 
 type Props = {
   params: Promise<{ locale: string }>

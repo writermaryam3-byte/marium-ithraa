@@ -149,7 +149,8 @@ const nextAuthOptions: AuthOptions = {
           })
           if (!res.ok) return null
 
-          const user = await res.json()
+          const responseJson = await res.json()
+          const user = responseJson.data
           const expiresIn = resolveAccessTokenTtlSeconds(user)
           return { ...user, expiresIn }
         } catch {

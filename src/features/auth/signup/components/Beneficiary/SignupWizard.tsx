@@ -9,6 +9,8 @@ import { useRouter } from '@/i18n/navigation'
 import { Form } from '@/components/ui/form'
 import { Button } from '@/components/ui/button'
 import { SubmitButton } from '@/components/shared/forms/SubmitButton'
+import { AuthPageShell } from '@/features/auth/components/AuthPageShell'
+import { cn } from '@/lib/utils'
 
 import BeneficiarySignupTypeStep from './BeneficiarySignupTypeStep'
 import OrganizationSignupForm from './OrganizationSignupForm'
@@ -30,9 +32,11 @@ import { signInWithPhoneAndRedirect } from '@/lib/auth/signInWithCredentials'
 import { useLocale } from 'next-intl'
 import { showErrorToast, showSuccessToast } from '@/lib/toast/app-toast'
 
+const TOTAL_STEPS = 2
+
 export function SignupWizard() {
-  const t = useTranslations('Signup.Beneficiary.Wizard')
-  const tSignup = useTranslations('Signup')
+  const t = useTranslations('signup.beneficiary.wizard')
+  const tValidation = useTranslations('validation')
   const router = useRouter()
   const locale = useLocale()
   const { login } = useAuth()
@@ -41,8 +45,8 @@ export function SignupWizard() {
   const [submitError, setSubmitError] = useState<string | null>(null)
 
   const schema = useMemo(
-    () => createBeneficiaryOrganizationSchema((key) => tSignup(`Beneficiary.Validation.${key}`)),
-    [tSignup]
+    () => createBeneficiaryOrganizationSchema((key) => tValidation(key)),
+    [tValidation],
   )
 
   const form = useForm<BeneficiaryOrganizationFormValues>({
@@ -87,18 +91,16 @@ export function SignupWizard() {
         phone: values.phone.trim(),
       }
 
-      let response: { message?: string }
-
       if (values.accountType === 'parent') {
-        response = await parentSignupClient(basePayload)
+        await parentSignupClient(basePayload)
       } else if (values.accountType === 'enricher') {
-        response = await enrichersSignupClient({
+        await enrichersSignupClient({
           ...basePayload,
           accountType: values.accountType,
           organizationName: values.organizationName?.trim() || '',
         })
       } else {
-        response = await beneficiariesSignupClient({
+        await beneficiariesSignupClient({
           ...basePayload,
           accountType: values.accountType,
           organizationName: values.organizationName?.trim() || '',
@@ -110,7 +112,7 @@ export function SignupWizard() {
         values.accountType === 'organization' || values.accountType === 'enricher'
 
       showSuccessToast({
-        raw: isPendingApproval ? t('organizationPendingSuccess') : response.message || t('success'),
+        raw: isPendingApproval ? t('organizationPendingSuccess') : t('success'),
       })
 
       const loginResult = await signInWithPhoneAndRedirect({
@@ -133,70 +135,112 @@ export function SignupWizard() {
       showErrorToast({ raw: message })
 
       if (error instanceof ApiError) {
-        Object.entries(error.validationErrors ?? {}).forEach(([name, messages]) => {
-          const firstMessage = messages[0]
-          if (!firstMessage) return
+        for (const fe of error.fieldErrors) {
+          if (!fe.message) continue
 
-          form.setError(name as keyof BeneficiaryOrganizationFormValues, {
-            message: firstMessage,
+          form.setError(fe.field as keyof BeneficiaryOrganizationFormValues, {
+            message: fe.message,
           })
-        })
+        }
       }
     } finally {
       setIsSubmitting(false)
     }
   }
 
-  return (
-    <div className="app-container py-16 lg:py-20">
-      <div className="mx-auto max-w-2xl rounded-3xl border border-border/60 bg-background/80 p-6 shadow-sm lg:p-8">
-        <Form {...form}>
-          <form
-            onSubmit={
-              step === 1
-                ? (event) => {
-                    event.preventDefault()
-                    next()
-                  }
-                : form.handleSubmit(onSubmit)
-            }
-            className="space-y-8"
-          >
-            {step === 1 && <BeneficiarySignupTypeStep control={form.control} />}
-
-            {step === 2 && (
-              <div className="space-y-6">
-                {type === 'teacher' && <TeacherSignupForm />}
-                {type === 'parent' && <ParentSignupForm />}
-                {type === 'organization' && <OrganizationSignupForm />}
-                {type === 'enricher' && <EnricherSignupForm />}
-              </div>
-            )}
-
-            {submitError && (
-              <div className="rounded-lg border border-destructive/30 bg-destructive/5 px-4 py-3 text-sm text-destructive">
-                {submitError}
-              </div>
-            )}
-
-            <div className="flex items-center justify-between gap-4">
-              {step > 1 && (
-                <Button type="button" variant="outline" onClick={back} disabled={isSubmitting}>
-                  {t('back')}
-                </Button>
+  const stepIndicator = (
+    <div className="space-y-2 pt-1">
+      <div className="flex items-center gap-2">
+        {Array.from({ length: TOTAL_STEPS }, (_, index) => {
+          const stepNumber = index + 1
+          return (
+            <div
+              key={stepNumber}
+              className={cn(
+                'h-1.5 flex-1 rounded-full transition-colors duration-300',
+                step >= stepNumber ? 'bg-primary' : 'bg-muted',
               )}
-              <div className="ms-auto">
-                <SubmitButton
-                  loading={isSubmitting}
-                  loadingText={step === 1 ? undefined : t('submitting')}
-                >
-                  {step === 1 ? t('next') : t('submit')}
-                </SubmitButton>
-              </div>
-            </div>
-          </form>
-        </Form>
+            />
+          )
+        })}
       </div>
+      <p className="text-center text-xs text-muted-foreground">
+        {t('stepLabel', { current: step, total: TOTAL_STEPS })}
+      </p>
     </div>
+  )
+
+  const loginFooter = (
+    <div className="border-t border-border/60 pt-4 text-center text-sm text-muted-foreground">
+      {t('hasAccount')}{' '}
+      <Button
+        type="button"
+        variant="link"
+        className="h-auto p-0 font-semibold"
+        onClick={() => router.push('/auth/login')}
+      >
+        {t('signIn')}
+      </Button>
+    </div>
+  )
+
+  return (
+    <AuthPageShell
+      title={t('title')}
+      sideTitle={t('side.title')}
+      sideSubtitle={t('side.subtitle')}
+      cardClassName="max-w-none"
+      headerExtra={stepIndicator}
+      footer={loginFooter}
+    >
+      <Form {...form}>
+        <form
+          onSubmit={
+            step === 1
+              ? (event) => {
+                  event.preventDefault()
+                  next()
+                }
+              : form.handleSubmit(onSubmit)
+          }
+          className="space-y-6"
+        >
+          {step === 1 && <BeneficiarySignupTypeStep control={form.control} />}
+
+          {step === 2 && (
+            <div className="space-y-5">
+              {type === 'teacher' && <TeacherSignupForm />}
+              {type === 'parent' && <ParentSignupForm />}
+              {type === 'organization' && <OrganizationSignupForm />}
+              {type === 'enricher' && <EnricherSignupForm />}
+            </div>
+          )}
+
+          {submitError && (
+            <div className="rounded-lg border border-destructive/30 bg-destructive/5 px-4 py-3 text-sm text-destructive">
+              {submitError}
+            </div>
+          )}
+
+          <div className="flex items-center justify-between gap-4 pt-2">
+            {step > 1 ? (
+              <Button type="button" variant="outline" onClick={back} disabled={isSubmitting}>
+                {t('back')}
+              </Button>
+            ) : (
+              <div />
+            )}
+            <SubmitButton
+              variant="gradient"
+              className="h-11 min-w-32 rounded-xl"
+              loading={isSubmitting}
+              loadingText={step === 1 ? undefined : t('submitting')}
+            >
+              {step === 1 ? t('next') : t('submit')}
+            </SubmitButton>
+          </div>
+        </form>
+      </Form>
+    </AuthPageShell>
   )
 }

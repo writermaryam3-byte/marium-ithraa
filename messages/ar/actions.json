@@ -1,0 +1,81 @@
+{
+  "common": {
+    "success": "تم بنجاح",
+    "validationFailed": "يرجى التحقق من حقول النموذج.",
+    "serverError": "حدث خطأ ما، تواصل مع الدعم.",
+    "conflict": "هذا السجل موجود بالفعل.",
+    "deleted": "تم الحذف بنجاح",
+    "invalidId": "معرّف غير صالح."
+  },
+  "children": {
+    "created": "تم إضافة الطفل بنجاح",
+    "updated": "تم تحديث بيانات الطفل بنجاح",
+    "deleted": "تم حذف الطفل بنجاح",
+    "deleteFailed": "حدث خطأ أثناء حذف الطفل",
+    "conflict": "الطفل أو ولي الأمر موجود فعلاً",
+    "limitReached": "تم الوصول إلى الحد الأقصى (طفلان)"
+  },
+  "employees": {
+    "created": "تم إضافة الموظف بنجاح",
+    "updated": "تم تحديث الموظف بنجاح",
+    "deleted": "تم حذف الموظف بنجاح",
+    "deleteFailed": "حدث خطأ غير متوقع أثناء حذف الموظف"
+  },
+  "teachers": {
+    "created": "تم إضافة المعلم بنجاح",
+    "updated": "تم تحديث المعلم بنجاح",
+    "deleted": "تم حذف المعلم بنجاح",
+    "deleteFailed": "حدث خطأ غير متوقع أثناء حذف المعلم"
+  },
+  "grades": {
+    "created": "تم إضافة المرحلة بنجاح",
+    "updated": "تم تحديث المرحلة بنجاح",
+    "deleted": "تم حذف المرحلة بنجاح",
+    "deleteFailed": "حدث خطأ غير متوقع أثناء حذف المرحلة"
+  },
+  "classes": {
+    "created": "تم إنشاء الفصل بنجاح",
+    "updated": "تم تحديث الفصل بنجاح",
+    "deleted": "تم حذف الفصل بنجاح",
+    "deleteFailed": "حدث خطأ غير متوقع أثناء حذف الفصل"
+  },
+  "tests": {
+    "created": "تم إنشاء الاختبار بنجاح"
+  },
+  "deals": {
+    "created": "تم إنشاء الصفقة بنجاح",
+    "failedCreate": "فشل إنشاء الصفقة",
+    "proposalUpdated": "تم تحديث العرض",
+    "failedUpdateProposal": "فشل تحديث العرض",
+    "proposalSubmitted": "تم تقديم العرض",
+    "failedSubmitProposal": "فشل تقديم العرض",
+    "proposalSelected": "تم اختيار العرض",
+    "failedSelectProposal": "فشل اختيار العرض",
+    "proposalApproved": "تمت الموافقة على العرض",
+    "failedApproveProposal": "فشل الموافقة على العرض",
+    "proposalRejected": "تم رفض العرض",
+    "failedRejectProposal": "فشل رفض العرض",
+    "attendanceRecorded": "تم تسجيل الحضور",
+    "failedRecordAttendance": "فشل تسجيل الحضور",
+    "dealClosed": "تم إغلاق الصفقة",
+    "failedCloseDeal": "فشل إغلاق الصفقة"
+  },
+  "activities": {
+    "created": "تم إنشاء النشاط",
+    "failedCreate": "فشل إنشاء النشاط",
+    "updated": "تم تحديث النشاط",
+    "failedUpdate": "فشل تحديث النشاط",
+    "deleted": "تم حذف النشاط",
+    "failedDelete": "فشل حذف النشاط"
+  },
+  "payments": {
+    "created": "تم إنشاء الدفع بنجاح",
+    "initiationSucceeded": "تم بدء الدفع بنجاح",
+    "retrySucceeded": "تمت إعادة المحاولة بنجاح"
+  },
+  "transfers": {
+    "requestCreated": "تم إنشاء طلب النقل",
+    "approved": "تمت الموافقة على النقل",
+    "rejected": "تم رفض النقل"
+  }
+}

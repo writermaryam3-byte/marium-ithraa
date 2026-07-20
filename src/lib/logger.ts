@@ -10,6 +10,7 @@ interface LogMetadata {
   retryOnUnauthorized?: boolean
   message?: string
   data?: unknown
+  path?: string
 }
 
 export const logger = {

@@ -22,9 +22,9 @@ const ENRICHER_URL = `/${Routes.DASHBOARDS}/${Pages.ENRICHER}`
 
 export function EnricherSidebar(props: React.ComponentProps<typeof Sidebar>) {
   const { data: session } = useSession()
-  const t = useTranslations('Dashboard.Nav')
-  const tEnricher = useTranslations('Features.EnricherDashboard')
-  const tNotif = useTranslations('Features.Notifications')
+  const t = useTranslations('navigation.dashboard')
+  const tEnricher = useTranslations('deals.enricher')
+  const tNotif = useTranslations('notifications')
 
   const data = {
     user: {

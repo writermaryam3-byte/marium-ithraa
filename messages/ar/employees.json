@@ -1,0 +1,57 @@
+{
+  "title": "الموظفون",
+  "page": {
+    "details": "تفاصيل الموظف"
+  },
+  "fields": {
+    "email": "البريد الإلكتروني",
+    "phone": "رقم الجوال",
+    "role": "الدور",
+    "job": "الوظيفة"
+  },
+  "dialogs": {
+    "addTitle": "إضافة موظف",
+    "addDescription": "أضف موظفاً جديداً إلى مؤسستك.",
+    "editTitle": "تعديل موظف",
+    "editDescription": "تحديث بيانات الموظف.",
+    "deleteTitle": "حذف موظف",
+    "deleteDescription": "هل أنت متأكد من حذف هذا الموظف؟"
+  },
+  "table": {
+    "name": "الاسم",
+    "email": "البريد الإلكتروني",
+    "phone": "رقم الجوال",
+    "jobTitle": "المسمى الوظيفي"
+  },
+  "messages": {
+    "loadFailed": "تعذر تحميل بيانات الموظف"
+  },
+  "forms": {
+    "dialogTitle": "إضافة موظف",
+    "dialogDescription": "أضف موظفاً جديداً إلى مؤسستك.",
+    "editTitle": "تعديل موظف",
+    "editDescription": "تحديث بيانات الموظف.",
+    "deleteTitle": "حذف موظف",
+    "deleteDescription": "هل أنت متأكد من حذف هذا الموظف؟",
+    "name": {
+      "label": "الاسم الكامل",
+      "placeholder": "أدخل اسم الموظف"
+    },
+    "phone": {
+      "label": "رقم الهاتف",
+      "placeholder": "أدخل رقم الهاتف"
+    },
+    "email": {
+      "label": "البريد الإلكتروني",
+      "placeholder": "أدخل البريد الإلكتروني"
+    },
+    "password": {
+      "label": "كلمة المرور",
+      "placeholder": "أدخل كلمة المرور"
+    },
+    "jobTitle": {
+      "label": "المسمى الوظيفي",
+      "placeholder": "أدخل المسمى الوظيفي"
+    }
+  }
+}

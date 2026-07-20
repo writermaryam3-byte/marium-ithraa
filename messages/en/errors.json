@@ -1,0 +1,169 @@
+{
+  "network": "Network error. Please check your connection.",
+  "unexpected": "An unexpected error occurred. Please try again.",
+  "permissionDenied": "You do not have permission to perform this action.",
+  "offline": "You appear to be offline.",
+  "pageNotFound": {
+    "title": "Page not found",
+    "description": "The page you are looking for does not exist.",
+    "cta": "Go home"
+  },
+  "serverUnavailable": "Server is temporarily unavailable.",
+  "sessionExpired": "Your session has expired. Please sign in again.",
+  "phone_required": "Phone number is required.",
+  "password_min": "Password must be at least 8 characters.",
+  "invalid_email": "Invalid email address.",
+  "name_required": "Name is required.",
+  "invalid_id": "Invalid ID.",
+  "birthDate_required": "Birth date is required.",
+  "birthDate_invalid": "Invalid birth date.",
+  "birthDate_future": "Birth date cannot be in the future.",
+  "birthDate_max": "Birth date is too far in the past.",
+  "global": {
+    "title": "Oops, something went wrong!",
+    "description": "A critical error occurred. Please try again.",
+    "errorDetails": "Error details:",
+    "tryAgain": "Try again"
+  },
+  "auth": {
+    "title": "Authentication Error",
+    "description": "Something went wrong during authentication.",
+    "tryAgain": "Try again",
+    "unauthorized": "Missing or invalid authentication token.",
+    "invalidCredentials": "Invalid phone number or password.",
+    "forbidden": "You do not have permission to perform this action.",
+    "refreshTokenMissing": "Refresh token is missing.",
+    "sessionCompromised": "Session has been compromised. Please sign in again.",
+    "tokenInvalid": "Invalid authentication token.",
+    "tokenExpired": "Authentication token has expired. Please sign in again.",
+    "logoutFailed": "Unable to log out this session."
+  },
+  "user": {
+    "notFound": "User not found.",
+    "alreadyExists": "User already exists.",
+    "emailInUse": "Email address is already in use.",
+    "phoneInUse": "Phone number is already in use."
+  },
+  "parent": {
+    "profileNotFound": "Parent profile not found.",
+    "roleConfirmationRequired": "This phone belongs to an existing user who is not a parent. Confirm granting the Parent role to continue."
+  },
+  "organization": {
+    "notFound": "Organization not found.",
+    "alreadyExists": "Organization already exists.",
+    "notApproved": "Organization has not been approved yet.",
+    "alreadyApproved": "Organization is already approved.",
+    "alreadyRejected": "Organization is already rejected."
+  },
+  "child": {
+    "notFound": "Child not found.",
+    "limitReached": "Child limit has been reached.",
+    "accessDenied": "You do not have access to this child.",
+    "alreadyAssigned": "Child is already assigned to this class.",
+    "invalidType": "Cannot mix organization and private children.",
+    "duplicate": "Child already exists in this school."
+  },
+  "teacher": {
+    "notFound": "Teacher not found.",
+    "alreadyExists": "Teacher already exists.",
+    "emailImmutable": "Teacher email cannot be changed after creation.",
+    "phoneImmutable": "Teacher phone number cannot be changed after creation."
+  },
+  "grade": {
+    "notFound": "Grade not found.",
+    "alreadyExists": "Grade already exists in this organization."
+  },
+  "class": {
+    "notFound": "Class not found.",
+    "alreadyExists": "Class already exists in this grade.",
+    "full": "Class has reached its maximum capacity."
+  },
+  "evaluation": {
+    "notFound": "Evaluation not found.",
+    "attemptNotFound": "Evaluation attempt not found.",
+    "attemptLocked": "Evaluation attempt is locked.",
+    "maxAttemptsReached": "Maximum number of attempts has been reached.",
+    "dimensionMissing": "Unknown evaluation dimension.",
+    "duplicateDimensions": "Duplicate dimension codes are not allowed.",
+    "duplicateAnswers": "Duplicate answers are not allowed.",
+    "invalidTransition": "Invalid status transition.",
+    "slotNotFound": "No available evaluation slot.",
+    "invalidQuestion": "Question is not part of this evaluation.",
+    "invalidAnswer": "Answer is not valid for this question.",
+    "notSuitableAge": "Child's age is not suitable for this evaluation.",
+    "notAvailable": "This evaluation is not available."
+  },
+  "payment": {
+    "notFound": "Payment not found.",
+    "failed": "Payment failed.",
+    "expired": "Payment session has expired.",
+    "maxRetries": "Maximum retry limit has been reached.",
+    "invalidProvider": "Payment provider is not configured.",
+    "currencyNotSupported": "Only SAR currency is supported.",
+    "webhookInvalid": "Invalid webhook signature.",
+    "webhookMissing": "Missing webhook data.",
+    "providerUnavailable": "Payment provider is temporarily unavailable.",
+    "invalidJson": "Malformed payment webhook data."
+  },
+  "deal": {
+    "notFound": "Deal not found.",
+    "closed": "This deal is closed.",
+    "deadlinePassed": "Deal deadline has passed.",
+    "duplicateProposal": "You have already submitted a proposal for this deal.",
+    "cannotCreate": "You are not allowed to create deals.",
+    "proposalNotFound": "Proposal not found.",
+    "proposalInvalidState": "Proposal is in an invalid state."
+  },
+  "activity": {
+    "notFound": "Activity not found.",
+    "hasDeals": "Cannot delete activity with existing deals."
+  },
+  "transfer": {
+    "notFound": "Transfer request not found.",
+    "alreadyResolved": "Transfer request has already been resolved.",
+    "invalidChildType": "Cannot transfer this child type."
+  },
+  "notification": {
+    "notFound": "Notification not found.",
+    "emailRequired": "Email is required for notification delivery."
+  },
+  "capacity": {
+    "notFound": "Capacity request not found.",
+    "accessDenied": "You do not have access to this capacity request."
+  },
+  "database": {
+    "duplicateKey": "A record with this value already exists.",
+    "foreignKeyViolation": "Referenced record does not exist.",
+    "notNullViolation": "A required field is missing.",
+    "checkViolation": "A validation constraint was not met.",
+    "genericError": "A database error occurred."
+  },
+  "common": {
+    "tooManyRequests": "Too many requests. Please try again later.",
+    "internalServerError": "An unexpected server error occurred. Please try again.",
+    "unauthorized": "You are not authenticated. Please sign in."
+  },
+  "validation": {
+    "failed": "Please check the highlighted fields and try again.",
+    "parentNameRequired": "Parent name is required."
+  },
+  "dashboard": {
+    "title": "Dashboard Error",
+    "description": "Something went wrong loading this page.",
+    "tryAgain": "Try again"
+  },
+  "errorCard": {
+    "defaultTitle": "Something went wrong",
+    "retry": "Retry",
+    "errorDetails": "Error details"
+  },
+  "page": {
+    "title": "Something went wrong",
+    "description": "An unexpected error occurred. Please try again."
+  },
+  "unauthorized": {
+    "title": "Access denied",
+    "description": "You are not allowed to access this page.",
+    "goHome": "Go home"
+  }
+}

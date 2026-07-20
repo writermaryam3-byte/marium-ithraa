@@ -1,0 +1,149 @@
+{
+  "headerBadge": "Personal Data Protection System (SDAIA)",
+  "headerTitle": "Privacy Policy and Data Protection",
+  "headerDesc": "At Ithraa Intelligence, we are committed to the highest transparent security standards to protect your and your children's data in accordance with the regulations of the Kingdom of Saudi Arabia.",
+  "sidebarLabel": "Policy Index",
+  "sections": {
+    "definitions": {
+      "title": "1. Definitions and Terminology",
+      "items": [
+        {
+          "label": "Platform",
+          "desc": "Ithraa Intelligence website and application in all its electronic forms providing educational enrichment services and recommendations."
+        },
+        {
+          "label": "User",
+          "desc": "Any person accessing the platform, including parents, schools, and activity providers."
+        },
+        {
+          "label": "Parent/Guardian",
+          "desc": "The adult who registers on the platform on behalf of their child to discover enrichment activities."
+        },
+        {
+          "label": "Provider",
+          "desc": "The school, educational institution, or activity provider who lists their programs on the platform."
+        },
+        {
+          "label": "Child",
+          "desc": "Any individual under eighteen years of age whose data is shared by their parent or guardian."
+        },
+        {
+          "label": "Personal Data",
+          "desc": "Any information that identifies you directly or indirectly, such as name, email, and device identifier."
+        }
+      ],
+      "lawNote": "Applicable Law: The Personal Data Protection Law in the Kingdom of Saudi Arabia (Royal Decree M/19) issued under the supervision of the Saudi Authority for Data and Artificial Intelligence (SDAIA)."
+    },
+    "about": {
+      "title": "2. Who We Are",
+      "description": "We are Ithraa Intelligence, a company registered in the Kingdom of Saudi Arabia, operating an intelligent educational platform that helps families discover suitable programs for their children. When you use the platform, we are the data controller responsible for your personal data.",
+      "legalName": {
+        "label": "Legal Entity Name",
+        "value": "Tatweer and Ithraa Althaka Technology"
+      },
+      "email": {
+        "label": "Privacy-Specific Email",
+        "value": "privacy@ithrathaka.com"
+      }
+    },
+    "audience": {
+      "title": "3. Who This Policy Covers",
+      "items": [
+        {
+          "title": "Parents and Families",
+          "desc": "Adults seeking to discover activities. Child data is only provided with the parent's explicit consent."
+        },
+        {
+          "title": "Schools and Institutions",
+          "desc": "Schools that register to list their programs and manage recommendations and reports for enrolled students."
+        },
+        {
+          "title": "Activity Providers",
+          "desc": "Institutions and individuals developing enrichment programs who wish to reach their target audience."
+        }
+      ]
+    },
+    "dataCollected": {
+      "title": "4. Data We Collect",
+      "parents": {
+        "title": "A. Parents and Children",
+        "items": [
+          "Full name, email address, and mobile number.",
+          "Account details (username and automatically encrypted password).",
+          "Child profile: first name, age, interests, special needs, and educational choices.",
+          "Saved programs, search history, and platform preferences."
+        ]
+      },
+      "providers": {
+        "title": "B. Schools and Activity Providers",
+        "items": [
+          "Authorized representative name, job title, email, and phone number.",
+          "Institution name, commercial registration number, address, and approved logo.",
+          "Listed program details (age groups, schedules, and locations)."
+        ]
+      },
+      "technical": {
+        "title": "C. Technical Data (For All):",
+        "desc": "IP address, device type and operating system, along with anonymized analytics data via Google Analytics to understand browsing behavior and improve performance."
+      }
+    },
+    "processing": {
+      "title": "5 & 6. Processing Methods and Purposes",
+      "howTitle": "How We Collect Your Data:",
+      "howItems": [
+        {
+          "strong": "Directly from you:",
+          "text": "When you enter data and create an account."
+        },
+        {
+          "strong": "Automatically via analytics tools:",
+          "text": "Cookies and technical files for session security only."
+        }
+      ],
+      "purposeTitle": "Key Usage Purposes:"
+    },
+    "rights": {
+      "title": "10. Your Rights Under the Personal Data Protection Law",
+      "description": "Saudi law (Article 4) guarantees you absolute and direct fundamental rights to control your data, including:",
+      "items": [
+        {
+          "title": "Right to be Informed",
+          "desc": "Know what data we hold and how it is used (as outlined in this policy)."
+        },
+        {
+          "title": "Right to Access",
+          "desc": "Request a complete copy of the digital data we hold about you or your child."
+        },
+        {
+          "title": "Right to Rectification",
+          "desc": "Correct or update any incorrect, outdated, or incomplete data within the platform immediately."
+        },
+        {
+          "title": "Right to Erasure (Deletion)",
+          "desc": "Request deletion of your data when the legal or contractual purpose ends."
+        }
+      ],
+      "contact": "To exercise your rights or submit a request, contact our compliance team at: {email}"
+    },
+    "complaints": {
+      "title": "13. Complaints, Grievances, and Contact",
+      "description": "If you have any concerns or inquiries regarding your privacy, please contact us directly to resolve them as quickly as possible with full transparency.",
+      "complaintsEmail": {
+        "label": "Complaints Email",
+        "value": "privacy@ithrathaka.com",
+        "responseTime": "Expected response time: within 10 working days"
+      },
+      "generalEmail": {
+        "label": "General Inquiries",
+        "value": "support@ithrathaka.com",
+        "website": "Official website: ithrathaka.com"
+      }
+    }
+  },
+  "purposes": [
+    "Provide personalized recommendations",
+    "Account management and smart linking",
+    "Platform security and safety",
+    "Regulatory and legislative compliance"
+  ]
+}

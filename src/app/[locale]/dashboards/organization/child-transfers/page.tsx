@@ -1,4 +1,4 @@
-import { ChildTransferRequestsScreen } from '@/components/pages/dashboards/organization/ChildTransferRequestsScreen'
+import { ChildTransferRequestsScreen } from '@/features/children/components/ChildTransferRequestsScreen'
 import { getChildTransferRequests } from '@/features/children'
 import { requireCurrentOrganization } from '@/lib/helpers/getCurrentOrganization'
 

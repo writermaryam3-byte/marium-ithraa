@@ -7,33 +7,23 @@ import { useAuth } from '@/features/auth/hooks/useAuth'
 import { Button } from '@/components/ui/button'
 import { useState } from 'react'
 import Searchbar from './search'
+import LanguageSwitcher from './langSwitch'
 import { Menu, X } from 'lucide-react'
 
 const Header = ({ locale }: { locale: string }) => {
-  const t = useTranslations('Header')
-  const tAuth = useTranslations('Auth')
+  const t = useTranslations('navigation.header')
+  const tHero = useTranslations('landing.hero')
+  const tAuth = useTranslations('auth')
   const { isAuthenticated, logout, loginPath } = useAuth()
   const navLinks = [
     {
-      label: t('Menu.Home'),
+      label: t('menu.home'),
       target: '/',
     },
     {
-      label: t('Menu.About'),
+      label: t('menu.about'),
       target: '/about',
     },
-    // {
-    //     label: t("Menu.Services"),
-    //     target: "/d"
-    // },
-    // {
-    //     label: t("Menu.Blog"),
-    //     target: "/c"
-    // },
-    // {
-    //     label: t("Menu.Contact"),
-    //     target: "/cv"
-    // },
   ]
 
   const [mobileOpen, setMobileOpen] = useState(false)
@@ -51,7 +41,7 @@ const Header = ({ locale }: { locale: string }) => {
           <Link href="/" className="shrink-0">
             <Image
               src="/logo.svg"
-              alt="logo"
+              alt={tHero('brandAlt')}
               width={170}
               height={48}
               className="h-10 w-auto lg:h-12"
@@ -77,8 +67,9 @@ const Header = ({ locale }: { locale: string }) => {
 
           <div className="flex items-center gap-2">
             <Searchbar />
+            <LanguageSwitcher locale={locale} />
             <div className="hidden lg:block">
-              <AuthNavActions locale={locale} />
+              <AuthNavActions locale={locale} showLanguage={false} />
             </div>
 
             <Button
@@ -87,7 +78,7 @@ const Header = ({ locale }: { locale: string }) => {
               size="icon-sm"
               className="lg:hidden rounded-full"
               onClick={() => setMobileOpen(true)}
-              aria-label="Open menu"
+              aria-label={t('openMenu')}
             >
               <Menu />
             </Button>
@@ -99,19 +90,19 @@ const Header = ({ locale }: { locale: string }) => {
             <button
               className="fixed inset-0 z-40 bg-black/30 backdrop-blur-sm"
               onClick={() => setMobileOpen(false)}
-              aria-label="Close menu overlay"
+              aria-label={t('closeMenuOverlay')}
             />
             <div className="fixed top-0 inset-x-0 z-50 p-4">
               <div className="mx-auto max-w-lg rounded-3xl border bg-background shadow-lg">
                 <div className="flex items-center justify-between p-4 border-b">
-                  <span className="font-semibold">{t('Menu.Home')}</span>
+                  <span className="font-semibold">{t('mobileMenuTitle')}</span>
                   <Button
                     type="button"
                     variant="ghost"
                     size="icon-sm"
                     className="rounded-full"
                     onClick={() => setMobileOpen(false)}
-                    aria-label="Close menu"
+                    aria-label={t('closeMenu')}
                   >
                     <X />
                   </Button>

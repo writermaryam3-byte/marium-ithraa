@@ -12,6 +12,7 @@ import { WelcomeHero } from '@/components/shared/dashboard/WelcomeHero'
 import { useAdminChildren } from '@/features/children'
 import { useEvaluations } from '@/features/evaluations/hooks'
 import { useNotificationsList } from '@/features/notifications/hooks'
+import { resolveNotificationText } from '@/features/notifications/utils/resolveNotificationText'
 import { Pages, Routes } from '@/lib/types/enums'
 import { useSession } from 'next-auth/react'
 
@@ -19,28 +20,29 @@ const ADMIN_URL = `/${Routes.DASHBOARDS}/${Pages.ADMIN}`
 
 export function AdminDashboardScreen() {
   const locale = useLocale()
-  const tNav = useTranslations('Dashboard.Nav')
-  const tNotif = useTranslations('Features.Notifications')
+  const tNav = useTranslations('navigation.dashboard')
+  const tAdmin = useTranslations('dashboard.admin')
+  const tCommon = useTranslations('common')
+  const tNotif = useTranslations('notifications')
   const isAr = locale === 'ar'
   const { data: session } = useSession()
 
   const { data: childrenData, isLoading: loadingChildren } = useAdminChildren()
+  const childrenCount = childrenData?.data?.length ?? 0
   const { data: evaluationsData, isLoading: loadingEvaluations } = useEvaluations()
-  const evaluations = Array.isArray(evaluationsData) ? evaluationsData : []
+  const evaluations = useMemo(
+    () => (Array.isArray(evaluationsData) ? evaluationsData : []),
+    [evaluationsData],
+  )
   const { data: notificationsData } = useNotificationsList({ page: 1, limit: 5 })
 
-  const displayName = session?.user?.name ?? (isAr ? 'Admin' : 'Admin')
+  const displayName = session?.user?.name ?? tAdmin('defaultName')
 
   const stats = useMemo(
     () => [
       {
         label: tNav('children'),
-        value: loadingChildren
-          ? '-'
-          : String(
-              (childrenData?.organizationChildren?.length ?? 0) +
-                (childrenData?.privateChildren?.length ?? 0),
-            ),
+        value: loadingChildren ? '-' : String(childrenCount),
         icon: <Baby />,
         variant: 'purple' as const,
       },
@@ -52,13 +54,13 @@ export function AdminDashboardScreen() {
       },
       {
         label: tNotif('title'),
-        value: String(notificationsData?.meta?.total ?? notificationsData?.data?.length ?? 0),
+        value: String(notificationsData?.meta?.total ?? notificationsData?.items?.length ?? 0),
         icon: <FileText />,
         variant: 'indigo' as const,
       },
     ],
     [
-      childrenData,
+      childrenCount,
       evaluations,
       notificationsData,
       loadingChildren,
@@ -69,12 +71,12 @@ export function AdminDashboardScreen() {
   )
 
   const activities: ActivityItem[] = useMemo(() => {
-    const items = notificationsData?.data ?? []
+    const items = notificationsData?.items ?? []
     if (items.length === 0) {
       return [
         {
           id: 'placeholder',
-          title: isAr ? 'No recent activity' : 'No recent activity',
+          title: tNotif('noRecentActivity'),
           timeAgo: '-',
           icon: <ClipboardList />,
         },
@@ -82,66 +84,55 @@ export function AdminDashboardScreen() {
     }
     return items.slice(0, 4).map((n) => ({
       id: n.id,
-      title: n.title,
+      title: resolveNotificationText(n.title, tNotif, n.metadata),
       timeAgo: new Date(n.createdAt).toLocaleString(isAr ? 'ar-SA' : undefined, {
         dateStyle: 'short',
         timeStyle: 'short',
       }),
       icon: <FileText />,
     }))
-  }, [notificationsData, isAr])
+  }, [notificationsData, isAr, tNotif])
 
   return (
     <DashboardHomeLayout locale={locale}>
       <WelcomeHero
-        title={isAr ? `Welcome, ${displayName}` : `Welcome, ${displayName}`}
-        subtitle={
-          isAr
-            ? 'Manage the platform, evaluations, and users from one place'
-            : 'Manage the platform, evaluations, and users from one place'
-        }
+        title={tAdmin('welcome', { name: displayName })}
+        subtitle={tAdmin('subtitle')}
       />
 
       <section className="space-y-4">
-        <h2 className="text-start text-xl font-bold text-foreground">
-          {isAr ? 'Platform stats' : 'Platform stats'}
-        </h2>
+        <h2 className="text-start text-xl font-bold text-foreground">{tAdmin('platformStats')}</h2>
         <StatsGrid items={stats} />
       </section>
 
       <section className="space-y-4">
-        <h2 className="text-start text-xl font-bold text-foreground">
-          {isAr ? 'Quick actions' : 'Quick actions'}
-        </h2>
+        <h2 className="text-start text-xl font-bold text-foreground">{tAdmin('quickActions')}</h2>
         <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
           <QuickActionCard
             title={tNav('evaluations')}
-            description={isAr ? 'Create and manage evaluations' : 'Create and manage evaluations'}
+            description={tAdmin('evaluationsDesc')}
             href={`${ADMIN_URL}/evaluations`}
             icon={<Brain />}
-            actionLabel={isAr ? 'Open' : 'Open'}
+            actionLabel={tAdmin('open')}
           />
           <QuickActionCard
             title={tNav('attempts')}
-            description={isAr ? 'Review and approve attempts' : 'Review and approve attempts'}
+            description={tAdmin('attemptsDesc')}
             href={`${ADMIN_URL}/attempts`}
             icon={<ClipboardList />}
-            actionLabel={isAr ? 'Open' : 'Open'}
+            actionLabel={tCommon('buttons.open')}
           />
           <QuickActionCard
             title={tNotif('dispatchTitle')}
-            description={isAr ? 'Send a notification to a user' : 'Send a notification to a user'}
+            description={tAdmin('dispatchDesc')}
             href={`${ADMIN_URL}/notifications/dispatch`}
             icon={<Send />}
-            actionLabel={isAr ? 'Send' : 'Send'}
+            actionLabel={tAdmin('send')}
           />
         </div>
       </section>
 
-      <ActivityFeed
-        title={isAr ? 'Recent notifications' : 'Recent notifications'}
-        items={activities}
-      />
+      <ActivityFeed title={tAdmin('recentNotifications')} items={activities} />
     </DashboardHomeLayout>
   )
 }

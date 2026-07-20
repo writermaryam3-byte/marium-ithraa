@@ -1,4 +1,4 @@
-import { TeachersScreen } from '@/components/pages/dashboards/organization/TeachersScreen'
+import { TeachersScreen } from '@/features/teachers/components/TeachersScreen'
 import { getTeachersByOrg } from '@/features/teachers'
 import { requireCurrentOrganization } from '@/lib/helpers/getCurrentOrganization'
 

@@ -1,0 +1,45 @@
+{
+  "badge": "Welcome to Ithraa Intelligence",
+  "title": "Your first choice for discovering and developing every child's potential",
+  "description": "Our smart platform connects parents and schools with activity and educational service providers, offering customized extracurricular and recreational paths designed based on children's multiple intelligences and interests. We ensure high-quality connections to support children's growth and skill development, building their future with confidence and excellence.",
+  "stats": {
+    "children": {
+      "value": "+1,000",
+      "label": "Children discovered their passion"
+    },
+    "families": {
+      "value": "+300",
+      "label": "Benefiting families"
+    },
+    "partners": {
+      "value": "+20",
+      "label": "Partner schools & institutions"
+    }
+  },
+  "vision": {
+    "badge": "Our Vision & Mission",
+    "title": "We believe every child carries a unique world within them",
+    "p1": "At Ithraa Intelligence, we believe talents deserve to be discovered and nurtured. That's why we built an integrated smart platform to be the first choice for schools and families, connecting them with activity and educational service providers to build customized enrichment paths.",
+    "p2": "Our platform offers extracurricular and recreational paths precisely designed based on multiple intelligences and each child's individual interests. We use the latest technologies to empower families to choose programs and experiences that perfectly match their children's interests, ensuring a deep and impactful educational and recreational experience.",
+    "callout": "Together, we create a future where every child discovers their uniqueness and turns their potential into real success."
+  },
+  "system": {
+    "title": "High-Quality Connection Ecosystem",
+    "description": "We provide a high-quality connection system that ensures the best experiences to develop children's talents and guide them toward their true passion through three pillars:",
+    "pillars": {
+      "0": {
+        "title": "Empowering Families",
+        "desc": "Make informed decisions based on real assessments and discover children's intelligences and individual tendencies."
+      },
+      "1": {
+        "title": "Strategic School Partnerships",
+        "desc": "Support educational institutions with distinguished enrichment options beyond traditional academic curricula."
+      },
+      "2": {
+        "title": "Service Provider Qualification",
+        "desc": "Help activity providers meet quality standards and market requirements to achieve tangible impact."
+      }
+    }
+  },
+  "footer": "Ithraa Intelligence is not just a digital platform; it's an integrated community that combines education and development, contributing to building a confident, creative generation capable of reaching its full potential."
+}

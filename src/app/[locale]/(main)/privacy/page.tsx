@@ -27,7 +27,7 @@ const SECTIONS = [
 ]
 
 export default function PrivacyPolicyPage() {
-  const t = useTranslations('Privacy')
+  const t = useTranslations('privacy')
   const [activeSection, setActiveSection] = useState('definitions')
 
   const scrollToSection = (id: string) => {

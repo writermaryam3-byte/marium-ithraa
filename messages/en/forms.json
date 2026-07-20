@@ -1,0 +1,77 @@
+{
+  "login": {
+    "phone": {
+      "label": "Phone number",
+      "placeholder": "Enter your phone number"
+    },
+    "password": {
+      "label": "Password",
+      "placeholder": "Enter your password"
+    }
+  },
+  "shared": {
+    "name": {
+      "label": "Name",
+      "placeholder": "Enter name"
+    },
+    "email": {
+      "label": "Email",
+      "placeholder": "Enter email"
+    },
+    "phone": {
+      "label": "Phone",
+      "placeholder": "Enter phone"
+    },
+    "password": {
+      "label": "Password",
+      "placeholder": "Enter password"
+    }
+  },
+  "Employee": {
+    "name": { "label": "Name", "placeholder": "Enter employee name" },
+    "phone": { "label": "Phone", "placeholder": "Enter employee phone" },
+    "email": { "label": "Email", "placeholder": "Enter employee email" },
+    "password": { "label": "Password", "placeholder": "Enter employee password" },
+    "jobTitle": { "label": "Job Title", "placeholder": "Enter job title" }
+  },
+  "Teacher": {
+    "name": { "label": "Name", "placeholder": "Enter teacher name" },
+    "email": { "label": "Email", "placeholder": "Enter teacher email" },
+    "phone": { "label": "Phone", "placeholder": "Enter teacher phone" },
+    "password": { "label": "Password", "placeholder": "Enter teacher password" },
+    "jobTitle": { "label": "Job Title", "placeholder": "Enter job title" }
+  },
+  "Child": {
+    "name": { "label": "Name", "placeholder": "Enter child name" },
+    "birthDate": { "label": "Birth Date" },
+    "parentName": { "label": "Parent Name" },
+    "parentEmail": { "label": "Parent Email" },
+    "parentPhone": { "label": "Parent Phone" },
+    "parentPassword": { "label": "Parent Password" },
+    "grade": { "label": "Grade", "placeholder": "Select grade" }
+  },
+  "Class": {
+    "name": { "label": "Class Name", "placeholder": "Enter class name" }
+  },
+  "Grade": {
+    "name": { "label": "Grade Name", "placeholder": "Enter grade name" }
+  },
+  "validation": {
+    "nameRequired": "Name is required",
+    "organizationRequired": "Organization is required",
+    "gradeRequired": "Grade is required",
+    "classNameRequired": "Class name is required",
+    "jobTitleRequired": "Job title is required"
+  },
+  "errors": {
+    "invalid_id": "Invalid identifier",
+    "phone_required": "Phone number is required",
+    "password_min": "Password must be at least 8 characters",
+    "invalid_email": "Enter a valid email address",
+    "name_required": "Name must be at least 2 characters"
+  },
+  "Test": {
+    "title": { "label": "Title", "placeholder": "Enter test title" },
+    "description": { "label": "Description", "placeholder": "Enter test description" }
+  }
+}

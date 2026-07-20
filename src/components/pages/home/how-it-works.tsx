@@ -2,11 +2,11 @@
 
 import { useTranslations } from 'next-intl'
 import { cn } from '@/lib/utils'
-import { HOME_HOW_STEPS } from '@/lib/home.constants'
+import { HOME_HOW_STEPS } from '@/lib/types/constants/home.constants'
 import { Card, CardContent } from '@/components/ui/card'
 
 export default function HomeHowItWorks() {
-  const t = useTranslations('HomePage.HowItWorks')
+  const t = useTranslations('landing.howItWorks')
 
   return (
     <section className="app-container pb-14 lg:pb-20">

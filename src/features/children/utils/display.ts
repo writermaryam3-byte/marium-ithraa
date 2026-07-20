@@ -30,11 +30,11 @@ export function getChildEvaluationLabel(
   const evaluated = (child.attemptsUsed ?? 0) > 0 || child.retakeUsed === true
   return evaluated
     ? {
-        label: t('evaluationStatus.evaluated'),
+        label: t('status.evaluation.evaluated'),
         className: 'text-emerald-600',
       }
     : {
-        label: t('evaluationStatus.notEvaluated'),
+        label: t('status.evaluation.notEvaluated'),
         className: 'text-amber-600',
       }
 }

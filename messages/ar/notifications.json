@@ -1,0 +1,101 @@
+{
+  "title": "الإشعارات",
+  "description": "تابع آخر التنبيهات والتحديثات",
+  "subtitle": "تابع آخر التنبيهات والتحديثات",
+  "empty": "لا توجد إشعارات",
+  "unread": "غير مقروء",
+  "read": "مقروء",
+  "markRead": "تعليم كمقروء",
+  "markAllRead": "تعليم الكل كمقروء",
+  "viewAll": "عرض الكل",
+  "filters": {
+    "all": "الكل",
+    "unread": "غير المقروءة"
+  },
+  "dispatchTitle": "إرسال إشعار",
+  "dispatchSubtitle": "إرسال إشعار لمستخدم محدد",
+  "dispatchFormTitle": "نموذج الإرسال",
+  "deliveryLabel": "نوع الإرسال",
+  "deliveryInapp": "داخل التطبيق",
+  "deliveryEmail": "بريد إلكتروني",
+  "deliveryBoth": "كلاهما",
+  "deliveryVerifyEmail": "تفعيل البريد الإلكتروني",
+  "userId": "المستخدم",
+  "selectUser": "اختر مستخدماً",
+  "userSearchPlaceholder": "بحث بالاسم أو البريد أو الهاتف…",
+  "email": "البريد الإلكتروني",
+  "notificationTitle": "العنوان",
+  "notificationMessage": "الرسالة",
+  "notificationType": "نوع الإشعار",
+  "metadata": "البيانات الإضافية",
+  "dispatchSuccess": "تم إرسال الإشعار إلى قائمة الانتظار",
+  "loadError": "حدث خطأ أثناء تحميل الإشعارات",
+  "retry": "إعادة المحاولة",
+  "typeEvaluations": "تقييمات",
+  "typeReminders": "تذكيرات",
+  "typePayment": "دفع",
+  "typeGeneral": "عام",
+  "typeFilterAll": "الكل",
+  "filterAll": "الكل",
+  "filterUnread": "غير المقروءة",
+  "open": "فتح",
+  "prev": "السابق",
+  "next": "التالي",
+  "pageOf": "صفحة {page} من {total}",
+  "dispatchSubmit": "إرسال",
+  "sending": "جاري الإرسال…",
+  "cancel": "إلغاء",
+  "requiredFields": "يرجى تعبئة الحقول المطلوبة",
+  "metadataInvalidJson": "صيغة JSON غير صالحة في البيانات الإضافية",
+  "metadataInvalidObject": "يجب أن تكون البيانات الإضافية كائن JSON",
+  "attemptResult": "نتيجة",
+  "home": "الرئيسية",
+  "adminArea": "الإدارة",
+  "noRecentActivity": "لا يوجد نشاط حديث",
+  "events": {
+    "evaluationSubmitted": {
+      "title": "تم إرسال التقييم",
+      "messageAuto": "تم إرسال التقييم تلقائيًا بعد انتهاء الوقت.",
+      "messageManual": "تم إرسال التقييم بنجاح وفي انتظار الاعتماد."
+    },
+    "evaluationApproved": {
+      "title": "النتائج جاهزة!",
+      "messageAuto": "أصبحت نتيجة تقييم طفلك جاهزة، يمكنك الاطلاع عليها الآن.",
+      "messageManual": "تم اعتماد نتيجة تقييم طفلك ويمكنك الآن الاطلاع على النتيجة."
+    },
+    "evaluationLimitReached": {
+      "title": "تم الوصول لحد المحاولات",
+      "message": "تم الوصول إلى الحد الأقصى من محاولات التقييم."
+    },
+    "capacityApproved": {
+      "title": "تمت الموافقة على طلب السعة — الدفع مطلوب",
+      "message": "تمت الموافقة على طلبك لـ {count} مقعد إضافي. أكمل الدفع لتفعيل السعة."
+    },
+    "capacityRejected": {
+      "title": "تم رفض طلب السعة",
+      "message": "تم رفض طلبك للحصول على سعة إضافية من قبل المسؤول."
+    },
+    "capacityRejectedWithReason": {
+      "title": "تم رفض طلب السعة",
+      "message": "تم رفض طلبك للحصول على سعة إضافية. السبب: {reason}"
+    },
+    "capacityCompleted": {
+      "title": "تم تأكيد زيادة السعة",
+      "message": "تم الدفع بنجاح. يمكنك الآن إضافة {count} ملف طفل إضافي."
+    }
+  },
+  "templates": {
+    "parentWelcome": {
+      "title": "مرحباً بك!",
+      "message": "مرحباً {name}، يسعدنا انضمامك إلينا."
+    },
+    "childLimitReached": {
+      "title": "تم الوصول إلى حد الأطفال",
+      "message": "لقد وصلت إلى الحد الأقصى البالغ {max} أطفال في حسابك."
+    },
+    "parentChildLimitReached": {
+      "title": "تم الوصول إلى حد الأطفال",
+      "message": "وصل ولي الأمر إلى الحد الأقصى البالغ {max} أطفال في حسابه."
+    }
+  }
+}

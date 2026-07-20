@@ -2,10 +2,10 @@ import { getTranslations } from 'next-intl/server'
 
 import { getClassesByTeacher } from '@/features/classes/api'
 import { getCurrentTeacher } from '@/lib/helpers/getCurrentTeacher'
-import { TeacherClassesScreen } from '@/components/pages/dashboards/teacher/TeacherClassesScreen'
+import { TeacherClassesScreen } from '@/features/teachers/components/TeacherClassesScreen'
 
 export default async function TeacherClassesPage() {
-  const t = await getTranslations('Features.TeacherDashboard')
+  const t = await getTranslations('teachers.dashboard')
   const teacher = await getCurrentTeacher()
 
   if (!teacher?.teacherId) {

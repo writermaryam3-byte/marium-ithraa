@@ -20,7 +20,7 @@ type Props = {
 export function ProtectedRoute({ children, allowed, redirectTo, unauthorizedRedirect }: Props) {
   const router = useRouter()
   const locale = useLocale()
-  const t = useTranslations('Auth')
+  const t = useTranslations('auth')
   const { isAuthenticated, isLoading, checkRole, loginPath } = useAuth()
   const unauthorizedPath = unauthorizedRedirect ?? `/${locale}/${Routes.UNAUTHORIZED}`
 

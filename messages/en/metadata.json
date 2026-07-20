@@ -1,0 +1,26 @@
+{
+  "title": "Ithraa Intelligence",
+  "description": "A smart platform that helps families discover enriching activities suitable for their children and enables schools and activity providers to reach their target audience",
+  "pages": {
+    "home": {
+      "title": "Welcome to Ithraa"
+    },
+    "about": {
+      "title": "Your first choice for discovering and developing every child's potential"
+    },
+    "privacy": {
+      "title": "Privacy Policy and Data Protection"
+    },
+    "dashboard": {
+      "title": "Dashboard"
+    }
+  },
+  "openGraph": {
+    "title": "Ithraa Intelligence",
+    "description": "A smart platform that helps families discover enriching activities suitable for their children and enables schools and activity providers to reach their target audience"
+  },
+  "twitter": {
+    "title": "Ithraa Intelligence",
+    "description": "A smart platform that helps families discover enriching activities suitable for their children and enables schools and activity providers to reach their target audience"
+  }
+}

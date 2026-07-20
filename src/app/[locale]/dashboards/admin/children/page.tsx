@@ -6,15 +6,17 @@ import { getAllChildrenServer } from '@/features/children/api'
 import { adminColumns } from '@/features/children/components/columns'
 import { getTranslations } from 'next-intl/server'
 
-export default async function AdminChildrenPage() {
-  const t = await getTranslations()
+export default async function AdminChildrenPage(props: {
+  params: Promise<{ locale: string }>
+}) {
+  const { locale } = await props.params
+  const tDash = await getTranslations({ locale, namespace: 'dashboard' })
 
-  const data = await getAllChildrenServer()
-  const children = [...data.organizationChildren, ...data.privateChildren]
+  const { data: children } = await getAllChildrenServer()
   const cards = [
     {
       title: children.length,
-      description: 'Dashboard.cards.childrenCount',
+      description: tDash('cards.childrenCount'),
       footer: {
         exist: false,
       },
@@ -25,7 +27,7 @@ export default async function AdminChildrenPage() {
   ]
   return (
     <>
-      <SiteHeader titleKey="Dashboard.titles.children" />
+      <SiteHeader titleKey="dashboard.titles.children" />
       <div className="flex flex-1 flex-col">
         <div className="@container/main flex flex-1 flex-col gap-2">
           <div className="flex flex-col gap-4 py-4 md:gap-6 md:py-6">

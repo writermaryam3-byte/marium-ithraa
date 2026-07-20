@@ -122,15 +122,12 @@ function FormDescription({ className, ...props }: React.ComponentProps<'p'>) {
 
 function FormMessage({ className, ...props }: React.ComponentProps<'p'>) {
   const { error, formMessageId } = useFormField()
-  const t = useTranslations() // 2. شغل الـ hook هنا
+  const t = useTranslations()
 
-  // 3. بنجيب الرسالة (الـ Key) اللي جاية من Zod
   const rawMessage = error ? String(error?.message ?? '') : props.children
 
-  // 4. لو الـ message عبارة عن Key بتاع ترجمة (بيبدأ بـ errors مثلاً)، بنترجمه
-  // وإلا بنعرض النص كالعادي (عشان لو فيه رسايل تانية مش محتاجة ترجمة)
   const body =
-    typeof rawMessage === 'string' && rawMessage.startsWith('errors.')
+    typeof rawMessage === 'string' && rawMessage.includes('.')
       ? t(rawMessage as string)
       : rawMessage
 
@@ -142,7 +139,7 @@ function FormMessage({ className, ...props }: React.ComponentProps<'p'>) {
     <p
       data-slot="form-message"
       id={formMessageId}
-      className={cn('text-sm text-red-500 font-medium', className)} // shadcn text-destructive
+      className={cn('text-sm text-red-500 font-medium', className)}
       {...props}
     >
       {body}

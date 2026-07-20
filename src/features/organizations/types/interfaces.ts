@@ -3,9 +3,9 @@ import { ApprovalStatus, OrganizationType } from '@/lib/types/enums'
 export type { ApprovalStatus, OrganizationType }
 
 export type OrganizationOwner = {
-  id?: string
-  name?: string
-  email?: string
+  id: string
+  name: string
+  email: string
   phone?: string
 }
 
@@ -19,20 +19,10 @@ export type Organization = {
   rejectedAt?: string | null
   approvedById?: string | null
   rejectedById?: string | null
+  ownerId?: string
   owner?: OrganizationOwner | null
   createdAt?: string
   updatedAt?: string
-}
-
-/**
- * Backend contract: organization list endpoints return Organization[] directly.
- * The API layer tolerates the legacy { organizations: Organization[] } shape
- * while callers should consume this normalized array type.
- */
-export type OrganizationsListResponse = Organization[]
-
-export type LegacyOrganizationsListResponse = {
-  organizations: Organization[]
 }
 
 export type BeneficiarySignupOrganization = {
@@ -44,4 +34,9 @@ export type BeneficiarySignupOrganization = {
 
 export type RejectOrganizationPayload = {
   rejectionReason: string
+}
+
+export type UpdateOrganizationPayload = {
+  organizationName?: string
+  organizationType?: OrganizationType
 }

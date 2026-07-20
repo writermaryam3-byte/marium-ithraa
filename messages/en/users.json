@@ -1,0 +1,25 @@
+{
+  "title": "Users",
+  "fields": {
+    "name": "Name",
+    "email": "Email",
+    "isEmailVerified": "Email Verified",
+    "phone": "Phone",
+    "isPhoneVerified": "Phone Verified",
+    "role": "Role"
+  },
+  "admin": {
+    "usersCount": "Users count",
+    "usersTable": "Users table"
+  },
+  "rolesChart": {
+    "title": "Users-Roles",
+    "description": "Shows users divided into roles",
+    "users": "users",
+    "organizationOwners": "organization owners",
+    "teachers": "teachers",
+    "parents": "parents",
+    "trending": "Trending up by 5.2% this month",
+    "footer": "Showing total visitors for the last 6 months"
+  }
+}

@@ -1,4 +1,5 @@
 import { api } from '@/lib/api/api'
+import { unwrapPaginatedPayload, type PaginatedListPayload } from '@/lib/api/utils'
 import { Endpoint, Methods } from '@/lib/types/enums'
 import {
   ChildType,
@@ -7,10 +8,9 @@ import {
   AvailableEvaluationsResponse,
   StartEvaluationPayload,
   EvaluationAttempt,
-  AttemptsResponse,
   SaveAttemptProgressPayload,
   SubmitAttemptPayload,
-} from '@/lib/types/types/interfaces'
+} from '@/lib/types/interfaces'
 export type OwnerEvaluationFiltersResponse = {
   classes: {
     id: string
@@ -103,6 +103,14 @@ export type GetAttemptsFilters = {
   evaluationId?: string
   organizationChildId?: string
   privateChildId?: string
+  childId?: string
+  page?: number
+  limit?: number
+}
+
+export type PaginatedAttemptsResponse = {
+  items: EvaluationAttempt[]
+  meta: import('@/lib/types/interfaces').PaginationMeta
 }
 
 const buildQueryString = (params: Record<string, string | undefined>) => {
@@ -153,6 +161,23 @@ export const getEvaluationDetails = async (evaluationId: string) => {
 
 export const getEvaluationDetailsClient = async (evaluationId: string) => {
   return api.client<Evaluation>(`/${Endpoint.EVALUATIONS}/${evaluationId}/${Endpoint.DETAILS}`)
+}
+
+export type UpdateEvaluationPayload = {
+  title?: string
+  ageFrom?: number | null
+  ageTo?: number | null
+  isArchived?: boolean
+}
+
+export const updateEvaluationClient = async (
+  evaluationId: string,
+  data: UpdateEvaluationPayload,
+) => {
+  return api.client<Evaluation>(`/${Endpoint.EVALUATIONS}/${evaluationId}`, {
+    method: Methods.PATCH,
+    body: JSON.stringify(data),
+  })
 }
 
 /**
@@ -211,22 +236,29 @@ export const getAttempts = async (filters?: GetAttemptsFilters) => {
   const query = buildQueryString({
     status: filters?.status,
     evaluationId: filters?.evaluationId,
-    organizationChildId: filters?.organizationChildId,
-    privateChildId: filters?.privateChildId,
+    childId: filters?.childId,
+    page: filters?.page != null ? String(filters.page) : undefined,
+    limit: filters?.limit != null ? String(filters.limit) : undefined,
   })
 
-  return api.server<AttemptsResponse>(`/${Endpoint.ATTEMPTS}${query}`)
+  return api.server<EvaluationAttempt[]>(`/${Endpoint.ATTEMPTS}${query}`)
 }
 
-export const getAttemptsClient = async (filters?: GetAttemptsFilters) => {
+export const getAttemptsClient = async (filters?: GetAttemptsFilters): Promise<PaginatedAttemptsResponse> => {
   const query = buildQueryString({
     status: filters?.status,
     evaluationId: filters?.evaluationId,
     organizationChildId: filters?.organizationChildId,
     privateChildId: filters?.privateChildId,
+    childId: filters?.childId,
+    page: filters?.page != null ? String(filters.page) : undefined,
+    limit: filters?.limit != null ? String(filters.limit) : undefined,
   })
 
-  return api.client<AttemptsResponse>(`/${Endpoint.ATTEMPTS}${query}`)
+  const payload = await api.client<PaginatedListPayload<EvaluationAttempt> | EvaluationAttempt[]>(
+    `/${Endpoint.ATTEMPTS}${query}`,
+  )
+  return unwrapPaginatedPayload(payload)
 }
 
 export const getAttemptById = async (attemptId: string) => {
@@ -237,12 +269,33 @@ export const getAttemptByIdClient = async (attemptId: string) => {
   return api.client<EvaluationAttempt>(`/${Endpoint.ATTEMPTS}/${attemptId}`)
 }
 
-export const getAttemptsForChild = async (childId: string) => {
-  return api.server<AttemptsResponse>(`/${Endpoint.ATTEMPTS}/${Endpoint.CHILD}/${childId}`)
+export const getAttemptsForChild = async (
+  childId: string,
+  query?: { page?: number; limit?: number },
+) => {
+  const search = buildQueryString({
+    page: query?.page != null ? String(query.page) : undefined,
+    limit: query?.limit != null ? String(query.limit) : undefined,
+  })
+
+  return api.server<PaginatedListPayload<EvaluationAttempt> | EvaluationAttempt[]>(
+    `/${Endpoint.ATTEMPTS}/${Endpoint.CHILD}/${childId}${search}`,
+  )
 }
 
-export const getAttemptsForChildClient = async (childId: string) => {
-  return api.client<AttemptsResponse>(`/${Endpoint.ATTEMPTS}/${Endpoint.CHILD}/${childId}`)
+export const getAttemptsForChildClient = async (
+  childId: string,
+  query?: { page?: number; limit?: number },
+) => {
+  const search = buildQueryString({
+    page: query?.page != null ? String(query.page) : undefined,
+    limit: query?.limit != null ? String(query.limit) : undefined,
+  })
+
+  const payload = await api.client<PaginatedListPayload<EvaluationAttempt> | EvaluationAttempt[]>(
+    `/${Endpoint.ATTEMPTS}/${Endpoint.CHILD}/${childId}${search}`,
+  )
+  return unwrapPaginatedPayload(payload)
 }
 
 export const saveAttemptProgress = async (attemptId: string, data: SaveAttemptProgressPayload) => {
@@ -324,10 +377,87 @@ export const requestPrivateExtraAttempt = async (childId: string) => {
   })
 }
 
-export const requestPrivateExtraAttemptClient = async (childId: string) => {
+export const requestPrivateExtraAttemptClient = async (childId: string, quantity = 1) => {
   return api.client(`/${Endpoint.ATTEMPTS}/${childId}/${Endpoint.REQUEST_EXTRA}`, {
     method: Methods.POST,
+    body: JSON.stringify({ quantity }),
   })
+}
+
+export type ExtraSlotStatus =
+  | 'REQUESTED'
+  | 'AWAITING_PAYMENT'
+  | 'READY'
+  | 'CONSUMED'
+  | 'COMPLETED'
+
+export type ChildEvaluationState = {
+  childId: string
+  childType: 'organization' | 'private'
+  totalAttempts: number
+  freeAttemptsLimit: number
+  freeAttemptsUsed: number
+  freeAttemptsRemaining: number
+  hasRetake: boolean
+  hasReadySlot: boolean
+  readySlotKind: 'MAIN' | 'RETAKE' | 'EXTRA' | null
+  inProgressAttemptId: string | null
+  inProgressAttempts: Array<{
+    id: string
+    evaluationId: string
+    evaluationTitle: string | null
+  }>
+  canOpenMain: boolean
+  canRequestRetake: boolean
+  canRequestExtra: boolean
+  extra: {
+    slotId: string
+    status: ExtraSlotStatus
+    paymentId: string | null
+    isPaid: boolean
+    quantity: number
+    remaining: number
+  } | null
+}
+
+export const getChildEvaluationStateClient = async (childId: string) => {
+  return api.client<ChildEvaluationState>(
+    `/${Endpoint.ATTEMPTS}/${childId}/${Endpoint.STATE}`,
+  )
+}
+
+export type ExtraAttemptRequest = {
+  id: string
+  status: 'REQUESTED' | 'AWAITING_PAYMENT'
+  quantity: number
+  unitPriceSar: number
+  amountSar: number
+  childId: string | null
+  childName: string | null
+  parentId: string
+  parentName: string | null
+  parentEmail: string | null
+  parentPhone: string | null
+  paymentId: string | null
+  createdAt: string
+}
+
+export const listExtraAttemptRequestsClient = async () => {
+  return api.client<ExtraAttemptRequest[]>(`/admin/${Endpoint.ATTEMPTS}/extra-requests`)
+}
+
+export const approveExtraAttemptClient = async (slotId: string) => {
+  return api.client<{ payment: { id: string; checkoutUrl: string; expiresAt: string } }>(
+    `/admin/${Endpoint.ATTEMPTS}/${slotId}/${Endpoint.APPROVE}`,
+    { method: Methods.POST },
+  )
+}
+
+export const rejectExtraAttemptClient = async (slotId: string) => {
+  return api.client<{ id: string; status: string }>(
+    `/admin/${Endpoint.ATTEMPTS}/${slotId}/reject`,
+    { method: Methods.POST },
+  )
 }
 
 export const getOwnerEvaluationFilters = async () => {

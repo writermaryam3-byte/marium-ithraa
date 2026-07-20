@@ -9,7 +9,7 @@ export default function AuthError({
   error: Error & { digest?: string }
   reset: () => void
 }) {
-  const t = useTranslations('AuthError')
+  const t = useTranslations('errors.auth')
   return (
     <div className="flex min-h-[50vh] flex-col items-center justify-center gap-4 p-8">
       <h2 className="text-2xl font-bold text-foreground">{t('title')}</h2>

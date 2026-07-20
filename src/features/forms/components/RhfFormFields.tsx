@@ -1,10 +1,10 @@
 'use client'
 
-import { useState } from 'react'
-import { EyeIcon, EyeOffIcon } from 'lucide-react'
 import { useFormContext } from 'react-hook-form'
-import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
+import { FormControl, FormField, FormItem, FormLabel } from '@/components/ui/form'
+import { TranslatedFormMessage } from './TranslatedFormMessage'
 import { Input } from '@/components/ui/input'
+import { PasswordInput } from '@/components/shared/forms/PasswordInput'
 import { PhoneInputField } from '@/components/shared/forms/PhoneInputField'
 import { Checkbox } from '@/components/ui/checkbox'
 import {
@@ -52,7 +52,7 @@ export function RhfFormFields({ fields }: Props) {
               <FormItem>
                 <FormLabel>{field.label}</FormLabel>
                 <FormControl>{renderControl(field, rhfField)}</FormControl>
-                <FormMessage />
+                <TranslatedFormMessage />
               </FormItem>
             )}
           />
@@ -151,50 +151,5 @@ function renderControl(
       onBlur={rhfField.onBlur}
       ref={rhfField.ref}
     />
-  )
-}
-
-function PasswordInput({
-  value,
-  onChange,
-  onBlur,
-  placeholder,
-  disabled,
-  autoFocus,
-  ref,
-}: {
-  value: string
-  onChange: (value: string) => void
-  onBlur: () => void
-  placeholder?: string
-  disabled?: boolean
-  autoFocus?: boolean
-  ref: React.Ref<HTMLInputElement>
-}) {
-  const [showPassword, setShowPassword] = useState(false)
-
-  return (
-    <div className="relative flex items-center">
-      <Input
-        ref={ref}
-        type={showPassword ? 'text' : 'password'}
-        placeholder={placeholder}
-        disabled={disabled}
-        autoFocus={autoFocus}
-        autoComplete="current-password"
-        value={value}
-        onChange={(event) => onChange(event.target.value)}
-        onBlur={onBlur}
-      />
-      <button
-        type="button"
-        onClick={() => setShowPassword((prev) => !prev)}
-        onMouseDown={(event) => event.preventDefault()}
-        className="absolute inset-e-3"
-        aria-label={showPassword ? 'Hide password' : 'Show password'}
-      >
-        {showPassword ? <EyeOffIcon className="h-4 w-4" /> : <EyeIcon className="h-4 w-4" />}
-      </button>
-    </div>
   )
 }

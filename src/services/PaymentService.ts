@@ -1,6 +1,6 @@
 import { api } from '@/lib/api/api'
 import { Endpoint, Methods } from '@/lib/types/enums'
-import { CreatePaymentPayload, PaymentResponse } from '@/lib/types/types/interfaces'
+import type { CreatePaymentPayload, PaymentResponse } from '@/lib/types/interfaces'
 
 export const PaymentService = {
   async createPayment(payload: CreatePaymentPayload): Promise<PaymentResponse> {

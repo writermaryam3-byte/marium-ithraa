@@ -11,7 +11,7 @@ export default function Error({
   error: Error & { digest?: string }
   reset: () => void
 }) {
-  const t = useTranslations('error')
+  const t = useTranslations('errors.page')
 
   useEffect(() => {
     if (process.env.NODE_ENV === 'development') {

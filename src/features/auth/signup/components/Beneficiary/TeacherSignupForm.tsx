@@ -9,7 +9,7 @@ import { Input } from '@/components/ui/input'
 import { PhoneInputField } from '@/components/shared/forms/PhoneInputField'
 
 const TeacherSignup = () => {
-  const t = useTranslations('Signup.Beneficiary.Teacher')
+  const t = useTranslations('signup.beneficiary.teacher')
   const { control } = useFormContext()
 
   return (

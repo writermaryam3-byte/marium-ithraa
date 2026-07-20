@@ -35,7 +35,7 @@ const BENEFICIARIES_DATA = [
 ] as const
 
 export default function HomeBeneficiaries() {
-  const t = useTranslations('HomePage.Beneficiaries')
+  const t = useTranslations('landing.beneficiaries')
 
   return (
     <section className="app-container py-14 lg:py-20">

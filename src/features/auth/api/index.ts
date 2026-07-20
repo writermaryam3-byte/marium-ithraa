@@ -8,41 +8,49 @@ import type { VerifyEmailResponse } from '../types'
 export type { VerifyEmailResponse }
 
 export type BeneficiariesSignupResponse = {
-  message?: string
-  userId?: string
   user?: {
     id: string
     name: string
-    roles: string[]
+    email: string
+    phone: string
+    roles: { id: string; name: string }[]
+    isEmailVerified: boolean
+    isPhoneVerified: boolean
   }
   organization?: BeneficiarySignupOrganization
 }
 
 export type EnricherSignupResponse = {
-  message?: string
   user?: {
     id: string
     name: string
-    roles: string[]
+    email: string
+    phone: string
+    roles: { id: string; name: string }[]
+    isEmailVerified: boolean
+    isPhoneVerified: boolean
   }
   enricher?: {
     id: string
-    userId: string
-    organizationName?: string
+    organizationName: string
     approvalStatus: string
   }
 }
 
 export type ParentSignupResponse = {
-  message?: string
   user?: {
     id: string
     name: string
-    roles: string[]
+    email: string
+    phone: string
+    roles: { id: string; name: string }[]
+    isEmailVerified: boolean
+    isPhoneVerified: boolean
   }
   parentProfile?: {
     id: string
     userId: string
+    maxChildren: number
   }
 }
 
@@ -62,7 +70,6 @@ export const verifyEmailServer = async (token: string) => {
   })
 }
 
-/** @alias verifyEmailServer — used by server pages */
 export const verifyEmail = verifyEmailServer
 
 export const beneficiariesSignupClient = async (body: BeneficiaryOrganizationFormValues) => {
@@ -94,8 +101,13 @@ export const parentSignupClient = async (body: {
   })
 }
 
-export const logoutClient = async () => {
-  return api.client<void>(`/${Endpoint.AUTH}/logout`, {
+export const logoutClient = async (sessionId?: string) => {
+  if (sessionId) {
+    return api.client<void>(`/${Endpoint.AUTH}/logout/${sessionId}`, {
+      method: Methods.DELETE,
+    })
+  }
+  return api.client<void>(`/${Endpoint.AUTH}/logout-all`, {
     method: Methods.DELETE,
   })
 }

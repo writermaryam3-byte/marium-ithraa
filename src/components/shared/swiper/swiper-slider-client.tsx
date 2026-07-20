@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import type { Swiper as SwiperType } from 'swiper'
 import { A11y, Keyboard, Navigation, Pagination } from 'swiper/modules'
+import { useTranslations } from 'next-intl'
 
 import 'swiper/css'
 import 'swiper/css/navigation'
@@ -38,6 +39,7 @@ export function SwiperSlider<T>({
   loop = false,
 }: SwiperSliderProps<T>) {
   const swiperRef = React.useRef<SwiperType | null>(null)
+  const t = useTranslations('pagination')
 
   return (
     <div className={cn('relative', className)}>
@@ -66,7 +68,7 @@ export function SwiperSlider<T>({
           size="icon-sm"
           className="pointer-events-auto shadow-sm"
           onClick={() => swiperRef.current?.slidePrev()}
-          aria-label="Previous"
+          aria-label={t('previous')}
         >
           <ChevronRight className="size-4" />
         </Button>
@@ -76,7 +78,7 @@ export function SwiperSlider<T>({
           size="icon-sm"
           className="pointer-events-auto shadow-sm"
           onClick={() => swiperRef.current?.slideNext()}
-          aria-label="Next"
+          aria-label={t('next')}
         >
           <ChevronLeft className="size-4" />
         </Button>

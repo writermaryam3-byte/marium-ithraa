@@ -1,10 +1,11 @@
 'use client'
 
 import { Button } from '@/components/ui/button'
-import type { PaginatedMeta } from '@/lib/api/pagination'
+import type { PaginationMeta } from '@/lib/types/interfaces'
+import { useTranslations } from 'next-intl'
 
 type Props = {
-  meta: PaginatedMeta
+  meta: PaginationMeta
   onPageChange: (page: number) => void
   labels?: {
     previous?: string
@@ -14,14 +15,15 @@ type Props = {
 }
 
 export function DataTablePagination({ meta, onPageChange, labels }: Props) {
-  const previous = labels?.previous ?? 'Previous'
-  const next = labels?.next ?? 'Next'
-  const pageLabel = labels?.page ?? 'Page'
+  const t = useTranslations('pagination')
+  const previous = labels?.previous ?? t('previous')
+  const next = labels?.next ?? t('next')
+  const pageLabel = labels?.page ?? t('page')
 
   return (
     <div className="flex items-center justify-between gap-3 px-2 py-4">
       <p className="text-sm text-muted-foreground">
-        {pageLabel} {meta.page} / {meta.totalPages} · {meta.total} items
+        {pageLabel} {meta.page} / {meta.totalPages} · {meta.total} {t('items')}
       </p>
       <div className="flex gap-2">
         <Button

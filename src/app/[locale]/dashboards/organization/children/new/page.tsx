@@ -1,4 +1,4 @@
-import { CreateChildPage } from '@/components/pages/dashboards/organization/CreateChildPage'
+import { CreateChildPage } from '@/features/children/components/CreateChildPage'
 import { getClassesByOrg } from '@/features/classes'
 import { getGradesByOrg } from '@/features/grades'
 import { requireCurrentOrganization } from '@/lib/helpers/getCurrentOrganization'

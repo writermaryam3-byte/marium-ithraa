@@ -1,5 +1,5 @@
 import { SiteHeader } from '@/components/site-header'
-import { AdminEvaluationsScreen } from '@/components/pages/dashboards/admin/AdminEvaluationsScreen'
+import { AdminEvaluationsScreen } from '@/features/evaluations/components/AdminEvaluationsScreen'
 import { getEvaluations } from '@/features/evaluations/api'
 import type { Evaluation } from '@/features/evaluations/types'
 
@@ -20,7 +20,7 @@ export default async function AdminEvaluationsPage({ params }: Props) {
 
   return (
     <>
-      <SiteHeader titleKey="Features.Evaluations.listTitle" />
+      <SiteHeader titleKey="evaluations.listTitle" />
       <div className="flex flex-1 flex-col py-4 md:py-6">
         <AdminEvaluationsScreen evaluations={evaluations} locale={locale} />
       </div>

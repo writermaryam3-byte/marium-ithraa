@@ -2,7 +2,7 @@ import { Link } from '@/i18n/navigation'
 import { useTranslations } from 'next-intl'
 
 export default function NotFound() {
-  const t = useTranslations('notFound')
+  const t = useTranslations('errors.pageNotFound')
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-center gap-4">

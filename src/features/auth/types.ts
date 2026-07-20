@@ -27,3 +27,16 @@ export type SignInCredentials = {
   phone: string
   password: string
 }
+
+export type LoginResponse = {
+  accessToken: string
+  refreshToken: string
+  id: string
+  name: string
+  email: string
+  phone: string
+  roles: Role[]
+  isEmailVerified: boolean
+  isPhoneVerified: boolean
+  expiresIn: string
+}

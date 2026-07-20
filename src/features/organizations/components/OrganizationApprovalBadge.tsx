@@ -20,7 +20,7 @@ const statusStyles: Record<ApprovalStatus, string> = {
 }
 
 export function OrganizationApprovalBadge({ status, className }: Props) {
-  const t = useTranslations('Features.Organizations.status')
+  const t = useTranslations('organizations.status')
 
   return (
     <Badge

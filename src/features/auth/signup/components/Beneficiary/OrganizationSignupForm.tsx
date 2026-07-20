@@ -4,6 +4,7 @@ import { useTranslations } from 'next-intl'
 import { useFormContext } from 'react-hook-form'
 import { FormField, FormItem, FormLabel, FormControl, FormMessage } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
+import { PasswordInput } from '@/components/shared/forms/PasswordInput'
 import { PhoneInputField } from '@/components/shared/forms/PhoneInputField'
 import {
   Field,
@@ -30,7 +31,7 @@ const ORGANIZATION_TYPES = [
 ] as const
 
 export default function OrganizationSignupForm() {
-  const t = useTranslations('Signup.Beneficiary.Organization')
+  const t = useTranslations('signup.beneficiary.organization')
   const form = useFormContext()
 
   return (
@@ -103,9 +104,9 @@ export default function OrganizationSignupForm() {
                 <FormItem>
                   <FormLabel>{t('fields.password.label')}</FormLabel>
                   <FormControl>
-                    <Input
-                      type="password"
+                    <PasswordInput
                       placeholder={t('fields.password.placeholder')}
+                      autoComplete="new-password"
                       {...field}
                       value={field.value ?? ''}
                     />
@@ -124,10 +125,10 @@ export default function OrganizationSignupForm() {
               name="organizationName"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>{t('fields.organization_name.label')}</FormLabel>
+                  <FormLabel>{t('fields.organizationName.label')}</FormLabel>
                   <FormControl>
                     <Input
-                      placeholder={t('fields.organization_name.placeholder')}
+                      placeholder={t('fields.organizationName.placeholder')}
                       {...field}
                       value={field.value ?? ''}
                     />
@@ -146,17 +147,17 @@ export default function OrganizationSignupForm() {
               name="organizationType"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>{t('fields.organization_type.label')}</FormLabel>
+                  <FormLabel>{t('fields.organizationType.label')}</FormLabel>
                   <FormControl>
                     <Select value={field.value} onValueChange={field.onChange}>
                       <SelectTrigger className="w-full">
-                        <SelectValue placeholder={t('fields.organization_type.placeholder')} />
+                        <SelectValue placeholder={t('fields.organizationType.placeholder')} />
                       </SelectTrigger>
                       <SelectContent>
                         <SelectGroup>
                           {ORGANIZATION_TYPES.map((o) => (
                             <SelectItem key={o.value} value={o.value}>
-                              {t(`fields.organization_type.options.${o.value}`)}
+                              {t(`fields.organizationType.options.${o.value}`)}
                             </SelectItem>
                           ))}
                         </SelectGroup>

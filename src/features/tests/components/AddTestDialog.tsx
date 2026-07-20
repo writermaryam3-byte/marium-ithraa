@@ -16,7 +16,7 @@ import {
 import { TestCreationForm } from './TestCreationForm'
 
 export function AddTestDialog() {
-  const t = useTranslations('Features.Tests')
+  const t = useTranslations('evaluations.tests')
   const [open, setOpen] = useState(false)
 
   return (

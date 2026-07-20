@@ -3,10 +3,9 @@
 import { useState, useTransition } from 'react'
 import { useTranslations } from 'next-intl'
 import { showErrorToast, showSuccessToast } from '@/lib/toast/app-toast'
-import { useTranslateBackend } from '@/lib/i18n/backend-messages'
 
-import { getFriendlyApiErrorMessage } from '@/lib/helpers/apiErrorMessages'
 import { StatusCode } from '@/lib/types/enums'
+import { ApiError } from '@/lib/errors/ApiError'
 
 import { createChildFlow } from '@/features/children/api'
 import type {
@@ -22,9 +21,9 @@ export function useCreateChild(options?: {
     response: Extract<CreateChildResponse, { status: 'TRANSFER_REQUIRED' }>,
   ) => void
   onConflict?: (message: string) => void
+  onRoleConfirmationRequired?: () => void
 }) {
-  const t = useTranslations('CreateChild')
-  const tb = useTranslateBackend()
+  const t = useTranslations('children.create')
   const [requestState, setRequestState] = useState<RequestState>('idle')
   const [isPending, startTransition] = useTransition()
 
@@ -37,7 +36,7 @@ export function useCreateChild(options?: {
 
         if (response.status === 'CREATED') {
           setRequestState('success')
-          showSuccessToast({ raw: tb(response.message) })
+          showSuccessToast({ raw: t('childCreatedSuccess') })
           options?.onCreated?.(response)
           return
         }
@@ -55,20 +54,27 @@ export function useCreateChild(options?: {
           typeof err === 'object' && err !== null && 'status' in err
             ? Number((err as { status: unknown }).status)
             : undefined
-        const message = err instanceof Error ? err.message : t('toast.unableToCreateChild')
 
         if (status === 409) {
-          showErrorToast({ raw: message || 'Child already exists in your school' })
-          options?.onConflict?.(message || 'Child already exists in your school')
+          showErrorToast({ error: err })
+          options?.onConflict?.('errors.child.duplicate')
           return
         }
 
         if (status === StatusCode.FORBIDDEN) {
-          showErrorToast({ raw: getFriendlyApiErrorMessage(err) })
+          showErrorToast({ error: err })
           return
         }
 
-        showErrorToast({ raw: getFriendlyApiErrorMessage(err, message) })
+        if (
+          err instanceof ApiError &&
+          err.code === 'PARENT.ROLE_CONFIRMATION_REQUIRED'
+        ) {
+          options?.onRoleConfirmationRequired?.()
+          return
+        }
+
+        showErrorToast({ error: err })
       }
     })
   }
@@ -79,47 +85,3 @@ export function useCreateChild(options?: {
     isLoading: requestState === 'loading' || isPending,
   }
 }
-// export function useCreateChild(options?:{
-//     onCreated?: (response: Extract<CreateChildResponse, { type: "CREATED" }>) => void
-//     onTransferRequired?: (
-//       response: Extract<CreateChildResponse, { type: "TRANSFER_REQUIRED" }>,
-//     ) => void
-//     onConflict?: (message: string) => void
-//   }) {
-//   const [requestState, setRequestState] = useState<RequestState>("idle")
-//   const [isPending, startTransition] = useTransition()
-
-//   function createChild(payload: CreateChildFlowPayload) {
-//     setRequestState("loading")
-
-//     startTransition(async () => {
-//       try {
-//         const response = await createChildFlow(payload)
-
-//         // تذكر: الـ Backend يرسل "status" وليس "type"
-//         if (response.status === "CREATED") {
-//           setRequestState("success")
-//           showSuccessToast({ raw: response.message })
-//           options?.onCreated?.(response)
-//           return
-//         }
-
-//         if (response.status === "TRANSFER_REQUIRED") {
-//           setRequestState("success")
-//           options?.onTransferRequired?.(response)
-//           return
-//         }
-
-//         setRequestState("idle")
-//       } catch (err) {
-//         // ... باقي كود الـ catch كما هو بدون تغيير
-//       }
-//     })
-//   }
-
-//   return {
-//     createChild,
-//     requestState,
-//     isLoading: requestState === "loading" || isPending,
-//   }
-// }

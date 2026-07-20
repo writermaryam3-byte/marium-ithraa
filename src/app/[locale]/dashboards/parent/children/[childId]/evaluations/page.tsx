@@ -1,4 +1,4 @@
-import { ParentChildEvaluationsScreen } from '@/components/pages/dashboards/parent/ParentChildEvaluationsScreen'
+import { ParentChildEvaluationsScreen } from '@/features/parent/components/ParentChildEvaluationsScreen'
 
 type Props = {
   params: Promise<{ locale: string; childId: string }>

@@ -1,4 +1,4 @@
-export type DealStatus = 'OPEN' | 'AWARDED' | 'CLOSED'
+export type DealStatus = 'OPEN' | 'AWARDED' | 'EXECUTING' | 'CLOSED'
 
 export type ProposalStatus = 'PENDING' | 'SELECTED' | 'APPROVED' | 'REJECTED'
 
@@ -13,6 +13,7 @@ export interface ActivityWithDeals extends Activity {
 
 export interface Deal {
   id: string
+  activityId?: string
   activity?: Activity
   organization?: {
     id: string
@@ -24,7 +25,11 @@ export interface Deal {
   }
   studentsCount: number
   status: DealStatus | string
-  deadline?: string
+  deadline: string
+  studentsAttended?: number | null
+  attendanceNotes?: string | null
+  attendanceRecordedAt?: string | null
+  closedAt?: string | null
   createdAt?: string
   updatedAt?: string
 }
@@ -38,8 +43,8 @@ export interface Proposal {
     id: string
     name: string
   }
-  price?: number
-  status?: ProposalStatus | string
+  price: number
+  status: ProposalStatus | string
   createdAt?: string
   updatedAt?: string
 }
@@ -47,9 +52,18 @@ export interface Proposal {
 export interface CreateDealPayload {
   activityId: string
   studentsCount: number
-  deadline?: string
+  deadline: string
 }
 
 export interface SubmitProposalPayload {
   price: number
+}
+
+export interface RecordDealAttendancePayload {
+  studentsAttended: number
+  notes?: string
+}
+
+export interface RejectProposalPayload {
+  reason?: string
 }

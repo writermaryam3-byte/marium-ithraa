@@ -8,12 +8,12 @@ type Props = {
 
 export async function generateMetadata({ params }: Props) {
   const { locale } = await params
-  const t = await getTranslations({ locale, namespace: 'Unauthorized' })
+  const t = await getTranslations({ locale, namespace: 'errors.unauthorized' })
   return { title: t('title') }
 }
 
 export default async function UnauthorizedPage() {
-  const t = await getTranslations('Unauthorized')
+  const t = await getTranslations('errors.unauthorized')
 
   return (
     <main className="app-container flex min-h-[60vh] items-center justify-center py-16">

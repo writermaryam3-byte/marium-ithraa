@@ -2,7 +2,9 @@
 
 import { useParams } from 'next/navigation'
 import { useLocale, useTranslations } from 'next-intl'
-import { Handshake, CheckCircle, XCircle } from 'lucide-react'
+import { ArrowLeft, CheckCircle, Handshake, XCircle } from 'lucide-react'
+
+import { SiteHeader } from '@/components/site-header'
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
@@ -16,22 +18,37 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog'
+import { Textarea } from '@/components/ui/textarea'
 import { useState } from 'react'
-import { useDealDetail, useDealProposals, useApproveProposal } from '@/features/deals'
+import { useDealDetail, useDealProposals, useApproveProposal, useRejectProposal, DealExecutionPanel } from '@/features/deals'
 import { getTextDirection } from '@/lib/i18n/locale-utils'
 import { Link } from '@/i18n/navigation'
 import { Pages, Routes } from '@/lib/types/enums'
 
 const ADMIN_URL = `/${Routes.DASHBOARDS}/${Pages.ADMIN}`
 
+const STATUS_KEYS = {
+  OPEN: 'open',
+  AWARDED: 'awarded',
+  CLOSED: 'closed',
+} as const
+
+function getStatusLabel(status: string, t: ReturnType<typeof useTranslations<'deals'>>) {
+  const key = STATUS_KEYS[status as keyof typeof STATUS_KEYS]
+  return key ? t(key) : status
+}
+
 export default function AdminDealDetailPage() {
   const params = useParams<{ dealId: string }>()
   const locale = useLocale()
-  const t = useTranslations('Features.Deals')
+  const t = useTranslations('deals')
   const { data: deal, isLoading: dealLoading } = useDealDetail(params.dealId)
   const { data: proposalsData, isLoading: proposalsLoading } = useDealProposals(params.dealId)
   const approve = useApproveProposal(params.dealId)
+  const reject = useRejectProposal(params.dealId)
   const [approveTarget, setApproveTarget] = useState<string | null>(null)
+  const [rejectTarget, setRejectTarget] = useState<string | null>(null)
+  const [rejectReason, setRejectReason] = useState('')
 
   const proposals = Array.isArray(proposalsData) ? proposalsData : []
   const selectedProposal = proposals.find((p) => p.status === 'SELECTED')
@@ -39,28 +56,43 @@ export default function AdminDealDetailPage() {
 
   if (dealLoading || proposalsLoading) {
     return (
-      <div className="space-y-4 p-4 lg:p-6">
-        <Skeleton className="h-10 w-48" />
-        <Skeleton className="h-40 w-full" />
-      </div>
+      <>
+        <SiteHeader titleKey="navigation.dashboard.deals" />
+        <div className="space-y-4 p-4 lg:p-6" dir={getTextDirection(locale)}>
+          <Skeleton className="h-10 w-48" />
+          <Skeleton className="h-40 w-full rounded-2xl" />
+        </div>
+      </>
     )
   }
 
   if (!deal) {
     return (
-      <Card className="m-4">
-        <CardHeader>
-          <CardTitle>{t('notFound')}</CardTitle>
-        </CardHeader>
-      </Card>
+      <>
+        <SiteHeader titleKey="navigation.dashboard.deals" />
+        <Card className="m-4 rounded-2xl">
+          <CardHeader>
+            <CardTitle>{t('notFound')}</CardTitle>
+          </CardHeader>
+        </Card>
+      </>
     )
   }
 
   return (
-    <div className="space-y-6 p-4 lg:p-6" dir={getTextDirection(locale)}>
-      <Link href={`${ADMIN_URL}/${Pages.DEALS}`}>← {t('backToDeals')}</Link>
+    <>
+      <SiteHeader titleKey="navigation.dashboard.deals" />
+      <div className="flex flex-1 flex-col" dir={getTextDirection(locale)}>
+        <div className="@container/main flex flex-1 flex-col gap-2">
+          <div className="flex flex-col gap-4 px-4 py-4 md:gap-6 md:py-6 lg:px-6">
+            <Button variant="ghost" size="sm" className="w-fit rounded-xl" asChild>
+              <Link href={`${ADMIN_URL}/${Pages.DEALS}`}>
+                <ArrowLeft className="size-4 me-2" />
+                {t('backToDeals')}
+              </Link>
+            </Button>
 
-      <Card>
+            <Card className="rounded-2xl border-amber-50/70 bg-white/80 shadow-sm">
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Handshake className="size-5" />
@@ -78,10 +110,12 @@ export default function AdminDealDetailPage() {
           </p>
           <p>
             <span className="text-muted-foreground">{t('status')}: </span>
-            <Badge>{deal.status}</Badge>
+            <Badge variant="outline">{getStatusLabel(deal.status, t)}</Badge>
           </p>
         </CardContent>
       </Card>
+
+      <DealExecutionPanel dealId={params.dealId} deal={deal} />
 
       {approvedProposal && (
         <Card className="border-green-300 bg-green-50 dark:bg-green-950/20">
@@ -136,7 +170,11 @@ export default function AdminDealDetailPage() {
                 <CheckCircle className="size-4 me-1" />
                 {t('approve')}
               </Button>
-              <Button variant="outline" disabled>
+              <Button
+                variant="outline"
+                onClick={() => setRejectTarget(selectedProposal.id)}
+                disabled={reject.isPending}
+              >
                 <XCircle className="size-4 me-1" />
                 {t('reject')}
               </Button>
@@ -179,6 +217,53 @@ export default function AdminDealDetailPage() {
           </DialogFooter>
         </DialogContent>
       </Dialog>
-    </div>
+
+      <Dialog
+        open={!!rejectTarget}
+        onOpenChange={(o) => {
+          if (!o) {
+            setRejectTarget(null)
+            setRejectReason('')
+          }
+        }}
+      >
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>{t('confirmReject')}</DialogTitle>
+            <DialogDescription>{t('confirmRejectDesc')}</DialogDescription>
+          </DialogHeader>
+          <Textarea
+            placeholder={t('rejectReason')}
+            value={rejectReason}
+            onChange={(e) => setRejectReason(e.target.value)}
+          />
+          <DialogFooter className="gap-2">
+            <Button variant="outline" onClick={() => setRejectTarget(null)}>
+              {t('cancel')}
+            </Button>
+            <Button
+              variant="destructive"
+              onClick={async () => {
+                if (!rejectTarget) return
+                try {
+                  await reject.mutateAsync({
+                    proposalId: rejectTarget,
+                    reason: rejectReason.trim() || undefined,
+                  })
+                  setRejectTarget(null)
+                  setRejectReason('')
+                } catch {}
+              }}
+              disabled={reject.isPending}
+            >
+              {reject.isPending ? t('rejecting') : t('confirmRejectAction')}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+          </div>
+        </div>
+      </div>
+    </>
   )
 }

@@ -11,27 +11,56 @@ export function actionErrorState(
     conflict?: string
     server?: string
     badRequest?: string
+    notFound?: string
+    forbidden?: string
+    unauthorized?: string
   },
 ): InitialState {
   if (error instanceof ApiError) {
     if (error.status === StatusCode.BADREQUEST) {
+      const fieldErrors: Record<string, string[]> = {}
+      for (const fe of error.fieldErrors) {
+        if (!fieldErrors[fe.field]) fieldErrors[fe.field] = []
+        fieldErrors[fe.field].push(fe.message)
+      }
       return actionValidationFailure(
-        error.validationErrors ?? {},
+        fieldErrors,
         formData ?? new FormData(),
-        messages?.badRequest ?? 'Actions.common.validationFailed',
+        messages?.badRequest ?? error.message,
       )
     }
     if (error.status === StatusCode.CONFLICT) {
       return actionFailure(
-        messages?.conflict ?? 'Actions.common.conflict',
+        messages?.conflict ?? error.message,
         StatusCode.CONFLICT,
+        formData,
+      )
+    }
+    if (error.status === StatusCode.NOTFOUND) {
+      return actionFailure(
+        messages?.notFound ?? error.message,
+        StatusCode.NOTFOUND,
+        formData,
+      )
+    }
+    if (error.status === StatusCode.FORBIDDEN) {
+      return actionFailure(
+        messages?.forbidden ?? error.message,
+        StatusCode.FORBIDDEN,
+        formData,
+      )
+    }
+    if (error.status === StatusCode.UNAUTHORIZED) {
+      return actionFailure(
+        messages?.unauthorized ?? error.message,
+        StatusCode.UNAUTHORIZED,
         formData,
       )
     }
   }
 
   return actionFailure(
-    messages?.server ?? 'Actions.common.serverError',
+    messages?.server ?? 'errors.common.internalServerError',
     StatusCode.INTERNALSERVERERROR,
     formData,
   )

@@ -48,7 +48,7 @@ const UsersRolesPieChart = ({
   parentsNo: number
   organizationOnwersNo: number
 }) => {
-  const t = useTranslations('UsersRolesChart')
+  const t = useTranslations('users.rolesChart')
   const chartData = [
     { role: 'organizationOwners', users: organizationOnwersNo, fill: 'var(--chart-1)' },
     { role: 'teachers', users: teachersNo, fill: 'var(--chart-2)' },

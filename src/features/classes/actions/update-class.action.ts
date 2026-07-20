@@ -19,11 +19,15 @@ export async function updateClassAction(
   if (!parsed.success) return parsed.state
 
   try {
-    const { id, ...payload } = parsed.data
-    await updateClass(id, payload)
+    const { id, name, gradeId, teacherId } = parsed.data
+    await updateClass(id, {
+      ...(name ? { name } : {}),
+      ...(gradeId ? { gradeId } : {}),
+      ...(teacherId ? { teacherId } : {}),
+    })
     revalidatePath('/dashboards/organization/classes')
     revalidatePath(`/dashboards/organization/classes/${id}`)
-    return actionSuccess('Actions.classes.updated', StatusCode.OK)
+    return actionSuccess('classes.updated', StatusCode.OK)
   } catch (error) {
     return actionErrorState(error, formData)
   }

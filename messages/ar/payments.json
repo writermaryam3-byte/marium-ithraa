@@ -1,0 +1,29 @@
+{
+  "completeTitle": "تم استلام الدفع",
+  "completeDescription": "شكراً لك. نحن نؤكد عملية الدفع مع Paymob. سيتم تفعيل السعة الإضافية بعد التحقق.",
+  "cancelTitle": "تم إلغاء الدفع",
+  "cancelDescription": "لقد ألغيت عملية الدفع. يمكنك إعادة المحاولة من الإشعارات أو التواصل مع الدعم.",
+  "reference": "المرجع",
+  "backToDashboard": "العودة للوحة التحكم",
+  "admin": {
+    "title": "المدفوعات",
+    "loadError": "تعذر تحميل المدفوعات.",
+    "empty": "لا توجد مدفوعات.",
+    "filterAll": "جميع الحالات",
+    "filterPending": "قيد الانتظار",
+    "filterPaid": "مدفوعة",
+    "filterFailed": "فاشلة",
+    "filterExpired": "منتهية",
+    "columnUser": "المستخدم",
+    "columnAmount": "المبلغ",
+    "columnStatus": "الحالة",
+    "columnPurpose": "الغرض",
+    "columnProvider": "المزود",
+    "columnCreated": "تاريخ الإنشاء",
+    "columnActions": "إجراءات",
+    "openCheckout": "فتح الدفع",
+    "pageInfo": "الصفحة {page} من {totalPages}",
+    "previous": "السابق",
+    "next": "التالي"
+  }
+}

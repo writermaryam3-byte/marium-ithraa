@@ -2,7 +2,7 @@
 
 import { LogIn, LogOut, UserCircle } from 'lucide-react'
 import { useTranslations } from 'next-intl'
-
+import LanguageSwitcher from '@/components/layouts/header/langSwitch'
 import { Link } from '@/i18n/navigation'
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
@@ -15,11 +15,10 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { Skeleton } from '@/components/ui/skeleton'
-import LanguageSwitcher from '@/components/layouts/header/langSwitch'
-import { NotificationBell } from '@/components/notifications/NotificationBell'
 
 import { useAuth } from '../hooks/useAuth'
 import { Routes, Pages } from '@/lib/types/enums'
+import { NotificationBell } from '@/features/notifications/components/NotificationBell'
 
 type Props = {
   locale: string
@@ -41,8 +40,8 @@ export function AuthNavActions({
   showLanguage = true,
   signupHref,
 }: Props) {
-  const t = useTranslations('Header')
-  const tAuth = useTranslations('Auth')
+  const t = useTranslations('navigation.header')
+  const tAuth = useTranslations('auth')
   const { user, isAuthenticated, isLoading, logout, loginPath, signupPath } = useAuth()
 
   if (isLoading) {
@@ -59,7 +58,7 @@ export function AuthNavActions({
     return (
       <div className="flex items-center gap-2">
         {showNotifications ? <NotificationBell /> : null}
-        {/* {showLanguage ? <LanguageSwitcher locale={locale} /> : null} */}
+        {showLanguage ? <LanguageSwitcher locale={locale} /> : null}
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button
@@ -104,7 +103,7 @@ export function AuthNavActions({
 
   return (
     <div className="flex items-center gap-2">
-      {/* {showLanguage ? <LanguageSwitcher locale={locale} /> : null} */}
+      {showLanguage ? <LanguageSwitcher locale={locale} /> : null}
       {signupHref ? (
         <Button asChild variant="outline" className="hidden rounded-full sm:inline-flex">
           <Link href={signupHref}>{tAuth('signup')}</Link>

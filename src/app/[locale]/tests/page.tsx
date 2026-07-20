@@ -10,7 +10,7 @@ type Props = {
 
 export default async function TestsPage({ params }: Props) {
   const { locale } = await params
-  const t = await getTranslations('TestsPage')
+  const t = await getTranslations('evaluations.testsPage')
 
   return (
     <RequireRoles allowed={[UserRole.PARENT]} redirectTo="/unauthorized" locale={locale}>

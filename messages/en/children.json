@@ -1,0 +1,197 @@
+{
+  "title": "Children",
+  "description": "Manage organization children and class assignments",
+  "page": {
+    "title": "Children"
+  },
+  "actions": {
+    "add": "Add Child"
+  },
+  "fields": {
+    "genderPlaceholder": "Select gender",
+    "name": "Name",
+    "birthDate": "Birth date",
+    "gender": "Gender",
+    "grade": "Grade",
+    "class": "Class",
+    "parent": "Parent",
+    "email": "Email",
+    "phone": "Phone",
+    "evaluation": "Evaluation status",
+    "attempts": "Attempts",
+    "genderOptions": {
+      "male": "Male",
+      "female": "Female"
+    }
+  },
+  "filters": {
+    "grade": "Grade",
+    "allGrades": "All grades",
+    "class": "Class",
+    "allClasses": "All classes",
+    "searchPlaceholder": "Search by child or parent name…"
+  },
+  "dialogs": {
+    "addTitle": "Add Child",
+    "addDescription": "Fill child info then save.",
+    "editTitle": "Edit Child",
+    "editDescription": "Update child information and save.",
+    "deleteTitle": "Delete Child",
+    "deleteDescription": "Are you sure you want to delete this child? This action cannot be undone.",
+    "deleteConfirmShort": "Are you sure? This cannot be undone."
+  },
+  "table": {
+    "name": "Name",
+    "grade": "Grade",
+    "birthDate": "Birth date",
+    "gender": "Gender"
+  },
+  "status": {
+    "evaluation": {
+      "evaluated": "Evaluated",
+      "notEvaluated": "Not evaluated"
+    }
+  },
+  "goToEdit": "Go to edit page",
+  "transferRequests": {
+    "title": "Child transfer requests",
+    "subtitle": "Review incoming child transfer requests for your organization.",
+    "noPending": "No pending transfer requests",
+    "incoming": "Incoming transfer request",
+    "pendingBadge": "Pending",
+    "fromOrganization": "From organization",
+    "birthDate": "Birth date",
+    "currentClass": "Current class",
+    "requestedBy": "Requested by",
+    "approveTransfer": "Approve transfer",
+    "reject": "Reject",
+    "rejectTitle": "Reject transfer request?",
+    "rejectDescription": "This rejection will be sent to the backend and the request will be removed from the list.",
+    "cancel": "Cancel",
+    "unknownChild": "Unknown child",
+    "anotherOrganization": "Another organization",
+    "transferRequestRejected": "Transfer request rejected",
+    "unableToUpdate": "Unable to update transfer request",
+    "dashboardBreadcrumb": "Dashboard",
+    "transferRequestsBreadcrumb": "Transfer requests"
+  },
+  "approveTransfer": {
+    "title": "Approve child transfer",
+    "description": "Choose the class {childName} will join in {organizationName}.",
+    "classLabel": "Class",
+    "loadingClasses": "Loading classes…",
+    "selectClass": "Select a class",
+    "noClasses": "No classes are available for this organization.",
+    "cancel": "Cancel",
+    "approveTransfer": "Approve transfer",
+    "targetOrganization": "target organization",
+    "unableToIdentify": "Unable to identify the target organization.",
+    "unableToLoadClasses": "Unable to load classes.",
+    "approvedToast": "Transfer request approved.",
+    "unableToApprove": "Unable to approve transfer request.",
+    "theChild": "the child"
+  },
+  "create": {
+    "breadcrumb": {
+      "dashboard": "Dashboard",
+      "children": "Children"
+    },
+    "title": "Create child",
+    "subtitle": "Find the parent first, then select an existing child or create a new profile.",
+    "parentIdentification": "Parent identification",
+    "labels": {
+      "parentPhone": "Parent phone",
+      "parentName": "Parent name",
+      "parentEmail": "Parent email",
+      "childName": "Name",
+      "birthDate": "Birth date",
+      "gender": "Gender",
+      "grade": "Grade",
+      "class": "Class"
+    },
+    "childCreatedSuccess": "Child created successfully",
+    "childAlreadyExists": "Child already exists in your school",
+    "unableToLoadChild": "Unable to load child",
+    "transferRequestSent": "Transfer request sent",
+    "unableToRequestTransfer": "Unable to request transfer",
+    "addNewChild": "Add New Child",
+    "createChild": "Create Child",
+    "cancel": "Cancel",
+    "parentNotFound": "Parent not found",
+    "parentAccountInfo": "A parent account will be created automatically. Login credentials will be sent to the parent's email when provided.",
+    "noChildrenFound": "No children found for this parent.",
+    "children": "Children",
+    "unnamedParent": "Unnamed parent",
+    "parentFound": "Parent found",
+    "birthDateUnavailable": "Birth date unavailable",
+    "selectChild": "Select Child",
+    "newChild": "New child",
+    "selectGender": "Select gender",
+    "male": "Male",
+    "female": "Female",
+    "selectGrade": "Select grade",
+    "selectClass": "Select class",
+    "transferAlert": "This child belongs to another school or private to parent",
+    "requestTransfer": "Request Transfer",
+    "childExistsDialog": "Child exists in another school",
+    "transferCreated": "Transfer request created",
+    "requestId": "Request ID: {id}",
+    "done": "Done",
+    "assignParentRole": "User exists — assign parent role",
+    "assignParentDescription": "A user with phone {phone} already exists but is not a parent. Fill in the name to create a parent profile for them.",
+    "grantParentRoleTitle": "Grant Parent role?",
+    "grantParentRoleDescription": "This phone number belongs to an existing user who is not currently a Parent. Grant the Parent role and associate this child with their account? Existing roles will be preserved.",
+    "grantParentRoleConfirm": "Grant Parent role and continue",
+    "grantParentRoleCancel": "Cancel",
+    "toast": {
+      "unableToCreateChild": "Unable to create child",
+      "unableToSearchParent": "Unable to search parent"
+    }
+  },
+  "forms": {
+    "addTitle": "Add child",
+    "editTitle": "Edit child",
+    "subtitle": "Enter child and parent details",
+    "parentSection": "Parent account",
+    "breadcrumb": {
+      "home": "Home",
+      "children": "Children"
+    },
+    "name": {
+      "label": "Child name",
+      "placeholder": "Enter child name"
+    },
+    "birthDate": {
+      "label": "Birth date"
+    },
+    "parentName": {
+      "label": "Parent name"
+    },
+    "parentEmail": {
+      "label": "Parent email"
+    },
+    "parentPhone": {
+      "label": "Parent phone"
+    },
+    "parentPassword": {
+      "label": "Parent password"
+    },
+    "grade": {
+      "label": "Grade",
+      "placeholder": "Select grade"
+    },
+    "class": {
+      "label": "Class",
+      "placeholder": "Select class"
+    },
+    "gender": {
+      "label": "Gender",
+      "placeholder": "Select gender",
+      "male": "Male",
+      "female": "Female"
+    },
+    "toast": {
+      "saved": "Child saved successfully"
+    }
+  }
+}

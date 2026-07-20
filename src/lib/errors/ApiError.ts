@@ -1,12 +1,35 @@
-import { ValidationErrors } from '../types/types'
+import type { ApiErrorCodes } from '../types/enums'
+import type { FieldError } from '../types/interfaces'
 
 export class ApiError extends Error {
   status: number
-  validationErrors?: ValidationErrors
+  path: string
+  code: ApiErrorCodes | string
+  details?: Record<string, unknown>
+  fieldErrors: FieldError[]
+  requestId?: string
+  timestamp?: string
 
-  constructor(message: string, status: number, validationErrors?: ValidationErrors) {
-    super(message)
+  constructor(
+    path: string,
+    status: number,
+    error: {
+      code: ApiErrorCodes | string
+      message: string
+      details?: Record<string, unknown>
+      fieldErrors?: FieldError[]
+      requestId?: string
+      timestamp?: string
+    },
+  ) {
+    super(error.message)
+    this.name = 'ApiError'
     this.status = status
-    this.validationErrors = validationErrors || {}
+    this.path = path
+    this.code = error.code
+    this.details = error.details
+    this.fieldErrors = error.fieldErrors ?? []
+    this.requestId = error.requestId
+    this.timestamp = error.timestamp
   }
 }

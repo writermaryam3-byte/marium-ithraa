@@ -2,7 +2,7 @@
 
 import { useTranslations } from 'next-intl'
 import { cn } from '@/lib/utils'
-import { HOME_FEATURES } from '@/lib/home.constants'
+import { HOME_FEATURES } from '@/lib/types/constants/home.constants'
 import { Card, CardContent } from '@/components/ui/card'
 import {
   BarChart3,
@@ -37,7 +37,7 @@ const tones = [
 ]
 
 export default function HomeFeatures() {
-  const t = useTranslations('HomePage.Features')
+  const t = useTranslations('landing.features')
 
   return (
     <section className="app-container py-14 lg:py-20">

@@ -13,12 +13,12 @@ import { formatAgeRange, getEvaluationTypeLabel } from '../utils/labels'
 const ADMIN_EVALUATIONS = `/${Routes.DASHBOARDS}/${Pages.ADMIN}/evaluations`
 
 function TH({ messageKey }: { messageKey: string }) {
-  const t = useTranslations('Features.Evaluations')
+  const t = useTranslations('evaluations')
   return t(messageKey)
 }
 
 function TypeBadge({ type }: { type: Evaluation['type'] }) {
-  const t = useTranslations('Features.Evaluations')
+  const t = useTranslations('evaluations')
   return (
     <Badge variant="secondary" className="font-normal">
       {getEvaluationTypeLabel(type, t)}
@@ -27,16 +27,26 @@ function TypeBadge({ type }: { type: Evaluation['type'] }) {
 }
 
 function AgeRangeCell({ evaluation }: { evaluation: Evaluation }) {
-  const t = useTranslations('Features.Evaluations')
+  const t = useTranslations('evaluations')
   return formatAgeRange(evaluation.ageFrom, evaluation.ageTo, t)
 }
 
 function ViewDetailsLink({ id }: { id: string }) {
-  const t = useTranslations('Features.Evaluations')
+  const t = useTranslations('evaluations')
   return (
     <Button asChild variant="outline" size="sm">
       <Link href={`${ADMIN_EVALUATIONS}/${id}`}>{t('viewDetails')}</Link>
     </Button>
+  )
+}
+
+function ArchivedBadge({ archived }: { archived?: boolean }) {
+  const t = useTranslations('evaluations')
+  if (!archived) return null
+  return (
+    <Badge variant="outline" className="ms-2">
+      {t('archivedBadge')}
+    </Badge>
   )
 }
 
@@ -46,12 +56,15 @@ export const evaluationColumns: ColumnDef<Evaluation>[] = [
     accessorKey: 'title',
     header: () => <TH messageKey="title" />,
     cell: ({ row }) => (
-      <Link
-        href={`${ADMIN_EVALUATIONS}/${row.original.id}`}
-        className="font-medium text-primary hover:underline"
-      >
-        {row.original.title}
-      </Link>
+      <span className="inline-flex items-center">
+        <Link
+          href={`${ADMIN_EVALUATIONS}/${row.original.id}`}
+          className="font-medium text-primary hover:underline"
+        >
+          {row.original.title}
+        </Link>
+        <ArchivedBadge archived={row.original.isArchived} />
+      </span>
     ),
   },
   {

@@ -6,8 +6,8 @@ import { useLocale, useTranslations } from 'next-intl'
 import { Link } from '@/i18n/navigation'
 import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
-import { Facebook, Instagram, Youtube } from 'lucide-react'
-import { SOCIAL_LINKS } from '@/lib/social-links'
+import { Facebook, Instagram, Music2Icon } from 'lucide-react'
+import { SOCIAL_LINKS } from '@/lib/types/constants/social-links'
 
 function XIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
@@ -22,23 +22,23 @@ function XIcon(props: React.SVGProps<SVGSVGElement>) {
 
 const Footer = ({ locale }: { locale?: string }) => {
   const activeLocale = useLocale()
-  const t = useTranslations('Footer')
+  const t = useTranslations('landing.footer')
   const isRtl = (locale ?? activeLocale) === 'ar'
 
   const pathsLinks = [
-    { label: t('Paths.WaliAlAmr'), href: '/wali-al-amr' },
-    { label: t('Paths.Landmarks'), href: '/landmarks' },
-    { label: t('Paths.Partners'), href: '/partners' },
-    { label: t('Paths.Foundation'), href: '/foundation' },
-    { label: t('Paths.FollowFoundation'), href: '/follow' },
+    { label: t('paths.waliAlAmr'), href: '/wali-al-amr' },
+    { label: t('paths.landmarks'), href: '/landmarks' },
+    { label: t('paths.partners'), href: '/partners' },
+    { label: t('paths.foundation'), href: '/foundation' },
+    { label: t('paths.followFoundation'), href: '/follow' },
   ]
 
   const aboutLinks = [
-    { label: t('About.Home'), href: '/' },
-    { label: t('About.WhoWeAre'), href: '/about' },
-    { label: t('About.Services'), href: '/services' },
-    { label: t('About.Blog'), href: '/blog' },
-    { label: t('About.Contact'), href: '/contact' },
+    { label: t('about.home'), href: '/' },
+    { label: t('about.whoWeAre'), href: '/about' },
+    { label: t('about.services'), href: '/services' },
+    { label: t('about.blog'), href: '/blog' },
+    { label: t('about.contact'), href: '/contact' },
   ]
 
   return (
@@ -56,7 +56,7 @@ const Footer = ({ locale }: { locale?: string }) => {
             <Link href="/" className="inline-flex items-center">
               <Image
                 src="/logo.svg"
-                alt={t('Brand.Alt')}
+                alt={t('brand.alt')}
                 width={220}
                 height={70}
                 className="h-12 w-auto"
@@ -67,12 +67,12 @@ const Footer = ({ locale }: { locale?: string }) => {
             <div className="mt-5 flex items-center gap-2">
               <Button asChild variant="ghost" size="icon-sm">
                 <a
-                  href={SOCIAL_LINKS.youtube}
+                  href={SOCIAL_LINKS.tiktok}
                   target="_blank"
                   rel="noreferrer"
-                  aria-label={t('Social.YouTube')}
+                  aria-label={t('social.youTube')}
                 >
-                  <Youtube />
+                  <Music2Icon />
                 </a>
               </Button>
 
@@ -81,7 +81,7 @@ const Footer = ({ locale }: { locale?: string }) => {
                   href={SOCIAL_LINKS.x}
                   target="_blank"
                   rel="noreferrer"
-                  aria-label={t('Social.X')}
+                  aria-label={t('social.x')}
                 >
                   <XIcon className="size-4" />
                 </a>
@@ -92,7 +92,7 @@ const Footer = ({ locale }: { locale?: string }) => {
                   href={SOCIAL_LINKS.instagram}
                   target="_blank"
                   rel="noreferrer"
-                  aria-label={t('Social.Instagram')}
+                  aria-label={t('social.instagram')}
                 >
                   <Instagram />
                 </a>
@@ -103,7 +103,7 @@ const Footer = ({ locale }: { locale?: string }) => {
                   href={SOCIAL_LINKS.facebook}
                   target="_blank"
                   rel="noreferrer"
-                  aria-label={t('Social.Facebook')}
+                  aria-label={t('social.facebook')}
                 >
                   <Facebook />
                 </a>
@@ -111,30 +111,27 @@ const Footer = ({ locale }: { locale?: string }) => {
             </div>
 
             <div className="mt-6 space-y-2 text-sm text-muted-foreground text-start">
-              <a className="block w-fit hover:text-foreground" href={`#`}>
-                {t('Contact.Website')}
-              </a>
-              <p className="block w-fit hover:text-foreground">{t('Contact.CR')}</p>
+              <p className="block w-fit hover:text-foreground">{t('contact.cR')}</p>
               <a
                 className="block w-fit hover:text-foreground"
-                href={`mailto:${t('Contact.Email')}`}
+                href={`mailto:${t('contact.email')}`}
               >
-                {t('Contact.Email')}
+                {t('contact.email')}
               </a>
               <a
                 className="block w-fit hover:text-foreground"
-                href={`tel:${t('Contact.PhoneTel')}`}
+                href={`tel:${t('contact.phoneTel')}`}
               >
-                {t('Contact.Phone')}
+                {t('contact.phone')}
               </a>
-              <p className="block w-fit hover:text-foreground">{t('Contact.Address')}</p>
+              <p className="block w-fit hover:text-foreground">{t('contact.address')}</p>
             </div>
           </div>
 
           <div className="lg:col-span-7">
             <div className="grid gap-8 sm:grid-cols-2">
               <div className="text-start">
-                <h3 className="text-sm font-semibold text-foreground">{t('Paths.Title')}</h3>
+                <h3 className="text-sm font-semibold text-foreground">{t('paths.title')}</h3>
                 <ul className="mt-4 space-y-3 text-sm text-muted-foreground">
                   {pathsLinks.map((l) => (
                     <li key={l.href}>
@@ -147,7 +144,7 @@ const Footer = ({ locale }: { locale?: string }) => {
               </div>
 
               <div className="text-start">
-                <h3 className="text-sm font-semibold text-foreground">{t('About.Title')}</h3>
+                <h3 className="text-sm font-semibold text-foreground">{t('about.title')}</h3>
                 <ul className="mt-4 space-y-3 text-sm text-muted-foreground">
                   {aboutLinks.map((l) => (
                     <li key={l.href}>
@@ -167,14 +164,11 @@ const Footer = ({ locale }: { locale?: string }) => {
         <div
           className={`flex flex-col gap-3 text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between ${isRtl ? 'sm:flex-row-reverse' : ''}`}
         >
-          <div>{t('Legal.Copyright', { year: new Date().getFullYear() })}</div>
+          <div>{t('legal.copyright', { year: new Date().getFullYear() })}</div>
           <div className="flex items-center gap-4">
             <Link className="hover:text-foreground" href="/privacy">
-              {t('Legal.Privacy')}
+              {t('legal.privacy')}
             </Link>
-            {/* <Link className="hover:text-foreground" href="/terms">
-              {t("Legal.Terms")}
-            </Link> */}
           </div>
         </div>
       </div>

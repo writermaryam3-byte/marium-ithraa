@@ -1,0 +1,411 @@
+{
+  "title": "المؤسسات",
+  "description": "مراجعة وإدارة طلبات تسجيل المؤسسات.",
+  "statusLabel": "حالة المؤسسة",
+  "status": {
+    "pending": "بانتظار الموافقة",
+    "approved": "معتمدة",
+    "rejected": "مرفوضة"
+  },
+  "types": {
+    "center": "مركز تعليمي",
+    "nursery": "حضانة",
+    "training": "مركز تدريب",
+    "school": "مدرسة"
+  },
+  "messages": {
+    "pending": {
+      "title": "طلب تسجيل مؤسستك بانتظار موافقة الإدارة.",
+      "description": "ستتمكن من إدارة الفصول والأطفال والمراحل والمعلمين بعد الموافقة."
+    },
+    "rejected": {
+      "title": "تم رفض طلب تسجيل مؤسستك.",
+      "description": "يرجى مراجعة السبب أدناه والتواصل مع الدعم إذا احتجت مساعدة.",
+      "reasonLabel": "سبب الرفض",
+      "contactSupport": "تواصل مع الدعم",
+      "backToLogin": "العودة لتسجيل الدخول"
+    },
+    "approvalRequired": "يجب اعتماد مؤسستك قبل تنفيذ هذا الإجراء."
+  },
+  "validation": {
+    "rejectReason": {
+      "min": "يجب ألا يقل سبب الرفض عن 3 أحرف.",
+      "max": "يجب ألا يزيد سبب الرفض عن 500 حرف."
+    }
+  },
+  "emptyStates": {
+    "pending": "لا توجد مؤسسات بانتظار المراجعة.",
+    "approved": "لا توجد مؤسسات معتمدة بعد.",
+    "rejected": "لا توجد مؤسسات مرفوضة بعد."
+  },
+  "admin": {
+    "nav": "المؤسسات",
+    "title": "المؤسسات",
+    "subtitle": "مراجعة وإدارة طلبات تسجيل المؤسسات.",
+    "tabs": {
+      "pending": "بانتظار المراجعة",
+      "approved": "معتمدة",
+      "rejected": "مرفوضة"
+    },
+    "columns": {
+      "name": "المؤسسة",
+      "type": "النوع",
+      "owner": "المالك",
+      "email": "بريد المالك",
+      "status": "الحالة",
+      "submitted": "تاريخ التقديم",
+      "reviewed": "تاريخ المراجعة",
+      "actions": "الإجراءات"
+    },
+    "approve": "اعتماد",
+    "reject": "رفض",
+    "cancel": "إلغاء",
+    "retry": "إعادة المحاولة",
+    "approveAria": "اعتماد {name}",
+    "rejectAria": "رفض {name}",
+    "approveSuccess": "تم اعتماد المؤسسة بنجاح",
+    "approveFailed": "تعذر اعتماد المؤسسة",
+    "rejectSuccess": "تم رفض المؤسسة بنجاح",
+    "rejectFailed": "تعذر رفض المؤسسة",
+    "approveDialog": {
+      "title": "اعتماد المؤسسة",
+      "description": "هل أنت متأكد من اعتماد {name}؟"
+    },
+    "rejectDialog": {
+      "title": "رفض المؤسسة",
+      "description": "يرجى إدخال سبب رفض {name}.",
+      "reasonLabel": "سبب الرفض",
+      "reasonPlaceholder": "اشرح سبب عدم إمكانية اعتماد هذا الطلب",
+      "reasonHelp": "مطلوب. بين 3 و500 حرف."
+    },
+    "empty": {
+      "pending": "لا توجد مؤسسات بانتظار المراجعة.",
+      "approved": "لا توجد مؤسسات معتمدة بعد.",
+      "rejected": "لا توجد مؤسسات مرفوضة بعد."
+    },
+    "errors": {
+      "forbidden": "ليس لديك صلاحية لإدارة المؤسسات.",
+      "loadFailed": "تعذر تحميل المؤسسات."
+    },
+    "filters": {
+      "searchPlaceholder": "بحث باسم المؤسسة أو المالك أو البريد أو المعرّف…",
+      "noSearchResults": "لا توجد مؤسسات مطابقة لبحثك.",
+      "searching": "جاري تحديث النتائج…"
+    }
+  },
+  "dashboard": {
+    "welcome": {
+      "title": "مرحباً بك في {organizationName}",
+      "subtitle": "أدر مؤسستك بكل سهولة من مكان واحد"
+    },
+    "loadError": "تعذّر تحميل بيانات لوحة التحكم.",
+    "retry": "إعادة المحاولة",
+    "overview": {
+      "title": "نظرة عامة على المؤسسة"
+    },
+    "platformStats": "إحصائيات المنصة",
+    "recentActivity": "آخر النشاطات",
+    "emptyStats": "لا توجد إحصائيات بعد. ستظهر البيانات عند إضافة الأطفال والفصول والمعلمين.",
+    "emptyActivity": "لا يوجد نشاط حديث بعد.",
+    "quickActions": {
+      "title": "إجراءات سريعة",
+      "addChild": "إضافة طفل",
+      "addTeacher": "إضافة معلم",
+      "createClass": "إنشاء فصل",
+      "createGrade": "إنشاء مرحلة",
+      "assignEvaluation": "عرض التقييمات"
+    },
+    "stats": {
+      "totalChildren": "إجمالي الأطفال",
+      "totalTeachers": "إجمالي المعلمين",
+      "totalClasses": "إجمالي الفصول",
+      "totalGrades": "إجمالي المراحل",
+      "activeEvaluations": "تقييمات نشطة",
+      "completedEvaluations": "تقييمات مكتملة",
+      "pendingEvaluations": "بانتظار الموافقة",
+      "subscriptionPlan": "الباقة الحالية",
+      "subscriptionStatus": "حالة الاشتراك",
+      "remainingDays": "الأيام المتبقية"
+    },
+    "charts": {
+      "childrenPerGrade": "الأطفال حسب المرحلة",
+      "evaluationCompletion": "معدل إكمال التقييم",
+      "monthlyActivity": "النشاط الشهري",
+      "noData": "لا توجد بيانات توزيع للمراحل بعد.",
+      "noEvaluations": "لا توجد محاولات تقييم بعد.",
+      "completionHint": "نسبة التقييمات المكتملة أو المعتمدة من إجمالي المحاولات"
+    },
+    "activity": {
+      "justNow": "الآن",
+      "minutesAgo": "{count, plural, =1 {منذ دقيقة} other {منذ # دقائق}}",
+      "hoursAgo": "{count, plural, =1 {منذ ساعة} other {منذ # ساعات}}",
+      "daysAgo": "{count, plural, =1 {منذ يوم} other {منذ # أيام}}",
+      "childAdded": "تمت إضافة طفل",
+      "teacherCreated": "تم إنشاء معلم",
+      "classCreated": "تم إنشاء فصل",
+      "gradeCreated": "تم إنشاء مرحلة",
+      "gradeUpdated": "تم تحديث مرحلة",
+      "classUpdated": "تم تحديث فصل",
+      "teacherUpdated": "تم تحديث معلم",
+      "childUpdated": "تم تحديث طفل",
+      "evaluationAssigned": "بدء تقييم",
+      "evaluationCompleted": "تم تسليم تقييم",
+      "evaluationApproved": "تم اعتماد تقييم",
+      "generic": "تم تسجيل نشاط"
+    },
+    "subscription": {
+      "plans": {
+        "free": {
+          "shortName": "مجانية",
+          "name": "الباقة المجانية"
+        },
+        "basic": {
+          "shortName": "أساسية",
+          "name": "الباقة الأساسية"
+        },
+        "premium": {
+          "shortName": "شاملة",
+          "name": "الباقة الشاملة"
+        }
+      },
+      "status": {
+        "active": "نشط",
+        "expired": "منتهٍ",
+        "trial": "تجريبي"
+      }
+    }
+  },
+  "subscriptionPage": {
+    "title": "باقات الاشتراك",
+    "description": "اختر الباقة المناسبة لمؤسستك",
+    "plansHeading": "قارن الباقات",
+    "plansSubtitle": "اختر الباقة التي تناسب احتياجات مؤسستك",
+    "billingMonthly": "شهرياً",
+    "billingYearly": "سنوياً",
+    "currentPlan": "باقتك الحالية",
+    "upgrade": "ترقية",
+    "downgrade": "تخفيض",
+    "contactSales": "تواصل معنا",
+    "perMonth": "ريال / شهر",
+    "perYear": "ريال / سنة",
+    "popularBadge": "الأكثر شيوعاً",
+    "featuresTitle": "ما يتضمنه",
+    "empty": "لا توجد باقات متاحة حالياً.",
+    "plans": {
+      "free": {
+        "name": "الباقة المجانية",
+        "description": "ابدأ باكتشاف ذكاءات طلابك بدون أي تكلفة.",
+        "features": {
+          "f1": "مقياس الذكاءات المتعددة لـ 100 طالب",
+          "f2": "تقارير مؤشرات الذكاء لأولياء الأمور",
+          "f3": "محاضرات توعوية دورية للأهالي",
+          "f4": "خصومات الأنشطة الحصرية",
+          "f5": "أنشطة الطلاب أونلاين"
+        }
+      },
+      "basic": {
+        "name": "الباقة الأساسية",
+        "description": "مثالية للمدارس لبدء اكتشاف المواهب.",
+        "features": {
+          "f1": "كل ما في المجانية وأكثر",
+          "f2": "مكتبة المقاييس العلمية مع تحديث مستمر",
+          "f3": "تقارير شاملة لكل فصل دراسي",
+          "f4": "أدوات الجدولة وإدارة الفصول",
+          "f5": "أنشطة اليوم الواحد بعدد محدود"
+        }
+      },
+      "premium": {
+        "name": "الباقة الشاملة",
+        "description": "نظام متكامل لاكتشاف المواهب وإدارة الأنشطة.",
+        "features": {
+          "f1": "كل ما في الأساسية وأكثر",
+          "f2": "أنشطة ما بعد المدرسة والمعسكرات الصيفية",
+          "f3": "مشاركة العوائد مع المدرسة",
+          "f4": "أنشطة اليوم الواحد بعدد غير محدود",
+          "f5": "تخصيص متقدم لكل طالب"
+        }
+      }
+    }
+  },
+  "results": {
+    "breadcrumb": {
+      "home": "الرئيسية"
+    },
+    "title": "النتائج",
+    "subtitle": "تابع نتائج تقييمات أطفال مؤسستك",
+    "tabs": {
+      "evaluation": "حالة التقييم",
+      "results": "النتائج",
+      "reports": "التقارير"
+    },
+    "childResult": {
+      "name": "الاسم: {name}",
+      "class": "الفصل: {className}",
+      "result": "النتيجة: {value}"
+    },
+    "evaluationStatus": {
+      "name": "الاسم: {name}",
+      "class": "الفصل: {className}",
+      "status": "التقييم: {status}"
+    },
+    "sendReminder": "إرسال تذكير",
+    "downloadExcel": "تنزيل Excel",
+    "downloadPdf": "تنزيل PDF",
+    "classStats": "إحصائيات الفصل",
+    "topIntelligences": "أعلى 3 ذكاءات",
+    "childrenResults": "نتائج الأطفال"
+  },
+  "grades": {
+    "title": "المراحل الدراسية",
+    "description": "إدارة المراحل الدراسية والفصول",
+    "actions": {
+      "add": "إضافة مرحلة"
+    },
+    "fields": {
+      "name": "الاسم",
+      "classesCount": "عدد الفصول",
+      "childrenCount": "عدد الأطفال"
+    },
+    "filters": {
+      "searchPlaceholder": "بحث باسم المرحلة…"
+    },
+    "dialogs": {
+      "editTitle": "تعديل مرحلة",
+      "deleteTitle": "حذف مرحلة"
+    },
+    "forms": {
+      "addTitle": "إضافة مرحلة",
+      "editTitle": "تعديل مرحلة",
+      "editDescription": "تحديث بيانات المرحلة ثم الحفظ.",
+      "breadcrumb": {
+        "home": "الرئيسية",
+        "grades": "المراحل"
+      },
+      "name": {
+        "label": "اسم المرحلة",
+        "placeholder": "أدخل اسم المرحلة"
+      },
+      "toast": {
+        "saved": "تم حفظ المرحلة بنجاح"
+      }
+    }
+  },
+  "classes": {
+    "title": "الفصول",
+    "description": "إدارة الفصول وتوزيع الطلاب والمعلمين",
+    "actions": {
+      "add": "إضافة فصل"
+    },
+    "fields": {
+      "name": "اسم الفصل",
+      "grade": "المرحلة",
+      "teacher": "المعلم",
+      "students": "الطلاب",
+      "unassigned": "—"
+    },
+    "filters": {
+      "searchPlaceholder": "بحث باسم الفصل…",
+      "grade": "المرحلة",
+      "allGrades": "كل المراحل"
+    },
+    "dialogs": {
+      "editTitle": "تعديل فصل",
+      "deleteTitle": "حذف فصل"
+    },
+    "forms": {
+      "addTitle": "إضافة فصل",
+      "editTitle": "تعديل فصل",
+      "editDescription": "تحديث بيانات الفصل ثم الحفظ.",
+      "breadcrumb": {
+        "home": "الرئيسية",
+        "classes": "الفصول"
+      },
+      "name": {
+        "label": "اسم الفصل",
+        "placeholder": "أدخل اسم الفصل"
+      },
+      "grade": {
+        "label": "المرحلة",
+        "placeholder": "اختر المرحلة"
+      },
+      "teacher": {
+        "label": "المعلم (اختياري)",
+        "placeholder": "اختر المعلم",
+        "none": "بدون"
+      },
+      "toast": {
+        "saved": "تم حفظ الفصل بنجاح"
+      }
+    }
+  },
+  "gradeDetail": {
+    "addClass": "إضافة فصل",
+    "emptyClasses": "لا توجد فصول في هذه المرحلة",
+    "childrenCount": "{count} طفل",
+    "emptyChildren": "لا يوجد أطفال في هذا الفصل",
+    "subtitle": "{count} فصول",
+    "gradesBreadcrumb": "المراحل"
+  },
+  "classDetail": {
+    "addChild": "إضافة طفل",
+    "empty": "لا يوجد أطفال في هذا الفصل",
+    "birth": "تاريخ الميلاد",
+    "deleteTitle": "حذف طفل",
+    "gradeSubtitle": "المرحلة: {grade}",
+    "classesBreadcrumb": "الفصول",
+    "children": {
+      "genderPlaceholder": "اختر الجنس",
+      "name": "الاسم",
+      "birthDate": "تاريخ الميلاد",
+      "gender": "النوع",
+      "grade": "المرحلة",
+      "class": "الفصل",
+      "parent": "ولي الأمر",
+      "email": "البريد الإلكتروني",
+      "phone": "رقم الهاتف",
+      "evaluation": "حالة التقييم",
+      "attempts": "المحاولات"
+    }
+  },
+  "organizationEvaluations": {
+    "results": "النتائج",
+    "subtitle": "تابع نتائج تقييمات أطفال مؤسستك",
+    "reportsTab": "التقارير",
+    "resultsTab": "النتائج",
+    "statusTab": "حالة التقييم",
+    "class": "الفصل",
+    "evaluation": "التقييم",
+    "selectClass": "اختر الفصل",
+    "selectEvaluation": "اختر التقييم",
+    "selectClassAndEvaluation": "اختر الفصل والتقييم لعرض البيانات",
+    "highestScore": "أعلى نتيجة",
+    "averageScore": "متوسط الفصل",
+    "lowestScore": "أقل نتيجة",
+    "topDimensions": "أعلى 3 محاور",
+    "childrenResults": "نتائج الأطفال",
+    "childrenCount": "عدد الأطفال",
+    "approved": "تم الاعتماد",
+    "waitingApproval": "في انتظار الاعتماد",
+    "inProgress": "قيد التنفيذ",
+    "notStarted": "لم يبدأ بعد",
+    "sendReminder": "إرسال تذكير",
+    "reminderSuccess": "تم إرسال التذكير بنجاح",
+    "empty": "لا توجد بيانات",
+    "error": "حدث خطأ",
+    "retry": "إعادة المحاولة",
+    "classStats": "إحصائيات الفصل",
+    "score": "الدرجة",
+    "result": "النتيجة",
+    "downloadPdf": "تحميل PDF",
+    "downloadExcel": "تنزيل Excel",
+    "noTopDimensions": "لا توجد محاور متاحة لهذا التقييم",
+    "attemptResult": "نتيجة التقييم",
+    "attemptForbidden": "لا يمكنك عرض هذه النتيجة. قد لا تكون معتمدة بعد أو ليس لديك صلاحية الوصول.",
+    "attemptNotApproved": "التقييم مُرسل ولم يُعتمد بعد. ستظهر النتيجة بعد الاعتماد.",
+    "attemptNoResultYet": "لا توجد نتيجة متاحة لهذا التقييم حالياً.",
+    "backToResults": "العودة إلى النتائج",
+    "pdfExportSoon": "سيتم دعم تحميل PDF قريباً",
+    "excelExportSoon": "سيتم دعم تصدير Excel قريباً",
+    "childrenUnit": "طفل"
+  }
+}

@@ -2,8 +2,12 @@ import type { EvaluationType } from '../types'
 
 type TranslateFn = (key: string, values?: Record<string, string | number>) => string
 
+function toCamelCase(value: string): string {
+  return value.toLowerCase().replace(/_([a-z0-9])/g, (_, char: string) => char.toUpperCase())
+}
+
 export function getEvaluationTypeLabel(type: EvaluationType, t: TranslateFn): string {
-  return t(`types.${type}`)
+  return t(`types.${toCamelCase(type)}`)
 }
 
 export function formatAgeRange(
@@ -63,8 +67,7 @@ export const EVALUATION_TYPE_LABELS: Record<EvaluationType, { ar: string; en: st
 }
 
 export function getAttemptStatusLabel(status: string, t: TranslateFn): string {
-  const s = status.toLowerCase()
-  const key = `attemptStatus.${s}` as const
+  const key = `attemptStatus.${toCamelCase(status)}` as const
   try {
     const translated = t(key)
     if (translated !== key) return translated

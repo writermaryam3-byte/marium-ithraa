@@ -15,7 +15,7 @@ export const columns: ColumnDef<IUserResponseDto>[] = [
   {
     id: 'name',
     accessorKey: 'name',
-    header: () => <TH k="Features.users.name" />,
+    header: () => <TH k="users.fields.name" />,
     cell: ({ row }) => (
       <Link
         href={`/${Routes.DASHBOARDS}/${Pages.ADMIN}/${Pages.USERS}/${row.original.id}`}
@@ -28,27 +28,27 @@ export const columns: ColumnDef<IUserResponseDto>[] = [
   {
     id: 'email',
     accessorKey: 'email',
-    header: () => <TH k="Features.Users.Email" />,
+    header: () => <TH k="users.fields.email" />,
   },
   {
     id: 'isEmailVerfied',
     accessorKey: 'isEmailVerified',
-    header: () => <TH k="Features.Users.IsEmailVerfied" />,
+    header: () => <TH k="users.fields.isEmailVerified" />,
   },
   {
     id: 'phone',
     accessorKey: 'phone',
-    header: () => <TH k="Features.Users.Phone" />,
+    header: () => <TH k="users.fields.phone" />,
   },
   {
     id: 'isPhoneVerfied',
     accessorKey: 'isPhoneVerified',
-    header: () => <TH k="Features.Users.IsPhoneVerfied" />,
+    header: () => <TH k="users.fields.isPhoneVerified" />,
   },
   {
     id: 'roles',
     accessorKey: 'role',
-    header: () => <TH k="Features.Users.Role" />,
+    header: () => <TH k="users.fields.role" />,
     cell({ row }) {
       return row.original.roles.map((r) => r.name).join('-')
     },

@@ -1,84 +1,119 @@
 import { ApiError } from '../errors/ApiError'
-import { StatusCode } from '../types/enums'
-import type { ValidationErrors } from '../types/types'
+import { ApiErrorCodes, StatusCode } from '../types/enums'
 import { logger } from '../logger'
+import type { ApiErrorResponse, ApiSuccessResponse, PaginationMeta } from '../types/interfaces'
 
-export function getApiErrorMessage(data: unknown): string {
-  if (typeof data === 'string') return data
-
-  if (typeof data !== 'object' || data === null) return 'Request failed'
-
-  const maybeMessage = (data as { message?: unknown }).message
-  if (typeof maybeMessage === 'string') return maybeMessage
-  if (Array.isArray(maybeMessage)) {
-    return maybeMessage.filter((item): item is string => typeof item === 'string').join(', ')
-  }
-
-  const maybeErrors = (data as { errors?: unknown }).errors
-  if (typeof maybeErrors === 'object' && maybeErrors !== null) {
-    const messages = Object.values(maybeErrors)
-      .flatMap((value) => (Array.isArray(value) ? value : [value]))
-      .filter((value): value is string => typeof value === 'string')
-
-    if (messages.length > 0) return messages.join(', ')
-  }
-
-  return 'Request failed'
+export type PaginatedListPayload<T> = {
+  data: T[]
+  meta: PaginationMeta
 }
 
-export function getValidationErrors(data: unknown): ValidationErrors | undefined {
-  if (typeof data !== 'object' || data === null) return undefined
+const defaultPaginationMeta = (): PaginationMeta => ({
+  page: 1,
+  limit: 20,
+  total: 0,
+  totalPages: 0,
+  hasNextPage: false,
+  hasPreviousPage: false,
+})
 
-  const record = data as Record<string, unknown>
-  const maybeErrors = record.errors ?? record.message
-
-  if (typeof maybeErrors === 'object' && maybeErrors !== null && !Array.isArray(maybeErrors)) {
-    const errors = Object.entries(maybeErrors).reduce<ValidationErrors>((acc, [key, value]) => {
-      if (Array.isArray(value)) {
-        const messages = value.filter((item): item is string => typeof item === 'string')
-        if (messages.length > 0) acc[key] = messages
-        return acc
-      }
-
-      if (typeof value === 'string') acc[key] = [value]
-      return acc
-    }, {})
-
-    return Object.keys(errors).length > 0 ? errors : undefined
+export function unwrapPaginatedPayload<T>(
+  payload: PaginatedListPayload<T> | T[] | undefined | null,
+): { items: T[]; meta: PaginationMeta } {
+  if (
+    payload &&
+    typeof payload === 'object' &&
+    !Array.isArray(payload) &&
+    'data' in payload &&
+    'meta' in payload
+  ) {
+    const paginated = payload as PaginatedListPayload<T>
+    return { items: paginated.data, meta: paginated.meta }
   }
 
-  return undefined
+  return {
+    items: Array.isArray(payload) ? payload : [],
+    meta: defaultPaginationMeta(),
+  }
 }
 
-export async function parseResponse<T>(res: Response): Promise<T> {
-  let data: unknown
+export function unwrapPaginatedList<T>(
+  envelope: ApiSuccessResponse<PaginatedListPayload<T> | T[]>,
+): { items: T[]; meta: PaginationMeta } {
+  const payload = envelope.data
+  if (
+    payload &&
+    typeof payload === 'object' &&
+    !Array.isArray(payload) &&
+    'data' in payload &&
+    'meta' in payload
+  ) {
+    const paginated = payload as PaginatedListPayload<T>
+    return { items: paginated.data, meta: paginated.meta }
+  }
+
+  return {
+    items: Array.isArray(payload) ? payload : [],
+    meta: envelope.meta ?? defaultPaginationMeta(),
+  }
+}
+
+export async function parseResponse<T>(res: Response): Promise<ApiSuccessResponse<T>> {
+  let raw: Record<string, unknown>
   try {
-    data = await res.json()
+    raw = await res.json()
   } catch (err) {
     logger.error('Failed to parse JSON response', { error: err })
-    throw new ApiError('Invalid server response', StatusCode.INTERNALSERVERERROR)
+    throw new ApiError('', StatusCode.INTERNALSERVERERROR, {
+      code: ApiErrorCodes.INTERNAL_SERVER_ERROR,
+      message: 'errors.common.internalServerError',
+    })
   }
 
-  if (!res.ok) {
-    const message = getApiErrorMessage(data)
-    const errors = getValidationErrors(data)
+  if (!res.ok || !raw.success) {
+    const errorResp = raw as unknown as ApiErrorResponse
     logger.error('API request failed', {
       statusCode: res.status,
-      message,
+      path: errorResp.path,
     })
-    throw new ApiError(message, res.status, errors)
+    throw new ApiError(errorResp.path ?? '', res.status, {
+      code: errorResp.error?.code ?? 'UNKNOWN',
+      message: errorResp.error?.message ?? 'errors.common.internalServerError',
+      details: errorResp.error?.details,
+      fieldErrors: errorResp.error?.fieldErrors,
+      requestId: errorResp.requestId,
+      timestamp: errorResp.timestamp,
+    })
   }
 
-  return data as T
+  return raw as unknown as ApiSuccessResponse<T>
+}
+
+export async function fetchData<T>(res: Response): Promise<T> {
+  const envelope = await parseResponse<T>(res)
+  return envelope.data
+}
+
+export async function fetchPaginatedData<T>(res: Response): Promise<{ data: T; meta: NonNullable<ApiSuccessResponse<T>['meta']> }> {
+  const envelope = await parseResponse<T>(res)
+  return {
+    data: envelope.data,
+    meta: envelope.meta ?? {
+      page: 1,
+      limit: 20,
+      total: 0,
+      totalPages: 0,
+      hasNextPage: false,
+      hasPreviousPage: false,
+    },
+  }
 }
 
 export function buildHeaders(
   token?: string | null,
   additionalHeaders?: HeadersInit,
 ): Record<string, string> {
-  const headers: Record<string, string> = {
-    'Content-Type': 'application/json',
-  }
+  const headers: Record<string, string> = {}
   if (token) {
     headers.Authorization = `Bearer ${token}`
   }

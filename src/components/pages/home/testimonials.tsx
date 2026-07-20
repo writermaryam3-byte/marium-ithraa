@@ -3,7 +3,7 @@
 import Image from 'next/image'
 import { useTranslations } from 'next-intl'
 import { cn } from '@/lib/utils'
-import { HOME_TESTIMONIALS, type HomeTestimonial } from '@/lib/home.constants'
+import { HOME_TESTIMONIALS, type HomeTestimonial } from '@/lib/types/constants/home.constants'
 import { Card, CardContent } from '@/components/ui/card'
 import { SwiperSlider } from '@/components/shared/swiper/swiper-slider'
 
@@ -23,7 +23,7 @@ function Stars({ value }: { value: number }) {
 }
 
 export default function HomeTestimonials() {
-  const t = useTranslations('HomePage.Testimonials')
+  const t = useTranslations('landing.testimonials')
 
   return (
     <section className="app-container pb-16 lg:pb-24">

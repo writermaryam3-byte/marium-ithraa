@@ -1,0 +1,20 @@
+{
+  "title": "Check your email",
+  "missingToken": "Missing verification token.",
+  "failed": "Verifying your email failed.",
+  "goToLogin": "Go to login",
+  "almostDone": "You're almost done",
+  "onceVerified": "Once verified, you can sign in and continue to your dashboard.",
+  "sentLink": "We sent a verification link to",
+  "fallbackEmail": "your email",
+  "instruction": "Open the email and click the link to verify your account.",
+  "openGmail": "Open Gmail",
+  "openOutlook": "Open Outlook",
+  "backToLogin": "Back to login",
+  "sending": "Sending…",
+  "resendIn": "Resend in {cooldown}s",
+  "resend": "Resend Email",
+  "clickLink": "Click the verification link from your inbox to activate your account.",
+  "sendSuccess": "Email sent successfully",
+  "sendFailed": "Failed to send email"
+}

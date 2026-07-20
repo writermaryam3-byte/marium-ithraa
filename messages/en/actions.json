@@ -1,0 +1,81 @@
+{
+  "common": {
+    "success": "Success",
+    "validationFailed": "Please check the form fields.",
+    "serverError": "Something went wrong. Please contact support.",
+    "conflict": "This record already exists.",
+    "deleted": "Deleted successfully",
+    "invalidId": "Invalid identifier."
+  },
+  "children": {
+    "created": "Child added successfully",
+    "updated": "Child updated successfully",
+    "deleted": "Child deleted successfully",
+    "deleteFailed": "Failed to delete child",
+    "conflict": "Child or parent already exists",
+    "limitReached": "Maximum of 2 children reached"
+  },
+  "employees": {
+    "created": "Employee added successfully",
+    "updated": "Employee updated successfully",
+    "deleted": "Employee deleted successfully",
+    "deleteFailed": "Failed to delete employee"
+  },
+  "teachers": {
+    "created": "Teacher added successfully",
+    "updated": "Teacher updated successfully",
+    "deleted": "Teacher deleted successfully",
+    "deleteFailed": "Failed to delete teacher"
+  },
+  "grades": {
+    "created": "Grade added successfully",
+    "updated": "Grade updated successfully",
+    "deleted": "Grade deleted successfully",
+    "deleteFailed": "Failed to delete grade"
+  },
+  "classes": {
+    "created": "Class created successfully",
+    "updated": "Class updated successfully",
+    "deleted": "Class deleted successfully",
+    "deleteFailed": "Failed to delete class"
+  },
+  "tests": {
+    "created": "Test created successfully"
+  },
+  "deals": {
+    "created": "Deal created successfully",
+    "failedCreate": "Failed to create deal",
+    "proposalUpdated": "Proposal updated",
+    "failedUpdateProposal": "Failed to update proposal",
+    "proposalSubmitted": "Proposal submitted",
+    "failedSubmitProposal": "Failed to submit proposal",
+    "proposalSelected": "Proposal selected",
+    "failedSelectProposal": "Failed to select proposal",
+    "proposalApproved": "Proposal approved",
+    "failedApproveProposal": "Failed to approve proposal",
+    "proposalRejected": "Proposal rejected",
+    "failedRejectProposal": "Failed to reject proposal",
+    "attendanceRecorded": "Attendance recorded",
+    "failedRecordAttendance": "Failed to record attendance",
+    "dealClosed": "Deal closed",
+    "failedCloseDeal": "Failed to close deal"
+  },
+  "activities": {
+    "created": "Activity created",
+    "failedCreate": "Failed to create activity",
+    "updated": "Activity updated",
+    "failedUpdate": "Failed to update activity",
+    "deleted": "Activity deleted",
+    "failedDelete": "Failed to delete activity"
+  },
+  "payments": {
+    "created": "Payment created successfully",
+    "initiationSucceeded": "Payment initiation succeeded",
+    "retrySucceeded": "Payment retry succeeded"
+  },
+  "transfers": {
+    "requestCreated": "Transfer request created",
+    "approved": "Transfer approved",
+    "rejected": "Transfer rejected"
+  }
+}

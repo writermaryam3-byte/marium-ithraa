@@ -16,7 +16,7 @@ import LoadingCard from './LoadingCard'
 import ErrorCard from './ErrorCard'
 
 const DashboardCard = React.memo(function DashboardCard({ card }: { card: CardInfo }) {
-  const t = useTranslations()
+  const t = useTranslations('dashboard')
 
   if (card.isLoading) return <LoadingCard />
   if (card.isErr) return <ErrorCard error={card.error!} />
@@ -40,9 +40,9 @@ const DashboardCard = React.memo(function DashboardCard({ card }: { card: CardIn
       {card.footer.exist && (
         <CardFooter className="flex-col items-start gap-1.5 text-sm">
           <div className="line-clamp-1 flex gap-2 font-medium">
-            {t('Dashboard.cards.trendingUp')} <TrendingUp className="size-4" />
+            {t('cards.trendingUp')} <TrendingUp className="size-4" />
           </div>
-          <div className="text-muted-foreground">{t('Dashboard.cards.last6Months')}</div>
+          <div className="text-muted-foreground">{t('cards.last6Months')}</div>
         </CardFooter>
       )}
     </Card>

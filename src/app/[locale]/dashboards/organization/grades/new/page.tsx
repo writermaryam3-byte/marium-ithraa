@@ -1,4 +1,4 @@
-import { GradeFormScreen } from '@/components/pages/dashboards/organization/GradeFormScreen'
+import { GradeFormScreen } from '@/features/grades/components/GradeFormScreen'
 import { requireCurrentOrganization } from '@/lib/helpers/getCurrentOrganization'
 
 type Props = {

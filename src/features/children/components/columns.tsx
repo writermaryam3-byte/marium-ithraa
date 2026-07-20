@@ -13,11 +13,11 @@ function TH({ k }: { k: string }) {
 export const columns: ColumnDef<Child>[] = [
   {
     accessorKey: 'name',
-    header: () => <TH k="Dashboard.Children.table.name" />,
+    header: () => <TH k="children.table.name" />,
   },
   {
     id: 'grade',
-    header: () => <TH k="Dashboard.Children.table.grade" />,
+    header: () => <TH k="children.table.grade" />,
     cell: ({ row }) => {
       const grade = row.original.grade
       if (typeof grade === 'object' && grade?.name) return grade.name
@@ -27,11 +27,11 @@ export const columns: ColumnDef<Child>[] = [
   },
   {
     accessorKey: 'gender',
-    header: () => <TH k="Dashboard.Children.table.gender" />,
+    header: () => <TH k="children.table.gender" />,
   },
   {
     accessorKey: 'birthDate',
-    header: () => <TH k="Dashboard.Children.table.birthDate" />,
+    header: () => <TH k="children.table.birthDate" />,
     cell: ({ row }) => {
       const value = row.original.birthDate
       // Handles ISO strings; falls back to raw value.
@@ -51,11 +51,11 @@ export const columns: ColumnDef<Child>[] = [
 export const adminColumns: ColumnDef<Child>[] = [
   {
     accessorKey: 'name',
-    header: () => <TH k="Dashboard.Children.table.name" />,
+    header: () => <TH k="children.table.name" />,
   },
   {
     id: 'grade',
-    header: () => <TH k="Dashboard.Children.table.grade" />,
+    header: () => <TH k="children.table.grade" />,
     cell: ({ row }) => {
       const grade = row.original.grade
       if (typeof grade === 'object' && grade?.name) return grade.name
@@ -65,11 +65,11 @@ export const adminColumns: ColumnDef<Child>[] = [
   },
   {
     accessorKey: 'gender',
-    header: () => <TH k="Dashboard.Children.table.gender" />,
+    header: () => <TH k="children.table.gender" />,
   },
   {
     accessorKey: 'birthDate',
-    header: () => <TH k="Dashboard.Children.table.birthDate" />,
+    header: () => <TH k="children.table.birthDate" />,
     cell: ({ row }) => {
       const value = row.original.birthDate
       // Handles ISO strings; falls back to raw value.

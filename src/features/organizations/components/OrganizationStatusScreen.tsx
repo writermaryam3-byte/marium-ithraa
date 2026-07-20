@@ -16,7 +16,7 @@ type Props = {
 }
 
 export function OrganizationStatusScreen({ organization, locale }: Props) {
-  const t = useTranslations('Features.Organizations')
+  const t = useTranslations('organizations')
   const isAr = locale === 'ar'
   const isPending = organization.approvalStatus === ApprovalStatus.PENDING
   const isRejected = organization.approvalStatus === ApprovalStatus.REJECTED
@@ -43,15 +43,15 @@ export function OrganizationStatusScreen({ organization, locale }: Props) {
           ) : null}
           <div className="space-y-2">
             <p className="font-semibold text-foreground">
-              {isPending ? t('pending.title') : t('rejected.title')}
+              {isPending ? t('messages.pending.title') : t('messages.rejected.title')}
             </p>
             <p className="text-sm text-muted-foreground">
-              {isPending ? t('pending.description') : t('rejected.description')}
+              {isPending ? t('messages.pending.description') : t('messages.rejected.description')}
             </p>
             {isRejected && organization.rejectionReason ? (
               <div className="rounded-xl border border-destructive/20 bg-destructive/5 px-4 py-3">
                 <p className="text-xs font-semibold uppercase tracking-wide text-destructive">
-                  {t('rejected.reasonLabel')}
+                  {t('messages.rejected.reasonLabel')}
                 </p>
                 <p className="mt-1 text-sm text-foreground">{organization.rejectionReason}</p>
               </div>
@@ -62,13 +62,13 @@ export function OrganizationStatusScreen({ organization, locale }: Props) {
         {isRejected ? (
           <div className="flex flex-wrap gap-3">
             <Button asChild variant="outline">
-              <a href="mailto:support@ithraa.com">
+              <a href="mailto:support@ithrathaka.com">
                 <Mail className="size-4" />
-                {t('rejected.contactSupport')}
+                {t('messages.rejected.contactSupport')}
               </a>
             </Button>
             <Button asChild variant="ghost">
-              <Link href="/auth/login">{t('rejected.backToLogin')}</Link>
+              <Link href="/auth/login">{t('messages.rejected.backToLogin')}</Link>
             </Button>
           </div>
         ) : null}

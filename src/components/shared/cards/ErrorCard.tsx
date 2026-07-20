@@ -46,7 +46,7 @@ const ErrorCard = ({
   technicalDetails,
   className,
 }: ErrorCardProps) => {
-  const t = useTranslations('ErrorCard')
+  const t = useTranslations('errors.errorCard')
   const tb = useTranslateBackend()
   const resolvedTitle = title ?? t('defaultTitle')
   const errorMessage = message || tb(getErrorMessage(error))
@@ -61,7 +61,7 @@ const ErrorCard = ({
             {techDetails ? (
               <Tooltip>
                 <TooltipTrigger asChild>
-                  <span className="inline-flex items-center" aria-label="Error details">
+                  <span className="inline-flex items-center" aria-label={t('errorDetails')}>
                     {IconComponent}
                   </span>
                 </TooltipTrigger>

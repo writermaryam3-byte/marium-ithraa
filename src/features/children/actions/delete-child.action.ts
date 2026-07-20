@@ -20,7 +20,7 @@ export async function deleteChildAction(
 ): Promise<DeleteChildState> {
   const parsed = parseFormData(formData, idSchema)
   if (!parsed.success) {
-    return deleteFailure('Actions.common.invalidId')
+    return deleteFailure('common.invalidId')
   }
 
   try {
@@ -28,6 +28,6 @@ export async function deleteChildAction(
     revalidatePath('/dashboards/organization/children')
     return deleteSuccess()
   } catch {
-    return deleteFailure('Actions.children.deleteFailed')
+    return deleteFailure('children.deleteFailed')
   }
 }

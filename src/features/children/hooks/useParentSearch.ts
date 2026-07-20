@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { useTranslations } from 'next-intl'
 
+import { getFriendlyApiErrorMessage } from '@/lib/helpers/apiErrorMessages'
 import { searchParentsByPhone } from '@/features/children/api'
 import type { ParentInfo } from '@/features/children/types/interfaces'
 
@@ -10,7 +11,7 @@ type ParentState = null | 'found' | 'creating' | 'not_parent'
 type RequestState = 'idle' | 'loading' | 'success'
 
 export function useParentSearch(phone: string) {
-  const t = useTranslations('CreateChild')
+  const t = useTranslations('children.create')
   const normalizedPhone = useMemo(() => phone.trim(), [phone])
   const [parent, setParent] = useState<ParentInfo | null>(null)
   const [parentState, setParentState] = useState<ParentState>(null)
@@ -58,7 +59,7 @@ export function useParentSearch(phone: string) {
         setParent(null)
         setParentState(null)
         setRequestState('idle')
-        setError(err instanceof Error ? err.message : t('toast.unableToSearchParent'))
+        setError(getFriendlyApiErrorMessage(err, t('toast.unableToSearchParent')))
       }
     }, 500)
 
@@ -66,7 +67,7 @@ export function useParentSearch(phone: string) {
       controller.abort()
       window.clearTimeout(timer)
     }
-  }, [normalizedPhone])
+  }, [normalizedPhone, t])
 
   return {
     parent: normalizedPhone ? parent : null,

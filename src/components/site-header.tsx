@@ -5,7 +5,7 @@ import { useLocale, useTranslations } from 'next-intl'
 import LanguageSwitcher from '@/components/layouts/header/langSwitch'
 import { Separator } from '@/components/ui/separator'
 import { SidebarTrigger } from '@/components/ui/sidebar'
-import { NotificationBell } from '@/components/notifications/NotificationBell'
+import { NotificationBell } from '@/features/notifications/components/NotificationBell'
 
 export function SiteHeader({
   title,

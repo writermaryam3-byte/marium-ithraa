@@ -1,0 +1,76 @@
+{
+  "titles": {
+    "dashboard": "Dashboard",
+    "children": "Children"
+  },
+  "cards": {
+    "employeesCount": "Employees Count",
+    "childrenCount": "Children Count",
+    "trendingUp": "Trending up this month",
+    "last6Months": "Last 6 months"
+  },
+  "tables": {
+    "childrenTitle": "Children Table"
+  },
+  "parent": {
+    "title": "Parent",
+    "privateChildren": {
+      "title": "My children",
+      "subtitle": "You can add up to {limit} children for private evaluation",
+      "limitReached": "Child limit reached ({limit} children)",
+      "requestCapacity": "Request more capacity",
+      "addChild": "Add child",
+      "empty": "No children yet",
+      "approvedCapacityTitle": "Payment required",
+      "approvedCapacityDescription": "Your capacity request for {count} slot(s) was approved. Complete payment to unlock additional children.",
+      "payNow": "Pay now",
+      "paymentLinkFailed": "Could not open payment link. Please try again.",
+      "loadFailed": "Unable to load your children. Please try again."
+    },
+    "orgChildren": {
+      "title": "Organization children",
+      "subtitle": "Evaluate your organization's children here",
+      "empty": "No children yet"
+    },
+    "attempts": "Attempts",
+    "retake": "Retake",
+    "evaluationsLink": "Evaluations",
+    "childAge": "Child age: {age} years",
+    "subtitle": "Start evaluations and track your children's results in one place",
+    "welcome": "Welcome, {name}",
+    "defaultName": "Parent",
+    "overview": "Overview",
+    "quickActions": "Quick actions",
+    "viewChildren": "View children",
+    "recentNotifications": "Recent notifications",
+    "children": "Children",
+    "childrenDesc": "View and manage your registered children",
+    "privateSlots": "Private slots",
+    "evaluations": "Evaluations",
+    "evaluationsDesc": "Start and track child evaluations",
+    "notificationsDesc": "Stay updated with alerts"
+  },
+  "choseRole": {
+    "title": "Choose a Role",
+    "subtitle": "Please select which role you want to use for this session:",
+    "noRoles": "No roles found for your account.",
+    "redirecting": "Redirecting…"
+  },
+  "adminUsers": {
+    "usersCount": "Users count",
+    "usersTable": "Users table"
+  },
+  "admin": {
+    "defaultName": "Admin",
+    "welcome": "Welcome, {name}",
+    "subtitle": "Manage the platform, evaluations, and users from one place",
+    "platformStats": "Platform stats",
+    "quickActions": "Quick actions",
+    "evaluationsDesc": "Create and manage evaluations",
+    "attemptsDesc": "Review and approve attempts",
+    "dispatchDesc": "Send a notification to a user",
+    "open": "Open",
+    "send": "Send",
+    "recentNotifications": "Recent notifications"
+  }
+}

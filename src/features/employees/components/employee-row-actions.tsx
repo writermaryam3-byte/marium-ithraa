@@ -29,8 +29,8 @@ type Props = {
 }
 
 export function EmployeeRowActions({ employee }: Props) {
-  const t = useTranslations('Forms.Employee')
-  const tCommon = useTranslations('Dashboard.common')
+  const t = useTranslations('employees.forms')
+  const tCommon = useTranslations('common')
   const { notifyAction, notifyDelete } = useActionFeedback()
   const [updateOpen, setUpdateOpen] = useState(false)
   const [deleteOpen, setDeleteOpen] = useState(false)

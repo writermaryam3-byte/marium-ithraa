@@ -20,7 +20,7 @@ export default async function EmployeeDetailPage({ params }: PageProps) {
 
   return (
     <>
-      <SiteHeader titleKey="Dashboard.Employees.titles.details" />
+      <SiteHeader titleKey="employees.page.details" />
       <div className="flex flex-1 flex-col px-4 py-6 lg:px-6">
         <div className="mx-auto w-full max-w-3xl space-y-6">
           <EmployeesInfo initials={initials} employee={employee} />

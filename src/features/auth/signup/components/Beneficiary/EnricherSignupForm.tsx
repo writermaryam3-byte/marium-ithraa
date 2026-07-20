@@ -4,6 +4,7 @@ import { useTranslations } from 'next-intl'
 import { useFormContext } from 'react-hook-form'
 import { FormField, FormItem, FormLabel, FormControl, FormMessage } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
+import { PasswordInput } from '@/components/shared/forms/PasswordInput'
 import { PhoneInputField } from '@/components/shared/forms/PhoneInputField'
 import {
   Field,
@@ -15,7 +16,7 @@ import {
 } from '@/components/ui/field'
 
 const EnricherSignupForm = () => {
-  const t = useTranslations('Signup.Beneficiary.Enricher')
+  const t = useTranslations('signup.beneficiary.enricher')
   const form = useFormContext()
 
   return (
@@ -88,9 +89,9 @@ const EnricherSignupForm = () => {
                 <FormItem>
                   <FormLabel>{t('fields.password.label')}</FormLabel>
                   <FormControl>
-                    <Input
-                      type="password"
+                    <PasswordInput
                       placeholder={t('fields.password.placeholder')}
+                      autoComplete="new-password"
                       {...field}
                       value={field.value ?? ''}
                     />
@@ -109,10 +110,10 @@ const EnricherSignupForm = () => {
               name="organizationName"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>{t('fields.organization_name.label')}</FormLabel>
+                  <FormLabel>{t('fields.organizationName.label')}</FormLabel>
                   <FormControl>
                     <Input
-                      placeholder={t('fields.organization_name.placeholder')}
+                      placeholder={t('fields.organizationName.placeholder')}
                       {...field}
                       value={field.value ?? ''}
                     />

@@ -25,7 +25,6 @@ export async function refreshAccessToken(token: JWT): Promise<JWT> {
     const response = await fetch(`${backendUrl}/api/auth/refresh`, {
       method: 'POST',
       headers: {
-        Authorization: `Bearer ${token.refreshToken}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
@@ -34,24 +33,40 @@ export async function refreshAccessToken(token: JWT): Promise<JWT> {
       cache: 'no-store',
     })
 
-    const refreshedTokens = (await response.json().catch(() => ({}))) as {
+    const responseJson = (await response.json().catch(() => ({}))) as Record<string, unknown>
+
+    if (!response.ok) {
+      throw responseJson
+    }
+
+    const envelope = responseJson as {
+      success?: boolean
+      data?: {
+        accessToken?: string
+        refreshToken?: string
+        expiresIn?: number | string
+        expires_in?: number
+      }
+    }
+
+    const payload = (envelope.data ?? responseJson) as {
       accessToken?: string
       refreshToken?: string
-      expiresIn?: number
+      expiresIn?: number | string
       expires_in?: number
     }
 
-    if (!response.ok || !refreshedTokens.accessToken) {
-      throw refreshedTokens
+    if (!payload.accessToken) {
+      throw payload
     }
 
-    const ttlSeconds = resolveAccessTokenTtlSeconds(refreshedTokens)
+    const ttlSeconds = resolveAccessTokenTtlSeconds(payload)
 
     return {
       ...token,
-      accessToken: refreshedTokens.accessToken,
+      accessToken: payload.accessToken,
       accessTokenExpires: accessTokenExpiresAt(ttlSeconds),
-      refreshToken: refreshedTokens.refreshToken ?? token.refreshToken,
+      refreshToken: payload.refreshToken ?? token.refreshToken,
       error: undefined,
     }
   } catch (error) {

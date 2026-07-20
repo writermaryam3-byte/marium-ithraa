@@ -1,4 +1,4 @@
-import { ClassesScreenClient } from '@/components/pages/dashboards/organization/ClassesScreenClient'
+import { ClassesScreenClient } from '@/features/classes/components/ClassesScreenClient'
 import { getClassesByOrg } from '@/features/classes'
 import { getGradesByOrg } from '@/features/grades'
 import { requireCurrentOrganization } from '@/lib/helpers/getCurrentOrganization'

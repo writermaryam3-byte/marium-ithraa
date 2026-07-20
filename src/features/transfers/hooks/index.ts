@@ -6,7 +6,7 @@ import { useTranslateBackend } from '@/lib/i18n/backend-messages'
 
 import { showErrorToast, showSuccessToast } from '@/lib/toast/app-toast'
 import { getFriendlyApiErrorMessage } from '@/lib/helpers/apiErrorMessages'
-import type { TransferRequest, TransferRequestPayload } from '@/lib/types/types/interfaces'
+import type { ChildTransferRequest } from '@/features/children/types/interfaces'
 import {
   approveTransferRequest,
   createTransferRequest,
@@ -20,7 +20,7 @@ export function useTransferRequests(
     enabled?: boolean
   },
 ) {
-  return useQuery<TransferRequest[], Error>({
+  return useQuery<ChildTransferRequest[], Error>({
     queryKey: ['transferRequests', fromOrganizationId],
     queryFn: () => getTransferRequests(fromOrganizationId),
     enabled: options?.enabled ?? Boolean(fromOrganizationId),
@@ -28,7 +28,7 @@ export function useTransferRequests(
 }
 
 export function useCreateTransferRequest(onSuccess?: () => void) {
-  const t = useTranslations('Transfers')
+  const t = useTranslations('actions.transfers')
   const tb = useTranslateBackend()
   return useMutation({
     mutationFn: createTransferRequest,
@@ -44,7 +44,7 @@ export function useCreateTransferRequest(onSuccess?: () => void) {
 }
 
 export function useApproveTransferRequest(onSuccess?: () => void) {
-  const t = useTranslations('Transfers')
+  const t = useTranslations('actions.transfers')
   const tb = useTranslateBackend()
   return useMutation({
     mutationFn: ({ requestId, classId }: { requestId: string; classId: string }) =>
@@ -61,7 +61,7 @@ export function useApproveTransferRequest(onSuccess?: () => void) {
 }
 
 export function useRejectTransferRequest(onSuccess?: () => void) {
-  const t = useTranslations('Transfers')
+  const t = useTranslations('actions.transfers')
   const tb = useTranslateBackend()
   return useMutation({
     mutationFn: rejectTransferRequest,

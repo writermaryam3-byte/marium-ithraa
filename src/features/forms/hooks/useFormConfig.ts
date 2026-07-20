@@ -22,7 +22,7 @@ function resolveFields(fields: FieldConfig[], t: (key: string) => string): IForm
 }
 
 export function useFormConfig(slug: FormTypes) {
-  const t = useTranslations('Forms')
+  const t = useTranslations('forms')
   const entry = formRegistry[slug]
 
   return useMemo(() => {

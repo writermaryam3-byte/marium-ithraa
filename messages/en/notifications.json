@@ -1,0 +1,101 @@
+{
+  "title": "Notifications",
+  "description": "Stay up to date with alerts and updates",
+  "subtitle": "Stay up to date with alerts and updates",
+  "empty": "No notifications",
+  "unread": "Unread",
+  "read": "Read",
+  "markRead": "Mark as read",
+  "markAllRead": "Mark all as read",
+  "viewAll": "View all",
+  "filters": {
+    "all": "All",
+    "unread": "Unread"
+  },
+  "dispatchTitle": "Dispatch notification",
+  "dispatchSubtitle": "Send a notification to a specific user",
+  "dispatchFormTitle": "Dispatch form",
+  "deliveryLabel": "Delivery",
+  "deliveryInapp": "In-app",
+  "deliveryEmail": "Email",
+  "deliveryBoth": "Both",
+  "deliveryVerifyEmail": "Verify email",
+  "userId": "User",
+  "selectUser": "Select user",
+  "userSearchPlaceholder": "Search by name, email, or phone…",
+  "email": "Email",
+  "notificationTitle": "Title",
+  "notificationMessage": "Message",
+  "notificationType": "Notification type",
+  "metadata": "Metadata",
+  "dispatchSuccess": "Notification queued for delivery",
+  "loadError": "Failed to load notifications",
+  "retry": "Retry",
+  "typeEvaluations": "Evaluations",
+  "typeReminders": "Reminders",
+  "typePayment": "Payment",
+  "typeGeneral": "General",
+  "typeFilterAll": "All",
+  "filterAll": "All",
+  "filterUnread": "Unread",
+  "open": "Open",
+  "prev": "Previous",
+  "next": "Next",
+  "pageOf": "Page {page} of {total}",
+  "dispatchSubmit": "Send",
+  "sending": "Sending…",
+  "cancel": "Cancel",
+  "requiredFields": "Please fill in required fields",
+  "metadataInvalidJson": "Invalid JSON in metadata",
+  "metadataInvalidObject": "Metadata must be a JSON object",
+  "attemptResult": "Result",
+  "home": "Home",
+  "adminArea": "Admin",
+  "noRecentActivity": "No recent activity",
+  "events": {
+    "evaluationSubmitted": {
+      "title": "Evaluation submitted",
+      "messageAuto": "The evaluation was submitted automatically after the time expired.",
+      "messageManual": "The evaluation was submitted successfully and is awaiting approval."
+    },
+    "evaluationApproved": {
+      "title": "Results are ready!",
+      "messageAuto": "Your child's evaluation result is ready — you can view it now.",
+      "messageManual": "Your child's evaluation result has been approved and is now available."
+    },
+    "evaluationLimitReached": {
+      "title": "Attempt limit reached",
+      "message": "The maximum number of evaluation attempts has been reached."
+    },
+    "capacityApproved": {
+      "title": "Capacity request approved — payment required",
+      "message": "Your request for {count} additional child slot(s) was approved. Complete payment to unlock the capacity."
+    },
+    "capacityRejected": {
+      "title": "Capacity request rejected",
+      "message": "Your request for additional child capacity was rejected by an administrator."
+    },
+    "capacityRejectedWithReason": {
+      "title": "Capacity request rejected",
+      "message": "Your request for additional child capacity was rejected. Reason: {reason}"
+    },
+    "capacityCompleted": {
+      "title": "Capacity increase confirmed",
+      "message": "Your payment was successful. You can now add {count} more child profile(s)."
+    }
+  },
+  "templates": {
+    "parentWelcome": {
+      "title": "Welcome!",
+      "message": "Welcome {name}, we're glad to have you with us."
+    },
+    "childLimitReached": {
+      "title": "Child limit reached",
+      "message": "You have reached the maximum of {max} children on your account."
+    },
+    "parentChildLimitReached": {
+      "title": "Child limit reached",
+      "message": "This parent has reached the maximum of {max} children on their account."
+    }
+  }
+}

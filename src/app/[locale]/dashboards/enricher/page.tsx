@@ -16,7 +16,7 @@ const ENRICHER_URL = `/${Routes.DASHBOARDS}/${Pages.ENRICHER}`
 
 export default function EnricherDashboardPage() {
   const locale = useLocale()
-  const t = useTranslations('Features.EnricherDashboard')
+  const t = useTranslations('deals.enricher')
   const { data: session } = useSession()
   const { data: dealsData } = useEnricherDeals()
   const { data: proposalsData } = useEnricherProposals()

@@ -1,8 +1,6 @@
 export {
   type Organization,
   type OrganizationOwner,
-  type OrganizationsListResponse,
-  type LegacyOrganizationsListResponse,
   type BeneficiarySignupOrganization,
   type RejectOrganizationPayload,
   type ApprovalStatus,

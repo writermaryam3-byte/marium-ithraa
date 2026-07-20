@@ -20,7 +20,7 @@ const ORG_URL = `/${Routes.DASHBOARDS}/${Pages.ORGANIZATION}`
 
 export default function OrganizationDealsPage() {
   const locale = useLocale()
-  const t = useTranslations('Features.Deals')
+  const t = useTranslations('deals')
   const [search, setSearch] = useState('')
   const { data, isLoading, isError } = useDeals()
   const deals = useMemo(() => {

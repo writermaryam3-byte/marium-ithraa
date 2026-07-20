@@ -1,4 +1,4 @@
-import { GradesScreen } from '@/components/pages/dashboards/organization/GradesScreen'
+import { GradesScreen } from '@/features/grades/components/GradesScreen'
 import { getGradesByOrg } from '@/features/grades'
 import { requireCurrentOrganization } from '@/lib/helpers/getCurrentOrganization'
 

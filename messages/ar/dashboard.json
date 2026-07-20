@@ -1,0 +1,76 @@
+{
+  "titles": {
+    "dashboard": "لوحة التحكم",
+    "children": "الأطفال"
+  },
+  "cards": {
+    "employeesCount": "عدد الموظفين",
+    "childrenCount": "عدد الأطفال",
+    "trendingUp": "في تحسّن هذا الشهر",
+    "last6Months": "آخر 6 أشهر"
+  },
+  "tables": {
+    "childrenTitle": "جدول الأطفال"
+  },
+  "parent": {
+    "title": "ولي الأمر",
+    "privateChildren": {
+      "title": "أطفالي",
+      "subtitle": "يمكنك إضافة حتى {limit} أطفال للتقييم الخاص",
+      "limitReached": "تم الوصول إلى الحد الأقصى ({limit} أطفال)",
+      "requestCapacity": "طلب سعة إضافية",
+      "addChild": "إضافة طفل",
+      "empty": "لا يوجد أطفال بعد",
+      "approvedCapacityTitle": "الدفع مطلوب",
+      "approvedCapacityDescription": "تمت الموافقة على طلبك لـ {count} مقعد/مقاعد. أكمل الدفع لتفعيل السعة الإضافية.",
+      "payNow": "ادفع الآن",
+      "paymentLinkFailed": "تعذر فتح رابط الدفع. يرجى المحاولة مرة أخرى.",
+      "loadFailed": "تعذر تحميل بيانات الأطفال. يرجى المحاولة مرة أخرى."
+    },
+    "orgChildren": {
+      "title": "أطفال المؤسسة",
+      "subtitle": "يمكنك تقييم أطفال مؤسستك من هنا",
+      "empty": "لا يوجد أطفال بعد"
+    },
+    "attempts": "المحاولات",
+    "retake": "إعادة التقييم",
+    "evaluationsLink": "التقييمات",
+    "childAge": "عمر الطفل: {age} سنة",
+    "subtitle": "ابدأ التقييمات وتابع نتائج أطفالك من مكان واحد",
+    "welcome": "مرحباً {name}",
+    "defaultName": "ولي الأمر",
+    "overview": "نظرة عامة",
+    "quickActions": "اختصارات سريعة",
+    "viewChildren": "عرض الأطفال",
+    "recentNotifications": "آخر التنبيهات",
+    "children": "الأطفال",
+    "childrenDesc": "عرض وإدارة أطفالك المسجّلين",
+    "privateSlots": "الحصص الخاصة",
+    "evaluations": "التقييمات",
+    "evaluationsDesc": "بدء ومتابعة تقييمات الأطفال",
+    "notificationsDesc": "متابعة التنبيهات والتحديثات"
+  },
+  "choseRole": {
+    "title": "اختر الدور",
+    "subtitle": "يرجى اختيار الدور الذي تريد استخدامه في هذه الجلسة:",
+    "noRoles": "لا توجد أدوار لحسابك.",
+    "redirecting": "جاري التحويل…"
+  },
+  "adminUsers": {
+    "usersCount": "عدد المستخدمين",
+    "usersTable": "جدول المستخدمين"
+  },
+  "admin": {
+    "defaultName": "المسؤول",
+    "welcome": "مرحباً {name}",
+    "subtitle": "أدر المنصة والتقييمات والمستخدمين من مكان واحد",
+    "platformStats": "إحصائيات المنصة",
+    "quickActions": "اختصارات سريعة",
+    "evaluationsDesc": "إنشاء وإدارة التقييمات",
+    "attemptsDesc": "مراجعة واعتماد المحاولات",
+    "dispatchDesc": "إرسال إشعار لمستخدم",
+    "open": "فتح",
+    "send": "إرسال",
+    "recentNotifications": "آخر الإشعارات"
+  }
+}

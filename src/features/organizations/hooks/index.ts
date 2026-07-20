@@ -1,7 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 
 import type { ApprovalStatus } from '@/lib/types/enums'
-import { ApprovalStatus as ApprovalStatusEnum } from '@/lib/types/enums'
 
 import {
   approveOrganization,
@@ -9,14 +8,18 @@ import {
   getMyOrganization,
   getOrganizationsByStatus,
   getPendingOrganizations,
+  listOrganizations,
   rejectOrganization,
+  updateOrganization,
+  type ListOrganizationsParams,
 } from '../api'
-import type { RejectOrganizationPayload } from '../types/interfaces'
+import type { RejectOrganizationPayload, UpdateOrganizationPayload } from '../types/interfaces'
 
 export const organizationKeys = {
   all: ['organizations'] as const,
   pending: ['organizations', 'pending'] as const,
   byStatus: (status: ApprovalStatus) => ['organizations', { status }] as const,
+  list: (params: ListOrganizationsParams) => ['organizations', 'list', params] as const,
   me: ['organizations', 'me'] as const,
   detail: (id: string) => ['organizations', id] as const,
 }
@@ -53,23 +56,31 @@ export function usePendingOrganizations() {
   })
 }
 
-export function useOrganizationsByStatus(status: ApprovalStatus) {
+export function useOrganizationsByStatus(status: ApprovalStatus, params?: Omit<ListOrganizationsParams, 'status'>) {
   return useQuery({
-    queryKey: organizationKeys.byStatus(status),
-    queryFn: () => getOrganizationsByStatus(status),
+    queryKey: organizationKeys.list({ ...params, status }),
+    queryFn: () => getOrganizationsByStatus(status, params),
   })
 }
 
-function invalidateOrganizationQueries(
-  queryClient: ReturnType<typeof useQueryClient>,
-  statuses: ApprovalStatus[],
-) {
+export function useOrganizationsList(params: ListOrganizationsParams) {
+  return useQuery({
+    queryKey: organizationKeys.list(params),
+    queryFn: () => listOrganizations(params),
+  })
+}
+
+function invalidateOrganizationQueries(queryClient: ReturnType<typeof useQueryClient>) {
   void queryClient.invalidateQueries({ queryKey: organizationKeys.all })
   void queryClient.invalidateQueries({ queryKey: organizationKeys.pending })
-  statuses.forEach((status) => {
-    void queryClient.invalidateQueries({ queryKey: organizationKeys.byStatus(status) })
-  })
   void queryClient.invalidateQueries({ queryKey: organizationKeys.me })
+  void queryClient.invalidateQueries({ queryKey: ['organizations', 'list'] })
+  void queryClient.invalidateQueries({
+    predicate: (query) =>
+      Array.isArray(query.queryKey) &&
+      query.queryKey[0] === 'organizations' &&
+      typeof query.queryKey[1] === 'object',
+  })
 }
 
 export function useApproveOrganization() {
@@ -78,10 +89,7 @@ export function useApproveOrganization() {
   return useMutation({
     mutationFn: (id: string) => approveOrganization(id),
     onSuccess: () => {
-      invalidateOrganizationQueries(queryClient, [
-        ApprovalStatusEnum.PENDING,
-        ApprovalStatusEnum.APPROVED,
-      ])
+      invalidateOrganizationQueries(queryClient)
     },
   })
 }
@@ -93,10 +101,19 @@ export function useRejectOrganization() {
     mutationFn: ({ id, ...body }: RejectOrganizationPayload & { id: string }) =>
       rejectOrganization(id, body),
     onSuccess: () => {
-      invalidateOrganizationQueries(queryClient, [
-        ApprovalStatusEnum.PENDING,
-        ApprovalStatusEnum.REJECTED,
-      ])
+      invalidateOrganizationQueries(queryClient)
+    },
+  })
+}
+
+export function useUpdateOrganization() {
+  const queryClient = useQueryClient()
+
+  return useMutation({
+    mutationFn: ({ id, ...body }: UpdateOrganizationPayload & { id: string }) =>
+      updateOrganization(id, body),
+    onSuccess: () => {
+      invalidateOrganizationQueries(queryClient)
     },
   })
 }

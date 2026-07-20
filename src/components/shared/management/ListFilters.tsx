@@ -42,7 +42,7 @@ export function ListFilters({
   gradeFilter,
   classFilter,
 }: ListFiltersProps) {
-  const t = useTranslations('Common')
+  const t = useTranslations('common')
 
   return (
     <div
@@ -53,7 +53,7 @@ export function ListFilters({
         <Input
           value={search}
           onChange={(e) => onSearchChange(e.target.value)}
-          placeholder={searchPlaceholder ?? t('search')}
+          placeholder={searchPlaceholder ?? t('general.search')}
           className="rounded-xl"
         />
       </div>

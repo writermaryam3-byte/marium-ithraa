@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation'
 
-import { GradeFormScreen } from '@/components/pages/dashboards/organization/GradeFormScreen'
+import { GradeFormScreen } from '@/features/grades/components/GradeFormScreen'
 import { type Grade } from '@/features/grades'
 import { getGradeById } from '@/features/grades'
 import { requireCurrentOrganization } from '@/lib/helpers/getCurrentOrganization'
