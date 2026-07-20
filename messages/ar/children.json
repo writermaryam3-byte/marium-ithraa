@@ -139,6 +139,10 @@
     "done": "تم",
     "assignParentRole": "المستخدم موجود - تعيين دور ولي الأمر",
     "assignParentDescription": "المستخدم {phone} موجود بالفعل لكنه ليس ولي أمر. أدخل الاسم لإنشاء ملف ولي أمر له.",
+    "grantParentRoleTitle": "منح دور ولي الأمر؟",
+    "grantParentRoleDescription": "رقم الهاتف هذا يخص مستخدماً موجوداً ليس ولي أمر حالياً. هل تريد منحه دور ولي الأمر وربط هذا الطفل بحسابه؟ سيتم الحفاظ على الأدوار الحالية.",
+    "grantParentRoleConfirm": "منح دور ولي الأمر والمتابعة",
+    "grantParentRoleCancel": "إلغاء",
     "toast": {
       "unableToCreateChild": "تعذر إنشاء الطفل",
       "unableToSearchParent": "تعذر البحث عن ولي الأمر"

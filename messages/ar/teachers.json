@@ -44,6 +44,18 @@
     "welcome": "مرحباً {name}",
     "open": "فتح"
   },
+  "classroom": {
+    "class": "الفصل",
+    "gradeSubtitle": "المرحلة: {grade}",
+    "evaluatedCount": "تم التقييم",
+    "pendingCount": "بانتظار التقييم",
+    "searchChildren": "ابحث عن الطلاب…",
+    "emptyClass": "لا يوجد طلاب في هذا الفصل بعد",
+    "noSearchResults": "لا يوجد طلاب مطابقون للبحث",
+    "birth": "تاريخ الميلاد",
+    "viewEvaluations": "عرض التقييمات",
+    "childAge": "العمر: {age} سنة"
+  },
   "forms": {
     "pageTitle": "إضافة معلم",
     "pageSubtitle": "أدخل بيانات المعلم لإضافته إلى المؤسسة.",

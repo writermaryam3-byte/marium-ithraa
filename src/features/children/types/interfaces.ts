@@ -56,6 +56,7 @@ export interface CreateChildFlowPayload {
   parentPhone: string
   parentEmail?: string
   parentName?: string
+  grantParentRole?: boolean
 }
 
 export type CreateChildResponse =
@@ -78,7 +79,16 @@ export type ParentSearchResult =
       children: (Child & { type: 'organization' | 'private' })[]
     }
   | { status: 'not_found' }
-  | { status: 'not_parent'; user: { id: string; name?: string; phone: string; email?: string } }
+  | {
+      status: 'not_parent'
+      user: {
+        id: string
+        name?: string
+        phone: string
+        email?: string
+        roles?: string[]
+      }
+    }
 
 export type ChildTransferRequest = {
   id: string

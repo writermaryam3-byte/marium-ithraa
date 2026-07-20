@@ -10,6 +10,7 @@ export interface ClassItem {
   teacherId?: string
   teacherName?: string
   childrenCount?: number | string
+  evaluatedCount?: number
   children?: Child[]
   createdAt?: string
   updatedAt?: string

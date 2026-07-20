@@ -1,6 +1,6 @@
 'use client'
 
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import type { ReactNode } from 'react'
 import { useTranslations } from 'next-intl'
 import { useTranslateBackend } from '@/lib/i18n/backend-messages'
@@ -83,6 +83,9 @@ export function CreateChildPage({
     { status: 'TRANSFER_REQUIRED' }
   > | null>(null)
 
+  const [grantDialogOpen, setGrantDialogOpen] = useState(false)
+  const [pendingValues, setPendingValues] = useState<CreateChildFlowValues | null>(null)
+
   const form = useForm<CreateChildFlowValues>({
     resolver: zodResolver(createChildFlowSchema),
     defaultValues: {
@@ -112,7 +115,23 @@ export function CreateChildPage({
     },
     onTransferRequired: (response) => setTransferResponse(response),
     onConflict: (message) => setDuplicateMessage(message),
+    onRoleConfirmationRequired: () => {
+      setPendingValues(form.getValues())
+      setGrantDialogOpen(true)
+    },
   })
+
+  useEffect(() => {
+    if (parentState === 'not_parent' && notParentUser) {
+      if (notParentUser.name) {
+        form.setValue('parentName', notParentUser.name, { shouldValidate: true })
+      }
+      if (notParentUser.email) {
+        form.setValue('parentEmail', notParentUser.email, { shouldValidate: true })
+      }
+      setChildState('creating')
+    }
+  }, [parentState, notParentUser, form])
 
   const classesForGrade = useMemo(
     () => classes.filter((item) => item.gradeId === gradeId),
@@ -156,6 +175,19 @@ export function CreateChildPage({
     }
   }
 
+  function submitCreate(values: CreateChildFlowValues, grantParentRole?: boolean) {
+    createChild({
+      name: values.name,
+      birthDate: values.birthDate,
+      gender: values.gender,
+      classId: values.classId,
+      parentPhone: values.parentPhone,
+      parentEmail: values.parentEmail || parent?.email || notParentUser?.email || undefined,
+      parentName: values.parentName || parent?.name || notParentUser?.name || undefined,
+      grantParentRole,
+    })
+  }
+
   function handleCreateSubmit(values: CreateChildFlowValues) {
     setDuplicateMessage(null)
 
@@ -174,23 +206,19 @@ export function CreateChildPage({
         form.setError('parentName', { message: 'validation.createChild.parentNameRequired' })
         return
       }
+      setPendingValues(values)
+      setGrantDialogOpen(true)
+      return
     }
 
-    createChild({
-      name: values.name,
-      birthDate: values.birthDate,
-      gender: values.gender,
-      classId: values.classId,
-      parentPhone: values.parentPhone,
-      parentEmail: values.parentEmail || parent?.email || notParentUser?.email || undefined,
-      parentName: values.parentName || parent?.name || notParentUser?.name || undefined,
-    })
+    submitCreate(values)
   }
 
-  const isCreatingChild = childState === 'creating' || parentState === 'creating'
+  const isCreatingChild =
+    childState === 'creating' || parentState === 'creating' || parentState === 'not_parent'
 
   const canSubmit =
-    (isCreatingChild || parentState === 'not_parent') &&
+    isCreatingChild &&
     parentState !== null &&
     selectionStatus !== 'same' &&
     selectionStatus !== 'sent'
@@ -317,6 +345,59 @@ export function CreateChildPage({
           if (!open) setTransferResponse(null)
         }}
       />
+
+      <Dialog
+        open={grantDialogOpen}
+        onOpenChange={(open) => {
+          setGrantDialogOpen(open)
+          if (!open) setPendingValues(null)
+        }}
+      >
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>{t('grantParentRoleTitle')}</DialogTitle>
+            <DialogDescription>{t('grantParentRoleDescription')}</DialogDescription>
+          </DialogHeader>
+          {notParentUser && (
+            <div className="rounded-lg border bg-muted/40 px-3 py-2 text-sm space-y-1">
+              <p className="font-medium">{notParentUser.name || t('unnamedParent')}</p>
+              <p className="text-muted-foreground" dir="ltr">
+                {notParentUser.phone}
+              </p>
+              {notParentUser.email ? (
+                <p className="text-muted-foreground" dir="ltr">
+                  {notParentUser.email}
+                </p>
+              ) : null}
+            </div>
+          )}
+          <DialogFooter className="gap-2 sm:gap-0">
+            <Button
+              type="button"
+              variant="outline"
+              onClick={() => {
+                setGrantDialogOpen(false)
+                setPendingValues(null)
+              }}
+            >
+              {t('grantParentRoleCancel')}
+            </Button>
+            <Button
+              type="button"
+              disabled={isLoading || !pendingValues}
+              onClick={() => {
+                if (!pendingValues) return
+                setGrantDialogOpen(false)
+                submitCreate(pendingValues, true)
+                setPendingValues(null)
+              }}
+            >
+              {isLoading && <Loader2 className="size-4 animate-spin" />}
+              {t('grantParentRoleConfirm')}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </main>
   )
 }
@@ -652,7 +733,7 @@ function NotParentFields({
   user,
 }: {
   form: UseFormReturn<CreateChildFlowValues>
-  user: { id: string; name?: string; phone: string; email?: string }
+  user: { id: string; name?: string; phone: string; email?: string; roles?: string[] }
 }) {
   const t = useTranslations('children.create')
   return (
@@ -668,11 +749,7 @@ function NotParentFields({
           <FormItem>
             <FormLabel>{t('labels.parentName')}</FormLabel>
             <FormControl>
-              <Input
-                {...field}
-                defaultValue={user.name}
-                className="h-11 rounded-lg bg-background"
-              />
+              <Input {...field} className="h-11 rounded-lg bg-background" />
             </FormControl>
             <TranslatedFormMessage />
           </FormItem>
@@ -685,12 +762,7 @@ function NotParentFields({
           <FormItem>
             <FormLabel>{t('labels.parentEmail')}</FormLabel>
             <FormControl>
-              <Input
-                {...field}
-                type="email"
-                defaultValue={user.email}
-                className="h-11 rounded-lg bg-background"
-              />
+              <Input {...field} type="email" className="h-11 rounded-lg bg-background" />
             </FormControl>
             <TranslatedFormMessage />
           </FormItem>

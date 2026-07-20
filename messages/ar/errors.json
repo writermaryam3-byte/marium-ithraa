@@ -45,7 +45,8 @@
     "phoneInUse": "رقم الهاتف مستخدم بالفعل."
   },
   "parent": {
-    "profileNotFound": "ملف ولي الأمر غير موجود."
+    "profileNotFound": "ملف ولي الأمر غير موجود.",
+    "roleConfirmationRequired": "هذا الرقم يخص مستخدماً موجوداً وليس ولي أمر. أكّد منح دور ولي الأمر للمتابعة."
   },
   "organization": {
     "notFound": "المؤسسة غير موجودة.",

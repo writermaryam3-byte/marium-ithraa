@@ -45,7 +45,8 @@
     "phoneInUse": "Phone number is already in use."
   },
   "parent": {
-    "profileNotFound": "Parent profile not found."
+    "profileNotFound": "Parent profile not found.",
+    "roleConfirmationRequired": "This phone belongs to an existing user who is not a parent. Confirm granting the Parent role to continue."
   },
   "organization": {
     "notFound": "Organization not found.",

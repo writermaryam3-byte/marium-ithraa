@@ -139,6 +139,10 @@
     "done": "Done",
     "assignParentRole": "User exists — assign parent role",
     "assignParentDescription": "A user with phone {phone} already exists but is not a parent. Fill in the name to create a parent profile for them.",
+    "grantParentRoleTitle": "Grant Parent role?",
+    "grantParentRoleDescription": "This phone number belongs to an existing user who is not currently a Parent. Grant the Parent role and associate this child with their account? Existing roles will be preserved.",
+    "grantParentRoleConfirm": "Grant Parent role and continue",
+    "grantParentRoleCancel": "Cancel",
     "toast": {
       "unableToCreateChild": "Unable to create child",
       "unableToSearchParent": "Unable to search parent"

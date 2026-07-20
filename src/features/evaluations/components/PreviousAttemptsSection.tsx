@@ -27,6 +27,7 @@ const PAGE_SIZE = 10
 
 type Props = {
   attempts: EvaluationAttempt[]
+  attemptBasePath?: string
   isLoading?: boolean
   isError?: boolean
   onRetry?: () => void
@@ -34,6 +35,7 @@ type Props = {
 
 export function PreviousAttemptsSection({
   attempts,
+  attemptBasePath = '/dashboards/parent/attempts',
   isLoading = false,
   isError = false,
   onRetry,
@@ -80,7 +82,13 @@ export function PreviousAttemptsSection({
         <>
           <div className="space-y-3">
             {paginated.items.map((attempt) => (
-              <PreviousAttemptCard key={attempt.id} attempt={attempt} locale={locale} t={t} />
+              <PreviousAttemptCard
+                key={attempt.id}
+                attempt={attempt}
+                attemptBasePath={attemptBasePath}
+                locale={locale}
+                t={t}
+              />
             ))}
           </div>
 
@@ -95,10 +103,12 @@ export function PreviousAttemptsSection({
 
 function PreviousAttemptCard({
   attempt,
+  attemptBasePath,
   locale,
   t,
 }: {
   attempt: EvaluationAttempt
+  attemptBasePath: string
   locale: string
   t: ReturnType<typeof useTranslations>
 }) {
@@ -106,7 +116,7 @@ function PreviousAttemptCard({
   const actionLabel = t(getAttemptHistoryActionLabelKey(action))
   const resultSummary = getAttemptResultSummary(attempt)
   const statusLabel = getAttemptStatusDisplay(attempt.status, t)
-  const href = `/dashboards/parent/attempts/${attempt.id}`
+  const href = `${attemptBasePath}/${attempt.id}`
 
   return (
     <Card>

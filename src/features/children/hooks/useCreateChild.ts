@@ -5,6 +5,7 @@ import { useTranslations } from 'next-intl'
 import { showErrorToast, showSuccessToast } from '@/lib/toast/app-toast'
 
 import { StatusCode } from '@/lib/types/enums'
+import { ApiError } from '@/lib/errors/ApiError'
 
 import { createChildFlow } from '@/features/children/api'
 import type {
@@ -20,6 +21,7 @@ export function useCreateChild(options?: {
     response: Extract<CreateChildResponse, { status: 'TRANSFER_REQUIRED' }>,
   ) => void
   onConflict?: (message: string) => void
+  onRoleConfirmationRequired?: () => void
 }) {
   const t = useTranslations('children.create')
   const [requestState, setRequestState] = useState<RequestState>('idle')
@@ -61,6 +63,14 @@ export function useCreateChild(options?: {
 
         if (status === StatusCode.FORBIDDEN) {
           showErrorToast({ error: err })
+          return
+        }
+
+        if (
+          err instanceof ApiError &&
+          err.code === 'PARENT.ROLE_CONFIRMATION_REQUIRED'
+        ) {
+          options?.onRoleConfirmationRequired?.()
           return
         }
 
