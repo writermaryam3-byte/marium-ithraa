@@ -19,7 +19,8 @@ export const getClassesByTeacher = async (teacherId: string) => {
 }
 
 export const getClassById = async (classId: string) => {
-  return api.server<{ class: ClassItem }>(`/${Endpoint.CLASSES}/${classId}`)
+  const classItem = await api.server<ClassItem>(`/${Endpoint.CLASSES}/${classId}`)
+  return { class: classItem }
 }
 
 export const createClass = async (data: CreateClassPayload) => {

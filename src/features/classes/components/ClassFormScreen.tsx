@@ -91,7 +91,7 @@ export function ClassFormScreen({ locale, grades, teachers, defaultGradeId, clas
         </CardHeader>
         <CardContent>
           <Form {...form}>
-            <form onSubmit={form.handleSubmit((values) => submit(values))} className="space-y-5">
+            <form onSubmit={form.handleSubmit((values) => submit(values, isEdit ? { id: classItem!.id } : undefined))} className="space-y-5">
               <RhfFormFields fields={fields} />
               <FormField
                 control={form.control}

@@ -56,6 +56,9 @@ export function ServerActionForm<T extends FieldValues = FieldValues>({
         className={className}
       >
         <fieldset disabled={isPending} className="space-y-5">
+          {Object.entries(hiddenFields).map(([name, value]) => (
+            <input key={name} type="hidden" {...form.register(name as never)} defaultValue={value} />
+          ))}
           <RhfFormFields fields={fields} />
           {children}
         </fieldset>

@@ -65,6 +65,7 @@
     "min": "Rejection reason must be at least 3 characters.",
     "max": "Rejection reason must be at most 500 characters."
   },
+  "classNameRequired": "Class name is required",
   "createChild": {
     "parentPhoneRequired": "Parent phone is required",
     "validEmail": "Enter a valid email",
