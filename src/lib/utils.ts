@@ -54,6 +54,8 @@ export async function refreshAccessToken(token: JWT): Promise<JWT> {
       refreshToken?: string
       expiresIn?: number | string
       expires_in?: number
+      isEmailVerified?: boolean
+      isPhoneVerified?: boolean
     }
 
     if (!payload.accessToken) {
@@ -67,6 +69,8 @@ export async function refreshAccessToken(token: JWT): Promise<JWT> {
       accessToken: payload.accessToken,
       accessTokenExpires: accessTokenExpiresAt(ttlSeconds),
       refreshToken: payload.refreshToken ?? token.refreshToken,
+      isEmailVerified: payload.isEmailVerified ?? token.isEmailVerified,
+      isPhoneVerified: payload.isPhoneVerified ?? token.isPhoneVerified,
       error: undefined,
     }
   } catch (error) {
