@@ -1,6 +1,6 @@
 'use client'
 
-import { MoreVertical, LogOut, UserCircle } from 'lucide-react'
+import { MoreVertical, LogOut, Settings, UserCircle } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
@@ -34,7 +34,7 @@ export function NavUser({
 }) {
   const { isMobile } = useSidebar()
   const t = useTranslations('auth')
-  const { logout } = useAuth()
+  const { logout, getRedirectAfterLogin } = useAuth()
 
   return (
     <SidebarMenu>
@@ -81,9 +81,15 @@ export function NavUser({
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
               <DropdownMenuItem asChild>
-                <Link href={`/${Routes.AUTH}/${Pages.LOGIN}`}>
+                <Link href={getRedirectAfterLogin()}>
                   <UserCircle />
                   {t('dashboard')}
+                </Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link href={`/${Routes.DASHBOARDS}/${Pages.ACCOUNT}`}>
+                  <Settings />
+                  {t('accountSettings')}
                 </Link>
               </DropdownMenuItem>
             </DropdownMenuGroup>

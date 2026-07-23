@@ -100,6 +100,13 @@ export default async function proxy(request: NextRequest) {
   }
 
   if (cleanPath.startsWith(`/${Routes.AUTH}`)) {
+    if (
+      cleanPath.startsWith(`/${Routes.AUTH}/forgot-password`) ||
+      cleanPath.startsWith(`/${Routes.AUTH}/reset-password`)
+    ) {
+      return intlMiddleware(request)
+    }
+
     if (!isAuthenticated) {
       // هنا الحل! ناديه لما تحتاجه فعلياً عشان يعمل الـ Rewrite صح في وقته
       return intlMiddleware(request)

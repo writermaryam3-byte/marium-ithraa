@@ -117,3 +117,32 @@ export const logoutAllClient = async () => {
     method: Methods.DELETE,
   })
 }
+
+export type PasswordActionResponse = {
+  ok: boolean
+  message: string
+}
+
+export const forgotPasswordClient = async (phone: string) => {
+  return api.client<PasswordActionResponse>(`/${Endpoint.AUTH}/${Endpoint.FORGOT_PASSWORD}`, {
+    method: Methods.POST,
+    body: JSON.stringify({ phone }),
+  })
+}
+
+export const resetPasswordClient = async (token: string, password: string) => {
+  return api.client<PasswordActionResponse>(`/${Endpoint.AUTH}/${Endpoint.RESET_PASSWORD}`, {
+    method: Methods.POST,
+    body: JSON.stringify({ token, password }),
+  })
+}
+
+export const changePasswordClient = async (currentPassword: string, newPassword: string) => {
+  return api.client<PasswordActionResponse>(
+    `/${Endpoint.USERS}/${Endpoint.ME}/${Endpoint.PASSWORD}`,
+    {
+      method: Methods.PATCH,
+      body: JSON.stringify({ currentPassword, newPassword }),
+    },
+  )
+}
