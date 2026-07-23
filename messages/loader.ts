@@ -53,6 +53,8 @@ async function importNamespace(locale: AppLocale, file: NamespaceFile) {
       return (await import(`./${locale}/terms.json`)).default
     case 'verify-email':
       return (await import(`./${locale}/verify-email.json`)).default
+    case 'account':
+      return (await import(`./${locale}/account.json`)).default
     case 'dialogs':
       return (await import(`./${locale}/dialogs.json`)).default
     case 'forms':

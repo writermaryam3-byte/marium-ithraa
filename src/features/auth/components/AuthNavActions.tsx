@@ -1,6 +1,6 @@
 'use client'
 
-import { LogIn, LogOut, UserCircle } from 'lucide-react'
+import { LogIn, LogOut, Settings, UserCircle } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import LanguageSwitcher from '@/components/layouts/header/langSwitch'
 import { Link } from '@/i18n/navigation'
@@ -42,7 +42,8 @@ export function AuthNavActions({
 }: Props) {
   const t = useTranslations('navigation.header')
   const tAuth = useTranslations('auth')
-  const { user, isAuthenticated, isLoading, logout, loginPath, signupPath } = useAuth()
+  const { user, isAuthenticated, isLoading, logout, loginPath, signupPath, getRedirectAfterLogin } =
+    useAuth()
 
   if (isLoading) {
     return (
@@ -82,9 +83,15 @@ export function AuthNavActions({
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuItem asChild>
-              <Link href={`/${Routes.AUTH}/${Pages.LOGIN}`} className="cursor-pointer">
+              <Link href={getRedirectAfterLogin()} className="cursor-pointer">
                 <UserCircle className="size-4" />
                 {tAuth('dashboard')}
+              </Link>
+            </DropdownMenuItem>
+            <DropdownMenuItem asChild>
+              <Link href={`/${Routes.DASHBOARDS}/${Pages.ACCOUNT}`} className="cursor-pointer">
+                <Settings className="size-4" />
+                {tAuth('accountSettings')}
               </Link>
             </DropdownMenuItem>
             <DropdownMenuSeparator />

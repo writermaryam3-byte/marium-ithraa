@@ -13,6 +13,7 @@ import {
   ScrollText,
   CreditCard,
   Sparkles,
+  Settings,
 } from 'lucide-react'
 
 import { NavMain } from '@/components/nav-main'
@@ -36,6 +37,7 @@ export function AdminSidebar(props: React.ComponentProps<typeof Sidebar>) {
   const { data: session } = useSession()
   const tNav = useTranslations('navigation')
   const tAdmin = useTranslations('dashboard.admin')
+  const tAuth = useTranslations('auth')
 
   const data = {
     user: {
@@ -113,6 +115,11 @@ export function AdminSidebar(props: React.ComponentProps<typeof Sidebar>) {
         title: tNav('dashboard.extraAttempts'),
         url: `${ADMIN_URL}/extra-attempts`,
         icon: Sparkles,
+      },
+      {
+        title: tAuth('accountSettings'),
+        url: `/${Routes.DASHBOARDS}/${Pages.ACCOUNT}`,
+        icon: Settings,
       },
     ],
   }

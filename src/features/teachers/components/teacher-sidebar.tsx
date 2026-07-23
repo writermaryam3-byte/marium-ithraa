@@ -1,7 +1,7 @@
 'use client'
 
 import * as React from 'react'
-import { LayoutDashboard, Bell } from 'lucide-react'
+import { LayoutDashboard, Bell, Settings } from 'lucide-react'
 import { useSession } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
 
@@ -25,6 +25,7 @@ export default function TeacherSidebar(props: React.ComponentProps<typeof Sideba
   const t = useTranslations('navigation.dashboard')
   const tTeacher = useTranslations('teachers.dashboard')
   const tNotif = useTranslations('notifications')
+  const tAuth = useTranslations('auth')
 
   const data = {
     user: {
@@ -47,6 +48,11 @@ export default function TeacherSidebar(props: React.ComponentProps<typeof Sideba
         title: tNotif('title'),
         url: `/${Routes.DASHBOARDS}/notifications`,
         icon: Bell,
+      },
+      {
+        title: tAuth('accountSettings'),
+        url: `/${Routes.DASHBOARDS}/${Pages.ACCOUNT}`,
+        icon: Settings,
       },
     ],
   }

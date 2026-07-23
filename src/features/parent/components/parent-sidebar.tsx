@@ -1,7 +1,7 @@
 'use client'
 
 import * as React from 'react'
-import { LayoutDashboard, FileText, Bell } from 'lucide-react'
+import { LayoutDashboard, FileText, Bell, Settings } from 'lucide-react'
 import { useSession } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
 
@@ -25,6 +25,7 @@ export default function ParentSidebar(props: React.ComponentProps<typeof Sidebar
   const t = useTranslations('navigation.dashboard')
   const tParent = useTranslations('dashboard.parent')
   const tNotif = useTranslations('notifications')
+  const tAuth = useTranslations('auth')
 
   const data = {
     user: {
@@ -52,6 +53,11 @@ export default function ParentSidebar(props: React.ComponentProps<typeof Sidebar
         title: tNotif('title'),
         url: `/${Routes.DASHBOARDS}/notifications`,
         icon: Bell,
+      },
+      {
+        title: tAuth('accountSettings'),
+        url: `/${Routes.DASHBOARDS}/${Pages.ACCOUNT}`,
+        icon: Settings,
       },
     ],
   }

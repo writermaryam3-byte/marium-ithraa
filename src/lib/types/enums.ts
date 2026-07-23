@@ -33,6 +33,9 @@ export enum Pages {
   ENRICHER = 'enricher',
   DEALS = 'deals',
   PROPOSALS = 'proposals',
+  ACCOUNT = 'account',
+  FORGOT_PASSWORD = 'forgot-password',
+  RESET_PASSWORD = 'reset-password',
 }
 
 export enum AccountType {
@@ -196,6 +199,9 @@ export enum Endpoint {
   BENEFICIARIESSIGNUP = 'beneficiaries-signup',
   ENRICHERS_SIGNUP = 'enrichers-signup',
   PARENT_SIGNUP = 'parent-signup',
+  FORGOT_PASSWORD = 'forgot-password',
+  RESET_PASSWORD = 'reset-password',
+  PASSWORD = 'password',
   EMPLOYEES = 'employees',
   EMPLOYEESBYORGNIZATION = `${EMPLOYEES}/organization`,
   USERS = 'users',
@@ -246,6 +252,8 @@ export enum ApiErrorCodes {
   AUTH_TOKEN_INVALID = 'AUTH.TOKEN_INVALID',
   AUTH_TOKEN_EXPIRED = 'AUTH.TOKEN_EXPIRED',
   AUTH_LOGOUT_FAILED = 'AUTH.LOGOUT_FAILED',
+  AUTH_PASSWORD_INCORRECT = 'AUTH.PASSWORD_INCORRECT',
+  AUTH_PASSWORD_SAME = 'AUTH.PASSWORD_SAME',
 
   USER_NOT_FOUND = 'USER.NOT_FOUND',
   USER_ALREADY_EXISTS = 'USER.ALREADY_EXISTS',
