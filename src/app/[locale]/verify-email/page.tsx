@@ -2,7 +2,7 @@
 
 import { Suspense, useEffect, useState } from 'react'
 import Image from 'next/image'
-import { useRouter, useParams, useSearchParams } from 'next/navigation'
+import { useParams, useSearchParams } from 'next/navigation'
 import { useSession } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
 import { Loader2 } from 'lucide-react'
@@ -11,13 +11,13 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Link } from '@/i18n/navigation'
 import { verifyEmailClient } from '@/features/auth'
+import { getPostLoginRedirect } from '@/features/auth/utils/redirects'
 
 function VerifyEmailContent() {
   const t = useTranslations('verifyEmail')
-  const router = useRouter()
   const params = useParams()
   const locale = params.locale as string
-  const { update } = useSession()
+  const { data: session, update } = useSession()
   const searchParams = useSearchParams()
   const token = searchParams.get('token')
 
@@ -30,18 +30,28 @@ function VerifyEmailContent() {
       .then(async (res) => {
         setResult(res)
         if (res.ok) {
+          let roles = session?.user?.roles
           try {
-            await update({ isEmailVerified: true })
+            const updatedSession = await update({ isEmailVerified: true })
+            roles = updatedSession?.user?.roles ?? roles
           } catch {
             // user might not be authenticated — redirect to login anyway
           }
-          router.push(`/${locale}/auth/login`)
+
+          if (roles?.length) {
+            window.location.href = getPostLoginRedirect(roles, {
+              isEmailVerified: true,
+              locale,
+            })
+          } else {
+            window.location.href = `/${locale}/auth/login`
+          }
         }
       })
       .catch(() => {
         setResult({ ok: false, message: t('failed') })
       })
-  }, [token, update, router, locale, t])
+  }, [token, update, session, locale, t])
 
   const verifying = token !== null && result === null
 

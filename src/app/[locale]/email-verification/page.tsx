@@ -1,5 +1,6 @@
 ﻿'use client'
 import Image from 'next/image'
+import { useParams } from 'next/navigation'
 import { useTranslations } from 'next-intl'
 
 import { Button } from '@/components/ui/button'
@@ -11,9 +12,12 @@ import { useCallback, useEffect, useState } from 'react'
 import { Loader2 } from 'lucide-react'
 import { showErrorToast, showSuccessToast } from '@/lib/toast/app-toast'
 import { sendVerificationEmail } from '@/features/mailer'
+import { getPostLoginRedirect } from '@/features/auth/utils/redirects'
 
 export default function EmailVerificationPage() {
   const t = useTranslations('verifyEmail')
+  const params = useParams()
+  const locale = params.locale as string
   const { data: session, status } = useSession()
 
   const email = session?.user?.email
@@ -40,6 +44,16 @@ export default function EmailVerificationPage() {
       setSending(false)
     }
   }, [email, userId])
+
+  // Redirect to dashboard once email is verified (e.g. user clicked link in another tab)
+  useEffect(() => {
+    if (status !== 'authenticated' || !session?.user?.isEmailVerified) return
+
+    window.location.href = getPostLoginRedirect(session.user.roles, {
+      isEmailVerified: true,
+      locale,
+    })
+  }, [status, session, locale])
 
   // إرسال أول مرة تلقائي
   useEffect(() => {
