@@ -4,13 +4,18 @@ import { useTranslations } from 'next-intl'
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { ProgressBar } from '@/components/shared/ProgressBar'
+import {
+  getDimensionPercentage,
+  getResultDimensions,
+  getTopDimensions,
+} from '@/features/evaluations/utils/result-fields'
 
-type DimScore = { code?: string; name?: string; score?: number; max?: number }
+type DimScore = { code?: string; name?: string; score?: number; percentage?: number | null }
 
 export function MultipleIntelligencesResult({ result }: { result: Record<string, unknown> }) {
   const t = useTranslations('evaluations.results.multipleIntelligences')
-  const dimensions = (result.dimensions as DimScore[]) ?? []
-  const top3 = (result.top3 as DimScore[]) ?? dimensions.slice(0, 3)
+  const dimensions = getResultDimensions(result) as DimScore[]
+  const top3 = getTopDimensions(result) as DimScore[]
 
   return (
     <div className="space-y-4">
@@ -31,12 +36,11 @@ export function MultipleIntelligencesResult({ result }: { result: Record<string,
           <CardTitle className="text-base">{t('dimensions')}</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
-          {dimensions.map((d) => {
-            const max = d.max ?? 100
+          {dimensions.map((d, index) => {
             const score = d.score ?? 0
-            const pct = max > 0 ? Math.min(100, (score / max) * 100) : 0
+            const pct = getDimensionPercentage(d as Record<string, unknown>)
             return (
-              <div key={d.code} className="space-y-1">
+              <div key={d.code ?? index} className="space-y-1">
                 <div className="flex justify-between text-sm">
                   <span>{d.name ?? d.code}</span>
                   <span>{score}</span>
