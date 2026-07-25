@@ -10,6 +10,7 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Skeleton } from '@/components/ui/skeleton'
 import { useAttempt } from '@/features/evaluations/hooks'
+import { getAttemptChildName } from '@/features/evaluations/utils/attempt-display'
 import { Link } from '@/i18n/navigation'
 import { ApiError } from '@/lib/errors/ApiError'
 import { StatusCode } from '@/lib/types/enums'
@@ -120,6 +121,7 @@ export function OwnerAttemptResultScreen() {
                 type={evaluationType}
                 result={attempt.result}
                 title={attempt.evaluation?.title}
+                childName={getAttemptChildName(attempt)}
               />
             </CardContent>
           </Card>

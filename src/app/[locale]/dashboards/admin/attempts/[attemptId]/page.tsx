@@ -19,6 +19,7 @@ import {
 } from '@/components/ui/dialog'
 import { Skeleton } from '@/components/ui/skeleton'
 import { useApproveAttempt, useAttempt } from '@/features/evaluations/hooks'
+import { getAttemptChildName } from '@/features/evaluations/utils/attempt-display'
 
 export default function AdminAttemptDetailPage() {
   const params = useParams<{ attemptId: string }>()
@@ -72,6 +73,7 @@ export default function AdminAttemptDetailPage() {
           <AttemptResultView
             type={attempt.evaluation?.type ?? 'multiple_intelligences'}
             result={attempt.result}
+            childName={getAttemptChildName(attempt)}
           />
         </CardContent>
       </Card>
