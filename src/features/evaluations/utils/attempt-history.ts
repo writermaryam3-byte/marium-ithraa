@@ -59,7 +59,7 @@ export function getAttemptResultSummary(attempt: EvaluationAttempt): string | nu
     if (typeof value === 'string' && value.trim()) return value
   }
 
-  const top3 = record.top3
+  const top3 = record.top3 ?? record.dominantDimensions
   if (Array.isArray(top3) && top3.length > 0) {
     const first = top3[0] as Record<string, unknown>
     if (typeof first.name === 'string') return first.name

@@ -9,6 +9,7 @@ import { AttemptResultView } from '@/features/evaluations/components/results/Att
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Skeleton } from '@/components/ui/skeleton'
 import { useAttempt } from '@/features/evaluations/hooks'
+import { getAttemptChildName } from '@/features/evaluations/utils/attempt-display'
 
 type Props = {
   attemptId: string
@@ -65,6 +66,7 @@ export function EvaluationAttemptPageContent({ attemptId }: Props) {
               type={attempt.evaluation?.type ?? 'multiple_intelligences'}
               result={attempt.result}
               title={attempt.evaluation?.title}
+              childName={getAttemptChildName(attempt)}
             />
           </CardContent>
         </Card>

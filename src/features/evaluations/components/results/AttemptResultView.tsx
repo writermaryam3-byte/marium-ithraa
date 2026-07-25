@@ -14,9 +14,10 @@ type Props = {
   type: EvaluationType
   result: Record<string, unknown> | null | undefined
   title?: string
+  childName?: string
 }
 
-export function AttemptResultView({ type, result, title }: Props) {
+export function AttemptResultView({ type, result, title, childName }: Props) {
   const t = useTranslations('evaluations.results')
 
   if (!result || Object.keys(result).length === 0) {
@@ -25,7 +26,7 @@ export function AttemptResultView({ type, result, title }: Props) {
 
   switch (type) {
     case 'multiple_intelligences':
-      return <MultipleIntelligencesResult result={result} />
+      return <MultipleIntelligencesResult result={result} childName={childName} />
     case 'pride':
       return <PrideResult result={result} />
     case 'renzulli':
