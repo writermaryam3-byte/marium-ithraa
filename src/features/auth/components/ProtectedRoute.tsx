@@ -1,10 +1,9 @@
 'use client'
 
 import type { ReactNode } from 'react'
-import { useRouter } from '@/i18n/navigation'
 import { useEffect } from 'react'
-import { useLocale, useTranslations } from 'next-intl'
-
+import { useTranslations } from 'next-intl'
+import { useRouter } from '@/i18n/navigation'
 import { Routes, type UserRole } from '@/lib/types/enums'
 
 import { useAuth } from '../hooks/useAuth'
@@ -19,10 +18,9 @@ type Props = {
 
 export function ProtectedRoute({ children, allowed, redirectTo, unauthorizedRedirect }: Props) {
   const router = useRouter()
-  const locale = useLocale()
   const t = useTranslations('auth')
   const { isAuthenticated, isLoading, checkRole, loginPath } = useAuth()
-  const unauthorizedPath = unauthorizedRedirect ?? `/${locale}/${Routes.UNAUTHORIZED}`
+  const unauthorizedPath = unauthorizedRedirect ?? `/${Routes.UNAUTHORIZED}`
 
   const roleOk = !allowed?.length || checkRole(allowed)
 

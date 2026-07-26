@@ -1,4 +1,5 @@
 import type { Role } from '@/features/users'
+import { toLocalizedHref } from '@/lib/i18n/pathname'
 import { Pages, Routes, UserRole } from '@/lib/types/enums'
 
 import { roleNames } from './rbac'
@@ -11,6 +12,7 @@ const DASHBOARD_BY_ROLE: Partial<Record<UserRole, string>> = {
   [UserRole.ENRICHER]: `/${Routes.DASHBOARDS}/${Pages.ENRICHER}`,
 }
 
+/** Locale-agnostic app path for next-intl Link/router/redirect APIs. */
 export function getLoginPath(): string {
   return `/${Routes.AUTH}/${Pages.LOGIN}`
 }
@@ -30,17 +32,21 @@ export function getPostLoginRedirect(
   roles: Role[] | undefined | null,
   options?: { isEmailVerified?: boolean; locale?: string },
 ): string {
-  const prefix = options?.locale ? `/${options.locale}` : ''
-
   if (options?.isEmailVerified === false) {
-    return `${prefix}/${Routes.EMAILVERIFICATION}`
+    const path = `/${Routes.EMAILVERIFICATION}`
+    return options.locale ? toLocalizedHref(path, options.locale) : path
   }
 
   const names = roleNames(roles)
   if (names.length > 1) {
-    return `${prefix}/${Routes.CHOSEROLE}`
+    const path = `/${Routes.CHOSEROLE}`
+    return options?.locale ? toLocalizedHref(path, options.locale) : path
   }
 
   const path = getDashboardPathForRoles(roles)
-  return options?.locale ? `${prefix}${path}` : path
+  return options?.locale ? toLocalizedHref(path, options.locale) : path
+}
+
+export function getLocalizedLoginPath(locale: string): string {
+  return toLocalizedHref(getLoginPath(), locale)
 }

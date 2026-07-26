@@ -1,7 +1,9 @@
 import { getSession, signOut } from 'next-auth/react'
 
 import { ApiError } from '../errors/ApiError'
-import { ApiErrorCodes, Pages, Routes, StatusCode } from '../types/enums'
+import { getLocalizedLoginPath } from '@/features/auth/utils/redirects'
+import { getLocaleFromWindowPathname } from '@/lib/i18n/pathname'
+import { ApiErrorCodes, StatusCode } from '../types/enums'
 import { logger, metrics } from '../logger'
 import { buildHeaders, fetchData } from './utils'
 
@@ -29,7 +31,7 @@ async function resolveAccessToken(): Promise<string | null> {
     logger.warn('RefreshAccessTokenError, signing out', { error: session.error })
     clearAuthTokenCache()
     await signOut({
-      callbackUrl: `/${Routes.AUTH}/${Pages.LOGIN}`,
+      callbackUrl: getLocalizedLoginPath(getLocaleFromWindowPathname()),
       redirect: true,
     })
     return null
@@ -98,7 +100,7 @@ export async function clientApiFetch<T>(
 
       logger.info('Signing out due to unauthorized', { endpoint })
       await signOut({
-        callbackUrl: `/${Routes.AUTH}/${Pages.LOGIN}`,
+        callbackUrl: getLocalizedLoginPath(getLocaleFromWindowPathname()),
         redirect: true,
       })
       throw new ApiError(endpoint, StatusCode.UNAUTHORIZED, {

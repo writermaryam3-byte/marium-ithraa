@@ -15,6 +15,7 @@ const dashboardMap: Record<string, string> = {
   ORGANIZATIONOWNER: `/${Routes.DASHBOARDS}/${Pages.ORGANIZATION}`,
   TEACHER: `/${Routes.DASHBOARDS}/${Pages.TEACHER}`,
   PARENT: `/${Routes.DASHBOARDS}/${Pages.PARENT}`,
+  ENRICHER: `/${Routes.DASHBOARDS}/${Pages.ENRICHER}`,
 }
 
 export default function ChooseRolePage() {

@@ -1,7 +1,9 @@
 import { getServerSession } from 'next-auth'
-import { redirect } from 'next/navigation'
-import { StatusCode } from '../types/enums'
+import { getLocale } from 'next-intl/server'
+import { redirect } from '@/i18n/navigation'
 import nextAuthOptions from '@/server/auth'
+import { getLoginPath } from '@/features/auth/utils/redirects'
+import { StatusCode } from '../types/enums'
 import { logger, metrics } from '../logger'
 import { buildHeaders, fetchData } from './utils'
 
@@ -43,7 +45,8 @@ export async function serverApiFetch<T>(
 
     if (res.status === StatusCode.UNAUTHORIZED) {
       logger.warn('Unauthorized, redirecting to login', { endpoint })
-      redirect('/auth/login')
+      const locale = await getLocale()
+      redirect({ href: getLoginPath(), locale })
     }
 
     const data = await fetchData<T>(res)

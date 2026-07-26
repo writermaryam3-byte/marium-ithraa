@@ -20,6 +20,6 @@ export { AuthLoadingScreen } from './components/AuthLoadingScreen'
 export { ProtectedRoute } from './components/ProtectedRoute'
 export { default as RequireRoles } from './components/RequireRoles'
 
-export { getLoginPath, getPostLoginRedirect, getDashboardPathForRole } from './utils/redirects'
+export { getLoginPath, getLocalizedLoginPath, getPostLoginRedirect, getDashboardPathForRole } from './utils/redirects'
 export { mapSessionToAuthUser } from './utils/session-user'
 export { hasAnyRole, roleNames } from './utils/rbac'
