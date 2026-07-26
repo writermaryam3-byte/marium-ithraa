@@ -3,20 +3,9 @@ import { getToken } from 'next-auth/jwt'
 import { NextRequest, NextResponse } from 'next/server'
 
 import { routing } from './i18n/routing'
+import { parsePathname } from '@/lib/i18n/pathname'
 import { Pages, Routes, UserRole } from '@/lib/types/enums'
 import type { Role } from '@/features/users'
-
-function getLocale(pathname: string): string {
-  const seg = pathname.split('/').filter(Boolean)[0] as (typeof routing.locales)[number] | undefined
-  return seg && routing.locales.includes(seg) ? seg : routing.defaultLocale
-}
-
-function stripLocale(pathname: string, locale: string): string {
-  const prefix = `/${locale}`
-  if (pathname === prefix) return '/'
-  if (pathname.startsWith(prefix + '/')) return pathname.slice(prefix.length)
-  return pathname
-}
 
 function normalizeUserRoles(roles?: Role[] | UserRole[] | string[]): UserRole[] {
   if (!roles?.length) return []
@@ -63,15 +52,18 @@ const ACCESS_MAP: Record<string, UserRole[]> = {
   [Pages.ENRICHER]: [UserRole.ENRICHER],
 }
 
+const intlMiddleware = createMiddleware(routing)
+
 export default async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl
-  const intlMiddleware = createMiddleware(routing)
+  const { locale, pathname: cleanPath, normalizedHref } = parsePathname(pathname)
 
-  // 1. احسب الـ locale والـ cleanPath الأول من الـ request مباشرة
-  const locale = getLocale(pathname)
-  const cleanPath = stripLocale(pathname, locale)
+  if (normalizedHref) {
+    const url = request.nextUrl.clone()
+    url.pathname = normalizedHref
+    return NextResponse.redirect(url)
+  }
 
-  // 2. جيب التوكن
   const token = await getToken({
     req: request,
     secret: process.env.NEXTAUTH_SECRET,
@@ -85,7 +77,6 @@ export default async function proxy(request: NextRequest) {
   const isEmailVerified = Boolean(token?.isEmailVerified)
   const isProtected = PROTECTED_ROUTES.some((route) => cleanPath.startsWith(route))
 
-  // 3. شروط التوجيه (Redirects) تفضل زي ما هي تماماً:
   if (cleanPath.startsWith(`/${Routes.EMAILVERIFICATION}`)) {
     if (!isAuthenticated) {
       return NextResponse.redirect(new URL(`/${locale}/${Routes.AUTH}/${Pages.LOGIN}`, request.url))
@@ -95,7 +86,6 @@ export default async function proxy(request: NextRequest) {
         new URL(roleHome(locale, token?.roles as Role[] | undefined), request.url),
       )
     }
-    // بدال ما ترجع intlResponse جاهز، ناديه هنا مباشرة:
     return intlMiddleware(request)
   }
 
@@ -108,7 +98,6 @@ export default async function proxy(request: NextRequest) {
     }
 
     if (!isAuthenticated) {
-      // هنا الحل! ناديه لما تحتاجه فعلياً عشان يعمل الـ Rewrite صح في وقته
       return intlMiddleware(request)
     }
 
@@ -159,7 +148,6 @@ export default async function proxy(request: NextRequest) {
     }
   }
 
-  // 4. في النهاية لو مفيش أي شرط Redirect تحقق، شغل الـ intlMiddleware
   return intlMiddleware(request)
 }
 

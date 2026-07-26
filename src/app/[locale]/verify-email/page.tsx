@@ -11,7 +11,7 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Link } from '@/i18n/navigation'
 import { verifyEmailClient } from '@/features/auth'
-import { getPostLoginRedirect } from '@/features/auth/utils/redirects'
+import { getLocalizedLoginPath, getPostLoginRedirect } from '@/features/auth/utils/redirects'
 
 function VerifyEmailContent() {
   const t = useTranslations('verifyEmail')
@@ -44,7 +44,7 @@ function VerifyEmailContent() {
               locale,
             })
           } else {
-            window.location.href = `/${locale}/auth/login`
+            window.location.href = getLocalizedLoginPath(locale)
           }
         }
       })

@@ -11,7 +11,7 @@ import { Pages, Routes, UserRole } from '@/lib/types/enums'
 
 import type { AuthUser, SignInCredentials } from '../types'
 import { hasAnyRole } from '../utils/rbac'
-import { getLoginPath, getPostLoginRedirect } from '../utils/redirects'
+import { getLoginPath, getLocalizedLoginPath, getPostLoginRedirect } from '../utils/redirects'
 import { mapSessionToAuthUser } from '../utils/session-user'
 
 export function useAuth() {
@@ -70,7 +70,7 @@ export function useAuth() {
         // still clear local session if backend logout fails
       }
 
-      const callbackUrl = options?.callbackUrl ?? getLoginPath()
+      const callbackUrl = options?.callbackUrl ?? getLocalizedLoginPath(locale)
 
       await signOut({ callbackUrl, redirect: true })
 
@@ -104,7 +104,7 @@ export function useAuth() {
         locale,
       }),
     loginPath: getLoginPath(),
-    choseRolePath: `/${locale}/${Routes.CHOSEROLE}`,
+    choseRolePath: `/${Routes.CHOSEROLE}`,
     signupPath: `/${Routes.AUTH}/${Pages.BENEFICIARYSIGNUP}`,
   }
 }

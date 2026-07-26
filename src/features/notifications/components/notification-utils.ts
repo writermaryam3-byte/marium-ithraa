@@ -1,6 +1,7 @@
 import { Bell, ClipboardCheck, CreditCard, MessageCircle, type LucideIcon } from 'lucide-react'
 
 import type { NotificationItem, NotificationMetadata } from '@/features/notifications/types'
+import { toAppPath } from '@/lib/i18n/pathname'
 
 export function getNotificationHref(metadata: NotificationMetadata): string | null {
   if (!metadata || typeof metadata !== 'object') return null
@@ -8,7 +9,7 @@ export function getNotificationHref(metadata: NotificationMetadata): string | nu
   for (const key of ['url', 'href', 'path'] as const) {
     const value = metadata[key]
     if (typeof value === 'string' && value.trim()) {
-      return value.trim()
+      return toAppPath(value.trim())
     }
   }
 
