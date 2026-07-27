@@ -85,7 +85,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <SessionProvider>
+      <SessionProvider refetchOnWindowFocus>
         <AuthInit />
         <TooltipProvider>{children}</TooltipProvider>
       </SessionProvider>

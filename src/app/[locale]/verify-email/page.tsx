@@ -1,6 +1,6 @@
 'use client'
 
-import { Suspense, useEffect, useState } from 'react'
+import { Suspense, useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
 import { useParams, useSearchParams } from 'next/navigation'
 import { useSession } from 'next-auth/react'
@@ -9,49 +9,52 @@ import { Loader2 } from 'lucide-react'
 
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Link } from '@/i18n/navigation'
+import { Link, useRouter } from '@/i18n/navigation'
 import { verifyEmailClient } from '@/features/auth'
 import { getLocalizedLoginPath, getPostLoginRedirect } from '@/features/auth/utils/redirects'
+import { syncSessionAfterEmailVerification } from '@/features/auth/utils/sync-session-after-email-verification'
 
 function VerifyEmailContent() {
   const t = useTranslations('verifyEmail')
+  const router = useRouter()
   const params = useParams()
   const locale = params.locale as string
-  const { data: session, update } = useSession()
+  const { data: session, status, update } = useSession()
   const searchParams = useSearchParams()
   const token = searchParams.get('token')
+  const hasHandledToken = useRef(false)
 
   const [result, setResult] = useState<{ ok: boolean; message: string } | null>(null)
 
   useEffect(() => {
-    if (!token) return
+    if (!token || hasHandledToken.current || status === 'loading') return
 
-    verifyEmailClient(token)
-      .then(async (res) => {
+    const handleVerification = async () => {
+      hasHandledToken.current = true
+
+      try {
+        const res = await verifyEmailClient(token)
         setResult(res)
-        if (res.ok) {
-          let roles = session?.user?.roles
-          try {
-            const updatedSession = await update({ isEmailVerified: true })
-            roles = updatedSession?.user?.roles ?? roles
-          } catch {
-            // user might not be authenticated — redirect to login anyway
-          }
+        if (!res.ok) return
 
-          if (roles?.length) {
-            window.location.href = getPostLoginRedirect(roles, {
+        if (status === 'authenticated' && session?.user) {
+          await syncSessionAfterEmailVerification(update)
+          router.replace(
+            getPostLoginRedirect(session.user.roles, {
               isEmailVerified: true,
-              locale,
-            })
-          } else {
-            window.location.href = getLocalizedLoginPath(locale)
-          }
+            }),
+          )
+          return
         }
-      })
-      .catch(() => {
+
+        router.replace(getLocalizedLoginPath(locale))
+      } catch {
         setResult({ ok: false, message: t('failed') })
-      })
-  }, [token, update, session, locale, t])
+      }
+    }
+
+    void handleVerification()
+  }, [token, update, session, status, locale, router, t])
 
   const verifying = token !== null && result === null
 
