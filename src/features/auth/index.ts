@@ -21,5 +21,9 @@ export { ProtectedRoute } from './components/ProtectedRoute'
 export { default as RequireRoles } from './components/RequireRoles'
 
 export { getLoginPath, getLocalizedLoginPath, getPostLoginRedirect, getDashboardPathForRole } from './utils/redirects'
+export {
+  syncSessionAfterEmailVerification,
+  waitForEmailVerificationAndSync,
+} from './utils/sync-session-after-email-verification'
 export { mapSessionToAuthUser } from './utils/session-user'
 export { hasAnyRole, roleNames } from './utils/rbac'

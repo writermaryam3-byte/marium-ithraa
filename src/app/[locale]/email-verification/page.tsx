@@ -5,20 +5,23 @@ import { useTranslations } from 'next-intl'
 
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Link } from '@/i18n/navigation'
+import { Link, useRouter } from '@/i18n/navigation'
 import { Mail, Gift } from 'lucide-react'
 import { useSession } from 'next-auth/react'
 import { useCallback, useEffect, useState } from 'react'
 import { Loader2 } from 'lucide-react'
 import { showErrorToast, showSuccessToast } from '@/lib/toast/app-toast'
 import { sendVerificationEmail } from '@/features/mailer'
+import { getCurrentUserClient } from '@/features/account/api'
 import { getPostLoginRedirect } from '@/features/auth/utils/redirects'
+import { syncSessionAfterEmailVerification } from '@/features/auth/utils/sync-session-after-email-verification'
 
 export default function EmailVerificationPage() {
   const t = useTranslations('verifyEmail')
   const params = useParams()
   const locale = params.locale as string
-  const { data: session, status } = useSession()
+  const router = useRouter()
+  const { data: session, status, update } = useSession()
 
   const email = session?.user?.email
   const userId = session?.user?.id
@@ -45,15 +48,38 @@ export default function EmailVerificationPage() {
     }
   }, [email, userId])
 
-  // Redirect to dashboard once email is verified (e.g. user clicked link in another tab)
+  // Sync session when verification completes in another tab or mail client.
   useEffect(() => {
-    if (status !== 'authenticated' || !session?.user?.isEmailVerified) return
+    if (status !== 'authenticated' || session?.user?.isEmailVerified) return
 
-    window.location.href = getPostLoginRedirect(session.user.roles, {
-      isEmailVerified: true,
-      locale,
-    })
-  }, [status, session, locale])
+    let cancelled = false
+    const intervalMs = 5000
+
+    const poll = async () => {
+      try {
+        const profile = await getCurrentUserClient()
+        if (cancelled || !profile.isEmailVerified) return
+
+        await syncSessionAfterEmailVerification(update)
+        if (cancelled || !session?.user) return
+
+        router.replace(
+          getPostLoginRedirect(session.user.roles, {
+            isEmailVerified: true,
+          }),
+        )
+      } catch {
+        // Ignore transient polling errors.
+      }
+    }
+
+    void poll()
+    const timer = setInterval(() => void poll(), intervalMs)
+    return () => {
+      cancelled = true
+      clearInterval(timer)
+    }
+  }, [status, session, update, router])
 
   // إرسال أول مرة تلقائي
   useEffect(() => {

@@ -4,6 +4,7 @@ import type { UserRole } from '@/lib/types/enums'
 export type VerifyEmailResponse = {
   message: string
   ok: boolean
+  isEmailVerified?: boolean
 }
 
 export type AuthUser = {

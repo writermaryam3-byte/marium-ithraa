@@ -2,6 +2,7 @@ import { AuthOptions, DefaultSession } from 'next-auth'
 import Credentials from 'next-auth/providers/credentials'
 import { Environments, Pages, Routes } from '@/lib/types/enums'
 import { accessTokenExpiresAt, resolveAccessTokenTtlSeconds } from '@/lib/auth/token-expiry'
+import { applySessionPatch } from '@/lib/auth/apply-session-patch'
 import { refreshAccessToken } from '@/lib/utils'
 import { Role } from '@/features/users'
 declare module 'next-auth' {
@@ -96,9 +97,8 @@ const nextAuthOptions: AuthOptions = {
         }
       }
 
-      if (trigger === 'update' && session?.isEmailVerified === true) {
-        token.isEmailVerified = true
-        return token
+      if (trigger === 'update' && session) {
+        return applySessionPatch(token, session as Record<string, unknown>)
       }
 
       if (token.error === 'RefreshAccessTokenError') {
