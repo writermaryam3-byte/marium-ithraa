@@ -1,6 +1,7 @@
 'use client'
 
 import { Bell, Inbox } from 'lucide-react'
+import { useSession } from 'next-auth/react'
 import { useMemo, useState } from 'react'
 import { useTranslations } from 'next-intl'
 import { showErrorToast, showSuccessToast } from '@/lib/toast/app-toast'
@@ -11,6 +12,7 @@ import {
   getApiTypeFilter,
   getNotificationHref,
 } from '@/features/notifications/components/notification-utils'
+import { getDashboardHomePath } from '@/features/auth/utils/redirects'
 import { StatsGrid } from '@/components/shared/dashboard/StatsGrid'
 import { ManagementPageHeader } from '@/components/shared/management/ManagementPageHeader'
 import { EmptyState } from '@/components/shared/management/EmptyState'
@@ -44,7 +46,13 @@ const tabTriggerClass =
 export function NotificationsScreen({ locale }: Props) {
   const t = useTranslations('notifications')
   const router = useRouter()
+  const { data: session } = useSession()
   const isAr = locale === 'ar'
+
+  const dashboardHomeHref = useMemo(
+    () => getDashboardHomePath(session?.user?.roles),
+    [session?.user?.roles],
+  )
 
   const [page, setPage] = useState(1)
   const [readFilter, setReadFilter] = useState<'all' | 'unread'>('all')
@@ -109,7 +117,7 @@ export function NotificationsScreen({ locale }: Props) {
         <ManagementPageHeader
           breadcrumbs={[
             {
-              href: '/dashboards',
+              href: dashboardHomeHref,
               label: t('home'),
             },
             { label: t('title') },

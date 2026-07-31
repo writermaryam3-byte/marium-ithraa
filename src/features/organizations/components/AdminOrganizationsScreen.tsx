@@ -181,7 +181,7 @@ export function AdminOrganizationsScreen({ locale }: { locale: string }) {
       showSuccessToast(t, 'approveSuccess')
       setApproveTarget(null)
     } catch (err) {
-      showErrorToast({ raw: getFriendlyApiErrorMessage(err, 'approveFailed') })
+      showErrorToast({ error: err })
     }
   }
 
@@ -201,7 +201,7 @@ export function AdminOrganizationsScreen({ locale }: { locale: string }) {
       if (fieldError) {
         rejectionForm.setError('rejectionReason', { message: fieldError })
       }
-      showErrorToast({ raw: getFriendlyApiErrorMessage(err, 'rejectFailed') })
+      showErrorToast({ error: err })
     }
   }
 
