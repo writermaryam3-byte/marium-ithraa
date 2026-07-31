@@ -16,5 +16,7 @@
   "resend": "Resend Email",
   "clickLink": "Click the verification link from your inbox to activate your account.",
   "sendSuccess": "Email sent successfully",
-  "sendFailed": "Failed to send email"
+  "sendFailed": "Failed to send email",
+  "alreadyQueued": "A verification email is already on its way",
+  "alreadyVerified": "Your email is already verified"
 }
