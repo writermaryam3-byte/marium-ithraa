@@ -27,7 +27,10 @@ import {
   parentSignupClient,
 } from '@/features/auth/api'
 import { useAuth } from '@/features/auth/hooks/useAuth'
-import { ApiError } from '@/lib/errors/ApiError'
+import {
+  applyApiFieldErrors,
+  resolveApiErrorMessage,
+} from '@/lib/helpers/apiErrorMessages'
 import { signInWithPhoneAndRedirect } from '@/lib/auth/signInWithCredentials'
 import { useLocale } from 'next-intl'
 import { showErrorToast, showSuccessToast } from '@/lib/toast/app-toast'
@@ -129,20 +132,14 @@ export function SignupWizard() {
         showErrorToast({ raw: message })
       }
     } catch (error) {
-      const message = error instanceof Error ? error.message : t('unableToCreate')
+      const message = resolveApiErrorMessage(error, t('unableToCreate'))
 
       setSubmitError(message)
-      showErrorToast({ raw: message })
+      showErrorToast({ error })
 
-      if (error instanceof ApiError) {
-        for (const fe of error.fieldErrors) {
-          if (!fe.message) continue
-
-          form.setError(fe.field as keyof BeneficiaryOrganizationFormValues, {
-            message: fe.message,
-          })
-        }
-      }
+      applyApiFieldErrors(error, (field, fieldError) => {
+        form.setError(field as keyof BeneficiaryOrganizationFormValues, fieldError)
+      })
     } finally {
       setIsSubmitting(false)
     }

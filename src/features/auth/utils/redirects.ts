@@ -28,6 +28,11 @@ export function getDashboardPathForRoles(roles: Role[] | undefined | null): stri
   return getDashboardPathForRole(names[0])
 }
 
+/** Locale-agnostic dashboard home for next-intl Link/router breadcrumbs. */
+export function getDashboardHomePath(roles: Role[] | undefined | null): string {
+  return getDashboardPathForRoles(roles)
+}
+
 export function getPostLoginRedirect(
   roles: Role[] | undefined | null,
   options?: { isEmailVerified?: boolean; locale?: string },

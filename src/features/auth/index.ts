@@ -20,7 +20,7 @@ export { AuthLoadingScreen } from './components/AuthLoadingScreen'
 export { ProtectedRoute } from './components/ProtectedRoute'
 export { default as RequireRoles } from './components/RequireRoles'
 
-export { getLoginPath, getLocalizedLoginPath, getPostLoginRedirect, getDashboardPathForRole } from './utils/redirects'
+export { getLoginPath, getLocalizedLoginPath, getPostLoginRedirect, getDashboardPathForRole, getDashboardHomePath } from './utils/redirects'
 export {
   syncSessionAfterEmailVerification,
   waitForEmailVerificationAndSync,

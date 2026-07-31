@@ -10,7 +10,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Skeleton } from '@/components/ui/skeleton'
 import { getCurrentUserClient } from '@/features/account/api'
 import { ChangePasswordForm } from '@/features/account/components/ChangePasswordForm'
-import { getPostLoginRedirect } from '@/features/auth/utils/redirects'
+import { getDashboardHomePath } from '@/features/auth/utils/redirects'
 import { roleNames } from '@/features/auth/utils/rbac'
 import type { IUserResponseDto } from '@/features/users/types'
 
@@ -47,7 +47,7 @@ export function AccountSettingsScreen({ locale }: Props) {
   const [profile, setProfile] = useState<IUserResponseDto | null>(null)
   const [loading, setLoading] = useState(true)
 
-  const dashboardHref = getPostLoginRedirect(session?.user?.roles, { locale })
+  const dashboardHref = getDashboardHomePath(session?.user?.roles)
 
   useEffect(() => {
     let cancelled = false
