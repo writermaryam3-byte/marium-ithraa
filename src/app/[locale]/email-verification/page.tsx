@@ -1,25 +1,26 @@
 ﻿'use client'
 import Image from 'next/image'
-import { useParams } from 'next/navigation'
 import { useTranslations } from 'next-intl'
+import { Mail, Gift, Loader2 } from 'lucide-react'
+import { useSession } from 'next-auth/react'
+import { useCallback, useEffect, useState } from 'react'
 
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Link, useRouter } from '@/i18n/navigation'
-import { Mail, Gift } from 'lucide-react'
-import { useSession } from 'next-auth/react'
-import { useCallback, useEffect, useState } from 'react'
-import { Loader2 } from 'lucide-react'
-import { showErrorToast, showSuccessToast } from '@/lib/toast/app-toast'
-import { sendVerificationEmail } from '@/features/mailer'
 import { getCurrentUserClient } from '@/features/account/api'
 import { getPostLoginRedirect } from '@/features/auth/utils/redirects'
 import { syncSessionAfterEmailVerification } from '@/features/auth/utils/sync-session-after-email-verification'
+import { sendVerificationEmail } from '@/features/mailer'
+import { Link, useRouter } from '@/i18n/navigation'
+import { showErrorToast, showSuccessToast } from '@/lib/toast/app-toast'
+
+type VerificationEmailResponse = {
+  queued?: boolean
+  reason?: 'already_verified' | 'already_queued'
+}
 
 export default function EmailVerificationPage() {
   const t = useTranslations('verifyEmail')
-  const params = useParams()
-  const locale = params.locale as string
   const router = useRouter()
   const { data: session, status, update } = useSession()
 
@@ -27,17 +28,27 @@ export default function EmailVerificationPage() {
   const userId = session?.user?.id
 
   const [sending, setSending] = useState(false)
-  const [sended, setSended] = useState(false)
   const [cooldown, setCooldown] = useState(0)
 
   const sendEmail = useCallback(async () => {
-    if (!email || !userId) return
+    if (!email || !userId || sending || cooldown > 0) return
 
     try {
       setSending(true)
-      await sendVerificationEmail({ email, userId })
-      setSended(true)
-      setCooldown(60) // 60 ثانية
+      const response = (await sendVerificationEmail({
+        email,
+        userId,
+      })) as VerificationEmailResponse
+      setCooldown(60)
+
+      if (response?.queued === false && response?.reason === 'already_verified') {
+        showSuccessToast({ raw: t('alreadyVerified') })
+        return
+      }
+
+      showSuccessToast({
+        raw: response?.queued === false ? t('alreadyQueued') : t('sendSuccess'),
+      })
     } catch (error) {
       if (process.env.NODE_ENV === 'development') {
         console.error(error)
@@ -46,7 +57,7 @@ export default function EmailVerificationPage() {
     } finally {
       setSending(false)
     }
-  }, [email, userId])
+  }, [email, userId, sending, cooldown, t])
 
   // Sync session when verification completes in another tab or mail client.
   useEffect(() => {
@@ -80,20 +91,6 @@ export default function EmailVerificationPage() {
       clearInterval(timer)
     }
   }, [status, session, update, router])
-
-  // إرسال أول مرة تلقائي
-  useEffect(() => {
-    if (status === 'authenticated' && email && userId && !sended) {
-      void sendEmail()
-    }
-  }, [status, email, userId, sended, sendEmail])
-
-  // toast مرة واحدة
-  useEffect(() => {
-    if (sended) {
-      showSuccessToast({ raw: t('sendSuccess') })
-    }
-  }, [sended])
 
   // countdown للـ cooldown
   useEffect(() => {
