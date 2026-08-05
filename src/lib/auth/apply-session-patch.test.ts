@@ -1,16 +1,22 @@
 // @vitest-environment node
+import type { JWT } from 'next-auth/jwt'
 import { describe, expect, it } from 'vitest'
 
 import { applySessionPatch } from '@/lib/auth/apply-session-patch'
 
 describe('applySessionPatch', () => {
   it('updates verification flags and tokens from a session patch', () => {
-    const token = {
+    const token: JWT = {
+      id: 'user-1',
       accessToken: 'old-access',
       refreshToken: 'old-refresh',
       accessTokenExpires: Date.now() + 60_000,
       isEmailVerified: false,
       isPhoneVerified: false,
+      roles: [{ id: 'role-1', name: 'PARENT' }],
+      phone: '+1234567890',
+      name: 'Test User',
+      email: 'test@example.com',
     }
 
     const next = applySessionPatch(token, {
