@@ -67,6 +67,7 @@ export async function clientApiFetch<T>(
   try {
     const headers: Record<string, string> = {
       'Content-Type': 'application/json',
+      'Accept-Language': getLocaleFromWindowPathname(),
       ...buildHeaders(token, options.headers),
     }
 

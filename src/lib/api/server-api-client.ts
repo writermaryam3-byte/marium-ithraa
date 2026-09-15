@@ -23,8 +23,10 @@ export async function serverApiFetch<T>(
   const timeoutId = setTimeout(() => controller.abort(), timeoutMs)
 
   try {
+    const locale = await getLocale()
     const headers: Record<string, string> = {
       'Content-Type': 'application/json',
+      'Accept-Language': locale,
       ...buildHeaders(token, options.headers),
     }
 
